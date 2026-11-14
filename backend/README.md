@@ -98,6 +98,8 @@ Herramientas:
 | `get_sensors(sector_id, hours)` | Lecturas simuladas |
 | `get_twin_precedent(sector_id, scenario)` | Precedente en una tierra gemela, leído de `analogs.json` |
 
+El contrato del endpoint, las herramientas y los errores está en `contracts/api.md`. La respuesta tipada `ChatResponse` y el tool calling documentado aparecen en `/docs`.
+
 Cada herramienta devuelve la confianza como número y también como palabra (`confidence_label`: `baja` si es menor que 0,4, `media` hasta 0,7, `alta` por encima), para que el modelo no tenga que traducirla.
 
 Ejemplo de `get_twin_precedent` (valores ilustrativos):
