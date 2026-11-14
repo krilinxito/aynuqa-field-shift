@@ -4,6 +4,8 @@ Son la frontera entre las dos mitades del flujo: la parte de datos las produce y
 
 Todas viven en `ml/data/interim/`, que no se sube a git. Los CSV van en UTF-8, con el dato faltante como celda vacía.
 
+Se generan desde `ml/` con `python prep/build.py` (dependencias en `prep/requirements.txt`). Se puede repetir cuando llegue más NDVI: las zonas que aún no lo tienen quedan con esas columnas vacías.
+
 Varias definiciones de este archivo son provisionales y están marcadas así. Se cierran cuando lleguen los datos reales.
 
 ## Claves
@@ -21,7 +23,7 @@ Una `Feature` por sector, con el polígono en `[lon, lat]`. Propiedades:
 | --- | --- | --- |
 | `zone_id` | texto | |
 | `sector_id` | texto | |
-| `display` | booleano | `true` en los 8 sectores de Pumani que muestra la app |
+| `display` | booleano | `true` en los 13 sectores de Pumani que muestra la app |
 | `area_ha` | número | |
 | `elevation_m` | número | De NASADEM |
 | `slope_pct` | número | De NASADEM |
@@ -30,6 +32,12 @@ Una `Feature` por sector, con el polígono en `[lon, lat]`. Propiedades:
 | `rotation_years` | entero | Años en ese estado. Simulado |
 | `is_simulated` | `true` | Los límites y la rotación son simulados |
 
+La simulación sigue lo documentado por IBTA-ORSTOM para la aynuqa de Pumani en los años 90: 13 sectores; cada uno se cultiva 3 años y descansa 10, así que cada año hay 3 en cultivo y 10 en descanso. Se aplica igual en todas las zonas.
+
+- **Forma y ubicación:** cada sector es un cuadrado de 750 m (unas 56 ha y unos 9 píxeles de MODIS). El punto de `zones.json` es el pueblo, así que los sectores van alrededor, a más de 1,25 km, para no caer sobre casas.
+- **Orden:** se numeran en sentido horario desde el norte, y la rotación avanza en ese orden, como en una aynuqa real, que abre los sectores en una secuencia fija. El sector que descansa 10 años es el próximo en abrirse.
+- **Ubicación de Pumani:** el pueblo de Pomani (-17.1344, -68.0692), municipio de Ayo Ayo. Antes se usaba -17.09, -68.00, que es el pueblo de Ayo Ayo.
+
 ## 2. `monthly.csv`
 
 Una fila por sector y mes, desde `2000-01`.
@@ -37,24 +45,26 @@ Una fila por sector y mes, desde `2000-01`.
 | Columna | Unidad | Escala |
 | --- | --- | --- |
 | `zone_id`, `sector_id`, `date` | | |
-| `ndvi` | -1 a 1 | Sector. Vacío si no hay dato válido |
-| `precip_mm` | mm, total del mes | Zona |
-| `temp_c` | °C, media del mes | Zona |
-| `soil_moisture` | fracción de 0 a 1 | Zona |
+| `ndvi` | -1 a 1 | Sector. MODIS Terra y Aqua, píxeles con fiabilidad buena o marginal. Vacío si no hay dato válido |
+| `precip_mm` | mm, total del mes | Zona. NASA GPM IMERG V07, celda de 0,1°. Final hasta septiembre de 2025 y, después, Late ajustado con la razón Final/Late de los 24 meses en que existen los dos. Vacío antes de 2000-06 |
+| `temp_c` | °C, media del mes | Zona. NASA POWER `T2M` |
+| `soil_moisture` | fracción de 0 a 1 | Zona. NASA POWER `GWETROOT` (humedad relativa de la zona de raíces), porque cubre todas las zonas desde 2000. SMAP solo empieza en 2015 |
 | `roni` | índice | Global. Temporada de tres meses centrada en ese mes |
 
 Las columnas de zona se repiten idénticas en todos los sectores de la misma zona.
 
+La lluvia es de IMERG y no de NASA POWER porque, comparada con CHIRPS y ERA5 en las 8 zonas, es la que mejor explica el NDVI de Pumani (correlación de 0,84 entre la lluvia de diciembre a marzo y el NDVI de febrero a abril) y la que más se parece a CHIRPS (0,94). NASA POWER usa celdas de unos 50 km, da la misma lluvia a Pumani y Patacamaya y no capta la sequía de 2015-16.
+
 ## 3. `features.csv`
 
-Una fila por sector y campaña. Todas las variables se conocen el 1 de octubre del año en que empieza la campaña; el objetivo se observa después.
+Una fila por sector y campaña. Todas las variables se conocen a inicios de octubre del año en que empieza la campaña; el objetivo se observa después.
 
 | Columna | Definición |
 | --- | --- |
 | `zone_id`, `sector_id`, `season` | |
 | `target_ndvi_anom` | Objetivo. Media de la anomalía de NDVI de febrero a abril de esa campaña. Vacío en la campaña en curso |
 | `is_prediction_row` | `true` en la campaña en curso (`2026-27`), que es la que se predice |
-| `roni_lag_0` ... `roni_lag_6` | RONI de septiembre (`lag_0`) y de los 6 meses anteriores |
+| `roni_lag_0` ... `roni_lag_6` | RONI de julio-agosto-septiembre (`lag_0`, centrada en agosto) y de las 6 temporadas anteriores. Es la última que NOAA publica a inicios de octubre; la de agosto-septiembre-octubre aún no se conoce |
 | `precip_anom_3m` | Anomalía de la lluvia de julio a septiembre |
 | `precip_anom_12m` | Anomalía de la lluvia de octubre a septiembre |
 | `temp_anom_3m` | Anomalía de la temperatura de julio a septiembre |
@@ -66,10 +76,10 @@ Una fila por sector y campaña. Todas las variables se conocen el 1 de octubre d
 | `rotation_years` | Simulado |
 
 - **Anomalía:** desviaciones estándar respecto al mismo mes (o al mismo periodo) en todos los años desde 2000, calculada por sector para el NDVI y por zona para el clima.
+- **Tendencia del NDVI:** antes de calcular la anomalía del NDVI se quita la tendencia lineal entre años de cada sector y mes. El NDVI de Pumani sube desde 2000 y, sin esto, los años recientes parecerían mejores solo por ser recientes. El clima no se corrige.
 - **Sin latitud ni longitud:** el modelo no debe usar la ubicación. `zone_id` y `sector_id` son claves, no variables del modelo.
 
 ## Provisional
 
 - **Objetivo:** anomalía de NDVI de febrero a abril. La alternativa es el déficit de lluvia de la campaña.
-- **Fecha de decisión:** 1 de octubre.
-- **Cuántos sectores por zona:** por definir. La tabla admite cualquier cantidad.
+- **Fecha de decisión:** inicios de octubre.- **Cuántos sectores por zona:** por definir. La tabla admite cualquier cantidad.

@@ -12,7 +12,13 @@ Lee primero, en este orden: `CLAUDE.md`, `ml/README.md`, `ml/TABLAS.md`, `contra
 
 Proyecto de hackathon (NASA Space Apps 2026): apoyo a la decisión para que una comunidad del altiplano boliviano adapte su rotación comunal (aynuqa) a El Niño. Por cada sector estimamos el riesgo de sequía y la recuperación del suelo, y lo convertimos en una recomendación.
 
-En ML somos dos. Mi compañero hace la parte de datos: ingesta, limpieza y las tablas de `ml/TABLAS.md`. Yo hago la parte de modelos y entrega, que es la tuya. Los datos reales de NDVI todavía se están descargando, así que vas a desarrollar con tablas de prueba.
+En ML somos dos. Mi compañero hace la parte de datos: ingesta, limpieza y las tablas de `ml/TABLAS.md`. Yo hago la parte de modelos y entrega, que es la tuya. Las tablas reales ya están en `ml/data/interim/`, pero por ahora solo Pumani tiene NDVI; el de las zonas análogas se está descargando. Por eso vas a desarrollar con tablas de prueba y a probar con las reales cuando estén completas.
+
+Lo que ya sabemos de los datos reales, para que no te sorprenda:
+
+- El NDVI de febrero a abril depende mucho de la lluvia de diciembre a marzo (correlación de 0,84 en Pumani).
+- La relación entre El Niño y la lluvia es débil y varía por año: correlación de -0,0 a -0,3 según la zona, más fuerte hacia el sur. 2015-16 y 2023-24 fueron algo secos en IMERG, pero no todos los años con RONI alto lo fueron.
+- Por eso es probable que el modelo apenas supere las bases de comparación y que los escenarios `nino` y `normal` se diferencien poco. Si pasa, repórtalo así; no fuerces el resultado.
 
 ## Tu alcance
 
@@ -29,7 +35,7 @@ No toques `ml/ingest/`, `ml/prep/`, `ml/zones.json`, `ml/TABLAS.md` ni `contract
 
 Las tres tablas de `ml/TABLAS.md`, en `ml/data/interim/`. Como aún no existen:
 
-1. Crea un script que genere tablas de prueba con exactamente ese formato en `ml/data/fake/`: 3 zonas, 8 sectores por zona, meses desde 2000-01.
+1. Crea un script que genere tablas de prueba con exactamente ese formato en `ml/data/fake/`: 3 zonas, 13 sectores por zona, meses desde 2000-01.
 2. Todos tus scripts reciben la carpeta de entrada como argumento, para cambiar de `fake` a `interim` sin tocar el código.
 3. Con tablas de prueba, exporta a `ml/outputs_fake/` (agrégala al `.gitignore`), nunca a `ml/outputs/`. `ml/outputs/` es solo para resultados de datos reales.
 
@@ -42,7 +48,7 @@ Las tablas de prueba solo sirven para comprobar que el código corre. No ajustes
 - Una fila por sector y campaña (`features.csv`). Objetivo: `target_ndvi_anom`.
 - LightGBM con regresión por cuantiles (0,1; 0,5; 0,9).
 - Variables: todas las columnas de `features.csv` menos las claves, el objetivo e `is_prediction_row`. Nunca latitud, longitud, `zone_id` ni `sector_id`.
-- Modelo pequeño y muy regularizado: aunque haya muchas filas, el clima independiente son unas 6 celdas por 26 campañas.
+- Modelo pequeño y muy regularizado: aunque haya muchas filas, el clima independiente son pocas celdas por 26 campañas (la lluvia viene de 8 celdas de IMERG; la temperatura y la humedad, de 6 celdas de NASA POWER), y las zonas vecinas se parecen mucho entre sí.
 - Puntaje de riesgo (0 a 1): probabilidad de que la anomalía de la campaña sea menor que -0,5, estimada a partir de los cuantiles. Este umbral es provisional.
 - Intervalo y confianza: usa la dispersión del puntaje entre los modelos de la validación cruzada. Confianza alta cuando el intervalo es estrecho.
 - Escenarios: `nino` usa el RONI observado; `normal` pone `roni_lag_0` a `roni_lag_6` en 0 y deja lo demás igual.
@@ -53,7 +59,7 @@ Las tablas de prueba solo sirven para comprobar que el código corre. No ajustes
 - Validación dejando fuera una campaña completa (todas las zonas a la vez). Al evaluar un evento, ese evento no puede estar en el entrenamiento.
 - Validación aparte dejando fuera una zona completa.
 - Dos bases de comparación: predecir siempre 0, y una regresión lineal solo con `roni_lag_0`. Reporta si LightGBM las supera o no.
-- Backtest de El Niño 2015-16 y 2023-24 y de La Niña 2020-22, con las predicciones de la validación. El resultado principal es la serie de la zona; la parte por sector es secundaria y lleva una advertencia, porque con 8 sectores la correlación no es confiable.
+- Backtest de El Niño 2015-16 y 2023-24 y de La Niña 2020-22, con las predicciones de la validación. El resultado principal es la serie de la zona; la parte por sector es secundaria y lleva una advertencia, porque con 13 sectores la correlación no es confiable.
 - Importancia global con SHAP y una figura en `ml/reports/` que muestre el peso del RONI.
 - Si un resultado es modesto, repórtalo tal cual.
 
