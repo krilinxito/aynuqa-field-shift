@@ -1,0 +1,29 @@
+# Secretos
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Node
+node_modules/
+dist/
+
+# Datos y bases locales
+ml/data/*
+!ml/data/.gitkeep
+*.sqlite
+*.sqlite3
+*.db
+
+# Sistema y editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
