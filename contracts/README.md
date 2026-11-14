@@ -18,6 +18,14 @@ Contrato de datos compartido entre Back, ML y Front. Es el acuerdo entre los tre
 - `POST /api/chat`
 - `GET /health`
 
+## A tener en cuenta al definirlo
+
+- El índice de El Niño es el RONI de NOAA: en la serie histórica el campo es `roni`, no `oni`.
+- `scenario=nino` es el estado real de hoy; `scenario=normal` es la comparación.
+- El clima (lluvia, temperatura, humedad de suelo) es de la zona, igual para todos los sectores. Conviene que el schema lo separe de los datos por sector (NDVI, terreno, recuperación, recomendación).
+- El backtest devuelve primero una serie temporal de la zona. La parte por sector lleva solo la anomalía de NDVI, y el Spearman por sector es secundario.
+- Las respuestas incluyen la fecha de actualización, porque la app las guarda para usarlas sin señal.
+
 ## Estado
 
 Todavía no hay schema ni ejemplos. Definirlos es el primer PR a `main` y lo hace una sola persona.

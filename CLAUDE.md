@@ -11,6 +11,11 @@ Lee `README.md` y `contracts/` antes de empezar.
 - No inventes datos satelitales: si falta un dato, devuelve `null`.
 - Los polígonos, los años de descanso y los sensores son simulados y deben marcar `is_simulated: true`.
 - Muestra siempre la confianza de cada predicción.
+- El índice de El Niño es el RONI de NOAA (oficial desde febrero de 2026), no el ONI. El escenario El Niño es el estado real de hoy; el escenario normal es la comparación.
+- No afirmes impactos como seguros: El Niño "aumenta la probabilidad de sequía", no "trae sequía".
+- Respeta la escala de los datos: lluvia, temperatura y humedad de suelo son iguales para todos los sectores (misma celda de NASA POWER). Solo el NDVI y el terreno distinguen sectores. No presentes diferencias climáticas entre sectores.
+- El backtest principal es una serie temporal de la zona. La comparación por sector usa solo NDVI. Si el resultado es modesto, dilo.
+- El frontend es una PWA para celulares de gama baja y con mala señal. Diseño minimalista: pocas pantallas, texto grande, solo lo necesario para decidir.
 - Todo texto para el usuario va en español simple.
 - Los secretos van solo en `.env`.
 - Es un hackathon de 48 horas: primero que funcione y se vea, luego que sea elegante.
