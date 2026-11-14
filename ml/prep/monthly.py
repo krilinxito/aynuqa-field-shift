@@ -18,7 +18,7 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 
-from common import INTERIM, RAW, find_grid, load_zones, ndvi_anomaly, pixels_in
+from common import INTERIM, RAW, find_grids, load_zones, ndvi_anomaly, pixels_in
 
 NDVI_PRODUCTS = ["MOD13Q1.061", "MYD13Q1.061"]
 MIN_VALID_SHARE = 0.5
@@ -73,10 +73,8 @@ def roni() -> pd.Series:
 def ndvi(zone: dict, sector_bounds: dict) -> pd.DataFrame:
     """NDVI mensual por sector (columnas) de los compuestos de Terra y Aqua."""
     composites = []
-    for product in NDVI_PRODUCTS:
-        path = find_grid(f"aynuqa_ndvi_*/{product}_250m_*.nc", zone)
-        if path is None:
-            continue
+    paths = [p for product in NDVI_PRODUCTS for p in find_grids(f"aynuqa_ndvi_*/{product}_250m_*.nc", zone)]
+    for path in paths:
         with xr.open_dataset(path) as ds:
             values = ds["_250m_16_days_NDVI"].values
             reliability = ds["_250m_16_days_pixel_reliability"].values

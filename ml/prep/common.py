@@ -68,6 +68,21 @@ def ndvi_anomaly(ndvi: pd.Series) -> pd.Series:
     return ndvi.groupby(ndvi.index.month).transform(detrended_zscore)
 
 
+def find_grids(pattern: str, zone: dict) -> list[Path]:
+    """Todos los NetCDF de AppEEARS cuya grilla contiene el centro de la zona.
+
+    Una zona puede llegar en varios pedidos (por ejemplo, febrero a abril y septiembre por separado
+    con ingest/appeears2.py, o el pedido completo de ingest/appeears.py).
+    """
+    found = []
+    for path in sorted(APPEEARS.glob(pattern)):
+        with xr.open_dataset(path) as ds:
+            lat, lon = ds["lat"].values, ds["lon"].values
+            if lat.min() <= zone["lat"] <= lat.max() and lon.min() <= zone["lon"] <= lon.max():
+                found.append(path)
+    return found
+
+
 def find_grid(pattern: str, zone: dict) -> Path | None:
     """Archivo NetCDF de AppEEARS (de cualquier pedido) cuya grilla contiene el centro de la zona.
 

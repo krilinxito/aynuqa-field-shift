@@ -77,10 +77,14 @@ def run(input_dir: str, output_dir: str) -> dict:
             "aspect_cos": asp_cos,
         }
 
-    # Media histórica de humedad de suelo y NDVI por sector (ignorando nulos reales)
-    agg = mdf.groupby(["zone_id", "sector_id"], as_index=False).agg(
-        soil_moisture=("soil_moisture", "mean"),
-        ndvi_mean=("ndvi", "mean"),
+    # Media histórica de humedad de suelo y NDVI de febrero a abril (pico de verdor) por sector.
+    # Solo febrero a abril: las zonas análogas pueden tener NDVI solo de esos meses y de septiembre
+    # (descarga rápida, ingest/appeears2.py), y la media de todo el año no sería comparable.
+    peak = mdf[mdf["date"].str[5:7].isin(["02", "03", "04"])]
+    agg = mdf.groupby(["zone_id", "sector_id"], as_index=False).agg(soil_moisture=("soil_moisture", "mean"))
+    agg = agg.merge(
+        peak.groupby(["zone_id", "sector_id"], as_index=False).agg(ndvi_mean=("ndvi", "mean")),
+        on=["zone_id", "sector_id"], how="left",
     )
     agg_map = {
         (r["zone_id"], r["sector_id"]): (r["soil_moisture"], r["ndvi_mean"])
