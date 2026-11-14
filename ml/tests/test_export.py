@@ -1,12 +1,14 @@
 """
-test_export.py — Corre el pipeline completo en modo fake y valida los JSON contra schemas.
+test_export.py — Corre el pipeline completo en modo fake y valida los JSON contra schemas
+y todas las invariantes del contrato (escenarios, clima zonal, nulos, umbrales, no sobrescritura).
 """
 import json
 import os
-import shutil
 import tempfile
+from datetime import datetime, timezone
 from pathlib import Path
 
+import pandas as pd
 import pytest
 
 REPO_ROOT = Path(__file__).parent.parent.parent
@@ -16,20 +18,23 @@ FAKE_INPUT = str(REPO_ROOT / "ml" / "data" / "fake")
 
 @pytest.fixture(scope="module")
 def pipeline_output():
-    """Corre el pipeline completo en un directorio temporal y devuelve la ruta."""
+    """Corre el pipeline completo en ml/outputs_fake y devuelve la ruta."""
     out_dir = str(REPO_ROOT / "ml" / "outputs_fake")
     os.makedirs(out_dir, exist_ok=True)
 
-    # Generar datos fake
-    from ml.models.fake_data import generate_sectors_geojson, generate_monthly_csv, generate_features_csv
+    from ml.models.fake_data import (
+        generate_features_csv,
+        generate_monthly_csv,
+        generate_sectors_geojson,
+    )
+
     os.makedirs(FAKE_INPUT, exist_ok=True)
     sp = generate_sectors_geojson(FAKE_INPUT)
     mdf = generate_monthly_csv(sp, FAKE_INPUT)
     generate_features_csv(mdf, sp, FAKE_INPUT)
 
-    # Correr modelos
-    from ml.models import drought_model, validation, restrend, analogs
     from ml.export import export
+    from ml.models import analogs, drought_model, restrend, validation
 
     drought_model.run(FAKE_INPUT, out_dir)
     validation.run(FAKE_INPUT, out_dir)
@@ -47,11 +52,10 @@ def _load_schema(name):
 
 def _validate(data, schema, label=""):
     import jsonschema
-    try:
-        validator_cls = jsonschema.Draft202012Validator
-    except AttributeError:
-        validator_cls = jsonschema.Draft7Validator
-    validator = validator_cls(schema, format_checker=None)
+
+    validator_cls = getattr(jsonschema, "Draft202012Validator", jsonschema.Draft7Validator)
+    format_checker = getattr(validator_cls, "FORMAT_CHECKER", None)
+    validator = validator_cls(schema, format_checker=format_checker)
     errors = list(validator.iter_errors(data))
     assert not errors, f"Schema errors in {label}:\n" + "\n".join(str(e) for e in errors[:5])
 
@@ -59,37 +63,49 @@ def _validate(data, schema, label=""):
 # --- predictions.json ---
 
 def test_predictions_exists(pipeline_output):
-    path = os.path.join(pipeline_output, "predictions.json")
-    assert os.path.exists(path), "predictions.json no existe"
+    assert os.path.exists(os.path.join(pipeline_output, "predictions.json"))
 
 
 def test_predictions_scenarios(pipeline_output):
     with open(os.path.join(pipeline_output, "predictions.json"), encoding="utf-8") as f:
         data = json.load(f)
-    assert "scenarios" in data
-    assert "normal" in data["scenarios"]
-    assert "nino" in data["scenarios"]
+    assert set(data["scenarios"]) == {"normal", "nino"}
 
 
-def test_predictions_schema_normal(pipeline_output):
+def test_predictions_schema_normal_and_nino(pipeline_output):
     schema = _load_schema("sector_risk.schema.json")
     with open(os.path.join(pipeline_output, "predictions.json"), encoding="utf-8") as f:
         data = json.load(f)
-    _validate(data["scenarios"]["normal"], schema, "predictions.json (normal)")
+    for sc in ("normal", "nino"):
+        _validate(data["scenarios"][sc], schema, f"predictions.json ({sc})")
 
 
-def test_predictions_schema_nino(pipeline_output):
-    schema = _load_schema("sector_risk.schema.json")
+def test_predictions_data_source_and_timezone(pipeline_output):
     with open(os.path.join(pipeline_output, "predictions.json"), encoding="utf-8") as f:
         data = json.load(f)
-    _validate(data["scenarios"]["nino"], schema, "predictions.json (nino)")
-
-
-def test_predictions_data_source_mock(pipeline_output):
-    with open(os.path.join(pipeline_output, "predictions.json"), encoding="utf-8") as f:
-        data = json.load(f)
+    assert data["generated_at"].endswith("-04:00")
     assert data["scenarios"]["normal"]["data_source"] == "mock"
     assert data["scenarios"]["nino"]["data_source"] == "mock"
+
+
+def test_predictions_roni_and_twin_by_scenario(pipeline_output):
+    with open(os.path.join(pipeline_output, "predictions.json"), encoding="utf-8") as f:
+        data = json.load(f)
+
+    norm = data["scenarios"]["normal"]
+    assert norm["zone"]["roni"]["kind"] == "assumed"
+    assert norm["zone"]["roni"]["value"] == 0.0
+    assert norm["zone"]["roni"]["season"] is None
+    assert norm["zone"]["roni"]["year"] is None
+    for sec in norm["sectors"]:
+        assert sec["twin_precedent"] is None
+
+    nino = data["scenarios"]["nino"]
+    assert nino["zone"]["roni"]["kind"] == "observed"
+    assert nino["zone"]["roni"]["season"] is not None
+    assert nino["zone"]["roni"]["year"] is not None
+    for sec in nino["sectors"]:
+        assert sec["twin_precedent"] is not None
 
 
 def test_predictions_only_pumani_display(pipeline_output):
@@ -98,45 +114,40 @@ def test_predictions_only_pumani_display(pipeline_output):
     for sc in ["normal", "nino"]:
         sc_data = data["scenarios"][sc]
         assert sc_data["zone"]["id"] == "pumani"
-        assert len(sc_data["sectors"]) > 0
-        for sec in sc_data["sectors"]:
-            assert sec["id"].startswith("S")
+        assert [s["id"] for s in sc_data["sectors"]] == [f"S{i}" for i in range(1, 9)]
 
 
-def test_predictions_risk_levels(pipeline_output):
+def test_predictions_thresholds_consistent(pipeline_output):
+    def expected_level(score):
+        return "low" if score < 0.33 else "medium" if score < 0.66 else "high"
+
+    def expected_conf_label(conf):
+        return "baja" if conf < 0.4 else "media" if conf <= 0.7 else "alta"
+
     with open(os.path.join(pipeline_output, "predictions.json"), encoding="utf-8") as f:
         data = json.load(f)
     for sc in ["normal", "nino"]:
         for sec in data["scenarios"][sc]["sectors"]:
-            assert sec["risk"]["level"] in ("low", "medium", "high")
-            assert 0 <= sec["risk"]["score"] <= 1
-            assert sec["risk"]["confidence_label"] in ("baja", "media", "alta")
+            for block in (sec["risk"], sec["recovery"]):
+                assert block["level"] == expected_level(block["score"])
+                assert block["confidence_label"] == expected_conf_label(block["confidence"])
+            rec = sec["recommendation"]
+            assert rec["confidence_label"] == expected_conf_label(rec["confidence"])
+            assert len(sec["risk"]["drivers"]) == 3
 
 
 # --- history.json ---
 
-def test_history_exists(pipeline_output):
-    assert os.path.exists(os.path.join(pipeline_output, "history.json"))
-
-
-def test_history_structure(pipeline_output):
-    with open(os.path.join(pipeline_output, "history.json"), encoding="utf-8") as f:
-        data = json.load(f)
-    assert "generated_at" in data
-    assert "data_source" in data
-    assert "sectors" in data
-    assert len(data["sectors"]) > 0
-
-
-def test_history_series_schema(pipeline_output):
-    """Valida cada sector contra el schema de endpoint."""
+def test_history_series_schema_and_climate_invariant(pipeline_output):
     schema = _load_schema("history.schema.json")
     with open(os.path.join(pipeline_output, "history.json"), encoding="utf-8") as f:
         data = json.load(f)
-    from datetime import datetime, timezone
+    assert data["data_source"] == "mock"
+    assert sorted(data["sectors"]) == [f"S{i}" for i in range(1, 9)]
+
     for sid, series in data["sectors"].items():
         sec_obj = {
-            "updated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "updated_at": data["generated_at"],
             "data_source": data["data_source"],
             "sector_id": sid,
             "from": data["from"],
@@ -145,61 +156,86 @@ def test_history_series_schema(pipeline_output):
         }
         _validate(sec_obj, schema, f"history/{sid}")
 
-
-def test_history_data_source_mock(pipeline_output):
-    with open(os.path.join(pipeline_output, "history.json"), encoding="utf-8") as f:
-        data = json.load(f)
-    assert data["data_source"] == "mock"
+    # Lluvia, temperatura, humedad y RONI deben ser idénticos en todos los sectores
+    zone_fields = ("precip_mm", "soil_moisture", "temp_c", "roni")
+    reference = [[row[f] for f in zone_fields] for row in next(iter(data["sectors"].values()))]
+    for series in data["sectors"].values():
+        assert [[row[f] for f in zone_fields] for row in series] == reference
 
 
 # --- backtest files ---
 
-def test_backtest_files_exist(pipeline_output):
+def test_backtest_schema_and_sectors(pipeline_output):
+    schema = _load_schema("backtest.schema.json")
+    expected_sids = [f"S{i}" for i in range(1, 9)]
     for ev in ["2015-16", "2023-24", "2020-22"]:
         path = os.path.join(pipeline_output, f"backtest_{ev}.json")
         assert os.path.exists(path), f"backtest_{ev}.json no existe"
-
-
-def test_backtest_schema(pipeline_output):
-    schema = _load_schema("backtest.schema.json")
-    for ev in ["2015-16", "2023-24", "2020-22"]:
-        path = os.path.join(pipeline_output, f"backtest_{ev}.json")
         with open(path, encoding="utf-8") as f:
             data = json.load(f)
         _validate(data, schema, f"backtest_{ev}.json")
-
-
-def test_backtest_data_source(pipeline_output):
-    for ev in ["2015-16", "2023-24", "2020-22"]:
-        with open(os.path.join(pipeline_output, f"backtest_{ev}.json"), encoding="utf-8") as f:
-            data = json.load(f)
         assert data["data_source"] == "mock"
+        assert data["held_out"] is True
+        assert [s["sector_id"] for s in data["per_sector"]] == expected_sids
 
 
 # --- analogs.json ---
-
-def test_analogs_exists(pipeline_output):
-    assert os.path.exists(os.path.join(pipeline_output, "analogs.json"))
-
 
 def test_analogs_schema(pipeline_output):
     schema = _load_schema("twin_precedent.schema.json")
     with open(os.path.join(pipeline_output, "analogs.json"), encoding="utf-8") as f:
         data = json.load(f)
-    assert "precedents" in data
-    assert len(data["precedents"]) > 0
+    assert data["data_source"] == "mock"
+    assert len(data["precedents"]) == 16  # 8 sectores * 2 eventos
     for i, prec in enumerate(data["precedents"]):
         _validate(prec, schema, f"analogs.json[{i}]")
-
-
-def test_analogs_data_source(pipeline_output):
-    with open(os.path.join(pipeline_output, "analogs.json"), encoding="utf-8") as f:
-        data = json.load(f)
-    assert data["data_source"] == "mock"
-
-
-def test_analogs_is_simulated(pipeline_output):
-    with open(os.path.join(pipeline_output, "analogs.json"), encoding="utf-8") as f:
-        data = json.load(f)
-    for prec in data["precedents"]:
         assert prec["is_simulated"] is True
+
+
+# --- Reglas de datos faltantes, data_source y protección de sobrescritura ---
+
+def test_detect_data_source():
+    from ml.export.export import _detect_data_source
+
+    assert _detect_data_source("ml/data/interim") == "real"
+    assert _detect_data_source("ml/data/interim/") == "real"
+    assert _detect_data_source("ml/data/fake") == "mock"
+
+
+def test_missing_ndvi_becomes_null_not_nan(pipeline_output):
+    """Si falta un dato de NDVI en monthly.csv, history.json exporta null (no NaN ni valor inventado)."""
+    from ml.export.export import build_history
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        mdf = pd.read_csv(os.path.join(FAKE_INPUT, "monthly.csv"))
+        # Dejar vacío el primer NDVI de pumani S1
+        mask = (mdf["zone_id"] == "pumani") & (mdf["sector_id"] == "S1") & (mdf["date"] == "2000-01")
+        mdf.loc[mask, "ndvi"] = None
+        mdf.to_csv(os.path.join(tmpdir, "monthly.csv"), index=False)
+
+        with open(os.path.join(FAKE_INPUT, "sectors.geojson"), "r", encoding="utf-8") as f:
+            gj = f.read()
+        with open(os.path.join(tmpdir, "sectors.geojson"), "w", encoding="utf-8") as f:
+            f.write(gj)
+
+        out = build_history(tmpdir, tmpdir, "mock")
+        assert out["sectors"]["S1"][0]["ndvi"] is None
+
+
+def test_validation_failure_does_not_overwrite():
+    """Si un JSON falla validación contra schema, lanza excepción sin sobrescribir el archivo previo."""
+    from ml.export.export import _load_schema, _validate, _write_json_safe
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "backtest_2015-16.json")
+        sentinel = {"sentinel": "do_not_overwrite"}
+        _write_json_safe(sentinel, target)
+
+        schema = _load_schema("backtest.schema.json")
+        invalid_payload = {"event": "INVALID_EVENT"}
+        with pytest.raises(ValueError):
+            _validate(invalid_payload, schema, "test_invalid")
+            _write_json_safe(invalid_payload, target)
+
+        with open(target, "r", encoding="utf-8") as f:
+            assert json.load(f) == sentinel

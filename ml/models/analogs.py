@@ -1,34 +1,48 @@
 """
-analogs.py — Tierra gemela por similitud coseno en espacio físico.
-Para cada sector de Pumani encuentra el sector más parecido de otra zona.
+analogs.py — Tierra gemela por similitud coseno en espacio físico estandarizado.
+Vector: elevation_m, slope_pct, aspect_sin, aspect_cos, soil_moisture media, ndvi medio.
+Para cada sector de Pumani encuentra el sector más parecido de otra zona y reporta
+su anomalía de NDVI observada en El Niño 2015-16 (feb-abr 2016) y 2023-24 (feb-abr 2024).
 """
 import argparse
 import json
 import os
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 
+ZONES_JSON = Path(__file__).parent.parent / "zones.json"
 
-def _conf_label(sim):
-    if sim > 0.7:
-        return "alta"
-    elif sim > 0.4:
+
+def _load_zone_names() -> dict:
+    if not ZONES_JSON.exists():
+        return {}
+    with open(ZONES_JSON, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    return {z["id"]: z["name"] for z in data.get("zones", [])}
+
+
+def _conf_label(conf: float) -> str:
+    if conf < 0.4:
+        return "baja"
+    elif conf <= 0.7:
         return "media"
-    return "baja"
+    return "alta"
 
 
-def _conf_value(sim):
-    if sim > 0.7:
-        return round(sim * 0.9, 4)
-    elif sim > 0.4:
-        return round(sim * 0.75, 4)
-    return round(sim * 0.5, 4)
+def _conf_value(sim: float, has_obs: bool) -> float:
+    if not has_obs:
+        return 0.25
+    # Confianza proporcional a la similitud física
+    return round(float(np.clip(sim * 0.85, 0.2, 0.92)), 4)
 
 
-def run(input_dir, output_dir):
+def run(input_dir: str, output_dir: str) -> dict:
     os.makedirs(output_dir, exist_ok=True)
+    is_real = "interim" in str(input_dir)
+    zone_names = _load_zone_names()
 
     monthly_path = os.path.join(input_dir, "monthly.csv")
     sectors_path = os.path.join(input_dir, "sectors.geojson")
@@ -37,38 +51,34 @@ def run(input_dir, output_dir):
     with open(sectors_path, "r", encoding="utf-8") as f:
         gj = json.load(f)
 
-    # Extraer metadata de sectores
     sector_meta = {}
     for feat in gj["features"]:
         p = feat["properties"]
-        # Centroide del polígono
-        coords = feat["geometry"]["coordinates"][0]
-        lons = [c[0] for c in coords]
-        lats = [c[1] for c in coords]
         sector_meta[(p["zone_id"], p["sector_id"])] = {
-            "elevation_m": p["elevation_m"],
-            "slope_pct": p["slope_pct"],
-            "aspect_sin": np.sin(np.radians(p["aspect_deg"])),
-            "aspect_cos": np.cos(np.radians(p["aspect_deg"])),
-            "centroid_lat": np.mean(lats),
-            "centroid_lon": np.mean(lons),
+            "display": bool(p.get("display", False)),
+            "elevation_m": float(p["elevation_m"]),
+            "slope_pct": float(p["slope_pct"]),
+            "aspect_sin": float(np.sin(np.radians(p["aspect_deg"]))),
+            "aspect_cos": float(np.cos(np.radians(p["aspect_deg"]))),
         }
 
-    # Agregar soil_moisture media y ndvi_mean por sector
-    agg = mdf.groupby(["zone_id", "sector_id"]).agg(
+    # Media histórica de humedad de suelo y NDVI por sector (ignorando nulos reales)
+    agg = mdf.groupby(["zone_id", "sector_id"], as_index=False).agg(
         soil_moisture=("soil_moisture", "mean"),
         ndvi_mean=("ndvi", "mean"),
-    ).reset_index()
+    )
+    agg_map = {
+        (r["zone_id"], r["sector_id"]): (r["soil_moisture"], r["ndvi_mean"])
+        for _, r in agg.iterrows()
+    }
 
-    # Construir DataFrame de features por sector
     rows = []
     for (zone_id, sector_id), meta in sector_meta.items():
-        row_agg = agg[(agg["zone_id"] == zone_id) & (agg["sector_id"] == sector_id)]
-        sm = float(row_agg["soil_moisture"].values[0]) if len(row_agg) > 0 else 0.3
-        ndvi_m = float(row_agg["ndvi_mean"].values[0]) if len(row_agg) > 0 else 0.4
+        sm, ndvi_m = agg_map.get((zone_id, sector_id), (np.nan, np.nan))
         rows.append({
             "zone_id": zone_id,
             "sector_id": sector_id,
+            "display": meta["display"],
             "elevation_m": meta["elevation_m"],
             "slope_pct": meta["slope_pct"],
             "aspect_sin": meta["aspect_sin"],
@@ -79,84 +89,92 @@ def run(input_dir, output_dir):
 
     feat_df = pd.DataFrame(rows)
     vec_cols = ["elevation_m", "slope_pct", "aspect_sin", "aspect_cos", "soil_moisture", "ndvi_mean"]
+    # Imputación solo en vector estandarizado para calcular distancia si algún sector carece de promedio
+    vec_vals = feat_df[vec_cols].copy()
+    for col in vec_cols:
+        if vec_vals[col].isna().any():
+            vec_vals[col] = vec_vals[col].fillna(vec_vals[col].median())
 
     scaler = StandardScaler()
-    feat_df["_zone_sector"] = feat_df["zone_id"] + "_" + feat_df["sector_id"]
-    X = scaler.fit_transform(feat_df[vec_cols].values)
+    X = scaler.fit_transform(vec_vals.values)
 
     pumani_mask = feat_df["zone_id"] == "pumani"
     other_mask = feat_df["zone_id"] != "pumani"
 
     X_pumani = X[pumani_mask]
     X_other = X[other_mask]
-
     pumani_df = feat_df[pumani_mask].reset_index(drop=True)
     other_df = feat_df[other_mask].reset_index(drop=True)
 
-    # Calcular ndvi_anomaly para eventos 2015-16 y 2023-24 en sectores analógicos
     mdf["date_dt"] = pd.to_datetime(mdf["date"] + "-01")
     mdf["month"] = mdf["date_dt"].dt.month
     mdf["year"] = mdf["date_dt"].dt.year
 
-    def _event_ndvi_anom(zone_id, sector_id, start_year, end_year):
-        """Media feb-abr normalizada durante el evento."""
-        sub = mdf[(mdf["zone_id"] == zone_id) & (mdf["sector_id"] == sector_id)]
-        sub_feb_abr = sub[sub["month"].isin([2, 3, 4]) & sub["year"].isin(range(start_year, end_year + 1))]
-        sub_hist = sub[sub["month"].isin([2, 3, 4]) & (sub["year"] < start_year)]
-        if len(sub_feb_abr) == 0 or len(sub_hist) < 2:
+    def _event_ndvi_anom(zone_id: str, sector_id: str, peak_year: int):
+        """
+        Anomalía de NDVI de feb-abr del año pico de campaña (2016 para 2015-16, 2024 para 2023-24)
+        expresada en desviaciones estándar respecto a todos los feb-abr desde 2000.
+        """
+        sub = mdf[
+            (mdf["zone_id"] == zone_id)
+            & (mdf["sector_id"] == sector_id)
+            & (mdf["month"].isin([2, 3, 4]))
+            & (mdf["ndvi"].notna())
+        ]
+        by_year = sub.groupby("year")["ndvi"].mean()
+        if peak_year not in by_year.index or len(by_year) < 3:
             return None
-        mean_event = sub_feb_abr["ndvi"].mean()
-        hist_mean = sub_hist["ndvi"].mean()
-        hist_std = sub_hist["ndvi"].std()
-        if hist_std < 0.001:
+        hist_std = float(by_year.std())
+        if hist_std < 1e-6:
             return None
-        return float((mean_event - hist_mean) / hist_std)
+        return float((by_year.loc[peak_year] - by_year.mean()) / hist_std)
 
     EVENTS_DEF = {
-        "2015-16": (2015, 2016),
-        "2023-24": (2023, 2024),
+        "2015-16": 2016,
+        "2023-24": 2024,
     }
 
     precedents = []
-    for pi, prow in pumani_df.iterrows():
-        # Similitud coseno con todos los sectores de otras zonas
-        pv = X_pumani[pi]
-        # Normalizar
-        pv_norm = pv / (np.linalg.norm(pv) + 1e-9)
+    if len(other_df) > 0:
+        for pi, prow in pumani_df.iterrows():
+            pv = X_pumani[pi]
+            pv_norm = pv / (np.linalg.norm(pv) + 1e-9)
 
-        sims = []
-        for oi, orow in other_df.iterrows():
-            ov = X_other[oi]
-            ov_norm = ov / (np.linalg.norm(ov) + 1e-9)
-            sim = float(np.dot(pv_norm, ov_norm))
-            # Mapear a [0,1]
-            sim_01 = (sim + 1) / 2
-            sims.append((sim_01, oi))
+            sims = []
+            for oi in range(len(other_df)):
+                ov = X_other[oi]
+                ov_norm = ov / (np.linalg.norm(ov) + 1e-9)
+                cos_sim = float(np.dot(pv_norm, ov_norm))
+                sim_01 = float(np.clip((cos_sim + 1.0) / 2.0, 0.0, 1.0))
+                sims.append((sim_01, oi))
 
-        sims.sort(reverse=True)
-        best_sim, best_oi = sims[0]
-        twin = other_df.iloc[best_oi]
+            sims.sort(reverse=True)
+            best_sim, best_oi = sims[0]
+            twin = other_df.iloc[best_oi]
+            twin_zone_id = twin["zone_id"]
+            twin_zone_name = zone_names.get(twin_zone_id, twin_zone_id.replace("_", " ").title())
+            twin_meta = sector_meta[(twin_zone_id, twin["sector_id"])]
 
-        for event_key, (ey_start, ey_end) in EVENTS_DEF.items():
-            ndvi_anom = _event_ndvi_anom(twin["zone_id"], twin["sector_id"], ey_start, ey_end)
-            prec = {
-                "sector_id": prow["sector_id"],
-                "twin_zone": twin["zone_id"],
-                "twin_elevation_m": float(sector_meta[(twin["zone_id"], twin["sector_id"])]["elevation_m"]),
-                "twin_slope_pct": float(sector_meta[(twin["zone_id"], twin["sector_id"])]["slope_pct"]),
-                "similarity": round(float(best_sim), 4),
-                "event": event_key,
-                "observed_ndvi_anomaly": round(ndvi_anom, 4) if ndvi_anom is not None else None,
-                "confidence": _conf_value(best_sim),
-                "confidence_label": _conf_label(best_sim),
-                "is_simulated": True,
-            }
-            precedents.append(prec)
+            for event_key, peak_year in EVENTS_DEF.items():
+                ndvi_anom = _event_ndvi_anom(twin_zone_id, twin["sector_id"], peak_year)
+                conf = _conf_value(best_sim, ndvi_anom is not None)
+                precedents.append({
+                    "sector_id": prow["sector_id"],
+                    "twin_zone": twin_zone_name,
+                    "twin_elevation_m": round(twin_meta["elevation_m"], 1),
+                    "twin_slope_pct": round(twin_meta["slope_pct"], 2),
+                    "similarity": round(best_sim, 4),
+                    "event": event_key,
+                    "observed_ndvi_anomaly": round(ndvi_anom, 4) if ndvi_anom is not None else None,
+                    "confidence": conf,
+                    "confidence_label": _conf_label(conf),
+                    "is_simulated": not is_real,
+                })
 
     out = {"precedents": precedents}
     out_path = os.path.join(output_dir, "analogs_raw.json")
     with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(out, f, indent=2)
+        json.dump(out, f, indent=2, ensure_ascii=False)
     print(f"  → {out_path}")
     return out
 

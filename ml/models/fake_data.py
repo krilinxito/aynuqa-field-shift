@@ -1,12 +1,11 @@
 """
-fake_data.py — Genera tablas de prueba en ml/data/fake/
-Zonas: pumani (target, 8 sectores display=true), jesus_de_machaca (8), caquiaviri (8)
+fake_data.py — Genera tablas de prueba en ml/data/fake/ con el formato exacto de ml/TABLAS.md.
+Zonas: pumani (target, 8 sectores display=true), jesus_de_machaca (8), caquiaviri (8).
 """
 import argparse
 import json
 import math
 import os
-import random
 
 import numpy as np
 import pandas as pd
@@ -24,40 +23,33 @@ N_SECTORS = 8
 
 
 def _roni_series(dates):
-    """RONI sintético con picos El Niño ~2015-16 y ~2023-24."""
+    """RONI sintético con picos El Niño ~2015-16, ~2023-24 y ~2026, y La Niña ~2010-11, ~2020-22."""
     roni = []
     for d in dates:
-        yr = d.year + d.month / 12
-        # El Niño 2015-16
-        nino1516 = 1.8 * math.exp(-0.5 * ((yr - 2015.75) / 0.4) ** 2)
-        # El Niño 2023-24
-        nino2324 = 2.0 * math.exp(-0.5 * ((yr - 2023.75) / 0.4) ** 2)
-        # La Niña 2010-11, 2020-22
-        nina2011 = -1.2 * math.exp(-0.5 * ((yr - 2010.75) / 0.4) ** 2)
-        nina2021 = -1.0 * math.exp(-0.5 * ((yr - 2021.0) / 0.6) ** 2)
-        # ruido leve
-        noise = rng.normal(0, 0.15)
-        val = nino1516 + nino2324 + nina2011 + nina2021 + noise
+        yr = d.year + (d.month - 0.5) / 12.0
+        nino1516 = 2.1 * math.exp(-0.5 * ((yr - 2015.85) / 0.35) ** 2)
+        nino2324 = 2.0 * math.exp(-0.5 * ((yr - 2023.85) / 0.35) ** 2)
+        nino2627 = 1.95 * math.exp(-0.5 * ((yr - 2026.75) / 0.45) ** 2)
+        nina2011 = -1.3 * math.exp(-0.5 * ((yr - 2010.8) / 0.4) ** 2)
+        nina2021 = -1.1 * math.exp(-0.5 * ((yr - 2021.3) / 0.7) ** 2)
+        noise = rng.normal(0, 0.12)
+        val = nino1516 + nino2324 + nino2627 + nina2011 + nina2021 + noise
         roni.append(round(float(val), 3))
     return roni
 
 
-def _make_polygon(lat, lon, size_deg=0.01):
+def _make_polygon(lat, lon, size_deg=0.008):
     """Polígono simple 4 vértices alrededor de lat/lon."""
     return {
         "type": "Polygon",
         "coordinates": [[
-            [lon - size_deg, lat - size_deg],
-            [lon + size_deg, lat - size_deg],
-            [lon + size_deg, lat + size_deg],
-            [lon - size_deg, lat + size_deg],
-            [lon - size_deg, lat - size_deg],
-        ]]
+            [round(lon - size_deg, 6), round(lat - size_deg, 6)],
+            [round(lon + size_deg, 6), round(lat - size_deg, 6)],
+            [round(lon + size_deg, 6), round(lat + size_deg, 6)],
+            [round(lon - size_deg, 6), round(lat + size_deg, 6)],
+            [round(lon - size_deg, 6), round(lat - size_deg, 6)],
+        ]],
     }
-
-
-def _sector_id(i):
-    return f"S{i+1}"
 
 
 def generate_sectors_geojson(output_dir):
@@ -66,31 +58,36 @@ def generate_sectors_geojson(output_dir):
     for zone_id, zinfo in ZONES.items():
         lat0, lon0 = zinfo["lat"], zinfo["lon"]
         for i in range(N_SECTORS):
-            sid = _sector_id(i)
-            # offset pequeño por sector
-            dlat = (i // 4) * 0.015 + rng.uniform(-0.003, 0.003)
-            dlon = (i % 4) * 0.015 + rng.uniform(-0.003, 0.003)
+            sid = f"S{i + 1}"
+            dlat = (i // 4) * 0.012 + float(rng.uniform(-0.002, 0.002))
+            dlon = (i % 4) * 0.012 + float(rng.uniform(-0.002, 0.002))
             slat = lat0 + dlat
             slon = lon0 + dlon
-            elev = zinfo["elevation_m"] + rng.integers(-50, 50)
-            slope = float(rng.uniform(1, 8))
+            elev = int(zinfo["elevation_m"] + rng.integers(-45, 45))
+            slope = float(rng.uniform(1.5, 8.5))
             aspect_deg = float(rng.uniform(0, 360))
-            area_ha = float(rng.uniform(10, 50))
-            rot_status = "resting" if i % 2 == 0 else "cultivated"
-            rot_years = int(rng.integers(1, 10))
+            area_ha = float(rng.uniform(18, 45))
+            # Ciclo aynuqa realista: mayoría en descanso, algunos en cultivo
+            if i < 6:
+                rot_status = "resting"
+                rot_years = [10, 9, 7, 5, 3, 1][i]
+            else:
+                rot_status = "cultivated"
+                rot_years = [2, 3][i - 6]
+
             props = {
                 "zone_id": zone_id,
                 "sector_id": sid,
                 "display": bool(zinfo["display"]),
                 "area_ha": round(area_ha, 2),
-                "elevation_m": int(elev),
+                "elevation_m": elev,
                 "slope_pct": round(slope, 2),
                 "aspect_deg": round(aspect_deg, 1),
                 "rotation_status": rot_status,
                 "rotation_years": rot_years,
                 "is_simulated": True,
             }
-            geom = _make_polygon(slat, slon, 0.008)
+            geom = _make_polygon(slat, slon, 0.004)
             features.append({
                 "type": "Feature",
                 "geometry": geom,
@@ -115,37 +112,60 @@ def generate_monthly_csv(sector_props, output_dir):
     roni_vals = _roni_series(dates)
     roni_map = {d: r for d, r in zip(dates, roni_vals)}
 
-    rows = []
-    for (zone_id, sid), sp in sector_props.items():
+    # Clima a nivel de ZONA (idéntico para todos los sectores de la misma zona)
+    zone_climate = {}
+    for zone_id, zinfo in ZONES.items():
+        elev_z = zinfo["elevation_m"]
+        zone_offset = rng.normal(0, 0.2)
         for date in dates:
             month = date.month
-            # NDVI con estacionalidad: pico en Feb-Mar (verano austral)
-            ndvi_seasonal = 0.35 + 0.25 * math.sin(math.pi * (month - 2) / 6) if 2 <= month <= 8 else 0.35 + 0.1 * math.cos(math.pi * month / 6)
             roni_now = roni_map[date]
-            # El Niño reduce NDVI
-            nino_effect = -0.08 * max(roni_now, 0)
-            ndvi = ndvi_seasonal + nino_effect + rng.normal(0, 0.04)
-            ndvi = float(np.clip(ndvi, 0.05, 0.9))
 
-            # Precip: mayor Oct-Mar, menor Jun-Sep
-            precip_base = 60 + 50 * math.sin(math.pi * (month - 10) / 6) if month >= 10 or month <= 3 else 20
-            precip = max(0, precip_base + rng.normal(0, 15) - 15 * max(roni_now, 0))
+            # Lluvia mayor Oct-Mar, mínima Jun-Ago
+            precip_cycle = 55.0 + 48.0 * math.sin(2 * math.pi * (month - 10) / 12.0)
+            precip = max(0.5, precip_cycle - 14.0 * max(roni_now, 0) + 8.0 * max(-roni_now, 0) + rng.normal(0, 12.0))
 
-            temp_base = 8.0 - 0.003 * sp["elevation_m"] + 2 * math.sin(math.pi * (month - 1) / 6)
-            temp = temp_base + rng.normal(0, 0.5) + 0.3 * max(roni_now, 0)
+            temp_cycle = 8.5 - 0.001 * (elev_z - 3900) + 2.5 * math.sin(2 * math.pi * (month - 10) / 12.0)
+            temp = temp_cycle + 0.45 * roni_now + zone_offset + rng.normal(0, 0.45)
 
-            sm = 0.3 + 0.15 * math.sin(math.pi * (month - 11) / 6) + rng.normal(0, 0.05)
-            sm = float(np.clip(sm, 0.05, 0.95))
+            sm_cycle = 0.42 + 0.14 * math.sin(2 * math.pi * (month - 11) / 12.0)
+            sm = float(np.clip(sm_cycle - 0.04 * max(roni_now, 0) + rng.normal(0, 0.03), 0.10, 0.90))
+
+            zone_climate[(zone_id, date)] = {
+                "precip_mm": round(float(precip), 2),
+                "temp_c": round(float(temp), 2),
+                "soil_moisture": round(sm, 4),
+                "roni": roni_map[date],
+            }
+
+    rows = []
+    for (zone_id, sid), sp in sector_props.items():
+        # Efecto sectorial por terreno y estado de rotación
+        elev_eff = -0.00015 * (sp["elevation_m"] - 3900)
+        rot_eff = 0.025 * (sp["rotation_years"] / 10.0) if sp["rotation_status"] == "resting" else -0.015
+        sector_bias = elev_eff + rot_eff
+
+        for date in dates:
+            month = date.month
+            zc = zone_climate[(zone_id, date)]
+            roni_now = zc["roni"]
+
+            # NDVI con pico en Feb-Mar (verano austral), sensible a lluvia, humedad y RONI
+            ndvi_cycle = 0.24 + 0.13 * math.sin(2 * math.pi * (month - 11.5) / 12.0)
+            rain_boost = 0.0007 * (zc["precip_mm"] - 45.0)
+            nino_effect = -0.045 * max(roni_now, 0) + 0.015 * max(-roni_now, 0)
+            ndvi = ndvi_cycle + rain_boost + nino_effect + sector_bias + rng.normal(0, 0.022)
+            ndvi = float(np.clip(ndvi, 0.05, 0.85))
 
             rows.append({
                 "zone_id": zone_id,
                 "sector_id": sid,
                 "date": date.strftime("%Y-%m"),
                 "ndvi": round(ndvi, 4),
-                "precip_mm": round(float(precip), 2),
-                "temp_c": round(float(temp), 2),
-                "soil_moisture": round(sm, 4),
-                "roni": roni_map[date],
+                "precip_mm": zc["precip_mm"],
+                "temp_c": zc["temp_c"],
+                "soil_moisture": zc["soil_moisture"],
+                "roni": zc["roni"],
             })
 
     df = pd.DataFrame(rows)
@@ -155,65 +175,92 @@ def generate_monthly_csv(sector_props, output_dir):
     return df
 
 
+def _zscore(val, series):
+    s = series.dropna()
+    if len(s) < 2 or s.std() < 1e-6 or pd.isna(val):
+        return 0.0
+    return float((val - s.mean()) / s.std())
+
+
 def generate_features_csv(monthly_df, sector_props, output_dir):
-    """Genera features.csv agregando por campaña (Jul-Jun)."""
+    """Genera features.csv agregando por campaña (Jul-Jun) desde 2000-01."""
     df = monthly_df.copy()
     df["date_dt"] = pd.to_datetime(df["date"] + "-01")
     df["year"] = df["date_dt"].dt.year
     df["month"] = df["date_dt"].dt.month
-    # Campaña: Jul año Y → Jun año Y+1 → temporada "YYYY-YY"
+    # Campaña agrícola: julio año Y a junio año Y+1 -> "YYYY-YY"
     df["camp_year"] = df["year"].where(df["month"] >= 7, df["year"] - 1)
+
+    # Climatologías por zona para variables climáticas
+    zone_monthly = df.drop_duplicates(subset=["zone_id", "date"]).copy()
 
     rows = []
     for (zone_id, sid), sp in sector_props.items():
-        sub = df[(df["zone_id"] == zone_id) & (df["sector_id"] == sid)].copy()
-        sub = sub.sort_values("date_dt")
+        sub = df[(df["zone_id"] == zone_id) & (df["sector_id"] == sid)].sort_values("date_dt").copy()
+        zsub = zone_monthly[zone_monthly["zone_id"] == zone_id].sort_values("date_dt").copy()
 
-        # RONI lags por campaña
-        camp_roni = {}
-        for cy, grp in sub.groupby("camp_year"):
-            camp_roni[cy] = grp["roni"].mean()
+        # Series por campaña para calcular anomalías históricas reales
+        feb_abr_by_cy = (
+            sub[sub["month"].isin([2, 3, 4])]
+            .groupby("camp_year")["ndvi"]
+            .mean()
+        )
+        sep_ndvi_by_cy = sub[sub["month"] == 9].set_index("camp_year")["ndvi"]
+        p3m_by_cy = zsub[zsub["month"].isin([7, 8, 9])].groupby("camp_year")["precip_mm"].sum()
+        t3m_by_cy = zsub[zsub["month"].isin([7, 8, 9])].groupby("camp_year")["temp_c"].mean()
+        sm_sep_by_cy = zsub[zsub["month"] == 9].set_index("camp_year")["soil_moisture"]
 
-        camp_years = sorted(sub["camp_year"].unique())
+        # Precip oct-sep (los 12 meses previos al 1 de octubre del año cy)
+        p12m_by_cy = {}
+        for cy in range(2000, 2027):
+            mask_12m = (
+                ((zsub["year"] == cy - 1) & (zsub["month"] >= 10))
+                | ((zsub["year"] == cy) & (zsub["month"] <= 9))
+            )
+            if mask_12m.sum() >= 6:
+                p12m_by_cy[cy] = float(zsub.loc[mask_12m, "precip_mm"].sum())
+        p12m_s = pd.Series(p12m_by_cy)
 
-        for ci, cy in enumerate(camp_years):
-            season = f"{cy}-{str(cy+1)[-2:]}"
-            grp = sub[sub["camp_year"] == cy]
+        # RONI mensual indexado por fecha
+        roni_by_dt = zsub.set_index("date_dt")["roni"]
 
-            # target_ndvi_anom: media feb-abr normalizada
-            feb_abr = grp[grp["month"].isin([2, 3, 4])]
-            if len(feb_abr) >= 1:
-                target_ndvi_anom = float(rng.normal(-0.1 * max(camp_roni.get(cy, 0), 0), 0.3))
-            else:
-                target_ndvi_anom = None
+        camp_years = sorted([cy for cy in sub["camp_year"].unique() if cy >= 2000])
 
-            # is_prediction_row
+        for cy in camp_years:
+            season = f"{cy}-{str(cy + 1)[-2:]}"
             is_pred = (cy == 2026)
 
-            # roni_lag_0..6
+            # Objetivo: anomalía NDVI feb-abr de la campaña (vacío en campaña en curso)
+            if is_pred or cy not in feb_abr_by_cy.index:
+                target_ndvi_anom = None
+            else:
+                target_ndvi_anom = round(_zscore(feb_abr_by_cy.loc[cy], feb_abr_by_cy), 4)
+
+            # roni_lag_0..6: RONI de septiembre (lag_0) y los 6 meses anteriores
+            sep_dt = pd.Timestamp(year=cy, month=9, day=1)
             roni_lags = {}
             for lag in range(7):
-                roni_lags[f"roni_lag_{lag}"] = camp_roni.get(cy - lag, 0.0)
+                dt_lag = sep_dt - pd.DateOffset(months=lag)
+                val = roni_by_dt.get(dt_lag, 0.0)
+                roni_lags[f"roni_lag_{lag}"] = round(float(0.0 if pd.isna(val) else val), 4)
 
-            # anomalías climáticas
-            precip_mean = grp["precip_mm"].mean()
-            precip_anom_3m = float(rng.normal(0, 15))
-            precip_anom_12m = float(rng.normal(0, 20))
-            temp_anom_3m = float(rng.normal(0, 0.5))
-            soil_anom = float(rng.normal(0, 0.05))
-            ndvi_anom_prev = float(rng.normal(-0.05, 0.2))
-            ndvi_anom_sep = float(rng.normal(0, 0.15))
+            precip_anom_3m = _zscore(p3m_by_cy.get(cy, np.nan), p3m_by_cy)
+            precip_anom_12m = _zscore(p12m_s.get(cy, np.nan), p12m_s)
+            temp_anom_3m = _zscore(t3m_by_cy.get(cy, np.nan), t3m_by_cy)
+            soil_anom = _zscore(sm_sep_by_cy.get(cy, np.nan), sm_sep_by_cy)
+            ndvi_anom_prev = _zscore(feb_abr_by_cy.get(cy - 1, np.nan), feb_abr_by_cy)
+            ndvi_anom_sep = _zscore(sep_ndvi_by_cy.get(cy, np.nan), sep_ndvi_by_cy)
 
             rows.append({
                 "zone_id": zone_id,
                 "sector_id": sid,
                 "season": season,
-                "target_ndvi_anom": round(target_ndvi_anom, 4) if target_ndvi_anom is not None else None,
+                "target_ndvi_anom": target_ndvi_anom,
                 "is_prediction_row": is_pred,
-                **{k: round(v, 4) for k, v in roni_lags.items()},
-                "precip_anom_3m": round(precip_anom_3m, 2),
-                "precip_anom_12m": round(precip_anom_12m, 2),
-                "temp_anom_3m": round(temp_anom_3m, 3),
+                **roni_lags,
+                "precip_anom_3m": round(precip_anom_3m, 4),
+                "precip_anom_12m": round(precip_anom_12m, 4),
+                "temp_anom_3m": round(temp_anom_3m, 4),
                 "soil_moisture_anom": round(soil_anom, 4),
                 "ndvi_anom_prev_peak": round(ndvi_anom_prev, 4),
                 "ndvi_anom_sep": round(ndvi_anom_sep, 4),
