@@ -59,10 +59,19 @@ Los sectores de una comunidad caben en pocos kilómetros, así que todos caen en
 
 Por eso el backtest principal es una serie temporal de la zona. La comparación entre sectores se hace solo con NDVI y se presenta como evidencia secundaria.
 
+## Tierras gemelas
+
+Una sola comunidad da pocas muestras, porque todos sus sectores comparten el mismo clima. Por eso el modelo se entrena también con 6 a 8 zonas agrícolas análogas del altiplano: misma franja de altitud, régimen semiárido y rotación similar.
+
+- El modelo no usa latitud ni longitud. Aprende de las condiciones físicas y climáticas (terreno, vegetación, humedad, El Niño), para poder aplicarse a otro territorio análogo.
+- Para cada sector, el sistema busca su "tierra gemela": el sector más parecido de otra zona. Informa cómo respondió allí la vegetación durante El Niño de 2015-16 o 2023-24, y el asistente lo cuenta a la asamblea como precedente, no como garantía.
+- El precedente se mide con NDVI real. No nombra cultivos ni porcentajes de pérdida, porque no hay datos reales de rendimiento a esa escala.
+- El alcance es el altiplano y territorios análogos; no se afirma que funcione en cualquier lugar.
+
 ## Qué es real y qué es simulado
 
 - **Real:** los datos satelitales y climáticos.
-- **Simulado:** los polígonos de los sectores, los años de descanso (según el ciclo publicado de Pumani) y los sensores de campo. Todo dato simulado lleva `is_simulated: true` y se etiqueta en pantalla.
+- **Simulado:** los polígonos de los sectores (en Pumani y en las zonas análogas), los años de descanso (según el ciclo publicado de Pumani) y los sensores de campo. Todo dato simulado lleva `is_simulated: true` y se etiqueta en pantalla.
 - La recuperación se calcula con NDVI real corregido por lluvia (RESTREND). Su vínculo con los años de descanso es ilustrativo.
 
 ## Estructura del repo

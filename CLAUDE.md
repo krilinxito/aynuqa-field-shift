@@ -15,6 +15,10 @@ Lee `README.md` y `contracts/` antes de empezar.
 - No afirmes impactos como seguros: El Niño "aumenta la probabilidad de sequía", no "trae sequía".
 - Respeta la escala de los datos: lluvia, temperatura y humedad de suelo son iguales para todos los sectores (misma celda de NASA POWER). Solo el NDVI y el terreno distinguen sectores. No presentes diferencias climáticas entre sectores.
 - El backtest principal es una serie temporal de la zona. La comparación por sector usa solo NDVI. Si el resultado es modesto, dilo.
+- El modelo se entrena con Pumani y con zonas análogas del altiplano, sin latitud ni longitud como variables. Al evaluar un evento, ese evento queda fuera del entrenamiento.
+- Los precedentes de tierras gemelas informan solo la anomalía de NDVI observada. No inventes cultivos, rendimientos ni porcentajes de pérdida.
+- ML exporta todo a `ml/outputs/` en JSON. Back no calcula predicciones, anomalías ni correlaciones: carga esos archivos en SQLite y los sirve.
+- El chat usa Gemini (`google-genai`), es stateless y sus números salen solo de las herramientas.
 - El frontend es una PWA para celulares de gama baja y con mala señal. Diseño minimalista: pocas pantallas, texto grande, solo lo necesario para decidir.
 - Todo texto para el usuario va en español simple.
 - Los secretos van solo en `.env`.
