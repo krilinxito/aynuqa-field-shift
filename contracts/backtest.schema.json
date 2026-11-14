@@ -1,0 +1,219 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Respuesta de GET /api/backtest",
+  "type": "object",
+  "properties": {
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "data_source": {
+      "enum": [
+        "mock",
+        "real"
+      ]
+    },
+    "event": {
+      "enum": [
+        "2015-16",
+        "2023-24",
+        "2020-22"
+      ]
+    },
+    "event_type": {
+      "enum": [
+        "nino",
+        "nina"
+      ]
+    },
+    "held_out": {
+      "type": "boolean",
+      "description": "true si el evento quedo fuera del entrenamiento."
+    },
+    "zone": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "series": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "date": {
+                "type": "string",
+                "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+              },
+              "roni": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "predicted_risk": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0,
+                "maximum": 1
+              },
+              "observed_ndvi_anomaly": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "precip_anomaly_pct": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "date",
+              "roni",
+              "predicted_risk",
+              "observed_ndvi_anomaly",
+              "precip_anomaly_pct"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "mean_predicted_risk": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "mean_observed_ndvi_anomaly": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "metric": {
+          "type": "object",
+          "properties": {
+            "spearman": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "n": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "note": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Advertencia sobre como leer la metrica."
+            }
+          },
+          "required": [
+            "spearman",
+            "n",
+            "note"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "id",
+        "series",
+        "mean_predicted_risk",
+        "mean_observed_ndvi_anomaly",
+        "metric"
+      ],
+      "additionalProperties": false,
+      "description": "Backtest principal: serie temporal de la zona."
+    },
+    "per_sector": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sector_id": {
+            "type": "string",
+            "pattern": "^S\\d+$"
+          },
+          "predicted_risk": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 1
+          },
+          "observed_ndvi_anomaly": {
+            "type": [
+              "number",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "sector_id",
+          "predicted_risk",
+          "observed_ndvi_anomaly"
+        ],
+        "additionalProperties": false
+      },
+      "description": "Evidencia secundaria: solo NDVI por sector."
+    },
+    "per_sector_metric": {
+      "type": "object",
+      "properties": {
+        "spearman": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "n": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Advertencia sobre como leer la metrica."
+        }
+      },
+      "required": [
+        "spearman",
+        "n",
+        "note"
+      ],
+      "additionalProperties": false
+    },
+    "note": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "updated_at",
+    "data_source",
+    "event",
+    "event_type",
+    "held_out",
+    "zone",
+    "per_sector",
+    "per_sector_metric",
+    "note"
+  ],
+  "additionalProperties": false
+}
