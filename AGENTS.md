@@ -11,9 +11,10 @@ sembrar y cuándo.
 
 - `CLAUDE.md` — contexto y reglas completas del proyecto. Léelo entero.
 - `contracts/README.md` — contrato de datos entre Back, ML y Front.
-- `backend/BACKEND_PLAN.md` — plan del equipo Back (si trabajas en backend).
-  **La sección 10 lista decisiones pendientes**: donde el plan del PDF y
-  `backend/README.md` difieren, no asumas una versión; pregunta al equipo.
+- `backend/README.md` — cómo está hecho el backend (si trabajas en backend).
+- `backend/BACKEND_PLAN.md` — plan original del PDF, solo como contexto
+  histórico. Donde difiere de `backend/README.md` o de `contracts/`, mandan
+  estos dos (la sección 10 ya está resuelta).
 - `README.md` — visión general, datos usados y escala.
 
 ## Reglas clave
@@ -32,9 +33,9 @@ sembrar y cuándo.
   todos los sectores. Solo el NDVI y el terreno distinguen sectores.
 - Back no calcula predicciones, anomalías ni correlaciones: carga los JSON de
   `ml/outputs/` en SQLite y los sirve.
-- El chat es stateless y sus números salen solo de sus 5 herramientas.
-  *(Proveedor pendiente: el plan pide SDK `openai` con fallback local; el README
-  propone Gemini `google-genai`. Ver `BACKEND_PLAN.md` sección 10, punto 2.)*
+- El chat usa Gemini (`google-genai`), es stateless y sus números salen solo de
+  sus 5 herramientas. Sin clave responde 502; no hay fallback local.
+- Back no consulta fuentes externas: la historia es solo la que exporta ML.
 - El frontend es una PWA minimalista para celulares de gama baja y mala señal.
 - Todo texto para el usuario va en español simple.
 - Los secretos van solo en `.env`.

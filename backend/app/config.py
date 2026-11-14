@@ -34,13 +34,6 @@ class Settings(BaseSettings):
 
     cors_origins: str = "*"
 
-    nasa_power_base_url: str = (
-        "https://power.larc.nasa.gov/api/temporal/daily/point"
-    )
-    nasa_power_lat: float = -17.09
-    nasa_power_lon: float = -68.0
-    nasa_power_timeout_s: float = 30.0
-
     def path(self, value: str) -> Path:
         path = Path(value).expanduser()
         if path.is_absolute():

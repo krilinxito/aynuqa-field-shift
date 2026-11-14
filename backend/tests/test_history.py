@@ -47,11 +47,7 @@ def test_history_range_is_reversed(client: TestClient) -> None:
     assert response.json()["error"]["code"] == "invalid_request"
 
 
-def test_history_does_not_mix_mock_with_power(client: TestClient, ctx) -> None:
-    class ExplodingPower:
-        def get_daily(self, *args, **kwargs):
-            raise AssertionError("No se debe llamar a NASA POWER con datos mock")
-
-    ctx.power = ExplodingPower()
-    response = client.get("/api/sectors/S1/history")
-    assert response.status_code == 200
+def test_history_ends_at_last_ml_month(client: TestClient) -> None:
+    # La historia termina en el último mes exportado por ML; Back no agrega meses de otra fuente.
+    data = client.get("/api/sectors/S1/history").json()
+    assert data["series"][-1]["date"] == data["to"] == "2026-10"

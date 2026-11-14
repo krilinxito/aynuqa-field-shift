@@ -1,10 +1,13 @@
 # Plan de Backend — Aynuqa Field Shift
 
-> Este documento preserva **todo el contexto de backend del plan del equipo**
-> (`aynuqa-plan-Hackaton.pdf`, noviembre 2026). Es la referencia completa para
-> construir `backend/`. Las divergencias con `backend/README.md` (que ya pasó
-> por correcciones de revisión) están listadas al final como decisiones
-> pendientes; ninguna se ha resuelto unilateralmente.
+> Este documento preserva el contexto de backend del plan original del equipo
+> (`aynuqa-plan-Hackaton.pdf`, noviembre 2026). **Es histórico:** donde difiere
+> de `backend/README.md` o de `contracts/`, mandan estos dos. Las diferencias
+> de la sección 10 ya están resueltas a favor del README.
+>
+> No uses de este plan: el ONI (es el RONI), cultivos o porcentajes de pérdida
+> en la tierra gemela (no hay datos reales), la similitud coseno ni la consulta
+> de NASA POWER desde Back (la historia es solo la que exporta ML).
 
 ## 1. Requisitos del equipo Back según el plan
 
@@ -287,10 +290,12 @@ Aunque es trabajo de ML, define lo que Back recibe y sirve:
 
 ---
 
-## 10. Diferencias con `backend/README.md` (decisiones pendientes)
+## 10. Diferencias con `backend/README.md` (resueltas)
 
-El plan del PDF y `backend/README.md` (ya corregido en el repo) difieren en
-estos puntos. **Hay que elegir una versión antes de codificar:**
+El plan del PDF y `backend/README.md` difieren en estos puntos. **Todos se
+resolvieron a favor de la columna del README**, que es lo que está
+implementado. Excepciones: no hay fallback local del chat (sin clave, 502), y
+Back ya no usa NASA POWER (puntos 5 y 6 quedan sin efecto).
 
 | # | Tema | Plan (PDF) | `backend/README.md` (repo) | Comentario |
 | --- | --- | --- | --- | --- |
@@ -307,6 +312,6 @@ estos puntos. **Hay que elegir una versión antes de codificar:**
 | 11 | Reporte de asamblea | `GET /api/report` dentro del alcance M del prompt Back | Deseable (S) | Decidir prioridad. |
 | 12 | Tabla de historial | `sector_history` | `history` | Elegir nombre. |
 
-> **Recomendación:** los ítems 1, 9 y 10 del repo ya pasaron revisión y
-> protecten las reglas de honestidad del proyecto; para el resto (2, 3, 4, 12)
-> conviene decidir en equipo y dejarlo escrito en `contracts/`.
+> Los ítems 1, 9 y 10 protegen las reglas de honestidad del proyecto. Los
+> nombres de archivos y del endpoint de recarga (3, 4 y 12) quedan como en
+> `contracts/` y `backend/README.md`.

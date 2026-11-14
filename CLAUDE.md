@@ -3,9 +3,8 @@
 Hackathon NASA Space Apps 2026. Apoyo a la decisión para que una comunidad altiplánica (tipo Pumani, altiplano central de La Paz) adapte su rotación comunal (aynuqa) a El Niño y al cambio climático con datos NASA. El sistema estima por sector el riesgo de sequía y la recuperación del suelo, y los convierte en recomendaciones: qué sector abrir, cuánto extender el descanso, qué sembrar y cuándo.
 
 Lee `README.md` y `contracts/` antes de empezar. Si trabajas en backend,
-lee también `backend/BACKEND_PLAN.md`: mantiene todo el contexto del plan del
-equipo (`aynuqa-plan-Hackaton.pdf`) y lista las decisiones pendientes donde el
-plan y `backend/README.md` difieren.
+lee también `backend/README.md`. `backend/BACKEND_PLAN.md` es el plan original
+del PDF, solo como contexto: donde difiere, mandan el README y `contracts/`.
 
 ## Reglas
 

@@ -1,6 +1,6 @@
 ---
 name: Backend endpoint
-description: Crear o modificar un endpoint FastAPI del backend de Aynuqa Field Shift respetando contracts/ y las decisiones pendientes
+description: Crear o modificar un endpoint FastAPI del backend de Aynuqa Field Shift respetando contracts/ y backend/README.md
 ---
 
 # Crear o modificar un endpoint del backend
@@ -12,10 +12,9 @@ Cuando pidan agregar, cambiar o corregir un endpoint de la API en `backend/`.
 ## Antes de empezar
 
 1. Lee `contracts/api.md` y `contracts/sector_risk.schema.json`: el contrato manda.
-2. Lee `backend/README.md` y **la sección 10 de `backend/BACKEND_PLAN.md`**
-   (decisiones pendientes). Si el endpoint que vas a tocar depende de una de
-   esas decisiones (nombre del reload, prioridad de `/api/report`, nombres de
-   tablas, proveedor del chat), **no asumas**: pregunta al equipo.
+2. Lee `backend/README.md`: es lo vigente. `backend/BACKEND_PLAN.md` es el plan
+   original del PDF; donde difiere, manda el README (la sección 10 del plan ya
+   está resuelta).
 3. Confirma que estás en la rama `team/back`.
 
 ## Endpoints previstos (contrato)
@@ -26,8 +25,8 @@ Cuando pidan agregar, cambiar o corregir un endpoint de la API en `backend/`.
 - `GET /api/sectors/{id}/sensors?hours=48`
 - `GET /api/backtest?event=2015-16|2023-24|2020-22`
 - `POST /api/chat`
-- `POST /api/admin/reload` *(nombre pendiente: el plan usa `reload-predictions`)*
-- `GET /api/report` *(el plan lo marca imprescindible; el README, deseable)*
+- `POST /api/admin/reload`
+- `GET /api/report` *(extra, fuera de `contracts/api.md`)*
 
 ## Pasos
 

@@ -124,7 +124,7 @@ def _build(
 
     sections = [
         ("Clima de la zona", climate_lines),
-        ("Sectores para abrir", open_lines),
+        ("Sectores para cultivar", open_lines),
         ("Sectores que deben descansar", rest_lines),
         ("Qué sembrar y cuándo", crop_lines),
         ("Riesgo, recuperación y confianza", risk_lines),
@@ -198,8 +198,8 @@ def _number_line(label: str, value: Any, unit: str) -> str:
 
 def _soil_line(value: Any) -> str:
     if not isinstance(value, (int, float)):
-        return "Humedad de suelo: sin dato."
-    return f"Humedad de suelo: {value * 100:.0f} % de la fracción 0 a 1."
+        return "Humedad relativa del suelo: sin dato."
+    return f"Humedad relativa del suelo: {value * 100:.0f} %."
 
 
 def _roni_line(roni: dict[str, Any]) -> str:

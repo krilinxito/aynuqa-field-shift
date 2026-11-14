@@ -10,7 +10,7 @@ def test_report_markdown(client: TestClient) -> None:
     text = response.text
     assert "# Reporte para la asamblea" in text
     assert "## Clima de la zona" in text
-    assert "## Sectores para abrir" in text
+    assert "## Sectores para cultivar" in text
     assert "## Nota de honestidad" in text
     assert "El Niño aumenta la probabilidad de sequía; no la asegura." in text
 

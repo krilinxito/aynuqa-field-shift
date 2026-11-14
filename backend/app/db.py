@@ -1,7 +1,7 @@
 """Acceso a SQLite.
 
 Back solo guarda y sirve lo que exporta ML. Las tablas siguen los nombres del
-README de backend: predictions, history, backtest, analogs y power_cache.
+README de backend: predictions, history, backtest y analogs.
 """
 
 from __future__ import annotations
@@ -83,16 +83,6 @@ class Database:
                     similarity REAL NOT NULL,
                     payload TEXT NOT NULL,
                     PRIMARY KEY (sector_id, event)
-                );
-
-                CREATE TABLE IF NOT EXISTS power_cache (
-                    lat REAL NOT NULL,
-                    lon REAL NOT NULL,
-                    parameter TEXT NOT NULL,
-                    date TEXT NOT NULL,
-                    value REAL,
-                    fetched_at TEXT NOT NULL,
-                    PRIMARY KEY (lat, lon, parameter, date)
                 );
 
                 CREATE TABLE IF NOT EXISTS meta (
@@ -381,58 +371,3 @@ class Database:
         finally:
             connection.close()
         return json.loads(row["payload"]) if row else None
-
-    def get_power_rows(
-        self,
-        lat: float,
-        lon: float,
-        parameters: tuple[str, ...],
-        start: str,
-        end: str,
-    ) -> dict[tuple[str, str], dict[str, Any]]:
-        placeholders = ",".join("?" for _ in parameters)
-        connection = self.connect()
-        try:
-            rows = connection.execute(
-                f"""
-                SELECT date, parameter, value, fetched_at
-                FROM power_cache
-                WHERE lat = ? AND lon = ? AND parameter IN ({placeholders})
-                  AND date BETWEEN ? AND ?
-                """,
-                (lat, lon, *parameters, start, end),
-            ).fetchall()
-        finally:
-            connection.close()
-        return {
-            (row["date"], row["parameter"]): {
-                "value": row["value"],
-                "fetched_at": row["fetched_at"],
-            }
-            for row in rows
-        }
-
-    def upsert_power_rows(
-        self,
-        lat: float,
-        lon: float,
-        rows: list[tuple[str, str, float | None, str]],
-    ) -> None:
-        if not rows:
-            return
-        connection = self.connect()
-        try:
-            with connection:
-                connection.executemany(
-                    """
-                    INSERT INTO power_cache
-                        (lat, lon, parameter, date, value, fetched_at)
-                    VALUES (?, ?, ?, ?, ?, ?)
-                    ON CONFLICT(lat, lon, parameter, date)
-                    DO UPDATE SET value = excluded.value,
-                                  fetched_at = excluded.fetched_at
-                    """,
-                    [(lat, lon, *row) for row in rows],
-                )
-        finally:
-            connection.close()

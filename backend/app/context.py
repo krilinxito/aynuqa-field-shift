@@ -11,7 +11,6 @@ from app.db import Database
 from app.loader import MLLoader
 from app.services.chat import ChatService
 from app.services.history import HistoryService
-from app.services.nasa_power import NasaPowerClient
 from app.services.sensors import SensorSimulator
 
 
@@ -21,7 +20,6 @@ class AppContext:
     db: Database = field(init=False)
     loader: MLLoader = field(init=False)
     sensors: SensorSimulator = field(init=False)
-    power: NasaPowerClient = field(init=False)
     history: HistoryService = field(init=False)
     chat: ChatService = field(init=False)
 
@@ -29,7 +27,6 @@ class AppContext:
         self.db = Database(self.settings.database_file)
         self.loader = MLLoader(self.settings, self.db)
         self.sensors = SensorSimulator()
-        self.power = NasaPowerClient(self.settings, self.db)
         self.history = HistoryService(self)
         self.chat = ChatService(self)
 
@@ -38,9 +35,7 @@ class AppContext:
         self.loader.load_all()
 
     def shutdown(self) -> None:
-        close = getattr(self.power, "close", None)
-        if callable(close):
-            close()
+        pass
 
 
 def get_ctx(request: Request) -> AppContext:

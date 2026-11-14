@@ -185,12 +185,7 @@ class ToolRegistry:
             actual_to = series[-1]["date"] if series else None
             data_source = self.ctx.db.get_meta()["sources"]["history"]
         else:
-            result = self.ctx.history.get(
-                sector_id,
-                from_date,
-                to_date,
-                extend=False,
-            )
+            result = self.ctx.history.get(sector_id, from_date, to_date)
             series = result["series"]
             actual_from = result["from"]
             actual_to = result["to"]
