@@ -29,6 +29,8 @@ Imprescindible:
 
 Deseable: cliente `earthaccess` para IMERG y SMAP, reporte para la asamblea (markdown o PDF), Docker compose.
 
+Implementado como extra: reporte Markdown/HTML y Docker compose. `earthaccess` no se implementó; NASA POWER cubre los días recientes.
+
 Si sobra tiempo: canal de Telegram.
 
 ## Integración con ML
@@ -53,7 +55,7 @@ Cómo se cargan:
 
 ## Caché de NASA POWER
 
-El histórico desde 2000 es de ML. El cliente de Back solo cubre los días posteriores a la última fecha de `history.json`, para mostrar el estado reciente de la zona.
+El histórico desde 2000 es de ML. El cliente de Back solo completa el mes en curso cuando `history.json` es real y todavía no lo incluye, para mostrar el estado reciente de la zona.
 
 - Consulta `daily/point` con `T2M`, `PRECTOTCORR`, `GWETROOT` y `ALLSKY_SFC_SW_DWN`, una sola vez para la zona (no por sector).
 - Tabla `power_cache` con clave primaria `(lat, lon, parameter, date)`; `lat` y `lon` redondeadas a 2 decimales. Columnas: `value` y `fetched_at`.
@@ -145,12 +147,75 @@ Reglas:
 
 - Python 3.11 o superior, `requirements.txt` y entorno virtual (`python -m venv .venv`).
 - Puerto **8000**, el mismo de `VITE_API_BASE_URL` en el frontend.
-- Base SQLite en `backend/data/app.db` (ignorada en git). Tablas: `predictions`, `history`, `backtest`, `analogs` y `power_cache`.
+- Base SQLite en `backend/data/app.db` (ignorada en git). Tablas: `predictions`, `history_meta`, `history`, `backtests`, `analogs`, `power_cache` y `meta`.
 
 ## Configuración
 
-Copia `.env.example` a `.env` y completa los valores.
+Copia `.env.example` a `.env` y completa los valores:
+
+| Variable | Por defecto | Para qué |
+| --- | --- | --- |
+| `ML_OUTPUTS_DIR` | `../ml/outputs` | Archivos que exporta ML. Si faltan, se usan los mocks de `contracts/`. |
+| `CONTRACTS_DIR` | `../contracts` | Schemas para validar y ejemplos mock. |
+| `DATABASE_PATH` | `data/app.db` | SQLite local; se crea al iniciar. |
+| `ADMIN_TOKEN` | vacío | Cabecera `X-Admin-Token` de `/api/admin/reload`. Vacío = recarga deshabilitada (401). |
+| `LLM_API_KEY` | vacío | Clave de Google Gemini. |
+| `LLM_MODEL` | vacío | Modelo Flash, por ejemplo `gemini-2.5-flash`. Vacío = chat 502. |
+| `CORS_ORIGINS` | `*` | Orígenes permitidos, separados por comas. |
+| `NASA_POWER_LAT` / `NASA_POWER_LON` | `-17.09` / `-68.0` | Punto único de la zona. |
+| `NASA_POWER_TIMEOUT_S` | `30` | Timeout HTTP de NASA POWER. |
+
+No hay fallback local del chat: sin clave o sin modelo, `POST /api/chat` responde `502 llm_unavailable` en vez de inventar una respuesta.
 
 ## Cómo correr
 
-Pendiente: se documenta cuando exista la API. El comando previsto es `uvicorn app.main:app --reload --port 8000`.
+Desde `backend/`:
+
+```bash
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+cp .env.example .env
+.venv/bin/uvicorn app.main:app --reload --port 8000
+```
+
+Documentación interactiva: `http://localhost:8000/docs`.
+
+Al iniciar, la API crea `data/app.db`, valida los archivos de `ml/outputs/` y carga en SQLite los que existan. Si falta alguno o no cumple el schema, usa el mock correspondiente y lo reporta en `/health`.
+
+## Tests
+
+```bash
+cd backend
+.venv/bin/python -m pytest
+```
+
+Los tests cubren endpoints, validación contra `contracts/`, fallback mock/real, sensores, caché de NASA POWER y el loop de herramientas del chat. Para validar solo los contratos, desde la raíz:
+
+```bash
+backend/.venv/bin/python -m pytest contracts
+```
+
+## Reporte para la asamblea (extra)
+
+`GET /api/report?scenario=nino&format=md` devuelve un Markdown imprimible; con `format=html` devuelve una página lista para imprimir o guardar como PDF desde el navegador. No agrega cálculos: ordena la recomendación y la evidencia que ya vienen en `predictions.json`.
+
+Este endpoint **no está en `contracts/api.md`**; es un extra acordado con el equipo. Si el front lo va a consumir, conviene agregarlo al contrato.
+
+## Docker (opcional)
+
+Desde `backend/`:
+
+```bash
+docker compose up --build
+```
+
+El contexto de build es la raíz del repo para poder copiar `contracts/`. La base queda en `backend/data/` y `ml/outputs/` se monta como solo lectura.
+
+## Decisiones de implementación
+
+- **Mock primero:** mientras ML no entregue archivos, todos los `GET` sirven `contracts/examples/ml_outputs/` con `data_source: "mock"`. El fallback es por grupo: si un archivo real es inválido, solo ese grupo vuelve a mock.
+- **Back no calcula:** predicciones, anomalías, correlaciones y similitudes llegan ya calculadas. Back solo valida, guarda y sirve.
+- **NASA POWER:** se usa únicamente para completar el mes en curso cuando el histórico cargado es real y termina antes. Con histórico mock no se mezcla. La caché `(lat, lon, parameter, date)` evita repetir la consulta; los datos recientes caducan a las 24 h.
+- **Sensores:** simulados y deterministas con semilla 42 por `(sector_id, ts)`. Helada programada en `S1` (04:00–06:30) y estrés hídrico en `S2` (11:00–16:00); el resto de los sectores sigue el ciclo diario normal. `is_simulated: true` siempre.
+- **Chat:** Gemini con cinco herramientas, sin memoria y máximo 5 rondas. El modelo solo explica; no calcula ni cambia recomendaciones. Las cifras siempre salen de SQLite o del simulador.
+- **Recarga:** `ADMIN_TOKEN` vacío deshabilita `/api/admin/reload` con 401, en lugar de aceptar cualquier token.

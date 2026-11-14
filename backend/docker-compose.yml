@@ -1,0 +1,21 @@
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      ML_OUTPUTS_DIR: /ml/outputs
+      CONTRACTS_DIR: /contracts
+      DATABASE_PATH: /app/data/app.db
+      ADMIN_TOKEN: ${ADMIN_TOKEN:-}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_MODEL: ${LLM_MODEL:-gemini-2.5-flash}
+      CORS_ORIGINS: ${CORS_ORIGINS:-*}
+      NASA_POWER_LAT: ${NASA_POWER_LAT:--17.09}
+      NASA_POWER_LON: ${NASA_POWER_LON:--68.0}
+    volumes:
+      - ./data:/app/data
+      - ../ml/outputs:/ml/outputs:ro
+    restart: unless-stopped
