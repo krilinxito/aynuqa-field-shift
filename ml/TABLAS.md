@@ -4,6 +4,8 @@ Son la frontera entre las dos mitades del flujo: la parte de datos las produce y
 
 Todas viven en `ml/data/interim/`, que no se sube a git. Los CSV van en UTF-8, con el dato faltante como celda vacía.
 
+Se generan desde `ml/` con `python prep/build.py` (dependencias en `prep/requirements.txt`). Se puede repetir cuando llegue más NDVI: las zonas que aún no lo tienen quedan con esas columnas vacías.
+
 Varias definiciones de este archivo son provisionales y están marcadas así. Se cierran cuando lleguen los datos reales.
 
 ## Claves
@@ -30,6 +32,8 @@ Una `Feature` por sector, con el polígono en `[lon, lat]`. Propiedades:
 | `rotation_years` | entero | Años en ese estado. Simulado |
 | `is_simulated` | `true` | Los límites y la rotación son simulados |
 
+Cada zona tiene 8 sectores cuadrados de 750 m (unas 56 ha y unos 9 píxeles de MODIS), contiguos en 4 columnas y 2 filas, centrados en el punto de `zones.json`. La rotación simulada es un ciclo de 3 años de cultivo y 5 de descanso, desfasado entre sectores.
+
 ## 2. `monthly.csv`
 
 Una fila por sector y mes, desde `2000-01`.
@@ -37,24 +41,24 @@ Una fila por sector y mes, desde `2000-01`.
 | Columna | Unidad | Escala |
 | --- | --- | --- |
 | `zone_id`, `sector_id`, `date` | | |
-| `ndvi` | -1 a 1 | Sector. Vacío si no hay dato válido |
-| `precip_mm` | mm, total del mes | Zona |
-| `temp_c` | °C, media del mes | Zona |
-| `soil_moisture` | fracción de 0 a 1 | Zona |
+| `ndvi` | -1 a 1 | Sector. MODIS Terra y Aqua, píxeles con fiabilidad buena o marginal. Vacío si no hay dato válido |
+| `precip_mm` | mm, total del mes | Zona. NASA POWER `PRECTOTCORR` |
+| `temp_c` | °C, media del mes | Zona. NASA POWER `T2M` |
+| `soil_moisture` | fracción de 0 a 1 | Zona. NASA POWER `GWETROOT` (humedad relativa de la zona de raíces), porque cubre todas las zonas desde 2000. SMAP solo empieza en 2015 |
 | `roni` | índice | Global. Temporada de tres meses centrada en ese mes |
 
 Las columnas de zona se repiten idénticas en todos los sectores de la misma zona.
 
 ## 3. `features.csv`
 
-Una fila por sector y campaña. Todas las variables se conocen el 1 de octubre del año en que empieza la campaña; el objetivo se observa después.
+Una fila por sector y campaña. Todas las variables se conocen a inicios de octubre del año en que empieza la campaña; el objetivo se observa después.
 
 | Columna | Definición |
 | --- | --- |
 | `zone_id`, `sector_id`, `season` | |
 | `target_ndvi_anom` | Objetivo. Media de la anomalía de NDVI de febrero a abril de esa campaña. Vacío en la campaña en curso |
 | `is_prediction_row` | `true` en la campaña en curso (`2026-27`), que es la que se predice |
-| `roni_lag_0` ... `roni_lag_6` | RONI de septiembre (`lag_0`) y de los 6 meses anteriores |
+| `roni_lag_0` ... `roni_lag_6` | RONI de julio-agosto-septiembre (`lag_0`, centrada en agosto) y de las 6 temporadas anteriores. Es la última que NOAA publica a inicios de octubre; la de agosto-septiembre-octubre aún no se conoce |
 | `precip_anom_3m` | Anomalía de la lluvia de julio a septiembre |
 | `precip_anom_12m` | Anomalía de la lluvia de octubre a septiembre |
 | `temp_anom_3m` | Anomalía de la temperatura de julio a septiembre |
@@ -71,5 +75,6 @@ Una fila por sector y campaña. Todas las variables se conocen el 1 de octubre d
 ## Provisional
 
 - **Objetivo:** anomalía de NDVI de febrero a abril. La alternativa es el déficit de lluvia de la campaña.
-- **Fecha de decisión:** 1 de octubre.
+- **Fecha de decisión:** inicios de octubre.
+- **Tendencia del NDVI:** en Pumani el NDVI de febrero a abril sube unas 0,04 desviaciones por campaña desde 2000. Las anomalías no la quitan todavía.
 - **Cuántos sectores por zona:** por definir. La tabla admite cualquier cantidad.
