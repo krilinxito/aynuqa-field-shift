@@ -1,0 +1,14 @@
+{
+  "_note": "Lista preliminar. Las coordenadas son aproximadas (centro del pueblo) y la altitud es una verificacion rapida con SRTM 30 m; confirmar con NASADEM. box_km es el lado del recuadro que se pide a AppEEARS, centrado en la zona.",
+  "box_km": 10,
+  "zones": [
+    {"id": "pumani", "name": "Pumani", "role": "target", "lat": -17.09, "lon": -68.00, "elevation_m": 3928, "note": "Caso de estudio. Coordenadas por verificar."},
+    {"id": "patacamaya", "name": "Patacamaya", "role": "analog", "lat": -17.24, "lon": -67.92, "elevation_m": 3797, "note": "Probablemente comparte celda de NASA POWER con Pumani."},
+    {"id": "jesus_de_machaca", "name": "Jesus de Machaca", "role": "analog", "lat": -16.74, "lon": -68.81, "elevation_m": 3871, "note": ""},
+    {"id": "tiahuanaco", "name": "Tiahuanaco", "role": "analog", "lat": -16.55, "lon": -68.68, "elevation_m": 3855, "note": "Probablemente comparte celda de NASA POWER con Jesus de Machaca."},
+    {"id": "caquiaviri", "name": "Caquiaviri", "role": "analog", "lat": -17.02, "lon": -68.61, "elevation_m": 3932, "note": ""},
+    {"id": "sica_sica", "name": "Sica Sica", "role": "analog", "lat": -17.33, "lon": -67.73, "elevation_m": 3942, "note": ""},
+    {"id": "curahuara", "name": "Curahuara de Carangas", "role": "analog", "lat": -17.84, "lon": -68.41, "elevation_m": 3908, "note": ""},
+    {"id": "toledo", "name": "Toledo", "role": "analog", "lat": -18.18, "lon": -67.41, "elevation_m": 3714, "note": "Mas seca y calida que las zonas del norte."}
+  ]
+}
