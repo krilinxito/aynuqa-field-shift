@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Cuerpo de POST /api/chat",
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1000
+    },
+    "sector_id": {
+      "type": "string",
+      "pattern": "^S\\d+$"
+    },
+    "scenario": {
+      "enum": [
+        "normal",
+        "nino"
+      ]
+    }
+  },
+  "required": [
+    "message"
+  ],
+  "additionalProperties": false
+}

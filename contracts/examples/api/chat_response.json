@@ -1,0 +1,24 @@
+{
+  "answer": "Para el sector 3 la recomendación es: se puede abrir este sector para cultivo. El Niño aumenta la probabilidad de sequía este ciclo, aunque no la asegura. En una tierra parecida de Sica Sica, la vegetación estuvo por debajo de lo normal durante El Niño de 2015-16. Es un precedente, no una garantía. Confianza: media.",
+  "sources": [
+    {
+      "tool": "get_sector",
+      "sector_id": "S3",
+      "fields": [
+        "risk",
+        "recovery",
+        "recommendation"
+      ]
+    },
+    {
+      "tool": "get_twin_precedent",
+      "sector_id": "S3",
+      "fields": [
+        "twin_zone",
+        "observed_ndvi_anomaly"
+      ]
+    }
+  ],
+  "confidence_note": "Confianza media. Los límites del sector y los años de descanso son simulados.",
+  "updated_at": "2026-11-14T12:00:00-04:00"
+}

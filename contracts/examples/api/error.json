@@ -1,0 +1,6 @@
+{
+  "error": {
+    "code": "sector_not_found",
+    "message": "No existe el sector S99."
+  }
+}
