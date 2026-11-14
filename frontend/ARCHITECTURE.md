@@ -30,7 +30,7 @@ La arquitectura debe:
 
 ### Estado actual de los contratos
 
-En la inspección de Fase 00, `team/front` está en `0af0be7` y los contratos existen en `origin/main` a partir de `60055cb`/`cc85250`. La arquitectura se ha definido leyendo esos archivos directamente desde `origin/main`; deben integrarse en `team/front` antes de implementar la capa de datos.
+Los contratos ya están integrados. La rama `team/front` contiene `contracts/api.md`, los JSON Schemas y sus fixtures oficiales desde la sincronización con `cc85250`. La fundación de Fase 01 fue publicada en `e4ac466`; la capa de datos de Fase 02 puede derivar tipos y validar respuestas directamente contra los archivos presentes en esta rama, sin otra integración con `main`.
 
 ## 3. Estructura de carpetas propuesta
 

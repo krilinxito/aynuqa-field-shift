@@ -56,7 +56,7 @@ VITE_API_BASE_URL=http://localhost:8000
 VITE_DATA_MODE=mock
 ```
 
-`VITE_DATA_MODE=mock` es el modo predeterminado de desarrollo. La selección del repositorio se implementará en Fase 02. Todas las variables `VITE_*` quedan expuestas al navegador: nunca deben contener secretos, claves de Gemini ni tokens administrativos.
+`VITE_DATA_MODE=mock` es el modo predeterminado de desarrollo. Usa los fixtures oficiales de `contracts/examples/api/`. Para consumir FastAPI configura `VITE_DATA_MODE=api` y una `VITE_API_BASE_URL` HTTP(S) válida. No existe fallback silencioso desde API a mocks. Todas las variables `VITE_*` quedan expuestas al navegador: nunca deben contener secretos, claves de Gemini ni tokens administrativos.
 
 ## Cómo correr
 
@@ -87,16 +87,47 @@ npm run build
 
 `npm run test:watch` mantiene Vitest en modo interactivo durante desarrollo.
 
+## Contratos y capa de datos
+
+Los schemas de `../contracts/*.schema.json` son la fuente de verdad. La Fase 02 incorpora:
+
+- `DataRepository`, con implementaciones intercambiables `MockDataRepository` y `ApiDataRepository`;
+- AJV 2020-12 y `ajv-formats` para validar fixtures, respuestas HTTP y formatos `date-time`;
+- errores tipados para contrato, fixture ausente, red, timeout, API y configuración;
+- caché ligera en memoria con deduplicación, cancelación y conservación del último dato válido;
+- estado compartido de sector, escenario, rango y sección, sincronizado con la URL.
+
+Los DTOs se regeneran de forma reproducible:
+
+```bash
+npm run generate:types
+npm run check:generated-types
+```
+
+`json-schema-to-typescript` representa propiedades, enums, `null`, arrays y la referencia local `$defs/twin_precedent`. Restricciones que TypeScript no puede expresar por sí solo —formatos, patrones, mínimos, máximos y propiedades adicionales en datos externos— se aplican en runtime con AJV. Los archivos de `src/data/contracts/generated/` no se editan manualmente.
+
+Cobertura actual de mocks:
+
+- sectores S1–S8 en `nino` y `normal`;
+- histórico y sensores solo para S1, dentro de la cobertura de sus fixtures;
+- backtest solo para `2015-16`;
+- chat solo para la solicitud oficial exacta del fixture;
+- health según el fixture oficial.
+
+Una combinación sin fixture produce `FixtureMissingError`; nunca se generan datos para completar la demo.
+
+Discrepancia contractual conocida: `contracts/README.md` indica que RONI NOAA es el único dato real de los ejemplos, mientras `twin_precedent.schema.json` describe `is_simulated=false` como mediciones reales de NDVI y terreno. El frontend preserva los valores exactos sin corregirlos; el equipo de contratos debe resolver la redacción.
+
 ## Estado compartido entre rutas
 
-En Fase 01 la navegación conserva únicamente los parámetros `sector` y `scenario` al cambiar de sección. La URL será la fuente compartible de ese contexto. La validación de valores, hidratación desde datos y sincronización con estado de aplicación pertenecen a Fase 02; por ahora no se consulta ni se persiste ningún dato científico.
+La navegación conserva `sector` y `scenario` entre secciones. La URL es la fuente compartible; el sector se valida contra la respuesta disponible y se resuelve en este orden: URL válida, última selección local válida y primer sector. `from`, `to` y `section` solo se aceptan en `/analisis`. Las consultas contractuales permanecen fuera de los componentes visuales.
 
-## Estrategia JSON Schema para Fase 02
+## Estrategia JSON Schema
 
 Se adoptará una estrategia combinada, sin duplicar estructuras a mano:
 
-1. **`json-schema-to-typescript` como herramienta de desarrollo** para generar DTOs TypeScript desde `contracts/*.schema.json`. Los archivos generados llevarán cabecera de código generado y una tarea reproducible comprobará que no estén desactualizados.
+1. **`json-schema-to-typescript` como herramienta de desarrollo** genera DTOs TypeScript desde `contracts/*.schema.json`. Los archivos generados llevan cabecera de código generado y una tarea reproducible comprueba que no estén desactualizados.
 2. **AJV 2020 + `ajv-formats` en el límite de entrada** para validar fixtures y respuestas HTTP, incluyendo `date-time`, `null`, enums, `$defs` y `additionalProperties: false`.
 3. Los schemas de `contracts/` permanecerán como única fuente de verdad. Los modelos de presentación se construirán después mediante adaptadores tipados, sin cálculos científicos.
 
-Esta combinación separa dos necesidades: TypeScript protege el código durante compilación y AJV verifica datos externos en tiempo de ejecución. Las dependencias contractuales se instalarán y configurarán recién en Fase 02, después de medir su impacto en el bundle; el generador será exclusivamente de desarrollo.
+Esta combinación separa dos necesidades: TypeScript protege el código durante compilación y AJV verifica datos externos en tiempo de ejecución. El generador es exclusivamente una dependencia de desarrollo.

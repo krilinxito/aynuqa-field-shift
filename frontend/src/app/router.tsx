@@ -8,13 +8,13 @@ import { AssistantRoute } from '../routes/AssistantRoute'
 import { NotFoundRoute } from '../routes/NotFoundRoute'
 import { ReportRoute } from '../routes/ReportRoute'
 import { TerritoryRoute } from '../routes/TerritoryRoute'
-import { AppShell } from './layout/AppShell'
 import { RootRedirect } from './navigation/RootRedirect'
+import { AppProviders } from './providers/AppProviders'
 
 export const appRoutes: RouteObject[] = [
   {
     path: '/',
-    element: <AppShell />,
+    element: <AppProviders />,
     children: [
       { index: true, element: <RootRedirect /> },
       { path: 'territorio', element: <TerritoryRoute /> },

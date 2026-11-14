@@ -1,15 +1,17 @@
-const persistentKeys = ['sector', 'scenario'] as const
+import { isSectorId } from '../../data/repositories/inputValidation'
 
 export function getPersistentSearch(search: string): string {
   const source = new URLSearchParams(search)
   const persistent = new URLSearchParams()
+  const sector = source.get('sector')
+  const scenario = source.get('scenario')
 
-  for (const key of persistentKeys) {
-    const value = source.get(key)
+  if (isSectorId(sector)) {
+    persistent.set('sector', sector)
+  }
 
-    if (value !== null) {
-      persistent.set(key, value)
-    }
+  if (scenario === 'nino' || scenario === 'normal') {
+    persistent.set('scenario', scenario)
   }
 
   const result = persistent.toString()
