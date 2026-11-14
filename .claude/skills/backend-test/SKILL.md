@@ -7,14 +7,15 @@ description: Correr los tests del backend de Aynuqa Field Shift y validar los JS
 
 ## Cuándo usar
 
-Antes de cada commit en `team/back` y después de tocar endpoints, carga de ML o
-el simulador de sensores.
+Antes de cada commit en `team/back` y después de tocar endpoints, la carga de ML
+o el simulador de sensores.
 
 ## Pasos
 
-1. Activa el entorno virtual: `source .venv/bin/activate` (o créalo con
+1. Activa el entorno virtual: `source .venv/bin/activate` (créalo con
    `python -m venv .venv` si no existe).
-2. Instala dependencias si hace falta: `pip install -r requirements.txt`.
+2. Instala dependencias si hace falta: `pip install -r requirements.txt`
+   (el archivo es compatible también con `uv`).
 3. Corre los tests: `pytest -q`.
 4. Valida los ejemplos y los archivos de ML contra los schemas de `contracts/`
    usando `jsonschema`.
@@ -22,12 +23,15 @@ el simulador de sensores.
 
 ## Qué cubrir
 
-- Cada endpoint de `contracts/api.md` devuelve la forma correcta.
+- Cada endpoint de `contracts/api.md` devuelve la forma correcta (request,
+  response, unidades, `confidence`/`confidence_label`).
 - Los archivos de `ml/outputs/` cumplen su schema; si no, el backend sirve el
-  mock y lo dice en `/health`.
-- `POST /api/admin/reload` exige `X-Admin-Token`.
-- El simulador de sensores es reproducible (misma semilla 42 para
-  `(sector_id, ts)`) y marca `is_simulated: true`.
+  mock de `contracts/` y lo dice en `/health`.
+- El endpoint de recarga exige `X-Admin-Token`.
+- El simulador de sensores es **reproducible**: el mismo `(sector_id, ts)` con
+  semilla fija 42 devuelve el mismo valor, y todo lleva `is_simulated: true`.
+- El simulador dispara sus 2 eventos (helada con `air_temp_c <= 0`; estrés
+  hídrico con `soil_moisture < 12` y `canopy_temp_delta_c > 2.5`).
 
 ## Regla
 
