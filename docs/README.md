@@ -15,3 +15,4 @@ Material de la entrega, a cargo de todos los equipos.
 - Presentar El Niño como el estado real de hoy (RONI +1,97 en agosto-octubre de 2026), no como un escenario hipotético.
 - Explicar la escala: el clima es de la zona; entre sectores solo cambian la vegetación y el terreno.
 - Si el backtest sale modesto, decirlo.
+- Tierras gemelas: decir "territorios análogos del altiplano", no "escalabilidad global". El precedente es evidencia de vegetación (NDVI), no de rendimiento de cultivos.

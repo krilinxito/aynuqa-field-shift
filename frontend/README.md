@@ -37,6 +37,8 @@ Imprescindible:
 - Panel de chat conectado a `POST /api/chat`, con sugerencias de preguntas.
 - Reporte imprimible para la asamblea.
 
+- Precedente de tierra gemela en el panel del sector, cuando exista: zona, parecido y qué pasó con la vegetación, presentado como precedente y no como garantía.
+
 Deseable: panel de sensores con alertas (helada, estrés), vista de backtest, comparación lado a lado El Niño vs normal.
 
 Si sobra tiempo: modo narrativo para el pitch.
