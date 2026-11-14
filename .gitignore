@@ -22,8 +22,9 @@ ml/data/*
 *.sqlite3
 *.db
 
-# Sistema y editores
+#SISTEMA DE EDITORES
 .DS_Store
 Thumbs.db
 .vscode/
 .idea/
+
