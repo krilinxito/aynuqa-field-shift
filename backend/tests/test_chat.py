@@ -179,3 +179,47 @@ def test_tools_read_from_sqlite(client: TestClient, ctx) -> None:
     )
     assert normal_twin["found"] is False
     assert len(tracker.sources()) == 5
+
+
+def test_chat_openapi_documents_tool_calling(client: TestClient) -> None:
+    schema = client.get("/openapi.json").json()
+    operation = schema["paths"]["/api/chat"]["post"]
+
+    assert operation["summary"] == "Chat de la asamblea con tool calling"
+    for tool in (
+        "get_sector",
+        "compare_scenarios",
+        "get_history",
+        "get_sensors",
+        "get_twin_precedent",
+    ):
+        assert tool in operation["description"]
+
+    success = operation["responses"]["200"]["content"]["application/json"]["schema"]
+    assert success["$ref"] == "#/components/schemas/ChatResponse"
+
+    for status in ("404", "422", "502"):
+        response = operation["responses"][status]
+        assert response["content"]["application/json"]["schema"]["$ref"] == (
+            "#/components/schemas/ErrorResponse"
+        )
+
+    components = schema["components"]["schemas"]
+    assert set(components["ChatResponse"]["properties"]) == {
+        "answer",
+        "sources",
+        "confidence_note",
+        "updated_at",
+    }
+    assert set(components["ChatSource"]["properties"]) == {
+        "tool",
+        "sector_id",
+        "fields",
+    }
+    assert components["ChatSource"]["properties"]["tool"]["enum"] == [
+        "get_sector",
+        "compare_scenarios",
+        "get_history",
+        "get_sensors",
+        "get_twin_precedent",
+    ]
