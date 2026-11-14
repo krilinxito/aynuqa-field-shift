@@ -2,47 +2,36 @@
 
 Contrato de datos compartido entre Back, ML y Front. Es el acuerdo entre los tres equipos: si necesitas cambiarlo, avisa antes de tocarlo.
 
-## Qué va aquí
+## Qué hay
 
-- `sector_risk.schema.json`: schema JSON de la respuesta por sector (riesgo de sequía, recuperación, recomendación, confianza, `is_simulated`).
-- `api.md`: endpoints de la API con request, response y ejemplo de cada uno.
-- Schemas de los archivos que ML entrega a Back.
-- Ejemplos JSON válidos de cada respuesta, que sirven de mock para Front y Back.
-- Un test pequeño que valida los ejemplos con `jsonschema`.
+- `api.md`: endpoints, convenciones, unidades y errores.
+- `ml_outputs.md`: archivos que ML entrega a Back.
+- `*.schema.json`: un schema JSON por respuesta.
+- `examples/api/`: un ejemplo por endpoint. Front los usa como mock.
+- `examples/ml_outputs/`: un juego completo de archivos de ML de ejemplo. Back los sirve hasta que lleguen los reales.
+- `tests/`: valida todos los ejemplos contra sus schemas.
 
-## Endpoints previstos
+Los ejemplos son datos inventados para desarrollar, con 8 sectores simulados cerca de lat -17.09, lon -68.0. Llevan `"data_source": "mock"`. El único dato real que contienen es el RONI de NOAA.
 
-- `GET /api/sectors?scenario=normal|nino`
-- `GET /api/sectors/{id}/history?from=2000-01&to=2026-11`
-- `GET /api/sectors/{id}/sensors?hours=48`
-- `GET /api/backtest?event=2015-16`
-- `POST /api/chat`
-- `POST /api/admin/reload` (interno, con `X-Admin-Token`)
-- `GET /health`
+## Cómo validar
 
-## Archivos entre ML y Back
+Desde la raíz del repo:
 
-ML los deja en `ml/outputs/`; Back los carga en SQLite al iniciar y con `POST /api/admin/reload`.
+```
+pip install -r contracts/requirements.txt
+pytest contracts
+```
 
-| Archivo | Lo sirve |
-| --- | --- |
-| `predictions.json` | `GET /api/sectors` |
-| `history.json` | `GET /api/sectors/{id}/history` |
-| `backtest_<evento>.json` (por ejemplo, `backtest_2015-16.json`) | `GET /api/backtest` |
-| `analogs.json` | Herramienta de chat `get_twin_precedent` |
+## Decisiones del contrato
 
-## A tener en cuenta al definirlo
-
-- El índice de El Niño es el RONI de NOAA: en la serie histórica el campo es `roni`, no `oni`.
+- El índice de El Niño es el RONI de NOAA: el campo es `roni`.
 - `scenario=nino` es el estado real de hoy; `scenario=normal` es la comparación.
-- El clima (lluvia, temperatura, humedad de suelo) es de la zona, igual para todos los sectores. Conviene que el schema lo separe de los datos por sector (NDVI, terreno, recuperación, recomendación).
-- Declarar la unidad de cada campo. `soil_moisture` es un porcentaje en los sensores y una fracción de 0 a 1 en el histórico.
-- El backtest devuelve primero una serie temporal de la zona. La parte por sector lleva solo la anomalía de NDVI, y el Spearman por sector es secundario. Back no calcula nada: devuelve lo que exportó ML.
-- El precedente de tierra gemela lleva tierra gemela, similitud, evento y anomalía de NDVI observada. No lleva cultivo ni porcentaje de pérdida.
-- La confianza va como número (0 a 1) y como palabra (`baja`, `media`, `alta`).
-- El chat es stateless: `{message, sector_id?, scenario?}` y nada más.
-- Las respuestas incluyen la fecha de actualización, porque la app las guarda para usarlas sin señal.
+- El clima va en `zone`, una sola vez, porque es igual para todos los sectores. Por sector van el NDVI, el terreno, la rotación, el riesgo, la recuperación y la recomendación.
+- `soil_moisture` es una fracción de 0 a 1 en el clima y en el histórico. En los sensores el campo se llama `soil_moisture_pct` y es un porcentaje.
+- El backtest pone primero la serie temporal de la zona. La parte por sector es secundaria y solo usa NDVI.
+- El precedente de tierra gemela informa la anomalía de NDVI observada. No lleva cultivo ni porcentaje de pérdida.
+- La confianza va como número y como palabra (`baja`, `media`, `alta`).
+- El chat es stateless.
+- Los schemas no admiten campos extra: un campo nuevo es un cambio de contrato.
 
-## Estado
-
-Todavía no hay schema ni ejemplos. Definirlos es el primer PR a `main` y lo hace una sola persona.
+El precedente de tierra gemela está definido en `twin_precedent.schema.json` y repetido dentro de `sector_risk.schema.json`. Si cambias uno, cambia el otro; el test falla si quedan distintos.

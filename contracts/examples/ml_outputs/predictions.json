@@ -1,0 +1,1789 @@
+{
+  "generated_at": "2026-11-14T12:00:00-04:00",
+  "scenarios": {
+    "normal": {
+      "updated_at": "2026-11-14T12:00:00-04:00",
+      "data_source": "mock",
+      "scenario": "normal",
+      "zone": {
+        "id": "pumani",
+        "name": "Pumani",
+        "lat": -17.09,
+        "lon": -68.0,
+        "roni": {
+          "value": 0.0,
+          "season": null,
+          "year": null,
+          "kind": "assumed"
+        },
+        "climate": {
+          "period": "2026-10",
+          "precip_mm": 11.4,
+          "precip_anomaly_pct": -38.0,
+          "temp_c": 9.6,
+          "temp_anomaly_c": 0.9,
+          "soil_moisture": 0.38,
+          "soil_moisture_anomaly": -0.07
+        }
+      },
+      "sectors": [
+        {
+          "id": "S1",
+          "name": "Sector 1",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -68.012,
+                  -17.095
+                ],
+                [
+                  -68.006,
+                  -17.095
+                ],
+                [
+                  -68.006,
+                  -17.09
+                ],
+                [
+                  -68.012,
+                  -17.09
+                ],
+                [
+                  -68.012,
+                  -17.095
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.0925,
+            "lon": -68.009
+          },
+          "area_ha": 35.2,
+          "terrain": {
+            "elevation_m": 3905,
+            "slope_pct": 2.2,
+            "aspect_deg": 120
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 10,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.27,
+            "ndvi_anomaly": 0.57
+          },
+          "risk": {
+            "score": 0.2,
+            "level": "low",
+            "interval": {
+              "low": 0.08,
+              "high": 0.32
+            },
+            "confidence": 0.62,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_3",
+                "label": "El Niño no está activo",
+                "direction": "decreases",
+                "weight": 0.22
+              },
+              {
+                "feature": "precip_anomaly",
+                "label": "Llovió menos de lo normal",
+                "direction": "increases",
+                "weight": 0.27
+              },
+              {
+                "feature": "ndvi_prev",
+                "label": "La vegetación viene bien",
+                "direction": "decreases",
+                "weight": 0.18
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.96,
+            "level": "high",
+            "confidence": 0.6,
+            "confidence_label": "media",
+            "ndvi_residual": 0.046
+          },
+          "recommendation": {
+            "action": "open",
+            "text": "Se puede abrir este sector para cultivo.",
+            "reasons": [
+              "Descansó 10 años y el suelo se recuperó bien.",
+              "El riesgo de sequía no es alto."
+            ],
+            "extend_rest_years": null,
+            "crop": "papa",
+            "sowing_window": "octubre a noviembre",
+            "confidence": 0.6,
+            "confidence_label": "media"
+          },
+          "twin_precedent": null,
+          "is_simulated": true
+        },
+        {
+          "id": "S2",
+          "name": "Sector 2",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -68.006,
+                  -17.095
+                ],
+                [
+                  -68.0,
+                  -17.095
+                ],
+                [
+                  -68.0,
+                  -17.09
+                ],
+                [
+                  -68.006,
+                  -17.09
+                ],
+                [
+                  -68.006,
+                  -17.095
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.0925,
+            "lon": -68.003
+          },
+          "area_ha": 35.2,
+          "terrain": {
+            "elevation_m": 3914,
+            "slope_pct": 3.6,
+            "aspect_deg": 285
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 9,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.252,
+            "ndvi_anomaly": 0.4
+          },
+          "risk": {
+            "score": 0.29,
+            "level": "low",
+            "interval": {
+              "low": 0.17,
+              "high": 0.41
+            },
+            "confidence": 0.62,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_3",
+                "label": "El Niño no está activo",
+                "direction": "decreases",
+                "weight": 0.22
+              },
+              {
+                "feature": "precip_anomaly",
+                "label": "Llovió menos de lo normal",
+                "direction": "increases",
+                "weight": 0.27
+              },
+              {
+                "feature": "ndvi_prev",
+                "label": "La vegetación viene bien",
+                "direction": "decreases",
+                "weight": 0.18
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.85,
+            "level": "high",
+            "confidence": 0.6,
+            "confidence_label": "media",
+            "ndvi_residual": 0.035
+          },
+          "recommendation": {
+            "action": "open",
+            "text": "Se puede abrir este sector para cultivo.",
+            "reasons": [
+              "Descansó 9 años y el suelo se recuperó bien.",
+              "El riesgo de sequía no es alto."
+            ],
+            "extend_rest_years": null,
+            "crop": "papa",
+            "sowing_window": "octubre a noviembre",
+            "confidence": 0.6,
+            "confidence_label": "media"
+          },
+          "twin_precedent": null,
+          "is_simulated": true
+        },
+        {
+          "id": "S3",
+          "name": "Sector 3",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -68.0,
+                  -17.095
+                ],
+                [
+                  -67.994,
+                  -17.095
+                ],
+                [
+                  -67.994,
+                  -17.09
+                ],
+                [
+                  -68.0,
+                  -17.09
+                ],
+                [
+                  -68.0,
+                  -17.095
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.0925,
+            "lon": -67.997
+          },
+          "area_ha": 35.2,
+          "terrain": {
+            "elevation_m": 3923,
+            "slope_pct": 7.6,
+            "aspect_deg": 330
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 7,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.243,
+            "ndvi_anomaly": 0.18
+          },
+          "risk": {
+            "score": 0.24,
+            "level": "low",
+            "interval": {
+              "low": 0.12,
+              "high": 0.36
+            },
+            "confidence": 0.62,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_3",
+                "label": "El Niño no está activo",
+                "direction": "decreases",
+                "weight": 0.22
+              },
+              {
+                "feature": "precip_anomaly",
+                "label": "Llovió menos de lo normal",
+                "direction": "increases",
+                "weight": 0.27
+              },
+              {
+                "feature": "ndvi_prev",
+                "label": "La vegetación viene bien",
+                "direction": "decreases",
+                "weight": 0.18
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.7,
+            "level": "high",
+            "confidence": 0.6,
+            "confidence_label": "media",
+            "ndvi_residual": 0.02
+          },
+          "recommendation": {
+            "action": "open",
+            "text": "Se puede abrir este sector para cultivo.",
+            "reasons": [
+              "Descansó 7 años y el suelo se recuperó bien.",
+              "El riesgo de sequía no es alto."
+            ],
+            "extend_rest_years": null,
+            "crop": "papa",
+            "sowing_window": "octubre a noviembre",
+            "confidence": 0.6,
+            "confidence_label": "media"
+          },
+          "twin_precedent": null,
+          "is_simulated": true
+        },
+        {
+          "id": "S4",
+          "name": "Sector 4",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -67.994,
+                  -17.095
+                ],
+                [
+                  -67.988,
+                  -17.095
+                ],
+                [
+                  -67.988,
+                  -17.09
+                ],
+                [
+                  -67.994,
+                  -17.09
+                ],
+                [
+                  -67.994,
+                  -17.095
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.0925,
+            "lon": -67.991
+          },
+          "area_ha": 35.2,
+          "terrain": {
+            "elevation_m": 3932,
+            "slope_pct": 3.9,
+            "aspect_deg": 15
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 5,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.235,
+            "ndvi_anomaly": 0.05
+          },
+          "risk": {
+            "score": 0.35,
+            "level": "medium",
+            "interval": {
+              "low": 0.23,
+              "high": 0.47
+            },
+            "confidence": 0.62,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_3",
+                "label": "El Niño no está activo",
+                "direction": "decreases",
+                "weight": 0.22
+              },
+              {
+                "feature": "precip_anomaly",
+                "label": "Llovió menos de lo normal",
+                "direction": "increases",
+                "weight": 0.27
+              },
+              {
+                "feature": "ndvi_prev",
+                "label": "La vegetación viene bien",
+                "direction": "decreases",
+                "weight": 0.18
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.59,
+            "level": "medium",
+            "confidence": 0.6,
+            "confidence_label": "media",
+            "ndvi_residual": 0.009
+          },
+          "recommendation": {
+            "action": "extend_rest",
+            "text": "Mantener este sector en descanso.",
+            "reasons": [
+              "Lleva 5 años de descanso y el suelo aún no se recuperó lo suficiente."
+            ],
+            "extend_rest_years": 1,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.6,
+            "confidence_label": "media"
+          },
+          "twin_precedent": null,
+          "is_simulated": true
+        },
+        {
+          "id": "S5",
+          "name": "Sector 5",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -68.012,
+                  -17.09
+                ],
+                [
+                  -68.006,
+                  -17.09
+                ],
+                [
+                  -68.006,
+                  -17.085
+                ],
+                [
+                  -68.012,
+                  -17.085
+                ],
+                [
+                  -68.012,
+                  -17.09
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.0875,
+            "lon": -68.009
+          },
+          "area_ha": 35.2,
+          "terrain": {
+            "elevation_m": 3941,
+            "slope_pct": 6.0,
+            "aspect_deg": 330
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 3,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.21,
+            "ndvi_anomaly": -0.09
+          },
+          "risk": {
+            "score": 0.34,
+            "level": "medium",
+            "interval": {
+              "low": 0.22,
+              "high": 0.46
+            },
+            "confidence": 0.62,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_3",
+                "label": "El Niño no está activo",
+                "direction": "decreases",
+                "weight": 0.22
+              },
+              {
+                "feature": "precip_anomaly",
+                "label": "Llovió menos de lo normal",
+                "direction": "increases",
+                "weight": 0.27
+              },
+              {
+                "feature": "ndvi_prev",
+                "label": "La vegetación viene baja",
+                "direction": "increases",
+                "weight": 0.18
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.49,
+            "level": "medium",
+            "confidence": 0.6,
+            "confidence_label": "media",
+            "ndvi_residual": -0.001
+          },
+          "recommendation": {
+            "action": "extend_rest",
+            "text": "Mantener este sector en descanso.",
+            "reasons": [
+              "Lleva 3 años de descanso y el suelo aún no se recuperó lo suficiente."
+            ],
+            "extend_rest_years": 1,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.6,
+            "confidence_label": "media"
+          },
+          "twin_precedent": null,
+          "is_simulated": true
+        },
+        {
+          "id": "S6",
+          "name": "Sector 6",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -68.006,
+                  -17.09
+                ],
+                [
+                  -68.0,
+                  -17.09
+                ],
+                [
+                  -68.0,
+                  -17.085
+                ],
+                [
+                  -68.006,
+                  -17.085
+                ],
+                [
+                  -68.006,
+                  -17.09
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.0875,
+            "lon": -68.003
+          },
+          "area_ha": 35.2,
+          "terrain": {
+            "elevation_m": 3950,
+            "slope_pct": 7.8,
+            "aspect_deg": 75
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 1,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.195,
+            "ndvi_anomaly": -0.45
+          },
+          "risk": {
+            "score": 0.28,
+            "level": "low",
+            "interval": {
+              "low": 0.16,
+              "high": 0.4
+            },
+            "confidence": 0.62,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_3",
+                "label": "El Niño no está activo",
+                "direction": "decreases",
+                "weight": 0.22
+              },
+              {
+                "feature": "precip_anomaly",
+                "label": "Llovió menos de lo normal",
+                "direction": "increases",
+                "weight": 0.27
+              },
+              {
+                "feature": "ndvi_prev",
+                "label": "La vegetación viene baja",
+                "direction": "increases",
+                "weight": 0.18
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.32,
+            "level": "low",
+            "confidence": 0.6,
+            "confidence_label": "media",
+            "ndvi_residual": -0.018
+          },
+          "recommendation": {
+            "action": "extend_rest",
+            "text": "Mantener este sector en descanso.",
+            "reasons": [
+              "Lleva 1 años de descanso y el suelo aún no se recuperó lo suficiente."
+            ],
+            "extend_rest_years": 2,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.6,
+            "confidence_label": "media"
+          },
+          "twin_precedent": null,
+          "is_simulated": true
+        },
+        {
+          "id": "S7",
+          "name": "Sector 7",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -68.0,
+                  -17.09
+                ],
+                [
+                  -67.994,
+                  -17.09
+                ],
+                [
+                  -67.994,
+                  -17.085
+                ],
+                [
+                  -68.0,
+                  -17.085
+                ],
+                [
+                  -68.0,
+                  -17.09
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.0875,
+            "lon": -67.997
+          },
+          "area_ha": 35.2,
+          "terrain": {
+            "elevation_m": 3959,
+            "slope_pct": 3.1,
+            "aspect_deg": 180
+          },
+          "rotation": {
+            "status": "cultivated",
+            "years_in_status": 2,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.194,
+            "ndvi_anomaly": -0.3
+          },
+          "risk": {
+            "score": 0.35,
+            "level": "medium",
+            "interval": {
+              "low": 0.23,
+              "high": 0.47
+            },
+            "confidence": 0.62,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_3",
+                "label": "El Niño no está activo",
+                "direction": "decreases",
+                "weight": 0.22
+              },
+              {
+                "feature": "precip_anomaly",
+                "label": "Llovió menos de lo normal",
+                "direction": "increases",
+                "weight": 0.27
+              },
+              {
+                "feature": "ndvi_prev",
+                "label": "La vegetación viene baja",
+                "direction": "increases",
+                "weight": 0.18
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.32,
+            "level": "low",
+            "confidence": 0.6,
+            "confidence_label": "media",
+            "ndvi_residual": -0.018
+          },
+          "recommendation": {
+            "action": "keep_cultivating",
+            "text": "Seguir cultivando este sector un año más.",
+            "reasons": [
+              "Lleva 2 años de cultivo, dentro del ciclo."
+            ],
+            "extend_rest_years": null,
+            "crop": "quinua",
+            "sowing_window": "octubre a noviembre",
+            "confidence": 0.6,
+            "confidence_label": "media"
+          },
+          "twin_precedent": null,
+          "is_simulated": true
+        },
+        {
+          "id": "S8",
+          "name": "Sector 8",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -67.994,
+                  -17.09
+                ],
+                [
+                  -67.988,
+                  -17.09
+                ],
+                [
+                  -67.988,
+                  -17.085
+                ],
+                [
+                  -67.994,
+                  -17.085
+                ],
+                [
+                  -67.994,
+                  -17.09
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.0875,
+            "lon": -67.991
+          },
+          "area_ha": 35.2,
+          "terrain": {
+            "elevation_m": 3968,
+            "slope_pct": 7.6,
+            "aspect_deg": 180
+          },
+          "rotation": {
+            "status": "cultivated",
+            "years_in_status": 3,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.195,
+            "ndvi_anomaly": -0.43
+          },
+          "risk": {
+            "score": 0.4,
+            "level": "medium",
+            "interval": {
+              "low": 0.28,
+              "high": 0.52
+            },
+            "confidence": 0.62,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_3",
+                "label": "El Niño no está activo",
+                "direction": "decreases",
+                "weight": 0.22
+              },
+              {
+                "feature": "precip_anomaly",
+                "label": "Llovió menos de lo normal",
+                "direction": "increases",
+                "weight": 0.27
+              },
+              {
+                "feature": "ndvi_prev",
+                "label": "La vegetación viene baja",
+                "direction": "increases",
+                "weight": 0.18
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.33,
+            "level": "medium",
+            "confidence": 0.6,
+            "confidence_label": "media",
+            "ndvi_residual": -0.017
+          },
+          "recommendation": {
+            "action": "start_rest",
+            "text": "Pasar este sector a descanso cuando termine la cosecha.",
+            "reasons": [
+              "Ya lleva 3 años de cultivo.",
+              "El suelo necesita recuperarse."
+            ],
+            "extend_rest_years": null,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.6,
+            "confidence_label": "media"
+          },
+          "twin_precedent": null,
+          "is_simulated": true
+        }
+      ]
+    },
+    "nino": {
+      "updated_at": "2026-11-14T12:00:00-04:00",
+      "data_source": "mock",
+      "scenario": "nino",
+      "zone": {
+        "id": "pumani",
+        "name": "Pumani",
+        "lat": -17.09,
+        "lon": -68.0,
+        "roni": {
+          "value": 1.97,
+          "season": "ASO",
+          "year": 2026,
+          "kind": "observed"
+        },
+        "climate": {
+          "period": "2026-10",
+          "precip_mm": 11.4,
+          "precip_anomaly_pct": -38.0,
+          "temp_c": 9.6,
+          "temp_anomaly_c": 0.9,
+          "soil_moisture": 0.38,
+          "soil_moisture_anomaly": -0.07
+        }
+      },
+      "sectors": [
+        {
+          "id": "S1",
+          "name": "Sector 1",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -68.012,
+                  -17.095
+                ],
+                [
+                  -68.006,
+                  -17.095
+                ],
+                [
+                  -68.006,
+                  -17.09
+                ],
+                [
+                  -68.012,
+                  -17.09
+                ],
+                [
+                  -68.012,
+                  -17.095
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.0925,
+            "lon": -68.009
+          },
+          "area_ha": 35.2,
+          "terrain": {
+            "elevation_m": 3905,
+            "slope_pct": 2.2,
+            "aspect_deg": 120
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 10,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.27,
+            "ndvi_anomaly": 0.57
+          },
+          "risk": {
+            "score": 0.52,
+            "level": "medium",
+            "interval": {
+              "low": 0.4,
+              "high": 0.64
+            },
+            "confidence": 0.55,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_3",
+                "label": "El Niño está fuerte",
+                "direction": "increases",
+                "weight": 0.41
+              },
+              {
+                "feature": "precip_anomaly",
+                "label": "Llovió menos de lo normal",
+                "direction": "increases",
+                "weight": 0.27
+              },
+              {
+                "feature": "ndvi_prev",
+                "label": "La vegetación viene bien",
+                "direction": "decreases",
+                "weight": 0.18
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.96,
+            "level": "high",
+            "confidence": 0.6,
+            "confidence_label": "media",
+            "ndvi_residual": 0.046
+          },
+          "recommendation": {
+            "action": "open",
+            "text": "Se puede abrir este sector para cultivo.",
+            "reasons": [
+              "Descansó 10 años y el suelo se recuperó bien.",
+              "El riesgo de sequía no es alto."
+            ],
+            "extend_rest_years": null,
+            "crop": "quinua",
+            "sowing_window": "octubre a noviembre",
+            "confidence": 0.55,
+            "confidence_label": "media"
+          },
+          "twin_precedent": {
+            "sector_id": "S1",
+            "twin_zone": "Jesús de Machaca",
+            "twin_elevation_m": 3871,
+            "twin_slope_pct": 5.8,
+            "similarity": 0.91,
+            "event": "2015-16",
+            "observed_ndvi_anomaly": -0.67,
+            "confidence": 0.6,
+            "confidence_label": "media",
+            "is_simulated": false
+          },
+          "is_simulated": true
+        },
+        {
+          "id": "S2",
+          "name": "Sector 2",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -68.006,
+                  -17.095
+                ],
+                [
+                  -68.0,
+                  -17.095
+                ],
+                [
+                  -68.0,
+                  -17.09
+                ],
+                [
+                  -68.006,
+                  -17.09
+                ],
+                [
+                  -68.006,
+                  -17.095
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.0925,
+            "lon": -68.003
+          },
+          "area_ha": 35.2,
+          "terrain": {
+            "elevation_m": 3914,
+            "slope_pct": 3.6,
+            "aspect_deg": 285
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 9,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.252,
+            "ndvi_anomaly": 0.4
+          },
+          "risk": {
+            "score": 0.61,
+            "level": "medium",
+            "interval": {
+              "low": 0.49,
+              "high": 0.73
+            },
+            "confidence": 0.55,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_3",
+                "label": "El Niño está fuerte",
+                "direction": "increases",
+                "weight": 0.41
+              },
+              {
+                "feature": "precip_anomaly",
+                "label": "Llovió menos de lo normal",
+                "direction": "increases",
+                "weight": 0.27
+              },
+              {
+                "feature": "ndvi_prev",
+                "label": "La vegetación viene bien",
+                "direction": "decreases",
+                "weight": 0.18
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.85,
+            "level": "high",
+            "confidence": 0.6,
+            "confidence_label": "media",
+            "ndvi_residual": 0.035
+          },
+          "recommendation": {
+            "action": "open",
+            "text": "Se puede abrir este sector para cultivo.",
+            "reasons": [
+              "Descansó 9 años y el suelo se recuperó bien.",
+              "El riesgo de sequía no es alto."
+            ],
+            "extend_rest_years": null,
+            "crop": "quinua",
+            "sowing_window": "octubre a noviembre",
+            "confidence": 0.55,
+            "confidence_label": "media"
+          },
+          "twin_precedent": {
+            "sector_id": "S2",
+            "twin_zone": "Caquiaviri",
+            "twin_elevation_m": 3932,
+            "twin_slope_pct": 3.5,
+            "similarity": 0.88,
+            "event": "2015-16",
+            "observed_ndvi_anomaly": -0.67,
+            "confidence": 0.6,
+            "confidence_label": "media",
+            "is_simulated": false
+          },
+          "is_simulated": true
+        },
+        {
+          "id": "S3",
+          "name": "Sector 3",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -68.0,
+                  -17.095
+                ],
+                [
+                  -67.994,
+                  -17.095
+                ],
+                [
+                  -67.994,
+                  -17.09
+                ],
+                [
+                  -68.0,
+                  -17.09
+                ],
+                [
+                  -68.0,
+                  -17.095
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.0925,
+            "lon": -67.997
+          },
+          "area_ha": 35.2,
+          "terrain": {
+            "elevation_m": 3923,
+            "slope_pct": 7.6,
+            "aspect_deg": 330
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 7,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.243,
+            "ndvi_anomaly": 0.18
+          },
+          "risk": {
+            "score": 0.56,
+            "level": "medium",
+            "interval": {
+              "low": 0.44,
+              "high": 0.68
+            },
+            "confidence": 0.55,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_3",
+                "label": "El Niño está fuerte",
+                "direction": "increases",
+                "weight": 0.41
+              },
+              {
+                "feature": "precip_anomaly",
+                "label": "Llovió menos de lo normal",
+                "direction": "increases",
+                "weight": 0.27
+              },
+              {
+                "feature": "ndvi_prev",
+                "label": "La vegetación viene bien",
+                "direction": "decreases",
+                "weight": 0.18
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.7,
+            "level": "high",
+            "confidence": 0.6,
+            "confidence_label": "media",
+            "ndvi_residual": 0.02
+          },
+          "recommendation": {
+            "action": "open",
+            "text": "Se puede abrir este sector para cultivo.",
+            "reasons": [
+              "Descansó 7 años y el suelo se recuperó bien.",
+              "El riesgo de sequía no es alto."
+            ],
+            "extend_rest_years": null,
+            "crop": "quinua",
+            "sowing_window": "octubre a noviembre",
+            "confidence": 0.55,
+            "confidence_label": "media"
+          },
+          "twin_precedent": {
+            "sector_id": "S3",
+            "twin_zone": "Sica Sica",
+            "twin_elevation_m": 3942,
+            "twin_slope_pct": 2.7,
+            "similarity": 0.91,
+            "event": "2015-16",
+            "observed_ndvi_anomaly": -0.86,
+            "confidence": 0.6,
+            "confidence_label": "media",
+            "is_simulated": false
+          },
+          "is_simulated": true
+        },
+        {
+          "id": "S4",
+          "name": "Sector 4",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -67.994,
+                  -17.095
+                ],
+                [
+                  -67.988,
+                  -17.095
+                ],
+                [
+                  -67.988,
+                  -17.09
+                ],
+                [
+                  -67.994,
+                  -17.09
+                ],
+                [
+                  -67.994,
+                  -17.095
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.0925,
+            "lon": -67.991
+          },
+          "area_ha": 35.2,
+          "terrain": {
+            "elevation_m": 3932,
+            "slope_pct": 3.9,
+            "aspect_deg": 15
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 5,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.235,
+            "ndvi_anomaly": 0.05
+          },
+          "risk": {
+            "score": 0.67,
+            "level": "high",
+            "interval": {
+              "low": 0.55,
+              "high": 0.79
+            },
+            "confidence": 0.55,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_3",
+                "label": "El Niño está fuerte",
+                "direction": "increases",
+                "weight": 0.41
+              },
+              {
+                "feature": "precip_anomaly",
+                "label": "Llovió menos de lo normal",
+                "direction": "increases",
+                "weight": 0.27
+              },
+              {
+                "feature": "ndvi_prev",
+                "label": "La vegetación viene bien",
+                "direction": "decreases",
+                "weight": 0.18
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.59,
+            "level": "medium",
+            "confidence": 0.6,
+            "confidence_label": "media",
+            "ndvi_residual": 0.009
+          },
+          "recommendation": {
+            "action": "extend_rest",
+            "text": "Mantener este sector en descanso.",
+            "reasons": [
+              "Lleva 5 años de descanso y el suelo aún no se recuperó lo suficiente."
+            ],
+            "extend_rest_years": 1,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.55,
+            "confidence_label": "media"
+          },
+          "twin_precedent": {
+            "sector_id": "S4",
+            "twin_zone": "Curahuara de Carangas",
+            "twin_elevation_m": 3908,
+            "twin_slope_pct": 5.9,
+            "similarity": 0.86,
+            "event": "2015-16",
+            "observed_ndvi_anomaly": -0.45,
+            "confidence": 0.6,
+            "confidence_label": "media",
+            "is_simulated": false
+          },
+          "is_simulated": true
+        },
+        {
+          "id": "S5",
+          "name": "Sector 5",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -68.012,
+                  -17.09
+                ],
+                [
+                  -68.006,
+                  -17.09
+                ],
+                [
+                  -68.006,
+                  -17.085
+                ],
+                [
+                  -68.012,
+                  -17.085
+                ],
+                [
+                  -68.012,
+                  -17.09
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.0875,
+            "lon": -68.009
+          },
+          "area_ha": 35.2,
+          "terrain": {
+            "elevation_m": 3941,
+            "slope_pct": 6.0,
+            "aspect_deg": 330
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 3,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.21,
+            "ndvi_anomaly": -0.09
+          },
+          "risk": {
+            "score": 0.66,
+            "level": "high",
+            "interval": {
+              "low": 0.54,
+              "high": 0.78
+            },
+            "confidence": 0.55,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_3",
+                "label": "El Niño está fuerte",
+                "direction": "increases",
+                "weight": 0.41
+              },
+              {
+                "feature": "precip_anomaly",
+                "label": "Llovió menos de lo normal",
+                "direction": "increases",
+                "weight": 0.27
+              },
+              {
+                "feature": "ndvi_prev",
+                "label": "La vegetación viene baja",
+                "direction": "increases",
+                "weight": 0.18
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.49,
+            "level": "medium",
+            "confidence": 0.6,
+            "confidence_label": "media",
+            "ndvi_residual": -0.001
+          },
+          "recommendation": {
+            "action": "extend_rest",
+            "text": "Mantener este sector en descanso.",
+            "reasons": [
+              "Lleva 3 años de descanso y el suelo aún no se recuperó lo suficiente."
+            ],
+            "extend_rest_years": 1,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.55,
+            "confidence_label": "media"
+          },
+          "twin_precedent": {
+            "sector_id": "S5",
+            "twin_zone": "Jesús de Machaca",
+            "twin_elevation_m": 3871,
+            "twin_slope_pct": 8.0,
+            "similarity": 0.95,
+            "event": "2015-16",
+            "observed_ndvi_anomaly": -0.42,
+            "confidence": 0.6,
+            "confidence_label": "media",
+            "is_simulated": false
+          },
+          "is_simulated": true
+        },
+        {
+          "id": "S6",
+          "name": "Sector 6",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -68.006,
+                  -17.09
+                ],
+                [
+                  -68.0,
+                  -17.09
+                ],
+                [
+                  -68.0,
+                  -17.085
+                ],
+                [
+                  -68.006,
+                  -17.085
+                ],
+                [
+                  -68.006,
+                  -17.09
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.0875,
+            "lon": -68.003
+          },
+          "area_ha": 35.2,
+          "terrain": {
+            "elevation_m": 3950,
+            "slope_pct": 7.8,
+            "aspect_deg": 75
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 1,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.195,
+            "ndvi_anomaly": -0.45
+          },
+          "risk": {
+            "score": 0.6,
+            "level": "medium",
+            "interval": {
+              "low": 0.48,
+              "high": 0.72
+            },
+            "confidence": 0.55,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_3",
+                "label": "El Niño está fuerte",
+                "direction": "increases",
+                "weight": 0.41
+              },
+              {
+                "feature": "precip_anomaly",
+                "label": "Llovió menos de lo normal",
+                "direction": "increases",
+                "weight": 0.27
+              },
+              {
+                "feature": "ndvi_prev",
+                "label": "La vegetación viene baja",
+                "direction": "increases",
+                "weight": 0.18
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.32,
+            "level": "low",
+            "confidence": 0.6,
+            "confidence_label": "media",
+            "ndvi_residual": -0.018
+          },
+          "recommendation": {
+            "action": "extend_rest",
+            "text": "Mantener este sector en descanso.",
+            "reasons": [
+              "Lleva 1 años de descanso y el suelo aún no se recuperó lo suficiente."
+            ],
+            "extend_rest_years": 2,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.55,
+            "confidence_label": "media"
+          },
+          "twin_precedent": {
+            "sector_id": "S6",
+            "twin_zone": "Caquiaviri",
+            "twin_elevation_m": 3932,
+            "twin_slope_pct": 6.5,
+            "similarity": 0.94,
+            "event": "2015-16",
+            "observed_ndvi_anomaly": -0.65,
+            "confidence": 0.6,
+            "confidence_label": "media",
+            "is_simulated": false
+          },
+          "is_simulated": true
+        },
+        {
+          "id": "S7",
+          "name": "Sector 7",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -68.0,
+                  -17.09
+                ],
+                [
+                  -67.994,
+                  -17.09
+                ],
+                [
+                  -67.994,
+                  -17.085
+                ],
+                [
+                  -68.0,
+                  -17.085
+                ],
+                [
+                  -68.0,
+                  -17.09
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.0875,
+            "lon": -67.997
+          },
+          "area_ha": 35.2,
+          "terrain": {
+            "elevation_m": 3959,
+            "slope_pct": 3.1,
+            "aspect_deg": 180
+          },
+          "rotation": {
+            "status": "cultivated",
+            "years_in_status": 2,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.194,
+            "ndvi_anomaly": -0.3
+          },
+          "risk": {
+            "score": 0.67,
+            "level": "high",
+            "interval": {
+              "low": 0.55,
+              "high": 0.79
+            },
+            "confidence": 0.55,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_3",
+                "label": "El Niño está fuerte",
+                "direction": "increases",
+                "weight": 0.41
+              },
+              {
+                "feature": "precip_anomaly",
+                "label": "Llovió menos de lo normal",
+                "direction": "increases",
+                "weight": 0.27
+              },
+              {
+                "feature": "ndvi_prev",
+                "label": "La vegetación viene baja",
+                "direction": "increases",
+                "weight": 0.18
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.32,
+            "level": "low",
+            "confidence": 0.6,
+            "confidence_label": "media",
+            "ndvi_residual": -0.018
+          },
+          "recommendation": {
+            "action": "keep_cultivating",
+            "text": "Seguir cultivando este sector un año más.",
+            "reasons": [
+              "Lleva 2 años de cultivo, dentro del ciclo."
+            ],
+            "extend_rest_years": null,
+            "crop": "quinua",
+            "sowing_window": "noviembre a diciembre, con las primeras lluvias",
+            "confidence": 0.55,
+            "confidence_label": "media"
+          },
+          "twin_precedent": {
+            "sector_id": "S7",
+            "twin_zone": "Sica Sica",
+            "twin_elevation_m": 3942,
+            "twin_slope_pct": 4.3,
+            "similarity": 0.83,
+            "event": "2015-16",
+            "observed_ndvi_anomaly": -0.51,
+            "confidence": 0.6,
+            "confidence_label": "media",
+            "is_simulated": false
+          },
+          "is_simulated": true
+        },
+        {
+          "id": "S8",
+          "name": "Sector 8",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -67.994,
+                  -17.09
+                ],
+                [
+                  -67.988,
+                  -17.09
+                ],
+                [
+                  -67.988,
+                  -17.085
+                ],
+                [
+                  -67.994,
+                  -17.085
+                ],
+                [
+                  -67.994,
+                  -17.09
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.0875,
+            "lon": -67.991
+          },
+          "area_ha": 35.2,
+          "terrain": {
+            "elevation_m": 3968,
+            "slope_pct": 7.6,
+            "aspect_deg": 180
+          },
+          "rotation": {
+            "status": "cultivated",
+            "years_in_status": 3,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.195,
+            "ndvi_anomaly": -0.43
+          },
+          "risk": {
+            "score": 0.72,
+            "level": "high",
+            "interval": {
+              "low": 0.6,
+              "high": 0.84
+            },
+            "confidence": 0.55,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_3",
+                "label": "El Niño está fuerte",
+                "direction": "increases",
+                "weight": 0.41
+              },
+              {
+                "feature": "precip_anomaly",
+                "label": "Llovió menos de lo normal",
+                "direction": "increases",
+                "weight": 0.27
+              },
+              {
+                "feature": "ndvi_prev",
+                "label": "La vegetación viene baja",
+                "direction": "increases",
+                "weight": 0.18
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.33,
+            "level": "medium",
+            "confidence": 0.6,
+            "confidence_label": "media",
+            "ndvi_residual": -0.017
+          },
+          "recommendation": {
+            "action": "start_rest",
+            "text": "Pasar este sector a descanso cuando termine la cosecha.",
+            "reasons": [
+              "Ya lleva 3 años de cultivo.",
+              "El suelo necesita recuperarse."
+            ],
+            "extend_rest_years": null,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.55,
+            "confidence_label": "media"
+          },
+          "twin_precedent": {
+            "sector_id": "S8",
+            "twin_zone": "Curahuara de Carangas",
+            "twin_elevation_m": 3908,
+            "twin_slope_pct": 4.2,
+            "similarity": 0.93,
+            "event": "2015-16",
+            "observed_ndvi_anomaly": -0.61,
+            "confidence": 0.6,
+            "confidence_label": "media",
+            "is_simulated": false
+          },
+          "is_simulated": true
+        }
+      ]
+    }
+  }
+}

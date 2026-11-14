@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Respuesta de GET /api/sectors/{id}/history",
+  "type": "object",
+  "properties": {
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "data_source": {
+      "enum": [
+        "mock",
+        "real"
+      ]
+    },
+    "sector_id": {
+      "type": "string",
+      "pattern": "^S\\d+$"
+    },
+    "from": {
+      "type": "string",
+      "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+    },
+    "to": {
+      "type": "string",
+      "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+    },
+    "series": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+          },
+          "ndvi": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Del sector. null si falta."
+          },
+          "precip_mm": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "De la zona. Lluvia total del mes, en mm."
+          },
+          "soil_moisture": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 1,
+            "description": "De la zona. Fraccion de 0 a 1 (GWETROOT)."
+          },
+          "temp_c": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "De la zona. Temperatura media del mes."
+          },
+          "roni": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Global. RONI de la temporada centrada en ese mes."
+          }
+        },
+        "required": [
+          "date",
+          "ndvi",
+          "precip_mm",
+          "soil_moisture",
+          "temp_c",
+          "roni"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "updated_at",
+    "data_source",
+    "sector_id",
+    "from",
+    "to",
+    "series"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Respuesta de POST /api/chat",
+  "type": "object",
+  "properties": {
+    "answer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "tool": {
+            "enum": [
+              "get_sector",
+              "compare_scenarios",
+              "get_history",
+              "get_sensors",
+              "get_twin_precedent"
+            ]
+          },
+          "sector_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^S\\d+$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "required": [
+          "tool",
+          "sector_id",
+          "fields"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "confidence_note": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Frase corta sobre la confianza de lo respondido."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "answer",
+    "sources",
+    "confidence_note",
+    "updated_at"
+  ],
+  "additionalProperties": false
+}
