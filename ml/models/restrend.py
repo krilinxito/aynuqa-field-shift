@@ -128,21 +128,21 @@ def run(input_dir: str, output_dir: str) -> dict:
             "meta": meta,
         }
 
-    # Posición (0 a 1) entre los sectores de Pumani (con display=true si aplica, o todos los de Pumani)
-    pumani_keys = [
+    # Posición (0 a 1) de ese residuo entre todos los sectores
+    valid_keys = [
         (z, s) for (z, s), v in sector_scores.items()
-        if z == "pumani" and v["ndvi_residual"] is not None
+        if v["ndvi_residual"] is not None
     ]
-    pumani_vals = np.array([sector_scores[k]["ndvi_residual"] for k in pumani_keys], dtype=float)
+    all_vals = np.array([sector_scores[k]["ndvi_residual"] for k in valid_keys], dtype=float)
 
-    if len(pumani_vals) > 1:
-        ranks = stats.rankdata(pumani_vals, method="average") - 1.0
-        percentiles = ranks / (len(pumani_vals) - 1.0)
-        pumani_score_map = {k: float(percentiles[i]) for i, k in enumerate(pumani_keys)}
-    elif len(pumani_vals) == 1:
-        pumani_score_map = {pumani_keys[0]: 0.5}
+    if len(all_vals) > 1:
+        ranks = stats.rankdata(all_vals, method="average") - 1.0
+        percentiles = ranks / (len(all_vals) - 1.0)
+        score_map = {k: float(percentiles[i]) for i, k in enumerate(valid_keys)}
+    elif len(all_vals) == 1:
+        score_map = {valid_keys[0]: 0.5}
     else:
-        pumani_score_map = {}
+        score_map = {}
 
     output = {
         "_note": "La relación entre recuperación (RESTREND) y años de descanso es ilustrativa porque la rotación es simulada.",
@@ -151,13 +151,7 @@ def run(input_dir: str, output_dir: str) -> dict:
 
     for (zone_id, sector_id), v in sector_scores.items():
         ndvi_res = v["ndvi_residual"]
-        if zone_id == "pumani":
-            score = pumani_score_map.get((zone_id, sector_id), 0.5)
-        else:
-            if len(pumani_vals) > 0 and ndvi_res is not None:
-                score = float(np.mean(pumani_vals <= ndvi_res))
-            else:
-                score = 0.5
+        score = score_map.get((zone_id, sector_id), 0.5)
 
         conf = _conf_value(v["r2"], v["n_obs"])
         entry = {

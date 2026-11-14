@@ -44,19 +44,29 @@ def _safe_spearman(x, y):
     return round(float(corr), 4)
 
 
-def _train_predict_lgb(X_train, y_train, X_test):
+def _fit_lgb_bundle(X_train, y_train):
     import lightgbm as lgb
 
-    preds = {}
+    bundle = {}
     for alpha in [0.1, 0.5, 0.9]:
         m = lgb.LGBMRegressor(objective="quantile", alpha=alpha, **BASE_LGB_PARAMS)
         m.fit(X_train, y_train)
-        preds[alpha] = m.predict(X_test)
+        bundle[alpha] = m
+    return bundle
+
+
+def _predict_lgb_bundle(bundle, X_test):
+    preds = {alpha: m.predict(X_test) for alpha, m in bundle.items()}
     scores = np.array([
         np.clip(_score_from_quantiles(preds[0.1][i], preds[0.5][i], preds[0.9][i]), 0.0, 1.0)
         for i in range(len(X_test))
     ])
     return preds[0.5], scores
+
+
+def _train_predict_lgb(X_train, y_train, X_test):
+    bundle = _fit_lgb_bundle(X_train, y_train)
+    return _predict_lgb_bundle(bundle, X_test)
 
 
 def _train_predict_linear_roni0(X_train, y_train, X_test, feature_cols):
@@ -194,7 +204,8 @@ def run_backtest(
     X_test = test_df[feature_cols].astype(float).values
     y_test = test_df["target_ndvi_anom"].astype(float).values
 
-    q50_pred, risk_scores = _train_predict_lgb(X_train, y_train, X_test)
+    bundle = _fit_lgb_bundle(X_train, y_train)
+    q50_pred, risk_scores = _predict_lgb_bundle(bundle, X_test)
     lin_pred = _train_predict_linear_roni0(X_train, y_train, X_test, feature_cols)
     zero_pred = np.zeros_like(y_test)
 
@@ -224,11 +235,13 @@ def run_backtest(
         pm["camp_year"] = pm["year"].where(pm["month"] >= 7, pm["year"] - 1)
 
         # Serie zonal agregada por mes (media de sectores display en ndvi; clima ya es de zona)
-        zone_m = pm.groupby(["date", "year", "month", "camp_year"], as_index=False).agg(
+        zone_m = pm.groupby(["date", "date_dt", "year", "month", "camp_year"], as_index=False).agg(
             ndvi=("ndvi", "mean"),
             precip_mm=("precip_mm", "first"),
             roni=("roni", "first"),
-        )
+        ).sort_values("date_dt")
+        roni_by_dt = zone_m.set_index("date_dt")["roni"]
+
         # Climatología por mes desde 2000
         clim_stats = zone_m.groupby("month").agg(
             ndvi_mean=("ndvi", "mean"),
@@ -240,6 +253,7 @@ def run_backtest(
         for _, r in ev_m.iterrows():
             m = int(r["month"])
             cy = int(r["camp_year"])
+            dt_cur = r["date_dt"]
             c_row = clim_stats.loc[m]
 
             ndvi_anom = None
@@ -250,7 +264,22 @@ def run_backtest(
             if pd.notna(r["precip_mm"]) and pd.notna(c_row["precip_mean"]) and c_row["precip_mean"] > 1e-6:
                 precip_anom = round(float((r["precip_mm"] - c_row["precip_mean"]) / c_row["precip_mean"] * 100.0), 2)
 
-            pr = risk_by_cy.get(cy)
+            # Evaluar el modelo held-out en ese mes usando los lags de RONI observados hasta dt_cur
+            cy_rows = pumani_test[pumani_test["_camp_year"] == cy]
+            if len(cy_rows) > 0:
+                X_m = cy_rows[feature_cols].astype(float).copy()
+                for lag in range(7):
+                    col_name = f"roni_lag_{lag}"
+                    if col_name in X_m.columns:
+                        dt_lag = dt_cur - pd.DateOffset(months=lag)
+                        r_val = roni_by_dt.get(dt_lag, np.nan)
+                        if pd.notna(r_val):
+                            X_m[col_name] = float(r_val)
+                _, m_scores = _predict_lgb_bundle(bundle, X_m.values)
+                pr = float(np.mean(m_scores))
+            else:
+                pr = risk_by_cy.get(cy)
+
             series.append({
                 "date": r["date"],
                 "roni": round(float(r["roni"]), 3) if pd.notna(r["roni"]) else None,

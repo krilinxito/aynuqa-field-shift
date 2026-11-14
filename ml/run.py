@@ -2,32 +2,59 @@
 ml/run.py — Entry point del pipeline ML.
 Uso: python -m ml.run predict --input ml/data/fake
      python -m ml.run predict --input ml/data/interim
+     python -m ml.run predict --input data/interim
 """
 import argparse
 import os
 import sys
+from pathlib import Path
+
+
+def _resolve_input_dir(input_dir: str) -> str:
+    """Permite pasar 'data/interim' o 'ml/data/interim' (y 'data/fake' o 'ml/data/fake')."""
+    p = Path(input_dir)
+    if p.exists():
+        return str(p)
+    ml_prefixed = Path("ml") / p
+    if ml_prefixed.exists() or p.parts[0] == "data":
+        return str(ml_prefixed)
+    return str(p)
+
+
+def _is_interim(input_dir: str) -> bool:
+    parts = [part.lower() for part in Path(input_dir).parts]
+    return ("interim" in parts) and ("fake" not in parts)
 
 
 def _output_dir(input_dir: str) -> str:
-    if "fake" in input_dir:
-        return "ml/outputs_fake"
-    return "ml/outputs"
+    """ml/outputs/ es solo para datos reales (interim); todo lo demás va a ml/outputs_fake/."""
+    if _is_interim(input_dir):
+        return "ml/outputs"
+    return "ml/outputs_fake"
 
 
-def cmd_predict(input_dir: str):
+def cmd_predict(raw_input_dir: str):
+    input_dir = _resolve_input_dir(raw_input_dir)
     output_dir = _output_dir(input_dir)
     os.makedirs(output_dir, exist_ok=True)
 
     print(f"\n=== PIPELINE ML: input={input_dir} → output={output_dir} ===\n")
 
-    # Paso 1: Generar datos fake si es necesario
-    if "fake" in input_dir:
+    # Paso 1: Generar datos fake si la entrada es fake
+    parts = [part.lower() for part in Path(input_dir).parts]
+    if "fake" in parts:
         print("[1/5] Generando datos fake ...")
-        from ml.models.fake_data import main as fake_main
-        sys.argv = ["fake_data", "--output-dir", input_dir]
-        fake_main()
+        from ml.models.fake_data import (
+            generate_features_csv,
+            generate_monthly_csv,
+            generate_sectors_geojson,
+        )
+        os.makedirs(input_dir, exist_ok=True)
+        sp = generate_sectors_geojson(input_dir)
+        mdf = generate_monthly_csv(sp, input_dir)
+        generate_features_csv(mdf, sp, input_dir)
     else:
-        print(f"[1/5] Usando datos de {input_dir} (skipping fake_data)")
+        print(f"[1/5] Usando datos de {input_dir} (sin generar datos fake)")
 
     # Paso 2: Modelo de sequía
     print("\n[2/5] Entrenando modelo de riesgo (LightGBM) ...")
@@ -45,12 +72,12 @@ def cmd_predict(input_dir: str):
     restrend.run(input_dir, output_dir)
 
     # Paso 5: Análogos
-    print("\n[4b/5] Análogos ...")
+    print("\n[4b/5] Análogos (tierras gemelas) ...")
     from ml.models import analogs
     analogs.run(input_dir, output_dir)
 
     # Paso 6: Export
-    print("\n[5/5] Exportando JSON ...")
+    print("\n[5/5] Exportando y validando JSON ...")
     from ml.export import export
     export.run(input_dir, output_dir)
 
@@ -73,7 +100,11 @@ def main():
     subparsers = parser.add_subparsers(dest="command")
 
     predict_parser = subparsers.add_parser("predict", help="Correr el pipeline completo")
-    predict_parser.add_argument("--input", required=True, help="Directorio de entrada con features.csv, monthly.csv, sectors.geojson")
+    predict_parser.add_argument(
+        "--input",
+        required=True,
+        help="Directorio de entrada con features.csv, monthly.csv, sectors.geojson",
+    )
 
     args = parser.parse_args()
 

@@ -126,3 +126,12 @@ def test_nino_uses_probabilistic_language():
     assert any(word in texto.lower() for word in ["probabilidad", "riesgo", "posible", "aumenta"]), (
         f"No usa lenguaje probabilístico: {texto[:200]}"
     )
+
+
+@pytest.mark.parametrize("args", ALL_COMBINATIONS)
+def test_spanish_only_no_english_jargon(args):
+    """Todo texto para el usuario debe estar en español simple, sin 'low', 'medium', 'high', 'score'."""
+    r = recommend(*args)
+    texto = (r["text"] + " " + " ".join(r["reasons"])).lower()
+    for word in ["low", "medium", "high", "score"]:
+        assert word not in texto.split(), f"Palabra en inglés '{word}' encontrada en: {texto}"
