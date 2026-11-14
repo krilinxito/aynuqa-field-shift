@@ -15,7 +15,8 @@ from common import FIRST_SEASON, INTERIM, PREDICTION_SEASON, season_label, zscor
 from sectors import rotation_offsets, rotation_state
 
 RONI_LAGS = 7          # roni_lag_0 ... roni_lag_6
-RONI_LAG0_MONTH = 8    # JAS, centrada en agosto: la ultima temporada que NOAA publica a inicios de octubre
+MIN_YEARS_FOR_TREND = 10
+RONI_LAG0_MONTH = 8   # JAS, centrada en agosto: la ultima temporada que NOAA publica a inicios de octubre
 COLUMNS = (
     ["zone_id", "sector_id", "season", "target_ndvi_anom", "is_prediction_row"]
     + [f"roni_lag_{k}" for k in range(RONI_LAGS)]
@@ -48,10 +49,24 @@ def zone_climate(zone_rows: pd.DataFrame, seasons: list[int]) -> pd.DataFrame:
     return raw.apply(zscore)
 
 
+def detrended_zscore(values: pd.Series) -> pd.Series:
+    """Quita la tendencia lineal entre anios y expresa el residuo en desviaciones estandar."""
+    years = values.index.year.to_numpy(dtype=float)
+    ok = values.notna().to_numpy()
+    if ok.sum() < MIN_YEARS_FOR_TREND:
+        return values * np.nan
+    slope, intercept = np.polyfit(years[ok], values.to_numpy()[ok], 1)
+    return zscore(values - (slope * years + intercept))
+
+
 def ndvi_anomaly(sector_rows: pd.DataFrame) -> pd.Series:
-    """Anomalia mensual del NDVI del sector respecto al mismo mes de todos los anios."""
+    """Anomalia mensual del NDVI del sector respecto al mismo mes de todos los anios, sin tendencia.
+
+    El NDVI del altiplano sube poco a poco desde 2000. Sin quitar esa subida, los anios recientes
+    parecen mejores solo por ser recientes.
+    """
     ndvi = sector_rows.set_index("date")["ndvi"]
-    return ndvi.groupby(ndvi.index.month).transform(zscore)
+    return ndvi.groupby(ndvi.index.month).transform(detrended_zscore)
 
 
 def main() -> None:

@@ -70,11 +70,12 @@ Una fila por sector y campaña. Todas las variables se conocen a inicios de octu
 | `rotation_years` | Simulado |
 
 - **Anomalía:** desviaciones estándar respecto al mismo mes (o al mismo periodo) en todos los años desde 2000, calculada por sector para el NDVI y por zona para el clima.
+- **Tendencia del NDVI:** antes de calcular la anomalía del NDVI se quita la tendencia lineal entre años de cada sector y mes. El NDVI de Pumani sube desde 2000 y, sin esto, los años recientes parecerían mejores solo por ser recientes. El clima no se corrige.
 - **Sin latitud ni longitud:** el modelo no debe usar la ubicación. `zone_id` y `sector_id` son claves, no variables del modelo.
 
 ## Provisional
 
 - **Objetivo:** anomalía de NDVI de febrero a abril. La alternativa es el déficit de lluvia de la campaña.
 - **Fecha de decisión:** inicios de octubre.
-- **Tendencia del NDVI:** en Pumani el NDVI de febrero a abril sube unas 0,04 desviaciones por campaña desde 2000. Las anomalías no la quitan todavía.
+- **Fuente de lluvia:** NASA POWER no capta la sequía de 2015-16 en Pumani; CHIRPS y ERA5 sí. Se está probando IMERG para reemplazarla.
 - **Cuántos sectores por zona:** por definir. La tabla admite cualquier cantidad.
