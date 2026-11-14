@@ -1,0 +1,23 @@
+:root {
+  --color-background: #f8f4f2;
+  --color-accent: #00cca0;
+  --color-accent-soft: #e6f7f1;
+  --color-ink: #412f25;
+  --color-ink-muted: #6f5d53;
+  --color-divider: #d8cec8;
+  --color-surface: #fffcfa;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --page-gutter: clamp(1rem, 4vw, 4rem);
+  color: var(--color-ink);
+  background: var(--color-background);
+  font-family: Montserrat, 'Avenir Next', 'Segoe UI', sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}

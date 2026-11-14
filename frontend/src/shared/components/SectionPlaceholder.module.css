@@ -1,0 +1,36 @@
+.section {
+  max-inline-size: 42rem;
+}
+
+.section::before {
+  display: block;
+  inline-size: 4rem;
+  block-size: 0.25rem;
+  margin-block-end: var(--space-6);
+  background: var(--color-accent);
+  content: '';
+}
+
+.eyebrow {
+  margin: 0 0 var(--space-3);
+  color: var(--color-ink-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.section h1 {
+  max-inline-size: 18ch;
+  margin: 0;
+  font-size: clamp(2rem, 8vw, 4rem);
+  line-height: 1.05;
+}
+
+.description {
+  max-inline-size: 58ch;
+  margin: var(--space-6) 0 0;
+  color: var(--color-ink-muted);
+  font-size: 1rem;
+  line-height: 1.65;
+}

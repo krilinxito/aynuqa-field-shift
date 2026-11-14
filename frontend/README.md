@@ -49,8 +49,54 @@ Lluvia, temperatura y humedad de suelo son iguales para todos los sectores, porq
 
 ## Configuración
 
-Copia `.env.example` a `.env` y completa los valores.
+Copia `.env.example` a `.env` y completa los valores públicos necesarios:
+
+```env
+VITE_API_BASE_URL=http://localhost:8000
+VITE_DATA_MODE=mock
+```
+
+`VITE_DATA_MODE=mock` es el modo predeterminado de desarrollo. La selección del repositorio se implementará en Fase 02. Todas las variables `VITE_*` quedan expuestas al navegador: nunca deben contener secretos, claves de Gemini ni tokens administrativos.
 
 ## Cómo correr
 
-Pendiente: se documenta cuando exista la app.
+Requisitos: Node.js `22.12+` o Node.js 24 LTS y npm.
+
+```bash
+npm install
+npm run dev
+```
+
+La aplicación queda disponible en la URL indicada por Vite. Las rutas actuales son:
+
+- `/territorio`
+- `/analisis`
+- `/asistente`
+- `/informe`
+
+El hosting de producción debe redirigir las rutas desconocidas a `index.html` para que el acceso directo y la recarga funcionen con React Router.
+
+## Calidad
+
+```bash
+npm run typecheck
+npm run lint
+npm run test
+npm run build
+```
+
+`npm run test:watch` mantiene Vitest en modo interactivo durante desarrollo.
+
+## Estado compartido entre rutas
+
+En Fase 01 la navegación conserva únicamente los parámetros `sector` y `scenario` al cambiar de sección. La URL será la fuente compartible de ese contexto. La validación de valores, hidratación desde datos y sincronización con estado de aplicación pertenecen a Fase 02; por ahora no se consulta ni se persiste ningún dato científico.
+
+## Estrategia JSON Schema para Fase 02
+
+Se adoptará una estrategia combinada, sin duplicar estructuras a mano:
+
+1. **`json-schema-to-typescript` como herramienta de desarrollo** para generar DTOs TypeScript desde `contracts/*.schema.json`. Los archivos generados llevarán cabecera de código generado y una tarea reproducible comprobará que no estén desactualizados.
+2. **AJV 2020 + `ajv-formats` en el límite de entrada** para validar fixtures y respuestas HTTP, incluyendo `date-time`, `null`, enums, `$defs` y `additionalProperties: false`.
+3. Los schemas de `contracts/` permanecerán como única fuente de verdad. Los modelos de presentación se construirán después mediante adaptadores tipados, sin cálculos científicos.
+
+Esta combinación separa dos necesidades: TypeScript protege el código durante compilación y AJV verifica datos externos en tiempo de ejecución. Las dependencias contractuales se instalarán y configurarán recién en Fase 02, después de medir su impacto en el bundle; el generador será exclusivamente de desarrollo.
