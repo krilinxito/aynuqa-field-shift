@@ -6,8 +6,10 @@ Uso, desde ml/:  python prep/monthly.py   (despues de prep/sectors.py)
   (marginal). Por cada compuesto de 16 dias se promedian los pixeles del sector si al menos la
   mitad son validos; el mes es el promedio de los compuestos cuyo dia central cae en ese mes.
   Vacio si la zona aun no tiene NDVI descargado.
-- precip_mm, temp_c, soil_moisture: NASA POWER (PRECTOTCORR, T2M, GWETROOT) de la celda de la
-  zona. Solo meses completos. soil_moisture es la humedad relativa de la zona de raices (0 a 1).
+- precip_mm: NASA GPM IMERG V07 de la celda de 0,1 grados de la zona. Final hasta su ultimo mes
+  y, despues, Late ajustado con la razon Final/Late de los meses en que existen los dos.
+- temp_c, soil_moisture: NASA POWER (T2M, GWETROOT) de la celda de la zona. Solo meses completos.
+  soil_moisture es la humedad relativa de la zona de raices (0 a 1).
 - roni: NOAA CPC, temporada de tres meses centrada en ese mes.
 """
 import json
@@ -36,7 +38,30 @@ def climate(zone_id: str) -> pd.DataFrame:
     })
     complete = grouped[["PRECTOTCORR", "T2M", "GWETROOT"]].count().ge(days_in_month, axis=0)
     complete.columns = out.columns
-    return out.where(complete)
+    out = out.where(complete)
+    out["precip_mm"] = imerg_precip(zone_id).reindex(out.index)
+    return out
+
+
+def imerg_precip(zone_id: str) -> pd.Series:
+    """Lluvia mensual de IMERG Final y, despues de su ultimo mes, de IMERG Late ajustado.
+
+    Late no tiene la calibracion con pluviometros. Se multiplica por la razon entre Final y Late
+    en los meses en que existen los dos, y solo se usan meses completos.
+    """
+    final = pd.read_csv(RAW / "imerg" / f"{zone_id}.csv")
+    final = final.set_index(pd.PeriodIndex(final["date"], freq="M"))["precip_mm"]
+    late = pd.read_csv(RAW / "imerg" / "late" / f"{zone_id}.csv")
+    late = late.set_index(pd.PeriodIndex(late["date"], freq="M"))
+    late = late.loc[late["days"] == late.index.days_in_month, "precip_mm"]
+    overlap = final.index.intersection(late.index)
+    ratio = final[overlap].sum() / late[overlap].sum()
+    recent = late[late.index > final.index.max()] * ratio
+    LATE_RATIOS[zone_id] = (ratio, len(overlap), final[overlap].corr(late[overlap]))
+    return pd.concat([final, recent])
+
+
+LATE_RATIOS: dict[str, tuple[float, int, float]] = {}
 
 
 def roni() -> pd.Series:
@@ -96,6 +121,8 @@ def main() -> None:
             part.insert(0, "zone_id", zone["id"])
             parts.append(part)
         covered = veg.reindex(months).notna().mean().mean() if not veg.empty else 0
+        ratio, n, r = LATE_RATIOS[zone["id"]]
+        print(f"{zone['id']}: IMERG Late x{ratio:.2f} (ajuste con {n} meses, correlacion {r:.2f} con Final)")
         print(f"{zone['id']}: {len(months)} meses, NDVI {'con dato en ' + f'{covered:.0%} de los meses' if covered else 'pendiente'}")
     table = pd.concat(parts, ignore_index=True)[COLUMNS]
     table = table.round({"ndvi": 4, "precip_mm": 1, "temp_c": 2, "soil_moisture": 3, "roni": 2})

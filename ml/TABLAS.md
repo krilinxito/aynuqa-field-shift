@@ -42,12 +42,14 @@ Una fila por sector y mes, desde `2000-01`.
 | --- | --- | --- |
 | `zone_id`, `sector_id`, `date` | | |
 | `ndvi` | -1 a 1 | Sector. MODIS Terra y Aqua, píxeles con fiabilidad buena o marginal. Vacío si no hay dato válido |
-| `precip_mm` | mm, total del mes | Zona. NASA POWER `PRECTOTCORR` |
+| `precip_mm` | mm, total del mes | Zona. NASA GPM IMERG V07, celda de 0,1°. Final hasta septiembre de 2025 y, después, Late ajustado con la razón Final/Late de los 24 meses en que existen los dos. Vacío antes de 2000-06 |
 | `temp_c` | °C, media del mes | Zona. NASA POWER `T2M` |
 | `soil_moisture` | fracción de 0 a 1 | Zona. NASA POWER `GWETROOT` (humedad relativa de la zona de raíces), porque cubre todas las zonas desde 2000. SMAP solo empieza en 2015 |
 | `roni` | índice | Global. Temporada de tres meses centrada en ese mes |
 
 Las columnas de zona se repiten idénticas en todos los sectores de la misma zona.
+
+La lluvia es de IMERG y no de NASA POWER porque, comparada con CHIRPS y ERA5 en las 8 zonas, es la que mejor explica el NDVI de Pumani (correlación de 0,84 entre la lluvia de diciembre a marzo y el NDVI de febrero a abril) y la que más se parece a CHIRPS (0,94). NASA POWER usa celdas de unos 50 km, da la misma lluvia a Pumani y Patacamaya y no capta la sequía de 2015-16.
 
 ## 3. `features.csv`
 
@@ -76,6 +78,4 @@ Una fila por sector y campaña. Todas las variables se conocen a inicios de octu
 ## Provisional
 
 - **Objetivo:** anomalía de NDVI de febrero a abril. La alternativa es el déficit de lluvia de la campaña.
-- **Fecha de decisión:** inicios de octubre.
-- **Fuente de lluvia:** NASA POWER no capta la sequía de 2015-16 en Pumani; CHIRPS y ERA5 sí. Se está probando IMERG para reemplazarla.
-- **Cuántos sectores por zona:** por definir. La tabla admite cualquier cantidad.
+- **Fecha de decisión:** inicios de octubre.- **Cuántos sectores por zona:** por definir. La tabla admite cualquier cantidad.
