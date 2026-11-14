@@ -1,14 +1,15 @@
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 
-import { BrandMark } from '../../shared/components/BrandMark'
 import { getPersistentSearch } from '../navigation/persistentSearch'
+import { AppHeader } from './AppHeader'
+import { NavigationIcon } from './NavigationIcon'
 import styles from './AppShell.module.css'
 
 const navigationItems = [
-  { label: 'Territorio', path: '/territorio' },
-  { label: 'Análisis', path: '/analisis' },
-  { label: 'Asistente', path: '/asistente' },
-  { label: 'Informe', path: '/informe' },
+  { icon: 'territory', label: 'Territorio', path: '/territorio' },
+  { icon: 'analysis', label: 'Análisis', path: '/analisis' },
+  { icon: 'assistant', label: 'Asistente', path: '/asistente' },
+  { icon: 'report', label: 'Informe', path: '/informe' },
 ] as const
 
 export function AppShell() {
@@ -21,26 +22,26 @@ export function AppShell() {
         Saltar al contenido
       </a>
 
-      <header className={styles.header}>
-        <BrandMark />
-        <div>
-          <p className={styles.locationLabel}>Área piloto</p>
-          <p className={styles.locationName}>Pumani · La Paz</p>
-        </div>
-      </header>
+      <AppHeader />
 
       <nav className={styles.navigation} aria-label="Navegación principal">
-        {navigationItems.map((item) => (
-          <NavLink
-            className={({ isActive }) =>
-              `${styles.navigationLink} ${isActive ? styles.navigationLinkActive : ''}`
-            }
-            key={item.path}
-            to={{ pathname: item.path, search: persistentSearch }}
-          >
-            {item.label}
-          </NavLink>
-        ))}
+        <ul className={styles.navigationList}>
+          {navigationItems.map((item) => (
+            <li key={item.path}>
+              <NavLink
+                className={({ isActive }) =>
+                  `${styles.navigationLink} ${isActive ? styles.navigationLinkActive : ''}`
+                }
+                to={{ pathname: item.path, search: persistentSearch }}
+              >
+                <span className={styles.navigationIcon}>
+                  <NavigationIcon name={item.icon} />
+                </span>
+                <span className={styles.navigationLabel}>{item.label}</span>
+              </NavLink>
+            </li>
+          ))}
+        </ul>
       </nav>
 
       <main className={styles.main} id="contenido-principal" tabIndex={-1}>

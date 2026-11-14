@@ -20,7 +20,7 @@ function renderRoute(initialEntry: InitialEntry) {
 }
 
 describe('AppShell', () => {
-  it('renderiza las regiones semánticas y el enlace de salto', () => {
+  it('renderiza las regiones semánticas, la navegación y el enlace de salto', async () => {
     renderRoute('/territorio')
 
     expect(screen.getByRole('banner')).toBeInTheDocument()
@@ -35,6 +35,25 @@ describe('AppShell', () => {
     expect(
       screen.getByRole('link', { name: 'Saltar al contenido' }),
     ).toHaveAttribute('href', '#contenido-principal')
+    expect(screen.getAllByRole('listitem')).toHaveLength(4)
+    expect(screen.getByText('Datos de demostración')).toBeInTheDocument()
+    expect(await screen.findByText(/Referencia del fixture:/)).toBeInTheDocument()
+  })
+
+  it('identifica la ruta activa con texto, indicador y aria-current', async () => {
+    renderRoute('/territorio')
+    await screen.findByRole('heading', { level: 1, name: 'Territorio' })
+
+    expect(screen.getByRole('link', { name: 'Territorio' })).toHaveAttribute(
+      'aria-current',
+      'page',
+    )
+    expect(screen.getByRole('link', { name: 'Análisis' })).not.toHaveAttribute(
+      'aria-current',
+    )
+    expect(
+      screen.getByRole('link', { name: 'Territorio' }).querySelector('svg'),
+    ).toBeInTheDocument()
   })
 })
 
@@ -44,19 +63,19 @@ describe('rutas de la aplicación', () => {
     ['/analisis', 'Análisis'],
     ['/asistente', 'Asistente agrícola'],
     ['/informe', 'Informe'],
-  ])('renderiza %s mediante acceso directo', (path, heading) => {
+  ])('renderiza %s mediante acceso directo', async (path, heading) => {
     renderRoute(path)
 
     expect(
-      screen.getByRole('heading', { level: 1, name: heading }),
+      await screen.findByRole('heading', { level: 1, name: heading }),
     ).toBeInTheDocument()
   })
 
-  it('renderiza la página 404 para una ruta desconocida', () => {
+  it('renderiza la página 404 para una ruta desconocida', async () => {
     renderRoute('/ruta-inexistente')
 
     expect(
-      screen.getByRole('heading', {
+      await screen.findByRole('heading', {
         level: 1,
         name: 'Página no encontrada',
       }),
@@ -73,7 +92,7 @@ describe('rutas de la aplicación', () => {
       expect(router.state.location.pathname).toBe('/territorio')
     })
     expect(
-      screen.getByRole('heading', { level: 1, name: 'Territorio' }),
+      await screen.findByRole('heading', { level: 1, name: 'Territorio' }),
     ).toBeInTheDocument()
   })
 
@@ -81,11 +100,12 @@ describe('rutas de la aplicación', () => {
     const user = userEvent.setup()
     const router = renderRoute('/territorio')
 
+    await screen.findByRole('heading', { level: 1, name: 'Territorio' })
     await user.click(screen.getByRole('link', { name: 'Análisis' }))
 
     expect(router.state.location.pathname).toBe('/analisis')
     expect(
-      screen.getByRole('heading', { level: 1, name: 'Análisis' }),
+      await screen.findByRole('heading', { level: 1, name: 'Análisis' }),
     ).toBeInTheDocument()
   })
 
@@ -93,9 +113,51 @@ describe('rutas de la aplicación', () => {
     const user = userEvent.setup()
     const router = renderRoute('/territorio?sector=S3&scenario=nino&temporal=1')
 
+    await screen.findByRole('heading', { level: 1, name: 'Territorio' })
     await user.click(screen.getByRole('link', { name: 'Asistente' }))
 
     expect(router.state.location.pathname).toBe('/asistente')
     expect(router.state.location.search).toBe('?sector=S3&scenario=nino')
+  })
+
+  it('cambia el escenario, conserva el sector y lo mantiene al navegar', async () => {
+    const user = userEvent.setup()
+    const router = renderRoute('/territorio?sector=S3&scenario=nino')
+
+    const normalButton = await screen.findByRole('button', {
+      name: 'Año normal',
+    })
+    expect(normalButton).toHaveAttribute('aria-pressed', 'false')
+
+    normalButton.focus()
+    await user.keyboard('{Enter}')
+    await waitFor(() => {
+      expect(router.state.location.search).toBe('?sector=S3&scenario=normal')
+    })
+    expect(normalButton).toHaveAttribute('aria-pressed', 'true')
+
+    await user.click(screen.getByRole('link', { name: 'Análisis' }))
+    await screen.findByRole('heading', { level: 1, name: 'Análisis' })
+    expect(router.state.location.pathname).toBe('/analisis')
+    expect(router.state.location.search).toContain('sector=S3')
+    expect(router.state.location.search).toContain('scenario=normal')
+  })
+
+  it('permite activar la navegación principal mediante teclado', async () => {
+    const user = userEvent.setup()
+    const router = renderRoute('/territorio')
+    await screen.findByRole('heading', { level: 1, name: 'Territorio' })
+
+    await user.tab()
+    expect(screen.getByRole('link', { name: 'Saltar al contenido' })).toHaveFocus()
+    await user.tab()
+    expect(screen.getByRole('link', { name: 'Territorio' })).toHaveFocus()
+    await user.tab()
+    expect(screen.getByRole('link', { name: 'Análisis' })).toHaveFocus()
+    await user.keyboard('{Enter}')
+
+    await waitFor(() => {
+      expect(router.state.location.pathname).toBe('/analisis')
+    })
   })
 })

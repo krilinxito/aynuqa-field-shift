@@ -2,8 +2,9 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-3);
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  min-inline-size: 0;
+  font-weight: var(--weight-bold);
+  letter-spacing: -0.025em;
 }
 
 .mark {
@@ -12,8 +13,23 @@
   border: 2px solid var(--color-ink);
   border-radius: 50%;
   background: var(--color-accent);
+  flex: 0 0 auto;
 }
 
 .name {
-  font-size: 1rem;
+  overflow: hidden;
+  font-size: 0.9375rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (min-width: 48rem) {
+  .mark {
+    inline-size: 2rem;
+    block-size: 2rem;
+  }
+
+  .name {
+    font-size: 1rem;
+  }
 }

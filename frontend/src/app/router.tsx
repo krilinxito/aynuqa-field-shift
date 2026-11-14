@@ -1,15 +1,20 @@
-import {
-  createBrowserRouter,
-  type RouteObject,
-} from 'react-router-dom'
+import { Suspense, type ReactNode } from 'react'
+import { createBrowserRouter, type RouteObject } from 'react-router-dom'
 
-import { AnalysisRoute } from '../routes/AnalysisRoute'
-import { AssistantRoute } from '../routes/AssistantRoute'
-import { NotFoundRoute } from '../routes/NotFoundRoute'
-import { ReportRoute } from '../routes/ReportRoute'
-import { TerritoryRoute } from '../routes/TerritoryRoute'
+import { RouteLoading } from '../shared/components/RouteLoading'
+import {
+  LazyAnalysisRoute,
+  LazyAssistantRoute,
+  LazyNotFoundRoute,
+  LazyReportRoute,
+  LazyTerritoryRoute,
+} from './lazyRoutes'
 import { RootRedirect } from './navigation/RootRedirect'
 import { AppProviders } from './providers/AppProviders'
+
+function withRouteFallback(route: ReactNode) {
+  return <Suspense fallback={<RouteLoading />}>{route}</Suspense>
+}
 
 export const appRoutes: RouteObject[] = [
   {
@@ -17,11 +22,17 @@ export const appRoutes: RouteObject[] = [
     element: <AppProviders />,
     children: [
       { index: true, element: <RootRedirect /> },
-      { path: 'territorio', element: <TerritoryRoute /> },
-      { path: 'analisis', element: <AnalysisRoute /> },
-      { path: 'asistente', element: <AssistantRoute /> },
-      { path: 'informe', element: <ReportRoute /> },
-      { path: '*', element: <NotFoundRoute /> },
+      {
+        path: 'territorio',
+        element: withRouteFallback(<LazyTerritoryRoute />),
+      },
+      { path: 'analisis', element: withRouteFallback(<LazyAnalysisRoute />) },
+      {
+        path: 'asistente',
+        element: withRouteFallback(<LazyAssistantRoute />),
+      },
+      { path: 'informe', element: withRouteFallback(<LazyReportRoute />) },
+      { path: '*', element: withRouteFallback(<LazyNotFoundRoute />) },
     ],
   },
 ]
