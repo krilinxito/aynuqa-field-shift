@@ -7,8 +7,9 @@ Comparado con appeears.py (que baja todo y tarda horas), cada pedido aquí es mu
 - Recuadro de 5 km por zona en vez de 10: los 13 sectores quedan a menos de 2 km del pueblo.
 - Febrero a abril y septiembre van en pedidos separados (uno corto y uno muy corto).
 
-Cada persona usa su propia cuenta de Earthdata (ml/.env con EARTHDATA_USER y EARTHDATA_PASSWORD)
-y corre solo su parte. Uso, desde ml/:
+Cada persona usa una cuenta secundaria de Earthdata con la cola vacía, en ml/.env.fast
+(EARTHDATA_USER y EARTHDATA_PASSWORD; si no existe, se usa ml/.env), y corre solo su parte.
+Uso, desde ml/:
     python ingest/appeears2.py login             # prueba las credenciales
     python ingest/appeears2.py submit 3          # envía los pedidos de la parte 3
     python ingest/appeears2.py status            # estado de tus pedidos
@@ -26,7 +27,34 @@ from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from appeears import RAW_DIR, call, fetch_file, load_zones, login  # noqa: E402
+import appeears  # noqa: E402
+from appeears import ML_DIR, RAW_DIR, call, fetch_file, load_zones  # noqa: E402
+
+FAST_ENV = ML_DIR / ".env.fast"
+
+
+def login() -> str:
+    """Usa la cuenta secundaria de ml/.env.fast si existe; si no, la de ml/.env.
+
+    Así cada persona puede bajar su parte con una cuenta con la cola vacía sin tocar su ml/.env.
+    """
+    if FAST_ENV.exists():
+        original = appeears.read_env
+
+        def read_fast_env() -> dict[str, str]:
+            env = {}
+            for line in FAST_ENV.read_text(encoding="utf-8-sig").splitlines():
+                if "=" in line and not line.lstrip().startswith("#"):
+                    key, value = line.split("=", 1)
+                    env[key.strip()] = value.strip().strip("\"'")
+            return env
+
+        appeears.read_env = read_fast_env
+        try:
+            return appeears.login()
+        finally:
+            appeears.read_env = original
+    return appeears.login()
 
 TASKS_FILE = RAW_DIR / "tasks_fast.json"
 BOX_KM = 5
