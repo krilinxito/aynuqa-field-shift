@@ -1,0 +1,2693 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "pumani",
+    "sector_id": "S1",
+    "display": true,
+    "area_ha": 56.2,
+    "elevation_m": 3889.1,
+    "slope_pct": 5.02,
+    "aspect_deg": 170.6,
+    "rotation_status": "cultivated",
+    "rotation_years": 3,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.014097,
+       -17.09
+      ],
+      [
+       -68.007049,
+       -17.09
+      ],
+      [
+       -68.007049,
+       -17.083263
+      ],
+      [
+       -68.014097,
+       -17.083263
+      ],
+      [
+       -68.014097,
+       -17.09
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "pumani",
+    "sector_id": "S2",
+    "display": true,
+    "area_ha": 56.3,
+    "elevation_m": 3898.1,
+    "slope_pct": 12.52,
+    "aspect_deg": 252.8,
+    "rotation_status": "resting",
+    "rotation_years": 2,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.007049,
+       -17.09
+      ],
+      [
+       -68.0,
+       -17.09
+      ],
+      [
+       -68.0,
+       -17.083263
+      ],
+      [
+       -68.007049,
+       -17.083263
+      ],
+      [
+       -68.007049,
+       -17.09
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "pumani",
+    "sector_id": "S3",
+    "display": true,
+    "area_ha": 56.3,
+    "elevation_m": 3979.6,
+    "slope_pct": 27.45,
+    "aspect_deg": 187.3,
+    "rotation_status": "resting",
+    "rotation_years": 5,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.0,
+       -17.09
+      ],
+      [
+       -67.992951,
+       -17.09
+      ],
+      [
+       -67.992951,
+       -17.083263
+      ],
+      [
+       -68.0,
+       -17.083263
+      ],
+      [
+       -68.0,
+       -17.09
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "pumani",
+    "sector_id": "S4",
+    "display": true,
+    "area_ha": 56.2,
+    "elevation_m": 3931.1,
+    "slope_pct": 14.61,
+    "aspect_deg": 146.4,
+    "rotation_status": "resting",
+    "rotation_years": 1,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -67.992951,
+       -17.09
+      ],
+      [
+       -67.985903,
+       -17.09
+      ],
+      [
+       -67.985903,
+       -17.083263
+      ],
+      [
+       -67.992951,
+       -17.083263
+      ],
+      [
+       -67.992951,
+       -17.09
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "pumani",
+    "sector_id": "S5",
+    "display": true,
+    "area_ha": 56.2,
+    "elevation_m": 3875.8,
+    "slope_pct": 3.63,
+    "aspect_deg": 175.2,
+    "rotation_status": "resting",
+    "rotation_years": 3,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.014097,
+       -17.096737
+      ],
+      [
+       -68.007049,
+       -17.096737
+      ],
+      [
+       -68.007049,
+       -17.09
+      ],
+      [
+       -68.014097,
+       -17.09
+      ],
+      [
+       -68.014097,
+       -17.096737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "pumani",
+    "sector_id": "S6",
+    "display": true,
+    "area_ha": 56.2,
+    "elevation_m": 3876.9,
+    "slope_pct": 3.8,
+    "aspect_deg": 224.2,
+    "rotation_status": "cultivated",
+    "rotation_years": 1,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.007049,
+       -17.096737
+      ],
+      [
+       -68.0,
+       -17.096737
+      ],
+      [
+       -68.0,
+       -17.09
+      ],
+      [
+       -68.007049,
+       -17.09
+      ],
+      [
+       -68.007049,
+       -17.096737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "pumani",
+    "sector_id": "S7",
+    "display": true,
+    "area_ha": 56.2,
+    "elevation_m": 3887.4,
+    "slope_pct": 5.29,
+    "aspect_deg": 194.8,
+    "rotation_status": "cultivated",
+    "rotation_years": 2,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.0,
+       -17.096737
+      ],
+      [
+       -67.992951,
+       -17.096737
+      ],
+      [
+       -67.992951,
+       -17.09
+      ],
+      [
+       -68.0,
+       -17.09
+      ],
+      [
+       -68.0,
+       -17.096737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "pumani",
+    "sector_id": "S8",
+    "display": true,
+    "area_ha": 56.2,
+    "elevation_m": 3896.4,
+    "slope_pct": 5.68,
+    "aspect_deg": 181.3,
+    "rotation_status": "resting",
+    "rotation_years": 4,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -67.992951,
+       -17.096737
+      ],
+      [
+       -67.985903,
+       -17.096737
+      ],
+      [
+       -67.985903,
+       -17.09
+      ],
+      [
+       -67.992951,
+       -17.09
+      ],
+      [
+       -67.992951,
+       -17.096737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "patacamaya",
+    "sector_id": "S1",
+    "display": false,
+    "area_ha": 56.3,
+    "elevation_m": 3787.9,
+    "slope_pct": 4.52,
+    "aspect_deg": 58.9,
+    "rotation_status": "resting",
+    "rotation_years": 2,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -67.934109,
+       -17.24
+      ],
+      [
+       -67.927054,
+       -17.24
+      ],
+      [
+       -67.927054,
+       -17.233263
+      ],
+      [
+       -67.934109,
+       -17.233263
+      ],
+      [
+       -67.934109,
+       -17.24
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "patacamaya",
+    "sector_id": "S2",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3785.3,
+    "slope_pct": 2.37,
+    "aspect_deg": 210.7,
+    "rotation_status": "cultivated",
+    "rotation_years": 3,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -67.927054,
+       -17.24
+      ],
+      [
+       -67.92,
+       -17.24
+      ],
+      [
+       -67.92,
+       -17.233263
+      ],
+      [
+       -67.927054,
+       -17.233263
+      ],
+      [
+       -67.927054,
+       -17.24
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "patacamaya",
+    "sector_id": "S3",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3790.0,
+    "slope_pct": 2.74,
+    "aspect_deg": 203.4,
+    "rotation_status": "cultivated",
+    "rotation_years": 2,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -67.92,
+       -17.24
+      ],
+      [
+       -67.912946,
+       -17.24
+      ],
+      [
+       -67.912946,
+       -17.233263
+      ],
+      [
+       -67.92,
+       -17.233263
+      ],
+      [
+       -67.92,
+       -17.24
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "patacamaya",
+    "sector_id": "S4",
+    "display": false,
+    "area_ha": 56.3,
+    "elevation_m": 3796.4,
+    "slope_pct": 3.02,
+    "aspect_deg": 221.2,
+    "rotation_status": "resting",
+    "rotation_years": 5,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -67.912946,
+       -17.24
+      ],
+      [
+       -67.905891,
+       -17.24
+      ],
+      [
+       -67.905891,
+       -17.233263
+      ],
+      [
+       -67.912946,
+       -17.233263
+      ],
+      [
+       -67.912946,
+       -17.24
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "patacamaya",
+    "sector_id": "S5",
+    "display": false,
+    "area_ha": 56.3,
+    "elevation_m": 3790.0,
+    "slope_pct": 3.81,
+    "aspect_deg": 125.1,
+    "rotation_status": "resting",
+    "rotation_years": 3,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -67.934109,
+       -17.246737
+      ],
+      [
+       -67.927054,
+       -17.246737
+      ],
+      [
+       -67.927054,
+       -17.24
+      ],
+      [
+       -67.934109,
+       -17.24
+      ],
+      [
+       -67.934109,
+       -17.246737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "patacamaya",
+    "sector_id": "S6",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3780.4,
+    "slope_pct": 3.25,
+    "aspect_deg": 131.8,
+    "rotation_status": "resting",
+    "rotation_years": 1,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -67.927054,
+       -17.246737
+      ],
+      [
+       -67.92,
+       -17.246737
+      ],
+      [
+       -67.92,
+       -17.24
+      ],
+      [
+       -67.927054,
+       -17.24
+      ],
+      [
+       -67.927054,
+       -17.246737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "patacamaya",
+    "sector_id": "S7",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3781.7,
+    "slope_pct": 2.61,
+    "aspect_deg": 205.3,
+    "rotation_status": "cultivated",
+    "rotation_years": 1,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -67.92,
+       -17.246737
+      ],
+      [
+       -67.912946,
+       -17.246737
+      ],
+      [
+       -67.912946,
+       -17.24
+      ],
+      [
+       -67.92,
+       -17.24
+      ],
+      [
+       -67.92,
+       -17.246737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "patacamaya",
+    "sector_id": "S8",
+    "display": false,
+    "area_ha": 56.3,
+    "elevation_m": 3787.3,
+    "slope_pct": 2.68,
+    "aspect_deg": 227.5,
+    "rotation_status": "resting",
+    "rotation_years": 4,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -67.912946,
+       -17.246737
+      ],
+      [
+       -67.905891,
+       -17.246737
+      ],
+      [
+       -67.905891,
+       -17.24
+      ],
+      [
+       -67.912946,
+       -17.24
+      ],
+      [
+       -67.912946,
+       -17.246737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "jesus_de_machaca",
+    "sector_id": "S1",
+    "display": false,
+    "area_ha": 56.3,
+    "elevation_m": 3853.3,
+    "slope_pct": 4.32,
+    "aspect_deg": 237.6,
+    "rotation_status": "resting",
+    "rotation_years": 5,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.824071,
+       -16.74
+      ],
+      [
+       -68.817035,
+       -16.74
+      ],
+      [
+       -68.817035,
+       -16.733263
+      ],
+      [
+       -68.824071,
+       -16.733263
+      ],
+      [
+       -68.824071,
+       -16.74
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "jesus_de_machaca",
+    "sector_id": "S2",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3861.6,
+    "slope_pct": 4.7,
+    "aspect_deg": 208.9,
+    "rotation_status": "resting",
+    "rotation_years": 1,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.817035,
+       -16.74
+      ],
+      [
+       -68.81,
+       -16.74
+      ],
+      [
+       -68.81,
+       -16.733263
+      ],
+      [
+       -68.817035,
+       -16.733263
+      ],
+      [
+       -68.817035,
+       -16.74
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "jesus_de_machaca",
+    "sector_id": "S3",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3871.7,
+    "slope_pct": 8.28,
+    "aspect_deg": 197.8,
+    "rotation_status": "resting",
+    "rotation_years": 3,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.81,
+       -16.74
+      ],
+      [
+       -68.802965,
+       -16.74
+      ],
+      [
+       -68.802965,
+       -16.733263
+      ],
+      [
+       -68.81,
+       -16.733263
+      ],
+      [
+       -68.81,
+       -16.74
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "jesus_de_machaca",
+    "sector_id": "S4",
+    "display": false,
+    "area_ha": 56.3,
+    "elevation_m": 3873.2,
+    "slope_pct": 3.9,
+    "aspect_deg": 188.6,
+    "rotation_status": "cultivated",
+    "rotation_years": 2,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.802965,
+       -16.74
+      ],
+      [
+       -68.795929,
+       -16.74
+      ],
+      [
+       -68.795929,
+       -16.733263
+      ],
+      [
+       -68.802965,
+       -16.733263
+      ],
+      [
+       -68.802965,
+       -16.74
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "jesus_de_machaca",
+    "sector_id": "S5",
+    "display": false,
+    "area_ha": 56.3,
+    "elevation_m": 3845.8,
+    "slope_pct": 4.15,
+    "aspect_deg": 214.0,
+    "rotation_status": "resting",
+    "rotation_years": 4,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.824071,
+       -16.746737
+      ],
+      [
+       -68.817035,
+       -16.746737
+      ],
+      [
+       -68.817035,
+       -16.74
+      ],
+      [
+       -68.824071,
+       -16.74
+      ],
+      [
+       -68.824071,
+       -16.746737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "jesus_de_machaca",
+    "sector_id": "S6",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3849.8,
+    "slope_pct": 4.42,
+    "aspect_deg": 212.4,
+    "rotation_status": "cultivated",
+    "rotation_years": 3,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.817035,
+       -16.746737
+      ],
+      [
+       -68.81,
+       -16.746737
+      ],
+      [
+       -68.81,
+       -16.74
+      ],
+      [
+       -68.817035,
+       -16.74
+      ],
+      [
+       -68.817035,
+       -16.746737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "jesus_de_machaca",
+    "sector_id": "S7",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3857.7,
+    "slope_pct": 4.44,
+    "aspect_deg": 213.3,
+    "rotation_status": "resting",
+    "rotation_years": 2,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.81,
+       -16.746737
+      ],
+      [
+       -68.802965,
+       -16.746737
+      ],
+      [
+       -68.802965,
+       -16.74
+      ],
+      [
+       -68.81,
+       -16.74
+      ],
+      [
+       -68.81,
+       -16.746737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "jesus_de_machaca",
+    "sector_id": "S8",
+    "display": false,
+    "area_ha": 56.3,
+    "elevation_m": 3862.5,
+    "slope_pct": 4.76,
+    "aspect_deg": 216.5,
+    "rotation_status": "cultivated",
+    "rotation_years": 1,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.802965,
+       -16.746737
+      ],
+      [
+       -68.795929,
+       -16.746737
+      ],
+      [
+       -68.795929,
+       -16.74
+      ],
+      [
+       -68.802965,
+       -16.74
+      ],
+      [
+       -68.802965,
+       -16.746737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "tiahuanaco",
+    "sector_id": "S1",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3829.4,
+    "slope_pct": 5.21,
+    "aspect_deg": 209.8,
+    "rotation_status": "cultivated",
+    "rotation_years": 2,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.694057,
+       -16.55
+      ],
+      [
+       -68.687029,
+       -16.55
+      ],
+      [
+       -68.687029,
+       -16.543263
+      ],
+      [
+       -68.694057,
+       -16.543263
+      ],
+      [
+       -68.694057,
+       -16.55
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "tiahuanaco",
+    "sector_id": "S2",
+    "display": false,
+    "area_ha": 56.3,
+    "elevation_m": 3832.4,
+    "slope_pct": 4.95,
+    "aspect_deg": 310.9,
+    "rotation_status": "resting",
+    "rotation_years": 3,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.687029,
+       -16.55
+      ],
+      [
+       -68.68,
+       -16.55
+      ],
+      [
+       -68.68,
+       -16.543263
+      ],
+      [
+       -68.687029,
+       -16.543263
+      ],
+      [
+       -68.687029,
+       -16.55
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "tiahuanaco",
+    "sector_id": "S3",
+    "display": false,
+    "area_ha": 56.3,
+    "elevation_m": 3834.3,
+    "slope_pct": 5.85,
+    "aspect_deg": 292.6,
+    "rotation_status": "resting",
+    "rotation_years": 1,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.68,
+       -16.55
+      ],
+      [
+       -68.672971,
+       -16.55
+      ],
+      [
+       -68.672971,
+       -16.543263
+      ],
+      [
+       -68.68,
+       -16.543263
+      ],
+      [
+       -68.68,
+       -16.55
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "tiahuanaco",
+    "sector_id": "S4",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3834.2,
+    "slope_pct": 4.48,
+    "aspect_deg": 201.7,
+    "rotation_status": "resting",
+    "rotation_years": 4,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.672971,
+       -16.55
+      ],
+      [
+       -68.665943,
+       -16.55
+      ],
+      [
+       -68.665943,
+       -16.543263
+      ],
+      [
+       -68.672971,
+       -16.543263
+      ],
+      [
+       -68.672971,
+       -16.55
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "tiahuanaco",
+    "sector_id": "S5",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3831.2,
+    "slope_pct": 4.07,
+    "aspect_deg": 353.4,
+    "rotation_status": "cultivated",
+    "rotation_years": 3,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.694057,
+       -16.556737
+      ],
+      [
+       -68.687029,
+       -16.556737
+      ],
+      [
+       -68.687029,
+       -16.55
+      ],
+      [
+       -68.694057,
+       -16.55
+      ],
+      [
+       -68.694057,
+       -16.556737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "tiahuanaco",
+    "sector_id": "S6",
+    "display": false,
+    "area_ha": 56.3,
+    "elevation_m": 3840.2,
+    "slope_pct": 5.81,
+    "aspect_deg": 279.8,
+    "rotation_status": "cultivated",
+    "rotation_years": 1,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.687029,
+       -16.556737
+      ],
+      [
+       -68.68,
+       -16.556737
+      ],
+      [
+       -68.68,
+       -16.55
+      ],
+      [
+       -68.687029,
+       -16.55
+      ],
+      [
+       -68.687029,
+       -16.556737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "tiahuanaco",
+    "sector_id": "S7",
+    "display": false,
+    "area_ha": 56.3,
+    "elevation_m": 3843.9,
+    "slope_pct": 4.7,
+    "aspect_deg": 30.4,
+    "rotation_status": "resting",
+    "rotation_years": 2,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.68,
+       -16.556737
+      ],
+      [
+       -68.672971,
+       -16.556737
+      ],
+      [
+       -68.672971,
+       -16.55
+      ],
+      [
+       -68.68,
+       -16.55
+      ],
+      [
+       -68.68,
+       -16.556737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "tiahuanaco",
+    "sector_id": "S8",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3838.7,
+    "slope_pct": 5.21,
+    "aspect_deg": 15.9,
+    "rotation_status": "resting",
+    "rotation_years": 5,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.672971,
+       -16.556737
+      ],
+      [
+       -68.665943,
+       -16.556737
+      ],
+      [
+       -68.665943,
+       -16.55
+      ],
+      [
+       -68.672971,
+       -16.55
+      ],
+      [
+       -68.672971,
+       -16.556737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "caquiaviri",
+    "sector_id": "S1",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3908.1,
+    "slope_pct": 4.5,
+    "aspect_deg": 344.8,
+    "rotation_status": "cultivated",
+    "rotation_years": 1,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.624092,
+       -17.02
+      ],
+      [
+       -68.617046,
+       -17.02
+      ],
+      [
+       -68.617046,
+       -17.013263
+      ],
+      [
+       -68.624092,
+       -17.013263
+      ],
+      [
+       -68.624092,
+       -17.02
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "caquiaviri",
+    "sector_id": "S2",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3912.5,
+    "slope_pct": 4.47,
+    "aspect_deg": 337.4,
+    "rotation_status": "resting",
+    "rotation_years": 1,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.617046,
+       -17.02
+      ],
+      [
+       -68.61,
+       -17.02
+      ],
+      [
+       -68.61,
+       -17.013263
+      ],
+      [
+       -68.617046,
+       -17.013263
+      ],
+      [
+       -68.617046,
+       -17.02
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "caquiaviri",
+    "sector_id": "S3",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3923.0,
+    "slope_pct": 5.25,
+    "aspect_deg": 241.8,
+    "rotation_status": "cultivated",
+    "rotation_years": 3,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.61,
+       -17.02
+      ],
+      [
+       -68.602954,
+       -17.02
+      ],
+      [
+       -68.602954,
+       -17.013263
+      ],
+      [
+       -68.61,
+       -17.013263
+      ],
+      [
+       -68.61,
+       -17.02
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "caquiaviri",
+    "sector_id": "S4",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3934.7,
+    "slope_pct": 5.63,
+    "aspect_deg": 251.4,
+    "rotation_status": "cultivated",
+    "rotation_years": 2,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.602954,
+       -17.02
+      ],
+      [
+       -68.595908,
+       -17.02
+      ],
+      [
+       -68.595908,
+       -17.013263
+      ],
+      [
+       -68.602954,
+       -17.013263
+      ],
+      [
+       -68.602954,
+       -17.02
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "caquiaviri",
+    "sector_id": "S5",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3996.7,
+    "slope_pct": 29.44,
+    "aspect_deg": 332.4,
+    "rotation_status": "resting",
+    "rotation_years": 5,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.624092,
+       -17.026737
+      ],
+      [
+       -68.617046,
+       -17.026737
+      ],
+      [
+       -68.617046,
+       -17.02
+      ],
+      [
+       -68.624092,
+       -17.02
+      ],
+      [
+       -68.624092,
+       -17.026737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "caquiaviri",
+    "sector_id": "S6",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3978.4,
+    "slope_pct": 28.2,
+    "aspect_deg": 34.8,
+    "rotation_status": "resting",
+    "rotation_years": 4,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.617046,
+       -17.026737
+      ],
+      [
+       -68.61,
+       -17.026737
+      ],
+      [
+       -68.61,
+       -17.02
+      ],
+      [
+       -68.617046,
+       -17.02
+      ],
+      [
+       -68.617046,
+       -17.026737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "caquiaviri",
+    "sector_id": "S7",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3945.3,
+    "slope_pct": 18.17,
+    "aspect_deg": 348.0,
+    "rotation_status": "resting",
+    "rotation_years": 2,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.61,
+       -17.026737
+      ],
+      [
+       -68.602954,
+       -17.026737
+      ],
+      [
+       -68.602954,
+       -17.02
+      ],
+      [
+       -68.61,
+       -17.02
+      ],
+      [
+       -68.61,
+       -17.026737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "caquiaviri",
+    "sector_id": "S8",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3949.2,
+    "slope_pct": 12.02,
+    "aspect_deg": 354.8,
+    "rotation_status": "resting",
+    "rotation_years": 3,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.602954,
+       -17.026737
+      ],
+      [
+       -68.595908,
+       -17.026737
+      ],
+      [
+       -68.595908,
+       -17.02
+      ],
+      [
+       -68.602954,
+       -17.02
+      ],
+      [
+       -68.602954,
+       -17.026737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "sica_sica",
+    "sector_id": "S1",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3934.5,
+    "slope_pct": 3.69,
+    "aspect_deg": 193.5,
+    "rotation_status": "resting",
+    "rotation_years": 3,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -67.744115,
+       -17.33
+      ],
+      [
+       -67.737058,
+       -17.33
+      ],
+      [
+       -67.737058,
+       -17.323263
+      ],
+      [
+       -67.744115,
+       -17.323263
+      ],
+      [
+       -67.744115,
+       -17.33
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "sica_sica",
+    "sector_id": "S2",
+    "display": false,
+    "area_ha": 56.3,
+    "elevation_m": 3941.6,
+    "slope_pct": 4.71,
+    "aspect_deg": 186.7,
+    "rotation_status": "cultivated",
+    "rotation_years": 1,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -67.737058,
+       -17.33
+      ],
+      [
+       -67.73,
+       -17.33
+      ],
+      [
+       -67.73,
+       -17.323263
+      ],
+      [
+       -67.737058,
+       -17.323263
+      ],
+      [
+       -67.737058,
+       -17.33
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "sica_sica",
+    "sector_id": "S3",
+    "display": false,
+    "area_ha": 56.3,
+    "elevation_m": 3949.3,
+    "slope_pct": 5.45,
+    "aspect_deg": 212.5,
+    "rotation_status": "resting",
+    "rotation_years": 2,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -67.73,
+       -17.33
+      ],
+      [
+       -67.722942,
+       -17.33
+      ],
+      [
+       -67.722942,
+       -17.323263
+      ],
+      [
+       -67.73,
+       -17.323263
+      ],
+      [
+       -67.73,
+       -17.33
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "sica_sica",
+    "sector_id": "S4",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3971.3,
+    "slope_pct": 5.77,
+    "aspect_deg": 213.8,
+    "rotation_status": "resting",
+    "rotation_years": 5,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -67.722942,
+       -17.33
+      ],
+      [
+       -67.715885,
+       -17.33
+      ],
+      [
+       -67.715885,
+       -17.323263
+      ],
+      [
+       -67.722942,
+       -17.323263
+      ],
+      [
+       -67.722942,
+       -17.33
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "sica_sica",
+    "sector_id": "S5",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3918.0,
+    "slope_pct": 4.1,
+    "aspect_deg": 169.7,
+    "rotation_status": "cultivated",
+    "rotation_years": 2,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -67.744115,
+       -17.336737
+      ],
+      [
+       -67.737058,
+       -17.336737
+      ],
+      [
+       -67.737058,
+       -17.33
+      ],
+      [
+       -67.744115,
+       -17.33
+      ],
+      [
+       -67.744115,
+       -17.336737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "sica_sica",
+    "sector_id": "S6",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3915.1,
+    "slope_pct": 3.86,
+    "aspect_deg": 181.2,
+    "rotation_status": "resting",
+    "rotation_years": 1,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -67.737058,
+       -17.336737
+      ],
+      [
+       -67.73,
+       -17.336737
+      ],
+      [
+       -67.73,
+       -17.33
+      ],
+      [
+       -67.737058,
+       -17.33
+      ],
+      [
+       -67.737058,
+       -17.336737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "sica_sica",
+    "sector_id": "S7",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3920.0,
+    "slope_pct": 5.59,
+    "aspect_deg": 205.5,
+    "rotation_status": "cultivated",
+    "rotation_years": 3,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -67.73,
+       -17.336737
+      ],
+      [
+       -67.722942,
+       -17.336737
+      ],
+      [
+       -67.722942,
+       -17.33
+      ],
+      [
+       -67.73,
+       -17.33
+      ],
+      [
+       -67.73,
+       -17.336737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "sica_sica",
+    "sector_id": "S8",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3935.5,
+    "slope_pct": 5.78,
+    "aspect_deg": 199.5,
+    "rotation_status": "resting",
+    "rotation_years": 4,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -67.722942,
+       -17.336737
+      ],
+      [
+       -67.715885,
+       -17.336737
+      ],
+      [
+       -67.715885,
+       -17.33
+      ],
+      [
+       -67.722942,
+       -17.33
+      ],
+      [
+       -67.722942,
+       -17.336737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "curahuara",
+    "sector_id": "S1",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3890.1,
+    "slope_pct": 5.78,
+    "aspect_deg": 63.9,
+    "rotation_status": "resting",
+    "rotation_years": 2,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.424155,
+       -17.84
+      ],
+      [
+       -68.417078,
+       -17.84
+      ],
+      [
+       -68.417078,
+       -17.833263
+      ],
+      [
+       -68.424155,
+       -17.833263
+      ],
+      [
+       -68.424155,
+       -17.84
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "curahuara",
+    "sector_id": "S2",
+    "display": false,
+    "area_ha": 56.3,
+    "elevation_m": 3887.1,
+    "slope_pct": 4.37,
+    "aspect_deg": 326.2,
+    "rotation_status": "resting",
+    "rotation_years": 5,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.417078,
+       -17.84
+      ],
+      [
+       -68.41,
+       -17.84
+      ],
+      [
+       -68.41,
+       -17.833263
+      ],
+      [
+       -68.417078,
+       -17.833263
+      ],
+      [
+       -68.417078,
+       -17.84
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "curahuara",
+    "sector_id": "S3",
+    "display": false,
+    "area_ha": 56.3,
+    "elevation_m": 3889.3,
+    "slope_pct": 4.42,
+    "aspect_deg": 8.0,
+    "rotation_status": "cultivated",
+    "rotation_years": 2,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.41,
+       -17.84
+      ],
+      [
+       -68.402922,
+       -17.84
+      ],
+      [
+       -68.402922,
+       -17.833263
+      ],
+      [
+       -68.41,
+       -17.833263
+      ],
+      [
+       -68.41,
+       -17.84
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "curahuara",
+    "sector_id": "S4",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3891.2,
+    "slope_pct": 4.36,
+    "aspect_deg": 303.0,
+    "rotation_status": "cultivated",
+    "rotation_years": 3,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.402922,
+       -17.84
+      ],
+      [
+       -68.395845,
+       -17.84
+      ],
+      [
+       -68.395845,
+       -17.833263
+      ],
+      [
+       -68.402922,
+       -17.833263
+      ],
+      [
+       -68.402922,
+       -17.84
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "curahuara",
+    "sector_id": "S5",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3894.4,
+    "slope_pct": 7.6,
+    "aspect_deg": 294.6,
+    "rotation_status": "resting",
+    "rotation_years": 4,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.424155,
+       -17.846737
+      ],
+      [
+       -68.417078,
+       -17.846737
+      ],
+      [
+       -68.417078,
+       -17.84
+      ],
+      [
+       -68.424155,
+       -17.84
+      ],
+      [
+       -68.424155,
+       -17.846737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "curahuara",
+    "sector_id": "S6",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3926.4,
+    "slope_pct": 16.07,
+    "aspect_deg": 354.4,
+    "rotation_status": "cultivated",
+    "rotation_years": 1,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.417078,
+       -17.846737
+      ],
+      [
+       -68.41,
+       -17.846737
+      ],
+      [
+       -68.41,
+       -17.84
+      ],
+      [
+       -68.417078,
+       -17.84
+      ],
+      [
+       -68.417078,
+       -17.846737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "curahuara",
+    "sector_id": "S7",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3906.8,
+    "slope_pct": 8.4,
+    "aspect_deg": 26.4,
+    "rotation_status": "resting",
+    "rotation_years": 3,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.41,
+       -17.846737
+      ],
+      [
+       -68.402922,
+       -17.846737
+      ],
+      [
+       -68.402922,
+       -17.84
+      ],
+      [
+       -68.41,
+       -17.84
+      ],
+      [
+       -68.41,
+       -17.846737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "curahuara",
+    "sector_id": "S8",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3900.3,
+    "slope_pct": 4.05,
+    "aspect_deg": 3.4,
+    "rotation_status": "resting",
+    "rotation_years": 1,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -68.402922,
+       -17.846737
+      ],
+      [
+       -68.395845,
+       -17.846737
+      ],
+      [
+       -68.395845,
+       -17.84
+      ],
+      [
+       -68.402922,
+       -17.84
+      ],
+      [
+       -68.402922,
+       -17.846737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "toledo",
+    "sector_id": "S1",
+    "display": false,
+    "area_ha": 56.3,
+    "elevation_m": 3701.0,
+    "slope_pct": 4.42,
+    "aspect_deg": 334.5,
+    "rotation_status": "cultivated",
+    "rotation_years": 3,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -67.424183,
+       -18.18
+      ],
+      [
+       -67.417091,
+       -18.18
+      ],
+      [
+       -67.417091,
+       -18.173263
+      ],
+      [
+       -67.424183,
+       -18.173263
+      ],
+      [
+       -67.424183,
+       -18.18
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "toledo",
+    "sector_id": "S2",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3701.4,
+    "slope_pct": 4.61,
+    "aspect_deg": 6.7,
+    "rotation_status": "resting",
+    "rotation_years": 2,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -67.417091,
+       -18.18
+      ],
+      [
+       -67.41,
+       -18.18
+      ],
+      [
+       -67.41,
+       -18.173263
+      ],
+      [
+       -67.417091,
+       -18.173263
+      ],
+      [
+       -67.417091,
+       -18.18
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "toledo",
+    "sector_id": "S3",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3701.8,
+    "slope_pct": 4.68,
+    "aspect_deg": 304.9,
+    "rotation_status": "resting",
+    "rotation_years": 3,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -67.41,
+       -18.18
+      ],
+      [
+       -67.402909,
+       -18.18
+      ],
+      [
+       -67.402909,
+       -18.173263
+      ],
+      [
+       -67.41,
+       -18.173263
+      ],
+      [
+       -67.41,
+       -18.18
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "toledo",
+    "sector_id": "S4",
+    "display": false,
+    "area_ha": 56.3,
+    "elevation_m": 3701.3,
+    "slope_pct": 4.81,
+    "aspect_deg": 322.2,
+    "rotation_status": "resting",
+    "rotation_years": 5,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -67.402909,
+       -18.18
+      ],
+      [
+       -67.395817,
+       -18.18
+      ],
+      [
+       -67.395817,
+       -18.173263
+      ],
+      [
+       -67.402909,
+       -18.173263
+      ],
+      [
+       -67.402909,
+       -18.18
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "toledo",
+    "sector_id": "S5",
+    "display": false,
+    "area_ha": 56.3,
+    "elevation_m": 3700.7,
+    "slope_pct": 3.66,
+    "aspect_deg": 240.6,
+    "rotation_status": "resting",
+    "rotation_years": 1,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -67.424183,
+       -18.186737
+      ],
+      [
+       -67.417091,
+       -18.186737
+      ],
+      [
+       -67.417091,
+       -18.18
+      ],
+      [
+       -67.424183,
+       -18.18
+      ],
+      [
+       -67.424183,
+       -18.186737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "toledo",
+    "sector_id": "S6",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3701.0,
+    "slope_pct": 4.26,
+    "aspect_deg": 184.8,
+    "rotation_status": "cultivated",
+    "rotation_years": 2,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -67.417091,
+       -18.186737
+      ],
+      [
+       -67.41,
+       -18.186737
+      ],
+      [
+       -67.41,
+       -18.18
+      ],
+      [
+       -67.417091,
+       -18.18
+      ],
+      [
+       -67.417091,
+       -18.186737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "toledo",
+    "sector_id": "S7",
+    "display": false,
+    "area_ha": 56.2,
+    "elevation_m": 3701.8,
+    "slope_pct": 3.07,
+    "aspect_deg": 188.8,
+    "rotation_status": "cultivated",
+    "rotation_years": 1,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -67.41,
+       -18.186737
+      ],
+      [
+       -67.402909,
+       -18.186737
+      ],
+      [
+       -67.402909,
+       -18.18
+      ],
+      [
+       -67.41,
+       -18.18
+      ],
+      [
+       -67.41,
+       -18.186737
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "zone_id": "toledo",
+    "sector_id": "S8",
+    "display": false,
+    "area_ha": 56.3,
+    "elevation_m": 3701.1,
+    "slope_pct": 4.55,
+    "aspect_deg": 261.6,
+    "rotation_status": "resting",
+    "rotation_years": 4,
+    "is_simulated": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -67.402909,
+       -18.186737
+      ],
+      [
+       -67.395817,
+       -18.186737
+      ],
+      [
+       -67.395817,
+       -18.18
+      ],
+      [
+       -67.402909,
+       -18.18
+      ],
+      [
+       -67.402909,
+       -18.186737
+      ]
+     ]
+    ]
+   }
+  }
+ ]
+}
