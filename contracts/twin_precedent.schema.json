@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Precedente en una tierra gemela",
+  "type": "object",
+  "properties": {
+    "sector_id": {
+      "type": "string",
+      "pattern": "^S\\d+$"
+    },
+    "twin_zone": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Nombre de la zona analoga donde esta la tierra gemela."
+    },
+    "twin_elevation_m": {
+      "type": "number"
+    },
+    "twin_slope_pct": {
+      "type": "number"
+    },
+    "similarity": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Parecido fisico entre el sector y su tierra gemela, de 0 a 1."
+    },
+    "event": {
+      "enum": [
+        "2015-16",
+        "2023-24"
+      ],
+      "description": "El Nino pasado al que corresponde el precedente."
+    },
+    "observed_ndvi_anomaly": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Anomalia de NDVI observada en la tierra gemela durante el evento, en desviaciones estandar. Dato real."
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "confidence_label": {
+      "enum": [
+        "baja",
+        "media",
+        "alta"
+      ]
+    },
+    "is_simulated": {
+      "type": "boolean",
+      "description": "false: el NDVI y el terreno de la tierra gemela son mediciones reales."
+    }
+  },
+  "required": [
+    "sector_id",
+    "twin_zone",
+    "twin_elevation_m",
+    "twin_slope_pct",
+    "similarity",
+    "event",
+    "observed_ndvi_anomaly",
+    "confidence",
+    "confidence_label",
+    "is_simulated"
+  ],
+  "additionalProperties": false
+}

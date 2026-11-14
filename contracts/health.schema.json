@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Respuesta de GET /health y de POST /api/admin/reload",
+  "type": "object",
+  "properties": {
+    "status": {
+      "const": "ok"
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sources": {
+      "type": "object",
+      "properties": {
+        "predictions": {
+          "enum": [
+            "mock",
+            "real"
+          ]
+        },
+        "history": {
+          "enum": [
+            "mock",
+            "real"
+          ]
+        },
+        "backtest": {
+          "enum": [
+            "mock",
+            "real"
+          ]
+        },
+        "analogs": {
+          "enum": [
+            "mock",
+            "real"
+          ]
+        }
+      },
+      "required": [
+        "predictions",
+        "history",
+        "backtest",
+        "analogs"
+      ],
+      "additionalProperties": false,
+      "description": "De donde sale cada grupo de datos: mock (ejemplos de contracts/) o real (ml/outputs/)."
+    }
+  },
+  "required": [
+    "status",
+    "version",
+    "updated_at",
+    "sources"
+  ],
+  "additionalProperties": false
+}

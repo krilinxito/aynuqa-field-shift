@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Respuesta de GET /api/sectors/{id}/sensors",
+  "type": "object",
+  "properties": {
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sector_id": {
+      "type": "string",
+      "pattern": "^S\\d+$"
+    },
+    "hours": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 168
+    },
+    "is_simulated": {
+      "const": true
+    },
+    "readings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "ts": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "soil_moisture_pct": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "Porcentaje, de 0 a 100."
+          },
+          "air_temp_c": {
+            "type": "number"
+          },
+          "canopy_temp_delta_c": {
+            "type": "number"
+          },
+          "frost_alert": {
+            "type": "boolean",
+            "description": "true cuando air_temp_c <= 0.0."
+          },
+          "water_stress_alert": {
+            "type": "boolean",
+            "description": "true con soil_moisture_pct < 12 y canopy_temp_delta_c > 2.5 en 3 lecturas seguidas."
+          },
+          "is_simulated": {
+            "const": true
+          }
+        },
+        "required": [
+          "ts",
+          "soil_moisture_pct",
+          "air_temp_c",
+          "canopy_temp_delta_c",
+          "frost_alert",
+          "water_stress_alert",
+          "is_simulated"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "updated_at",
+    "sector_id",
+    "hours",
+    "is_simulated",
+    "readings"
+  ],
+  "additionalProperties": false
+}
