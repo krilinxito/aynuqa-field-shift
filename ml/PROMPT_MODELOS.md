@@ -35,7 +35,7 @@ No toques `ml/ingest/`, `ml/prep/`, `ml/zones.json`, `ml/TABLAS.md` ni `contract
 
 Las tres tablas de `ml/TABLAS.md`, en `ml/data/interim/`. Como aún no existen:
 
-1. Crea un script que genere tablas de prueba con exactamente ese formato en `ml/data/fake/`: 3 zonas, 8 sectores por zona, meses desde 2000-01.
+1. Crea un script que genere tablas de prueba con exactamente ese formato en `ml/data/fake/`: 3 zonas, 13 sectores por zona, meses desde 2000-01.
 2. Todos tus scripts reciben la carpeta de entrada como argumento, para cambiar de `fake` a `interim` sin tocar el código.
 3. Con tablas de prueba, exporta a `ml/outputs_fake/` (agrégala al `.gitignore`), nunca a `ml/outputs/`. `ml/outputs/` es solo para resultados de datos reales.
 
@@ -59,7 +59,7 @@ Las tablas de prueba solo sirven para comprobar que el código corre. No ajustes
 - Validación dejando fuera una campaña completa (todas las zonas a la vez). Al evaluar un evento, ese evento no puede estar en el entrenamiento.
 - Validación aparte dejando fuera una zona completa.
 - Dos bases de comparación: predecir siempre 0, y una regresión lineal solo con `roni_lag_0`. Reporta si LightGBM las supera o no.
-- Backtest de El Niño 2015-16 y 2023-24 y de La Niña 2020-22, con las predicciones de la validación. El resultado principal es la serie de la zona; la parte por sector es secundaria y lleva una advertencia, porque con 8 sectores la correlación no es confiable.
+- Backtest de El Niño 2015-16 y 2023-24 y de La Niña 2020-22, con las predicciones de la validación. El resultado principal es la serie de la zona; la parte por sector es secundaria y lleva una advertencia, porque con 13 sectores la correlación no es confiable.
 - Importancia global con SHAP y una figura en `ml/reports/` que muestre el peso del RONI.
 - Si un resultado es modesto, repórtalo tal cual.
 

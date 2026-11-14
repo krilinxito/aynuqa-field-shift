@@ -23,7 +23,7 @@ Una `Feature` por sector, con el polígono en `[lon, lat]`. Propiedades:
 | --- | --- | --- |
 | `zone_id` | texto | |
 | `sector_id` | texto | |
-| `display` | booleano | `true` en los 8 sectores de Pumani que muestra la app |
+| `display` | booleano | `true` en los 13 sectores de Pumani que muestra la app |
 | `area_ha` | número | |
 | `elevation_m` | número | De NASADEM |
 | `slope_pct` | número | De NASADEM |
@@ -32,7 +32,11 @@ Una `Feature` por sector, con el polígono en `[lon, lat]`. Propiedades:
 | `rotation_years` | entero | Años en ese estado. Simulado |
 | `is_simulated` | `true` | Los límites y la rotación son simulados |
 
-Cada zona tiene 8 sectores cuadrados de 750 m (unas 56 ha y unos 9 píxeles de MODIS), contiguos en 4 columnas y 2 filas, centrados en el punto de `zones.json`. La rotación simulada es un ciclo de 3 años de cultivo y 5 de descanso, desfasado entre sectores.
+La simulación sigue lo documentado por IBTA-ORSTOM para la aynuqa de Pumani en los años 90: 13 sectores; cada uno se cultiva 3 años y descansa 10, así que cada año hay 3 en cultivo y 10 en descanso. Se aplica igual en todas las zonas.
+
+- **Forma y ubicación:** cada sector es un cuadrado de 750 m (unas 56 ha y unos 9 píxeles de MODIS). El punto de `zones.json` es el pueblo, así que los sectores van alrededor, a más de 1,25 km, para no caer sobre casas.
+- **Orden:** se numeran en sentido horario desde el norte, y la rotación avanza en ese orden, como en una aynuqa real, que abre los sectores en una secuencia fija. El sector que descansa 10 años es el próximo en abrirse.
+- **Ubicación de Pumani:** el pueblo de Pomani (-17.1344, -68.0692), municipio de Ayo Ayo. Antes se usaba -17.09, -68.00, que es el pueblo de Ayo Ayo.
 
 ## 2. `monthly.csv`
 

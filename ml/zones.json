@@ -2,7 +2,7 @@
   "_note": "Lista preliminar. Las coordenadas son aproximadas (centro del pueblo) y la altitud es una verificacion rapida con SRTM 30 m; confirmar con NASADEM. box_km es el lado del recuadro que se pide a AppEEARS, centrado en la zona.",
   "box_km": 10,
   "zones": [
-    {"id": "pumani", "name": "Pumani", "role": "target", "lat": -17.09, "lon": -68.00, "elevation_m": 3928, "note": "Caso de estudio. Coordenadas por verificar."},
+    {"id": "pumani", "name": "Pumani (Pomani)", "role": "target", "lat": -17.1344, "lon": -68.0692, "elevation_m": 3900, "note": "Caso de estudio, municipio de Ayo Ayo. Centro en el pueblo de Pomani (OpenStreetMap). El recuadro de 10 km incluye la sede del Ayllu Pomani (2 a 3 km al noroeste) y Alto Pomani (4,4 km al sur). Antes se usaba -17.09, -68.00, que es el pueblo de Ayo Ayo. Altitud por confirmar con NASADEM."},
     {"id": "patacamaya", "name": "Patacamaya", "role": "analog", "lat": -17.24, "lon": -67.92, "elevation_m": 3797, "note": "Probablemente comparte celda de NASA POWER con Pumani."},
     {"id": "jesus_de_machaca", "name": "Jesus de Machaca", "role": "analog", "lat": -16.74, "lon": -68.81, "elevation_m": 3871, "note": ""},
     {"id": "tiahuanaco", "name": "Tiahuanaco", "role": "analog", "lat": -16.55, "lon": -68.68, "elevation_m": 3855, "note": "Probablemente comparte celda de NASA POWER con Jesus de Machaca."},
