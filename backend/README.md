@@ -4,6 +4,14 @@ Equipo Back. Rama: `team/back`.
 
 API con FastAPI y SQLite que cumple `contracts/`.
 
+## Contexto del plan
+
+El plan completo del equipo (sacado de `aynuqa-plan-Hackaton.pdf`) está en
+[`BACKEND_PLAN.md`](BACKEND_PLAN.md). Léelo antes de empezar: incluye los
+requisitos M/S/C, la integración ML → SQLite, las reglas del simulador de
+sensores, el chat con function calling y las **decisiones pendientes** donde
+el plan y este README difieren (sección 10).
+
 ## Regla principal
 
 Back no calcula predicciones, anomalías, correlaciones ni similitudes. Todo eso lo exporta ML; Back lo carga y lo sirve.

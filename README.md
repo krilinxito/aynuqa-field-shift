@@ -98,6 +98,7 @@ Cada carpeta tiene su propio README con el alcance del equipo.
 - Los cambios entran a `main` por Pull Requests pequeños.
 - `contracts/` es el acuerdo entre los tres equipos. Si necesitas cambiarlo, avisa al equipo antes de tocarlo.
 - Front y Back empiezan con los ejemplos de `contracts/` (mock) y luego pasan a los datos reales.
+- El plan completo del equipo Backend está en `backend/BACKEND_PLAN.md`.
 - Los secretos van solo en `.env`, nunca en el repo.
 
 Las reglas completas para trabajar con Claude Code están en `CLAUDE.md`.
