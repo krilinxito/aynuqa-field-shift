@@ -16,12 +16,14 @@ from sklearn.preprocessing import StandardScaler
 ZONES_JSON = Path(__file__).parent.parent / "zones.json"
 
 
-def _load_zone_names() -> dict:
+def _load_zone_info() -> tuple[dict, dict]:
     if not ZONES_JSON.exists():
-        return {}
+        return {}, {}
     with open(ZONES_JSON, "r", encoding="utf-8") as f:
         data = json.load(f)
-    return {z["id"]: z["name"] for z in data.get("zones", [])}
+    names = {z["id"]: z["name"] for z in data.get("zones", [])}
+    elevs = {z["id"]: float(z.get("elevation_m", 3900.0)) for z in data.get("zones", [])}
+    return names, elevs
 
 
 def _conf_label(conf: float) -> str:
@@ -42,7 +44,7 @@ def _conf_value(sim: float, has_obs: bool) -> float:
 def run(input_dir: str, output_dir: str) -> dict:
     os.makedirs(output_dir, exist_ok=True)
     is_real = "interim" in str(input_dir)
-    zone_names = _load_zone_names()
+    zone_names, zone_elevs = _load_zone_info()
 
     monthly_path = os.path.join(input_dir, "monthly.csv")
     sectors_path = os.path.join(input_dir, "sectors.geojson")
@@ -54,12 +56,24 @@ def run(input_dir: str, output_dir: str) -> dict:
     sector_meta = {}
     for feat in gj["features"]:
         p = feat["properties"]
-        sector_meta[(p["zone_id"], p["sector_id"])] = {
+        zid = p["zone_id"]
+        elev_raw = p.get("elevation_m")
+        slope_raw = p.get("slope_pct")
+        aspect_raw = p.get("aspect_deg")
+        elev_val = float(elev_raw) if elev_raw is not None and not pd.isna(elev_raw) else zone_elevs.get(zid, 3900.0)
+        slope_val = float(slope_raw) if slope_raw is not None and not pd.isna(slope_raw) else 0.0
+        if aspect_raw is not None and not pd.isna(aspect_raw):
+            asp_sin = float(np.sin(np.radians(float(aspect_raw))))
+            asp_cos = float(np.cos(np.radians(float(aspect_raw))))
+        else:
+            asp_sin = 0.0
+            asp_cos = 0.0
+        sector_meta[(zid, p["sector_id"])] = {
             "display": bool(p.get("display", False)),
-            "elevation_m": float(p["elevation_m"]),
-            "slope_pct": float(p["slope_pct"]),
-            "aspect_sin": float(np.sin(np.radians(p["aspect_deg"]))),
-            "aspect_cos": float(np.cos(np.radians(p["aspect_deg"]))),
+            "elevation_m": elev_val,
+            "slope_pct": slope_val,
+            "aspect_sin": asp_sin,
+            "aspect_cos": asp_cos,
         }
 
     # Media histórica de humedad de suelo y NDVI por sector (ignorando nulos reales)
@@ -93,7 +107,8 @@ def run(input_dir: str, output_dir: str) -> dict:
     vec_vals = feat_df[vec_cols].copy()
     for col in vec_cols:
         if vec_vals[col].isna().any():
-            vec_vals[col] = vec_vals[col].fillna(vec_vals[col].median())
+            med = vec_vals[col].median()
+            vec_vals[col] = vec_vals[col].fillna(0.0 if pd.isna(med) else med)
 
     scaler = StandardScaler()
     X = scaler.fit_transform(vec_vals.values)

@@ -114,7 +114,7 @@ def test_predictions_only_pumani_display(pipeline_output):
     for sc in ["normal", "nino"]:
         sc_data = data["scenarios"][sc]
         assert sc_data["zone"]["id"] == "pumani"
-        assert [s["id"] for s in sc_data["sectors"]] == [f"S{i}" for i in range(1, 9)]
+        assert [s["id"] for s in sc_data["sectors"]] == [f"S{i}" for i in range(1, 14)]
 
 
 def test_predictions_thresholds_consistent(pipeline_output):
@@ -143,7 +143,7 @@ def test_history_series_schema_and_climate_invariant(pipeline_output):
     with open(os.path.join(pipeline_output, "history.json"), encoding="utf-8") as f:
         data = json.load(f)
     assert data["data_source"] == "mock"
-    assert sorted(data["sectors"]) == [f"S{i}" for i in range(1, 9)]
+    assert sorted(data["sectors"], key=lambda s: int(s[1:])) == [f"S{i}" for i in range(1, 14)]
 
     for sid, series in data["sectors"].items():
         sec_obj = {
@@ -167,7 +167,7 @@ def test_history_series_schema_and_climate_invariant(pipeline_output):
 
 def test_backtest_schema_and_sectors(pipeline_output):
     schema = _load_schema("backtest.schema.json")
-    expected_sids = [f"S{i}" for i in range(1, 9)]
+    expected_sids = [f"S{i}" for i in range(1, 14)]
     for ev in ["2015-16", "2023-24", "2020-22"]:
         path = os.path.join(pipeline_output, f"backtest_{ev}.json")
         assert os.path.exists(path), f"backtest_{ev}.json no existe"
@@ -186,7 +186,7 @@ def test_analogs_schema(pipeline_output):
     with open(os.path.join(pipeline_output, "analogs.json"), encoding="utf-8") as f:
         data = json.load(f)
     assert data["data_source"] == "mock"
-    assert len(data["precedents"]) == 16  # 8 sectores * 2 eventos
+    assert len(data["precedents"]) == 26  # 13 sectores * 2 eventos
     for i, prec in enumerate(data["precedents"]):
         _validate(prec, schema, f"analogs.json[{i}]")
         assert prec["is_simulated"] is True

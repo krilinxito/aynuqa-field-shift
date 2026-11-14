@@ -61,16 +61,16 @@ def test_backtest_zone_structure_and_no_nan(validation_outputs):
             assert -1.0 <= sp <= 1.0
 
 
-def test_backtest_per_sector_unique_8(validation_outputs):
+def test_backtest_per_sector_unique_13(validation_outputs):
     backtests, _ = validation_outputs
-    expected_sids = [f"S{i}" for i in range(1, 9)]
+    expected_sids = [f"S{i}" for i in range(1, 14)]
     for ev, bt in backtests.items():
         sids = [x["sector_id"] for x in bt["per_sector"]]
         assert sids == expected_sids, f"{ev} tiene per_sector={sids}"
         for item in bt["per_sector"]:
             assert 0.0 <= item["predicted_risk"] <= 1.0
             assert not math.isnan(item["observed_ndvi_anomaly"])
-        assert bt["per_sector_metric"]["n"] == 8
+        assert bt["per_sector_metric"]["n"] == 13
         assert "no es confiable" in bt["per_sector_metric"]["note"].lower()
 
 

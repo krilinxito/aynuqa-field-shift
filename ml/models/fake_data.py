@@ -1,6 +1,6 @@
 """
 fake_data.py — Genera tablas de prueba en ml/data/fake/ con el formato exacto de ml/TABLAS.md.
-Zonas: pumani (target, 8 sectores display=true), jesus_de_machaca (8), caquiaviri (8).
+Zonas: pumani (target, 13 sectores display=true), jesus_de_machaca (13), caquiaviri (13).
 """
 import argparse
 import json
@@ -19,7 +19,7 @@ ZONES = {
     "caquiaviri": {"lat": -17.02, "lon": -68.61, "elevation_m": 3932, "display": False},
 }
 
-N_SECTORS = 8
+N_SECTORS = 13
 
 
 def _roni_series(dates):
@@ -67,13 +67,13 @@ def generate_sectors_geojson(output_dir):
             slope = float(rng.uniform(1.5, 8.5))
             aspect_deg = float(rng.uniform(0, 360))
             area_ha = float(rng.uniform(18, 45))
-            # Ciclo aynuqa realista: mayoría en descanso, algunos en cultivo
-            if i < 6:
+            # Ciclo aynuqa de 13 años (IBTA-ORSTOM): 10 sectores en descanso (1 a 10 años), 3 cultivados (1 a 3 años)
+            if i < 10:
                 rot_status = "resting"
-                rot_years = [10, 9, 7, 5, 3, 1][i]
+                rot_years = 10 - i
             else:
                 rot_status = "cultivated"
-                rot_years = [2, 3][i - 6]
+                rot_years = i - 9
 
             props = {
                 "zone_id": zone_id,
