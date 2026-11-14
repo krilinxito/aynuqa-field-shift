@@ -46,6 +46,7 @@ Una fila por sector y mes, desde `2000-01`.
 | --- | --- | --- |
 | `zone_id`, `sector_id`, `date` | | |
 | `ndvi` | -1 a 1 | Sector. MODIS Terra y Aqua, píxeles con fiabilidad buena o marginal. Vacío si no hay dato válido |
+| `ndvi_anom` | desviaciones estándar | Sector. Anomalía del NDVI respecto al mismo mes de todos los años, sin tendencia (ver abajo). Es la que deben usar los modelos y la exportación para mostrar anomalías |
 | `precip_mm` | mm, total del mes | Zona. NASA GPM IMERG V07, celda de 0,1°. Final hasta septiembre de 2025 y, después, CHIRPS ajustado con la razón IMERG/CHIRPS de los meses en que existen los dos. Vacío antes de 2000-06 |
 | `temp_c` | °C, media del mes | Zona. NASA POWER `T2M` |
 | `soil_moisture` | fracción de 0 a 1 | Zona. NASA POWER `GWETROOT` (humedad relativa de la zona de raíces), porque cubre todas las zonas desde 2000. SMAP solo empieza en 2015 |

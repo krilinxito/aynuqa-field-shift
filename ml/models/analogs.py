@@ -1,8 +1,9 @@
 """
-analogs.py — Tierra gemela por similitud coseno en espacio físico estandarizado.
+analogs.py — Tierra gemela por distancia euclidiana en espacio físico estandarizado.
 Vector: elevation_m, slope_pct, aspect_sin, aspect_cos, soil_moisture media, ndvi medio.
 Para cada sector de Pumani encuentra el sector más parecido de otra zona y reporta
-su anomalía de NDVI observada en El Niño 2015-16 (feb-abr 2016) y 2023-24 (feb-abr 2024).
+su anomalía de NDVI observada en El Niño 2015-16 (feb-abr 2016) y 2023-24 (feb-abr 2024),
+tomada de target_ndvi_anom de features.csv (sin tendencia, igual que el objetivo del modelo).
 """
 import argparse
 import json
@@ -121,57 +122,36 @@ def run(input_dir: str, output_dir: str) -> dict:
     pumani_df = feat_df[pumani_mask].reset_index(drop=True)
     other_df = feat_df[other_mask].reset_index(drop=True)
 
-    mdf["date_dt"] = pd.to_datetime(mdf["date"] + "-01")
-    mdf["month"] = mdf["date_dt"].dt.month
-    mdf["year"] = mdf["date_dt"].dt.year
-
-    def _event_ndvi_anom(zone_id: str, sector_id: str, peak_year: int):
-        """
-        Anomalía de NDVI de feb-abr del año pico de campaña (2016 para 2015-16, 2024 para 2023-24)
-        expresada en desviaciones estándar respecto a todos los feb-abr desde 2000.
-        """
-        sub = mdf[
-            (mdf["zone_id"] == zone_id)
-            & (mdf["sector_id"] == sector_id)
-            & (mdf["month"].isin([2, 3, 4]))
-            & (mdf["ndvi"].notna())
-        ]
-        by_year = sub.groupby("year")["ndvi"].mean()
-        if peak_year not in by_year.index or len(by_year) < 3:
-            return None
-        hist_std = float(by_year.std())
-        if hist_std < 1e-6:
-            return None
-        return float((by_year.loc[peak_year] - by_year.mean()) / hist_std)
-
-    EVENTS_DEF = {
-        "2015-16": 2016,
-        "2023-24": 2024,
+    # Anomalía observada del gemelo: el mismo objetivo del modelo (NDVI de febrero a abril, sin tendencia)
+    feats = pd.read_csv(os.path.join(input_dir, "features.csv"))
+    observed = {
+        (r.zone_id, r.sector_id, r.season): r.target_ndvi_anom
+        for r in feats.itertuples()
+        if pd.notna(r.target_ndvi_anom)
     }
+
+    def _event_ndvi_anom(zone_id: str, sector_id: str, season: str):
+        value = observed.get((zone_id, sector_id, season))
+        return None if value is None else float(value)
+
+    EVENTS_DEF = ["2015-16", "2023-24"]
+    n_dims = X.shape[1]
 
     precedents = []
     if len(other_df) > 0:
         for pi, prow in pumani_df.iterrows():
-            pv = X_pumani[pi]
-            pv_norm = pv / (np.linalg.norm(pv) + 1e-9)
-
-            sims = []
-            for oi in range(len(other_df)):
-                ov = X_other[oi]
-                ov_norm = ov / (np.linalg.norm(ov) + 1e-9)
-                cos_sim = float(np.dot(pv_norm, ov_norm))
-                sim_01 = float(np.clip((cos_sim + 1.0) / 2.0, 0.0, 1.0))
-                sims.append((sim_01, oi))
-
-            sims.sort(reverse=True)
-            best_sim, best_oi = sims[0]
+            # Distancia euclidiana en el espacio estandarizado; similitud = 1 / (1 + distancia media por
+            # dimensión). A diferencia del coseno, dos sectores solo se parecen si sus valores están cerca.
+            dists = np.linalg.norm(X_other - X_pumani[pi], axis=1) / np.sqrt(n_dims)
+            best_oi = int(np.argmin(dists))
+            best_sim = float(1.0 / (1.0 + dists[best_oi]))
             twin = other_df.iloc[best_oi]
             twin_zone_id = twin["zone_id"]
             twin_zone_name = zone_names.get(twin_zone_id, twin_zone_id.replace("_", " ").title())
             twin_meta = sector_meta[(twin_zone_id, twin["sector_id"])]
 
-            for event_key, peak_year in EVENTS_DEF.items():
-                ndvi_anom = _event_ndvi_anom(twin_zone_id, twin["sector_id"], peak_year)
+            for event_key in EVENTS_DEF:
+                ndvi_anom = _event_ndvi_anom(twin_zone_id, twin["sector_id"], event_key)
                 conf = _conf_value(best_sim, ndvi_anom is not None)
                 precedents.append({
                     "sector_id": prow["sector_id"],

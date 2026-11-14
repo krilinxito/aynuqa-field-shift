@@ -43,6 +43,31 @@ def zscore(values: pd.Series) -> pd.Series:
     return (values - values.mean()) / std
 
 
+MIN_YEARS_FOR_TREND = 10
+
+
+def detrended_zscore(values: pd.Series) -> pd.Series:
+    """Quita la tendencia lineal entre anios y expresa el residuo en desviaciones estandar.
+
+    values debe tener un indice con .year (PeriodIndex o DatetimeIndex) y un valor por anio.
+    """
+    years = values.index.year.to_numpy(dtype=float)
+    ok = values.notna().to_numpy()
+    if ok.sum() < MIN_YEARS_FOR_TREND:
+        return values * np.nan
+    slope, intercept = np.polyfit(years[ok], values.to_numpy()[ok], 1)
+    return zscore(values - (slope * years + intercept))
+
+
+def ndvi_anomaly(ndvi: pd.Series) -> pd.Series:
+    """Anomalia mensual del NDVI de un sector: respecto al mismo mes de todos los anios, sin tendencia.
+
+    El NDVI del altiplano sube poco a poco desde 2000. Sin quitar esa subida, los anios recientes
+    parecen mejores solo por ser recientes.
+    """
+    return ndvi.groupby(ndvi.index.month).transform(detrended_zscore)
+
+
 def find_grid(pattern: str, zone: dict) -> Path | None:
     """Archivo NetCDF de AppEEARS (de cualquier pedido) cuya grilla contiene el centro de la zona.
 

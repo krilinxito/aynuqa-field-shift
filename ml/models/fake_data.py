@@ -10,6 +10,8 @@ import os
 import numpy as np
 import pandas as pd
 
+from ml.prep.common import ndvi_anomaly
+
 SEED = 42
 rng = np.random.default_rng(SEED)
 
@@ -169,6 +171,12 @@ def generate_monthly_csv(sector_props, output_dir):
             })
 
     df = pd.DataFrame(rows)
+    # Misma anomalia sin tendencia que produce prep/monthly.py (ver ml/TABLAS.md)
+    anoms = []
+    for _, g in df.groupby(["zone_id", "sector_id"], sort=False):
+        ndvi = pd.Series(g["ndvi"].to_numpy(), index=pd.PeriodIndex(g["date"], freq="M"))
+        anoms.append(pd.Series(ndvi_anomaly(ndvi).to_numpy(), index=g.index))
+    df.insert(df.columns.get_loc("ndvi") + 1, "ndvi_anom", pd.concat(anoms).round(3))
     path = os.path.join(output_dir, "monthly.csv")
     df.to_csv(path, index=False)
     print(f"  → {path} ({len(df)} rows)")

@@ -1,6 +1,6 @@
 """
 test_validation.py — Tests de validación cruzada (por campaña y por zona),
-baselines, backtests y figuras en ml/reports/.
+baselines, backtests y figuras en ml/outputs_fake/reports/.
 """
 import json
 import math
@@ -12,7 +12,7 @@ import pytest
 REPO_ROOT = Path(__file__).parent.parent.parent
 OUTPUT_DIR = str(REPO_ROOT / "ml" / "outputs_fake")
 FAKE_INPUT = str(REPO_ROOT / "ml" / "data" / "fake")
-REPORTS_DIR = REPO_ROOT / "ml" / "reports"
+REPORTS_DIR = REPO_ROOT / "ml" / "outputs_fake" / "reports"
 
 
 @pytest.fixture(scope="module")
@@ -93,6 +93,23 @@ def test_cv_leave_one_season_and_zone_with_baselines(validation_outputs):
         assert "beats_linear_roni0" in cv
         assert isinstance(cv["verdict"], str) and len(cv["verdict"]) > 0
         assert cv["lgb"]["n"] > 0
+
+
+def test_backtest_one_forecast_per_season(validation_outputs):
+    """El riesgo es un pronóstico de octubre: vacío de julio a septiembre y constante dentro de la campaña."""
+    backtests, _ = validation_outputs
+    for ev, bt in backtests.items():
+        by_season = {}
+        for s in bt["zone"]["series"]:
+            month = int(s["date"][5:7])
+            year = int(s["date"][:4])
+            if 7 <= month <= 9:
+                assert s["predicted_risk"] is None, (ev, s)
+                continue
+            camp = year if month >= 10 else year - 1
+            by_season.setdefault(camp, set()).add(s["predicted_risk"])
+        for camp, values in by_season.items():
+            assert len(values) == 1, (ev, camp, values)
 
 
 def test_reports_figures_exist(validation_outputs):

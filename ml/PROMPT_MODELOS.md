@@ -60,7 +60,7 @@ Las tablas de prueba solo sirven para comprobar que el código corre. No ajustes
 - Validación aparte dejando fuera una zona completa.
 - Dos bases de comparación: predecir siempre 0, y una regresión lineal solo con `roni_lag_0`. Reporta si LightGBM las supera o no.
 - Backtest de El Niño 2015-16 y 2023-24 y de La Niña 2020-22, con las predicciones de la validación. El resultado principal es la serie de la zona; la parte por sector es secundaria y lleva una advertencia, porque con 13 sectores la correlación no es confiable.
-- Importancia global con SHAP y una figura en `ml/reports/` que muestre el peso del RONI.
+- Importancia global con SHAP y una figura en `<carpeta de salida>/reports/` que muestre el peso del RONI.
 - Si un resultado es modesto, repórtalo tal cual.
 
 ### 3. Recuperación del suelo (RESTREND)

@@ -103,11 +103,39 @@ def _sector_sort_key(sid: str):
     return (0, int(sid[1:])) if sid.startswith("S") and sid[1:].isdigit() else (1, sid)
 
 
+def _conf_label(conf: float) -> str:
+    if conf < 0.4:
+        return "baja"
+    if conf <= 0.7:
+        return "media"
+    return "alta"
+
+
+# Topes de confianza según lo que mostró la validación dejando fuera cada campaña:
+# si el modelo no supera ni "predecir siempre 0", su confianza es baja; si supera esa base pero
+# no la regresión lineal con el RONI, como mucho media.
+CONF_CAP_NO_SKILL = 0.39
+CONF_CAP_PARTIAL_SKILL = 0.7
+
+
+def _skill_confidence_cap(output_dir: str) -> float:
+    path = os.path.join(output_dir, "validation_summary.json")
+    if not os.path.exists(path):
+        return CONF_CAP_NO_SKILL
+    cv = _load_json(path).get("leave_one_season_out", {})
+    if not cv.get("beats_zero"):
+        return CONF_CAP_NO_SKILL
+    if not cv.get("beats_linear_roni0"):
+        return CONF_CAP_PARTIAL_SKILL
+    return 1.0
+
+
 def build_predictions(input_dir: str, output_dir: str, data_source: str):
     """Genera y valida predictions.json antes de guardarlo."""
     from ml.export.rules import recommend
 
     pred_raw = _load_json(os.path.join(output_dir, "predictions_raw.json"))
+    conf_cap = _skill_confidence_cap(output_dir)
     restrend_raw = _load_json(os.path.join(output_dir, "restrend_raw.json"))
     analogs_raw = _load_json(os.path.join(output_dir, "analogs_raw.json"))
     gj = _load_json(os.path.join(input_dir, "sectors.geojson"))
@@ -120,9 +148,10 @@ def build_predictions(input_dir: str, output_dir: str, data_source: str):
         feat_by_id[(p["zone_id"], p["sector_id"])] = feat
 
     pumani_monthly = mdf[mdf["zone_id"] == "pumani"].sort_values("date_dt")
-    # Último mes observado de clima en Pumani
+    # Último mes con lluvia observada en Pumani (el mes en curso puede tener solo temperatura)
     zone_monthly = pumani_monthly.drop_duplicates(subset=["date"]).sort_values("date_dt")
-    last_clim = zone_monthly.iloc[-1]
+    with_precip = zone_monthly[zone_monthly["precip_mm"].notna()]
+    last_clim = (with_precip if len(with_precip) else zone_monthly).iloc[-1]
     last_month = str(last_clim["date"])
     last_year = int(last_clim["date_dt"].year)
     last_month_num = int(last_clim["date_dt"].month)
@@ -222,12 +251,8 @@ def build_predictions(input_dir: str, output_dir: str, data_source: str):
                 last_sec = sec_valid_ndvi.iloc[-1]
                 ndvi_val = round(float(last_sec["ndvi"]), 4)
                 veg_date = str(last_sec["date"])
-                lm2 = int(last_sec["date_dt"].month)
-                hist2 = sec_valid_ndvi[sec_valid_ndvi["date_dt"].dt.month == lm2]["ndvi"]
-                if len(hist2) > 2 and hist2.std() > 1e-6:
-                    ndvi_anom = round(float((ndvi_val - hist2.mean()) / hist2.std()), 4)
-                else:
-                    ndvi_anom = None
+                # Anomalía sin tendencia calculada en prep (ml/TABLAS.md), igual que el objetivo del modelo
+                ndvi_anom = _opt_round(last_sec.get("ndvi_anom"), 4)
             else:
                 ndvi_val = None
                 ndvi_anom = None
@@ -241,6 +266,7 @@ def build_predictions(input_dir: str, output_dir: str, data_source: str):
                 "ndvi_residual": None,
             }
 
+            risk_conf = min(float(pred["confidence"]), conf_cap)
             rec = recommend(
                 risk_level=pred["level"],
                 risk_score=pred["score"],
@@ -250,6 +276,10 @@ def build_predictions(input_dir: str, output_dir: str, data_source: str):
                 rotation_years=int(p["rotation_years"]),
                 scenario=scenario,
             )
+            # La recomendación no puede tener más confianza que el riesgo en que se basa
+            if rec["confidence"] > risk_conf:
+                rec["confidence"] = round(risk_conf, 4)
+                rec["confidence_label"] = _conf_label(risk_conf)
 
             # En normal no hay precedente; en nino se elige el de mayor similarity
             twin_out = None
@@ -296,8 +326,8 @@ def build_predictions(input_dir: str, output_dir: str, data_source: str):
                     "score": float(pred["score"]),
                     "level": pred["level"],
                     "interval": pred["interval"],
-                    "confidence": float(pred["confidence"]),
-                    "confidence_label": pred["confidence_label"],
+                    "confidence": round(risk_conf, 4),
+                    "confidence_label": _conf_label(risk_conf),
                     "drivers": pred["drivers"],
                 },
                 "recovery": {

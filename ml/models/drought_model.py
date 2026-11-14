@@ -2,7 +2,7 @@
 drought_model.py — LightGBM con regresión por cuantiles (Q10, Q50, Q90).
 Entrena en features.csv (filas no-prediction con target válido), predice en is_prediction_row.
 Intervalo y confianza calculados por dispersión del puntaje entre modelos de validación cruzada (por campaña).
-Salida: predictions_raw.json y ml/reports/shap_importance.png.
+Salida: predictions_raw.json y <salida>/reports/shap_importance.png.
 """
 import argparse
 import json
@@ -14,19 +14,24 @@ import pandas as pd
 
 warnings.filterwarnings("ignore")
 
+# rotation_years queda fuera: la rotacion es simulada y no debe explicar un riesgo real.
+# Solo la usan las reglas de recomendacion.
 EXCLUDE_COLS = {
     "zone_id", "sector_id", "season", "target_ndvi_anom",
     "is_prediction_row", "lat", "lon", "latitude", "longitude",
+    "rotation_years",
 }
 
+# roni_lag_0 es la temporada julio-agosto-septiembre (centrada en agosto), la ultima que NOAA
+# publica a inicios de octubre; roni_lag_k es la temporada centrada k meses antes.
 FEATURE_LABELS = {
-    "roni_lag_0": "RONI de septiembre (El Niño)",
-    "roni_lag_1": "RONI hace 1 mes",
-    "roni_lag_2": "RONI hace 2 meses",
-    "roni_lag_3": "RONI hace 3 meses",
-    "roni_lag_4": "RONI hace 4 meses",
-    "roni_lag_5": "RONI hace 5 meses",
-    "roni_lag_6": "RONI hace 6 meses",
+    "roni_lag_0": "El Niño (índice RONI de julio a septiembre)",
+    "roni_lag_1": "El Niño (índice RONI de junio a agosto)",
+    "roni_lag_2": "El Niño (índice RONI de mayo a julio)",
+    "roni_lag_3": "El Niño (índice RONI de abril a junio)",
+    "roni_lag_4": "El Niño (índice RONI de marzo a mayo)",
+    "roni_lag_5": "El Niño (índice RONI de febrero a abril)",
+    "roni_lag_6": "El Niño (índice RONI de enero a marzo)",
     "precip_anom_3m": "Lluvia de julio a septiembre",
     "precip_anom_12m": "Lluvia de los últimos 12 meses",
     "temp_anom_3m": "Temperatura de julio a septiembre",
@@ -37,7 +42,6 @@ FEATURE_LABELS = {
     "slope_pct": "Pendiente del terreno",
     "aspect_sin": "Orientación del terreno (este-oeste)",
     "aspect_cos": "Orientación del terreno (norte-sur)",
-    "rotation_years": "Años en el estado de rotación actual",
 }
 
 DROUGHT_THRESHOLD = -0.5  # Umbral provisional de anomalía de NDVI
@@ -253,18 +257,18 @@ def run(input_dir: str, output_dir: str) -> dict:
         json.dump(output, f, indent=2, ensure_ascii=False)
     print(f"  → {out_path}")
 
-    _save_shap_figure(shap_importance)
+    _save_shap_figure(shap_importance, os.path.join(output_dir, "reports"))
 
     return output
 
 
-def _save_shap_figure(shap_importance: list):
+def _save_shap_figure(shap_importance: list, reports_dir: str):
     try:
         import matplotlib
         matplotlib.use("Agg")
         import matplotlib.pyplot as plt
 
-        os.makedirs("ml/reports", exist_ok=True)
+        os.makedirs(reports_dir, exist_ok=True)
         top = shap_importance[:12]
         feats = [FEATURE_LABELS.get(x["feature"], x["feature"]) for x in top]
         vals = [x["importance"] * 100 for x in top]
@@ -292,9 +296,10 @@ def _save_shap_figure(shap_importance: list):
             loc="lower right",
         )
         plt.tight_layout()
-        fig.savefig("ml/reports/shap_importance.png", dpi=120)
+        out = os.path.join(reports_dir, "shap_importance.png")
+        fig.savefig(out, dpi=120)
         plt.close(fig)
-        print("  → ml/reports/shap_importance.png")
+        print(f"  → {out}")
     except Exception as e:
         print(f"  [WARN] No se pudo generar figura SHAP: {e}")
 

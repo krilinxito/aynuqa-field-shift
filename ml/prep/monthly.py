@@ -18,11 +18,11 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 
-from common import INTERIM, RAW, find_grid, load_zones, pixels_in
+from common import INTERIM, RAW, find_grid, load_zones, ndvi_anomaly, pixels_in
 
 NDVI_PRODUCTS = ["MOD13Q1.061", "MYD13Q1.061"]
 MIN_VALID_SHARE = 0.5
-COLUMNS = ["zone_id", "sector_id", "date", "ndvi", "precip_mm", "temp_c", "soil_moisture", "roni"]
+COLUMNS = ["zone_id", "sector_id", "date", "ndvi", "ndvi_anom", "precip_mm", "temp_c", "soil_moisture", "roni"]
 
 
 def climate(zone_id: str) -> pd.DataFrame:
@@ -115,6 +115,7 @@ def main() -> None:
         for sid in bounds:
             part = pd.DataFrame(index=months)
             part["ndvi"] = veg[sid].reindex(months) if sid in veg else np.nan
+            part["ndvi_anom"] = ndvi_anomaly(part["ndvi"])
             part = part.join(clim.reindex(months))
             part["roni"] = enso.reindex(months)
             part.insert(0, "date", months.strftime("%Y-%m"))
@@ -126,7 +127,7 @@ def main() -> None:
         print(f"{zone['id']}: CHIRPS x{ratio:.2f} (ajuste con {n} meses, correlacion {r:.2f} con IMERG Final)")
         print(f"{zone['id']}: {len(months)} meses, NDVI {'con dato en ' + f'{covered:.0%} de los meses' if covered else 'pendiente'}")
     table = pd.concat(parts, ignore_index=True)[COLUMNS]
-    table = table.round({"ndvi": 4, "precip_mm": 1, "temp_c": 2, "soil_moisture": 3, "roni": 2})
+    table = table.round({"ndvi": 4, "ndvi_anom": 3, "precip_mm": 1, "temp_c": 2, "soil_moisture": 3, "roni": 2})
     out = INTERIM / "monthly.csv"
     table.to_csv(out, index=False, encoding="utf-8")
     print(f"{len(table)} filas en {out}")

@@ -22,39 +22,47 @@ def test_keep_cultivating():
 
 
 def test_open_papa():
-    # rotation_years=8 (par) → papa
-    r = recommend("low", 0.2, "high", 0.9, "resting", 8, "normal")
+    # Ciclo de Pumani: 10 años de descanso → se abre con papa, como es costumbre en la aynuqa
+    r = recommend("low", 0.2, "high", 0.9, "resting", 10, "normal")
     assert r["action"] == "open"
     assert r["crop"] == "papa"
     assert r["sowing_window"] is not None
     assert "octubre" in r["sowing_window"].lower() or "noviembre" in r["sowing_window"].lower()
 
 
-def test_open_quinua():
-    # rotation_years=9 (impar) → quinua
-    r = recommend("low", 0.2, "high", 0.9, "resting", 9, "normal")
+def test_open_with_medium_recovery():
+    r = recommend("low", 0.2, "medium", 0.5, "resting", 10, "normal")
     assert r["action"] == "open"
-    assert r["crop"] == "quinua"
+    assert r["crop"] == "papa"
 
 
 def test_extend_rest_nino_high():
-    # resting, high recovery, >= 8 años, risk=high, scenario=nino → extend_rest 1 año
+    # Descanso completo pero riesgo alto en El Niño → alargar 1 año
     r = recommend("high", 0.8, "high", 0.9, "resting", 10, "nino")
     assert r["action"] == "extend_rest"
     assert r["extend_rest_years"] == 1
 
 
 def test_extend_rest_not_enough_years():
-    # Solo 4 años de descanso → debe extender
+    # Solo 4 años de descanso → faltan 6 para completar los 10
     r = recommend("low", 0.2, "medium", 0.5, "resting", 4, "normal")
     assert r["action"] == "extend_rest"
-    assert r["extend_rest_years"] == max(1, 8 - 4)
+    assert r["extend_rest_years"] == 6
 
 
 def test_extend_rest_low_recovery():
-    # 9 años de descanso pero recovery=low → no puede abrir
-    r = recommend("low", 0.1, "low", 0.1, "resting", 9, "normal")
+    # 10 años de descanso pero recovery=low → no puede abrir
+    r = recommend("low", 0.1, "low", 0.1, "resting", 10, "normal")
     assert r["action"] == "extend_rest"
+    assert r["extend_rest_years"] == 1
+
+
+def test_normal_scenario_does_not_blame_el_nino():
+    # En el escenario normal no se atribuye el riesgo a El Niño
+    for status, years in [("cultivated", 3), ("cultivated", 1), ("resting", 10)]:
+        r = recommend("high", 0.9, "high", 0.9, status, years, "normal")
+        texto = (r["text"] + " " + " ".join(r["reasons"])).lower()
+        assert "el niño" not in texto, texto
 
 
 # --- Casos borde ---
@@ -69,9 +77,10 @@ def test_exactly_3_years_cultivated():
     assert r["action"] == "start_rest"
 
 
-def test_resting_exactly_8_years_high_recovery_normal():
+def test_resting_8_years_not_open_yet():
     r = recommend("medium", 0.5, "high", 0.85, "resting", 8, "normal")
-    assert r["action"] == "open"
+    assert r["action"] == "extend_rest"
+    assert r["extend_rest_years"] == 2
 
 
 def test_confidence_range():
