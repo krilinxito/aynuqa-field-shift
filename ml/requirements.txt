@@ -1,0 +1,9 @@
+lightgbm
+shap
+scikit-learn
+pandas
+numpy
+jsonschema
+matplotlib
+scipy
+pytest

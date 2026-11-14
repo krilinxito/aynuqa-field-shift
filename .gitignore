@@ -22,6 +22,9 @@ ml/data/*
 *.sqlite3
 *.db
 
+# ML outputs
+ml/outputs_fake/
+
 # Sistema y editores
 .DS_Store
 Thumbs.db
