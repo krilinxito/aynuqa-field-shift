@@ -7,25 +7,25 @@
  "zone": {
   "id": "pumani",
   "series": [
-   {"date": "2023-07", "roni": 0.54, "predicted_risk": 0.53, "observed_ndvi_anomaly": -0.71, "precip_anomaly_pct": -20.6},
-   {"date": "2023-08", "roni": 0.79, "predicted_risk": 0.56, "observed_ndvi_anomaly": -0.18, "precip_anomaly_pct": -25.7},
-   {"date": "2023-09", "roni": 1.04, "predicted_risk": 0.61, "observed_ndvi_anomaly": -0.48, "precip_anomaly_pct": -8.5},
-   {"date": "2023-10", "roni": 1.3, "predicted_risk": 0.56, "observed_ndvi_anomaly": -0.31, "precip_anomaly_pct": -12.0},
-   {"date": "2023-11", "roni": 1.42, "predicted_risk": 0.56, "observed_ndvi_anomaly": -0.74, "precip_anomaly_pct": -3.8},
-   {"date": "2023-12", "roni": 1.4, "predicted_risk": 0.67, "observed_ndvi_anomaly": -0.82, "precip_anomaly_pct": -16.0},
+   {"date": "2023-07", "roni": 0.54, "predicted_risk": null, "observed_ndvi_anomaly": -0.71, "precip_anomaly_pct": -20.6},
+   {"date": "2023-08", "roni": 0.79, "predicted_risk": null, "observed_ndvi_anomaly": -0.18, "precip_anomaly_pct": -25.7},
+   {"date": "2023-09", "roni": 1.04, "predicted_risk": null, "observed_ndvi_anomaly": -0.48, "precip_anomaly_pct": -8.5},
+   {"date": "2023-10", "roni": 1.3, "predicted_risk": 0.55, "observed_ndvi_anomaly": -0.31, "precip_anomaly_pct": -12.0},
+   {"date": "2023-11", "roni": 1.42, "predicted_risk": 0.55, "observed_ndvi_anomaly": -0.74, "precip_anomaly_pct": -3.8},
+   {"date": "2023-12", "roni": 1.4, "predicted_risk": 0.55, "observed_ndvi_anomaly": -0.82, "precip_anomaly_pct": -16.0},
    {"date": "2024-01", "roni": 1.13, "predicted_risk": 0.55, "observed_ndvi_anomaly": -0.21, "precip_anomaly_pct": -15.7},
-   {"date": "2024-02", "roni": 0.78, "predicted_risk": 0.66, "observed_ndvi_anomaly": -0.26, "precip_anomaly_pct": -26.3},
-   {"date": "2024-03", "roni": 0.42, "predicted_risk": 0.6, "observed_ndvi_anomaly": -0.45, "precip_anomaly_pct": -15.0},
-   {"date": "2024-04", "roni": 0.04, "predicted_risk": 0.67, "observed_ndvi_anomaly": -0.18, "precip_anomaly_pct": -8.1},
-   {"date": "2024-05", "roni": -0.28, "predicted_risk": 0.54, "observed_ndvi_anomaly": -0.28, "precip_anomaly_pct": -19.6},
-   {"date": "2024-06", "roni": -0.45, "predicted_risk": 0.6, "observed_ndvi_anomaly": -0.39, "precip_anomaly_pct": -8.6}
+   {"date": "2024-02", "roni": 0.78, "predicted_risk": 0.55, "observed_ndvi_anomaly": -0.26, "precip_anomaly_pct": -26.3},
+   {"date": "2024-03", "roni": 0.42, "predicted_risk": 0.55, "observed_ndvi_anomaly": -0.45, "precip_anomaly_pct": -15.0},
+   {"date": "2024-04", "roni": 0.04, "predicted_risk": 0.55, "observed_ndvi_anomaly": -0.18, "precip_anomaly_pct": -8.1},
+   {"date": "2024-05", "roni": -0.28, "predicted_risk": 0.55, "observed_ndvi_anomaly": -0.28, "precip_anomaly_pct": -19.6},
+   {"date": "2024-06", "roni": -0.45, "predicted_risk": 0.55, "observed_ndvi_anomaly": -0.39, "precip_anomaly_pct": -8.6}
   ],
-  "mean_predicted_risk": 0.59,
+  "mean_predicted_risk": 0.55,
   "mean_observed_ndvi_anomaly": -0.42,
   "metric": {
    "spearman": -0.44,
-   "n": 12,
-   "note": "Correlación entre riesgo predicho y anomalía de NDVI, mes a mes."
+   "n": 26,
+   "note": "Spearman entre el riesgo predicho y la anomalía de NDVI de febrero a abril en las 26 campañas de Pumani, cada una predicha con un modelo que no la vio. Se espera un valor negativo: más riesgo, menos verdor."
   }
  },
  "per_sector": [
@@ -68,12 +68,37 @@
    "sector_id": "S8",
    "predicted_risk": 0.67,
    "observed_ndvi_anomaly": -0.43
+  },
+  {
+   "sector_id": "S9",
+   "predicted_risk": 0.65,
+   "observed_ndvi_anomaly": -0.73
+  },
+  {
+   "sector_id": "S10",
+   "predicted_risk": 0.6,
+   "observed_ndvi_anomaly": -0.46
+  },
+  {
+   "sector_id": "S11",
+   "predicted_risk": 0.69,
+   "observed_ndvi_anomaly": -0.28
+  },
+  {
+   "sector_id": "S12",
+   "predicted_risk": 0.78,
+   "observed_ndvi_anomaly": -0.56
+  },
+  {
+   "sector_id": "S13",
+   "predicted_risk": 0.67,
+   "observed_ndvi_anomaly": -0.23
   }
  ],
  "per_sector_metric": {
   "spearman": null,
-  "n": 8,
-  "note": "Con 8 sectores la correlación no es confiable. Es evidencia secundaria."
+  "n": 13,
+  "note": "Con 13 sectores la correlación no es confiable. Es evidencia secundaria."
  },
  "note": "Valores de ejemplo, no resultados reales."
 }

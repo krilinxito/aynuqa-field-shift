@@ -17,7 +17,7 @@ Cada endpoint tiene un schema en `contracts/` y un ejemplo en `contracts/example
 
 ## Convenciones
 
-- **Sectores:** `S1` a `S8`.
+- **Sectores:** `S1` a `S13`, como la aynuqa documentada de Pumani (13 sectores: 3 en cultivo y 10 en descanso). Están numerados en sentido horario desde el norte, y la rotación avanza en ese orden. Front no debe asumir una cantidad fija.
 - **Escenarios:** `nino` es el estado real de hoy (RONI observado); `normal` es la comparación (RONI 0).
 - **Fechas:** los meses van como `YYYY-MM`; los instantes, en ISO 8601 con hora de Bolivia (`-04:00`).
 - **Datos faltantes:** `null`. Nunca se inventa un valor.
@@ -31,16 +31,16 @@ Cada endpoint tiene un schema en `contracts/` y un ejemplo en `contracts/example
 
 | Campo | Unidad | Escala |
 | --- | --- | --- |
-| `precip_mm` | mm, total del mes | Zona |
+| `precip_mm` | mm, total del mes (NASA GPM IMERG; los meses recientes, CHIRPS ajustado) | Zona |
 | `temp_c` | °C, media del mes | Zona |
 | `soil_moisture` | Fracción de 0 a 1 (`GWETROOT`) | Zona |
 | `roni` | Índice, sin unidad | Global |
 | `ndvi` | De -1 a 1 | Sector |
-| `ndvi_anomaly`, `observed_ndvi_anomaly` | Desviaciones estándar respecto al mismo mes desde 2000 | Sector |
+| `ndvi_anomaly`, `observed_ndvi_anomaly` | Desviaciones estándar respecto al mismo mes desde 2000, sin la tendencia lineal entre años | Sector |
 | `soil_moisture_pct` | Porcentaje de 0 a 100 (solo sensores) | Sector, simulado |
 | `air_temp_c`, `canopy_temp_delta_c` | °C (solo sensores) | Sector, simulado |
 
-La lluvia, la temperatura, la humedad de suelo y el RONI son iguales para todos los sectores, porque caen en la misma celda de NASA POWER.
+La lluvia, la temperatura, la humedad de suelo y el RONI son iguales para todos los sectores, porque caen en la misma celda de IMERG y de NASA POWER.
 
 ## GET /api/sectors
 
@@ -86,7 +86,9 @@ Devuelve una lectura cada 30 minutos: `{ts, soil_moisture_pct, air_temp_c, canop
 Parámetro: `event` = `2015-16`, `2023-24` (El Niño) o `2020-22` (La Niña).
 
 - `zone`: el backtest principal. Serie mensual de la zona con `roni`, `predicted_risk`, `observed_ndvi_anomaly` y `precip_anomaly_pct`, sus promedios y la correlación de Spearman.
-- `per_sector` y `per_sector_metric`: evidencia secundaria, solo con NDVI. Con 8 sectores la correlación puede ser `null` o poco confiable; `note` lo advierte.
+  - El modelo pronostica una vez por campaña, a inicios de octubre. `predicted_risk` repite ese pronóstico de octubre a junio y es `null` de julio a septiembre, cuando aún no se había emitido.
+  - `metric` compara el riesgo con la anomalía de NDVI de febrero a abril en todas las campañas de la zona (`n` es el número de campañas), cada una predicha sin verse a sí misma. Se espera un valor negativo: más riesgo, menos verdor.
+- `per_sector` y `per_sector_metric`: evidencia secundaria, solo con NDVI. Con 13 sectores la correlación puede ser `null` o poco confiable; `note` lo advierte.
 - `held_out`: `true` si el evento quedó fuera del entrenamiento.
 
 Back no calcula nada de esto: devuelve lo que exportó ML.
