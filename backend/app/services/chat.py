@@ -236,6 +236,12 @@ class ChatService:
                 "naturales del campo (por ejemplo: chakra, samay, para, ch'aki "
                 "pacha, papa, kinwa)."
             )
+        elif user_lang == "en":
+            lang_instruction = (
+                "\nIDIOMA DE RESPUESTA OBLIGATORIO: Responde íntegramente en "
+                "INGLÉS sencillo y claro (plain English), con frases cortas. "
+                "Llama 'field' a cada sector."
+            )
         es_bridge = ""
         if user_lang in ("ay", "qu"):
             es_meaning = pipeline.translate(

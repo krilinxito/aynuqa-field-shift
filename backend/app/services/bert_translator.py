@@ -196,8 +196,8 @@ class BertIndigenousPipeline:
         return "es"
 
     def extract_lang_tag(self, message: str) -> tuple[LangCode, str]:
-        """Extrae prefijo opcional [lang:ay] / [lang:qu] / [lang:es] enviado por el front."""
-        match = re.match(r"^\[lang:(es|ay|qu)\]\s*(.*)$", message, flags=re.DOTALL)
+        """Extrae prefijo opcional [lang:ay] / [lang:qu] / [lang:es] / [lang:en] enviado por el front."""
+        match = re.match(r"^\[lang:(es|en|ay|qu)\]\s*(.*)$", message, flags=re.DOTALL)
         if match:
             lang = match.group(1)  # type: ignore[assignment]
             clean = match.group(2).strip()

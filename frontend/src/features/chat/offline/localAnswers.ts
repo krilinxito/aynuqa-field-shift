@@ -33,11 +33,11 @@ export interface LocalAnswer {
 
 const INTENT_PATTERNS: ReadonlyArray<[LocalIntent, RegExp]> = [
   ['nino', /ni[ñn]o|roni/i],
-  ['sow', /sembr|siembr|cultiv[oa]r?\b|papa|quinua|jupha|kinwa|yapuch|tarpu/i],
-  ['rest', /descans|samar|samay|alarg/i],
-  ['open', /abrir|abre|llawir|kichar|qu[eé] sector|cu[aá]l(es)? sector|kawk[iï]r|mayqin/i],
-  ['risk', /riesgo|sequ[ií]a|seca|wa[ñn]a|ch.?aki|lluvia|jallu|para\b/i],
-  ['confidence', /confian|segur|atinis|atieneku/i],
+  ['sow', /sembr|siembr|cultiv[oa]r?\b|papa|quinua|jupha|kinwa|yapuch|tarpu|\bplant|\bsow|\bcrop|potato|quinoa/i],
+  ['rest', /descans|samar|samay|alarg|\brest/i],
+  ['open', /abrir|abre|llawir|kichar|qu[eé] sector|cu[aá]l(es)? sector|kawk[iï]r|mayqin|\bopen|which field/i],
+  ['risk', /riesgo|sequ[ií]a|seca|wa[ñn]a|ch.?aki|lluvia|jallu|para\b|\brisk|drought|\brain\b|\bdry/i],
+  ['confidence', /confian|segur|atinis|atieneku|\bsure\b|\bconfiden/i],
 ]
 
 export function detectIntent(question: string): LocalIntent {
