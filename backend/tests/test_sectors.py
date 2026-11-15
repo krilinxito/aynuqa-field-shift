@@ -43,3 +43,11 @@ def test_unknown_route_uses_error_shape(client: TestClient) -> None:
     response = client.get("/api/no-existe")
     assert response.status_code == 404
     assert response.json()["error"]["code"] == "not_found"
+
+
+def test_sectors_are_gzipped(client) -> None:
+    response = client.get(
+        "/api/sectors", params={"scenario": "nino"}, headers={"Accept-Encoding": "gzip"}
+    )
+    assert response.status_code == 200
+    assert response.headers.get("content-encoding") == "gzip"
