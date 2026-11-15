@@ -1,0 +1,27 @@
+# Contexto de build de la raíz (backend, postgres y powersync).
+.git
+.worktrees
+.claude
+**/__pycache__
+**/*.pyc
+**/.venv
+**/node_modules
+**/.pytest_cache
+
+# Secretos y bases locales
+.env
+.env.*
+!.env.example
+!.env.dokploy.example
+*.pem
+*.db
+*.sqlite
+*.sqlite3
+
+# El backend solo necesita ml/outputs; los datos crudos pesan y no se usan.
+ml/data
+ml/outputs_fake
+
+# Build de la app: se copia solo el código fuente
+frontend/dist
+docs

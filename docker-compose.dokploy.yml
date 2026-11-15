@@ -1,0 +1,121 @@
+# Despliegue en una VPS con Dokploy (Docker Compose).
+# Guía: docs/DEPLOY_DOKPLOY.md
+#
+# - Solo el servicio "web" recibe el dominio (Dokploy > Domains, puerto 80).
+# - Ningún servicio publica puertos: todo pasa por el dominio.
+# - Las variables van en Dokploy > Environment (ver .env.dokploy.example).
+
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: deploy/postgres.Dockerfile
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: aynuqa
+      POSTGRES_USER: aynuqa
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Falta POSTGRES_PASSWORD}
+    volumes:
+      - aynuqa_postgres:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U aynuqa -d aynuqa"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    networks: [aynuqa]
+
+  powersync-storage:
+    image: postgres:18
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: powersync
+      POSTGRES_USER: powersync
+      POSTGRES_PASSWORD: ${POWERSYNC_STORAGE_PASSWORD:?Falta POWERSYNC_STORAGE_PASSWORD}
+    volumes:
+      - powersync_storage:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U powersync -d powersync"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    networks: [aynuqa]
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+      args:
+        TTS_LOCAL: ${TTS_LOCAL:-false}
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://aynuqa:${POSTGRES_PASSWORD}@postgres:5432/aynuqa
+      DATABASE_PATH: /app/backend/data/app.db
+      POWERSYNC_PUBLIC_URL: ${PUBLIC_URL:?Falta PUBLIC_URL}/powersync
+      CORS_ORIGINS: ${PUBLIC_URL}
+      ADMIN_TOKEN: ${ADMIN_TOKEN:?Falta ADMIN_TOKEN}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_MODEL: ${LLM_MODEL:-}
+      CONTRACTS_DIR: /app/contracts
+      ML_OUTPUTS_DIR: /app/ml/outputs
+      TTS_LOCAL_MODELS: ${TTS_LOCAL:-false}
+      TTS_CACHE_DIR: /app/backend/data/tts_cache
+      HF_HOME: /app/backend/data/hf
+    expose: ["8000"]
+    volumes:
+      - aynuqa_backend:/app/backend/data
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 5s
+      timeout: 3s
+      retries: 24
+    networks: [aynuqa]
+
+  powersync:
+    build:
+      context: .
+      dockerfile: deploy/powersync.Dockerfile
+    restart: unless-stopped
+    environment:
+      PS_DATA_SOURCE_URI: postgresql://aynuqa:${POSTGRES_PASSWORD}@postgres:5432/aynuqa
+      PS_STORAGE_SOURCE_URI: postgresql://powersync:${POWERSYNC_STORAGE_PASSWORD}@powersync-storage:5432/powersync
+      PS_JWKS_URL: http://backend:8000/api/powersync/jwks
+      PS_PORT: "8080"
+      PS_ADMIN_TOKEN: ${POWERSYNC_ADMIN_TOKEN:?Falta POWERSYNC_ADMIN_TOKEN}
+      NODE_OPTIONS: --max-old-space-size=1000
+    expose: ["8080"]
+    depends_on:
+      backend:
+        condition: service_healthy
+      powersync-storage:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:8080/probes/liveness').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 5s
+      timeout: 3s
+      retries: 24
+    networks: [aynuqa]
+
+  # Único servicio público: app + proxy de /api, /health y /powersync.
+  web:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    restart: unless-stopped
+    expose: ["80"]
+    depends_on:
+      backend:
+        condition: service_healthy
+      powersync:
+        condition: service_healthy
+    networks: [aynuqa]
+
+networks:
+  aynuqa: {}
+
+volumes:
+  aynuqa_postgres:
+  powersync_storage:
+  aynuqa_backend:
