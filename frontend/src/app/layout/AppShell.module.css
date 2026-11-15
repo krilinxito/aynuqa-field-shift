@@ -83,8 +83,9 @@
 
 .navigationLabel {
   min-inline-size: 0;
-  overflow-wrap: break-word;
-  hyphens: auto;
+  /* No cortar palabras ("Mi comunida-d"): se parte solo entre palabras. */
+  overflow-wrap: normal;
+  hyphens: manual;
   text-align: center;
 }
 
@@ -94,6 +95,12 @@
     gap: var(--space-1);
     font-size: 0.95rem;
   }
+}
+
+/* Con letra grande no entran ícono y texto lado a lado: el ícono va arriba. */
+:global(:root[data-letra='grande']) .navigationLink {
+  flex-direction: column;
+  gap: var(--space-1);
 }
 
 @media print {
