@@ -17,6 +17,8 @@ ML / contratos -> FastAPI -> PostgreSQL -> PowerSync -> SQLite (OPFS, celular) -
 - PowerSync replica los cambios de PostgreSQL.
 - `@powersync/web` guarda la réplica en SQLite WASM. En navegadores compatibles utiliza OPFS; si no existe, el SDK aplica su alternativa automática.
 - El repositorio del frontend consulta SQLite primero y usa la API como arranque inicial si la primera sincronización todavía no terminó.
+- Las decisiones de la comunidad (`decisions`) son lo único que escribe el celular: se guardan en el SQLite local aunque no haya señal y `uploadData` las sube con `PUT /api/decisions/{id}` cuando vuelve la señal. El stream `community_decisions` las reparte a todos los celulares.
+- Sin señal, el chat contesta con plantillas y los datos guardados (y con la IA local opcional si se descargó en Ajustes).
 - El encabezado avisa cuando no hay señal, muestra la fecha de la última sincronización y conserva los últimos datos válidos si una actualización falla.
 
 ## Levantar el stack local
@@ -65,6 +67,10 @@ Servicios locales:
 4. Recargue `/mi-comunidad`: deben aparecer los sectores guardados.
 5. El encabezado debe decir “Sin señal” y mostrar la última conexión con datos.
 6. `/preguntar` debe seguir avisando que el chat necesita señal.
+
+## Voz nativa en aymara y quechua
+
+`TTS_LOCAL=true` en `.env` instala Meta MMS-TTS (`mms-tts-ayr`, `mms-tts-quh`, licencia CC-BY-NC 4.0) y `/api/tts` lee aymara y quechua con voz nativa (cabecera `X-Voice: mms`). La imagen crece unos 700 MB y los modelos se descargan al primer arranque al volumen `aynuqa_backend`. Con `false`, se usa la lectura fonética con voz española.
 
 ## Seguridad y producción
 
