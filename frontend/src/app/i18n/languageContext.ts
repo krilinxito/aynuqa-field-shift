@@ -7,11 +7,7 @@ export interface UiStrings {
   largeText: string
   normalText: string
   downloadPhone: string
-  installHelpTitle: string
-  installIos1: string
-  installIos2: string
-  installAndroid1: string
-  installAndroid2: string
+  installShort: string
   understood: string
   offlineNotice: string
   lastSyncNotice: (date: string) => string
@@ -169,13 +165,8 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
   es: {
     largeText: 'Letra grande',
     normalText: 'Letra normal',
-    downloadPhone: 'Descargar en celular',
-    installHelpTitle: 'Para guardar Aynuqa en la pantalla de su celular:',
-    installIos1: '1. Toque el botón Compartir abajo en su pantalla.',
-    installIos2: '2. Elija «Agregar a pantalla de inicio».',
-    installAndroid1: '1. Toque los tres puntitos (⋮) arriba a la derecha.',
-    installAndroid2:
-      '2. Toque «Instalar aplicación» o «Agregar a pantalla de inicio».',
+    downloadPhone: 'Instalar en el celular',
+    installShort: 'Instalar',
     understood: 'Entendido',
     offlineNotice: 'Sin señal. Se muestran los últimos datos guardados.',
     lastSyncNotice: (date) => `Última conexión con datos: ${date}.`,
@@ -315,11 +306,7 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
     largeText: "Jach'a qillqa",
     normalText: 'Qillqa',
     downloadPhone: 'Celulararu apaqaña',
-    installHelpTitle: 'Aynuqa celularaman imañataki:',
-    installIos1: '1. Aynachan «Compartir» limt’am.',
-    installIos2: '2. «Agregar a pantalla de inicio» ajllim.',
-    installAndroid1: '1. Patan kimsa ch’imi (⋮) limt’am.',
-    installAndroid2: '2. «Instalar aplicación» ajllim.',
+    installShort: 'Apaqaña',
     understood: 'Walikiwa',
     offlineNotice: 'Janiw señal utjkiti. Qhipa imat yatiyawinakaw uñacht’ayasi.',
     lastSyncNotice: (date) => `Qhipa yatiyawi katuqata: ${date}.`,
@@ -459,11 +446,7 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
     largeText: 'Hatun qillqa',
     normalText: 'Qillqa',
     downloadPhone: 'Celularman uraykachiy',
-    installHelpTitle: 'Aynuqa celularniykipi waqaychanapaq:',
-    installIos1: '1. Urapi «Compartir» ñit’iy.',
-    installIos2: '2. «Agregar a pantalla de inicio» akllay.',
-    installAndroid1: '1. Wichaypi kimsa ch’ikuta (⋮) ñit’iy.',
-    installAndroid2: '2. «Instalar aplicación» akllay.',
+    installShort: 'Uraykachiy',
     understood: 'Allinmi',
     offlineNotice: 'Mana señal kanchu. Qhipa waqaychasqa willakuykuna rikuchikushan.',
     lastSyncNotice: (date) => `Qhipa willakuy chaskisqa: ${date}.`,

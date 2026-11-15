@@ -10,7 +10,6 @@ import { setReminders, type ReminderResult } from '../../features/mascot/reminde
 
 import { useLanguage, type Language } from '../i18n/languageContext'
 import { usePreferences, type Preferences } from '../preferences/preferencesContext'
-import { InstallPwaButton } from '../pwa/InstallPwaButton'
 import { useTextSize } from '../textsize/textSizeContext'
 import styles from './SettingsSheet.module.css'
 
@@ -140,10 +139,6 @@ export function SettingsSheet({ id, onClose }: SettingsSheetProps) {
             {localModel.status === 'error' ? <p>{t.localAiError}</p> : null}
           </div>
         ) : null}
-
-        <div className={styles.group}>
-          <InstallPwaButton />
-        </div>
 
         <div className={styles.footer}>
           <Link className={styles.link} to="/comunidad" onClick={onClose}>
