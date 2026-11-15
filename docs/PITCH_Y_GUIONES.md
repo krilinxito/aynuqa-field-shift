@@ -35,9 +35,24 @@ Criterios de los jueces: **Impact, Creativity, Validity, Relevance, Presentation
 
 ---
 
+## Enfoque: agricultura sostenible y resiliencia comunitaria
+
+Lo que nos distingue de otros proyectos del reto: muchas herramientas agrícolas piensan en un productor, su parcela y sus sensores. La nuestra trabaja con la **comunidad** como unidad de decisión.
+
+- **La aynuqa ya es agricultura sostenible.** El descanso deja que el suelo se recupere sin depender de abonos, y sembrar en varios sectores reparte el riesgo. No proponemos una práctica nueva: damos datos a una práctica milenaria para que se adapte al clima de hoy.
+- **Resiliencia comunitaria.** Frente a la sequía, la comunidad reparte el riesgo entre sectores y decide en asamblea. La app le lleva datos a esa asamblea; no decide por ella.
+- **Crisis demográfica.** Muchos jóvenes migran y en el campo quedan las personas mayores. Por eso la app funciona con un celular para toda la comunidad, letra grande, audio y sin señal.
+- **Se puede llevar a otras zonas de bajos recursos.** Los datos de la NASA son gratuitos y cubren todo el planeta, el modelo no usa latitud ni longitud y la app funciona en celulares sencillos sin señal. Para comunidades del altiplano parecidas a las 8 zonas de entrenamiento sirve tal cual; fuera del altiplano hay que reentrenarlo con datos de la zona.
+
+Lo que la app ya tiene y respalda este enfoque: resumen imprimible para la reunión, registro de lo que decidió la comunidad (aunque no siga el consejo) y el consejo de cuántos años más descansar cada sector. No hablen de sensores en el pitch: son simulados y nos acercan a los demás proyectos.
+
+No afirmen cifras de suelo, carbono ni migración: no las tenemos. Digan "apoya una práctica que ya es sostenible", no "hace sostenible la agricultura".
+
+---
+
 ## 1. Modelo de negocio (B2B)
 
-**Clientes:** gobiernos municipales, la gobernación y ONG de desarrollo rural o de adaptación al cambio climático que ya trabajan con comunidades del altiplano.
+**Clientes:** gobiernos municipales, la gobernación y ONG de desarrollo rural o de adaptación al cambio climático que ya acompañan a comunidades del altiplano en su forma de organizarse.
 
 **Usuarios:** las comunidades y sus promotores.
 
@@ -90,30 +105,30 @@ Datos verificados que se pueden decir:
 
 ### Pitch A (el que usamos): "Lo milenario y lo nuevo, decidiendo juntos"
 
-Estructura: gancho, problema del reto, solución, **accesibilidad** (lo que más priorizamos), producto, y cierre con escalabilidad y el equipo. No hay presentación del equipo al inicio: el nombre y los integrantes van en la última diapositiva. Sin términos económicos. Diapositivas: `docs/pitch/index.html`, 9 en total (portada, 7 de contenido y cierre), con QR a https://aynuqa.maxi42.space en la portada y el cierre. Tecla N: este texto en pantalla.
+Estructura: gancho, problema (la decisión es comunitaria), solución, **agricultura sostenible y resiliencia comunitaria** (nuestra diferencia), accesibilidad en la app, datos y cómo llevarla a otras zonas, y cierre con el equipo. No hay presentación del equipo al inicio: el nombre y los integrantes van en la última diapositiva. Sin términos económicos. Diapositivas: `docs/pitch/index.html`, 9 en total (portada, 7 de contenido y cierre), con QR a https://aynuqa.maxi42.space en la portada y el cierre. Tecla N: este texto en pantalla.
 
 **[0:00–0:20] Gancho** · Diapositivas 1 y 2
 > En unas semanas empieza la siembra en el altiplano de La Paz. En comunidades como Pumani, toda la comunidad decide qué sector abrir para cultivar. Este año decide con El Niño activo: el índice de NOAA marcó +1,97. Si ustedes fueran parte de esa comunidad, ¿qué sector abrirían?
 
 **[0:20–0:45] Problema** · Diapositiva 3
-> Del reto Field Shift elegimos la aynuqa: la comunidad cultiva algunos sectores y deja descansar otros durante años. Con El Niño aumenta la probabilidad de sequía. Hoy se elige de forma empírica, y con el cambio climático, lamentablemente, esa experiencia falla. Además, en el campo hay poca señal, celulares sencillos y muchas personas mayores.
+> Muchas herramientas agrícolas piensan en un productor y su parcela. En el altiplano, la tierra se rota en comunidad: con la aynuqa, la comunidad cultiva algunos sectores, deja descansar otros durante años y decide en asamblea. Hoy esa decisión se toma por experiencia, y con el cambio climático la experiencia falla. Además, cada vez hay menos manos: muchos jóvenes migran y quedan las personas mayores, con poca señal y celulares sencillos.
 
 **[0:45–1:05] Cómo lo resolvemos** · Diapositiva 4
-> Aynuqa Field Shift usa datos de la NASA para estimar, en cada sector, el riesgo de sequía y la recuperación del suelo. Con eso aconseja qué sector abrir, qué sembrar y cuándo. Cada consejo dice qué tan seguros estamos.
+> Aynuqa Field Shift usa datos de la NASA para estimar, en cada sector, el riesgo de sequía y la recuperación del suelo. Con eso aconseja qué sector abrir, cuántos años más descansar los otros, qué sembrar y cuándo. Cada consejo dice qué tan seguros estamos.
 
-**[1:05–1:30] Accesibilidad** · Diapositiva 5
-> Un dato solo sirve si la persona lo puede usar. Por eso lo que más priorizamos fue la accesibilidad, en seis puntos: diseño intuitivo, funciona sin señal, letra grande, lenguaje simple, audio y un chat donde se pregunta como a una persona.
+**[1:05–1:35] Resiliencia comunitaria** · Diapositiva 5
+> ¿Por qué apostamos por la aynuqa? Porque ya es agricultura sostenible. El descanso deja que el suelo se recupere sin depender de abonos, y sembrar en varios sectores reparte el riesgo: si uno sufre la sequía, no se pierde todo. Nuestra app fortalece esa organización: basta un celular para toda la comunidad, lleva un resumen a la asamblea y registra lo que la comunidad decidió, aunque no siga el consejo.
 
-**[1:30–2:20] La app** · Diapositivas 6 y 7
-> Abre directo en la comunidad, sin registro y con pocas pantallas. El consejo viene agrupado por acción y con un toque se ve cada sector. La letra se puede agrandar, y cada consejo se puede escuchar en voz alta.
+**[1:35–2:15] La app** · Diapositivas 6 y 7
+> Para que la use cualquiera, priorizamos la accesibilidad. Abre directo en la comunidad, sin registro y con pocas pantallas. La letra se puede agrandar, el lenguaje es simple y cada consejo se puede escuchar en voz alta.
 >
-> Está hecha para celulares de gama baja y funciona sin señal: la decisión de la comunidad se guarda en el celular y se envía sola al volver la señal. A la llamita se le pregunta en lenguaje natural. Usa Gemini con llamadas a herramientas, así cada número sale de nuestros datos y no inventa cifras.
+> Funciona sin señal: la decisión de la comunidad se guarda en el celular y se envía sola al volver la señal. A la llamita se le pregunta en lenguaje natural. Usa Gemini con llamadas a herramientas, así cada número sale de nuestros datos.
 
-**[2:20–2:45] Datos, validación y escala** · Diapositiva 8
-> Usamos GPM IMERG, NASA POWER, el verdor (NDVI) de MODIS y NASADEM. Entrenamos con 8 zonas del altiplano y 26 campañas. En zonas nuevas el modelo supera a las alternativas simples; en temporadas nuevas todavía no, y por eso mostramos la confianza. Como no usa latitud ni longitud, puede servir a otras comunidades del altiplano.
+**[2:15–2:45] Datos, validación y otras zonas** · Diapositiva 8
+> Usamos GPM IMERG, NASA POWER, el verdor (NDVI) de MODIS y NASADEM. Entrenamos con 8 zonas del altiplano y 26 campañas. En zonas nuevas el modelo supera a las alternativas simples; en temporadas nuevas todavía no, y por eso mostramos la confianza. Se puede llevar a otras comunidades de bajos recursos: los datos de la NASA son gratuitos y cubren todo el planeta, el modelo no usa la ubicación y la app funciona con un celular sencillo y sin señal. Fuera del altiplano habría que reentrenarlo con datos de la zona.
 
 **[2:45–3:00] Cierre** · Diapositiva 9
-> La comunidad sigue decidiendo, ahora con datos de la NASA que cualquiera puede usar. Lo milenario y lo nuevo, decidiendo juntos. Pueden probarla con el QR. Gracias.
+> Frente al cambio climático y a comunidades con menos gente, apostamos por fortalecer la organización comunitaria con datos de la NASA. Lo milenario y lo nuevo, decidiendo juntos. Pueden probarla con el QR. Gracias.
 
 **Preguntas (2 minutos).** Respuestas en la tabla de preguntas probables. Equipo Manada Prime: Andres Gabriel Maydana Garcia, Randol Armando Villa Cordero, Maximiliano Gomez Mallo, Hernan Laruta Espinal, Eliseo Eliezer Condori Mamani y Joel Fernando Flores Choque.
 
@@ -191,6 +206,9 @@ Estructura: gancho, problema del reto, solución, **accesibilidad** (lo que más
 | ¿Funciona sin internet? | Sí. Los datos quedan guardados en el celular y las decisiones se envían al volver la señal. El chat responde con los datos guardados. |
 | ¿El chat puede inventar números? | Con señal usa Gemini y solo números de nuestras herramientas. Sin señal usa respuestas armadas con los datos guardados. |
 | ¿Aymara y quechua? | La interfaz está traducida y la voz usa modelos de Meta para aymara central y quechua del sur de Bolivia. Las traducciones necesitan revisión de hablantes nativos. |
+| ¿En qué se diferencia de otras apps agrícolas? | Trabaja con la comunidad como unidad de decisión, no con un productor y su parcela. Apoya la aynuqa, que ya es agricultura sostenible: descanso del suelo y riesgo repartido entre sectores. |
+| ¿Por qué dicen que es sostenible? | Porque la aynuqa deja descansar la tierra años para que se recupere sin depender de abonos. La app mide esa recuperación con el verdor (RESTREND) y aconseja cuánto extender el descanso. No medimos carbono ni nutrientes. |
+| ¿Sirve en otros lugares? | En comunidades del altiplano parecidas a nuestras 8 zonas, sí: el modelo no usa ubicación. Fuera del altiplano hay que reentrenarlo con datos de la zona; los datos de la NASA que usamos cubren todo el planeta y son gratuitos. |
 | ¿Qué ve la institución? | Hoy las decisiones se guardan en su base de datos. El panel para la institución es el siguiente paso. |
 
 ---
@@ -292,7 +310,9 @@ Aynuqa Field Shift
 
 ### High-Level Project Summary
 
-> Aynuqa Field Shift helps Andean communities decide how to manage the aynuqa, the communal land rotation of the Bolivian Altiplano, during El Niño. NOAA's RONI reached +1.97 in Aug–Oct 2026, which increases the likelihood of drought.
+> Most farm tools are built for one farmer and one plot. Aynuqa Field Shift is built for a community. It helps Andean communities manage the aynuqa, the communal land rotation of the Bolivian Altiplano, during El Niño. NOAA's RONI reached +1.97 in Aug–Oct 2026, which increases the likelihood of drought.
+>
+> The aynuqa is already sustainable agriculture: long rest periods let the soil recover without relying on fertilizers, and spreading crops across sectors spreads the risk. We support that community resilience with data instead of replacing it.
 >
 > The app uses NASA data:
 > - GPM IMERG rainfall;
@@ -302,7 +322,7 @@ Aynuqa Field Shift
 >
 > With these it estimates each sector's drought risk and soil recovery. It turns them into advice: which sector to open, how long to extend the rest, and what and when to sow. Every recommendation shows its confidence.
 >
-> The app works offline on low-end phones, in Spanish, Aymara and Quechua, and records each community's decisions.
+> The app works offline on low-end phones, in Spanish, Aymara and Quechua, and records each community's decisions. One phone can serve a whole community, which matters as young people migrate and older people stay. Because NASA data is free and global and the model uses no latitude or longitude, it can be taken to similar low-resource Altiplano communities; other regions would need retraining with local data.
 >
 > It is designed as a service for municipalities, the regional government and NGOs. They deploy it to the communities they support with internet access, phones and training on how to use the tool.
 
@@ -459,4 +479,8 @@ Notas:
 | "La lluvia es la misma para toda la comunidad" | Diferencias de lluvia entre sectores |
 | "La tierra gemela tuvo una anomalía de verdor de X" | Cultivos, rendimientos o pérdidas inventados |
 | "La comunidad decide" | "La app decide" |
+| "Apoya una práctica que ya es sostenible" | "Hace sostenible la agricultura" o cifras de suelo y carbono |
+| "Una práctica milenaria adaptada al clima de hoy" | "Una nueva manera de cultivar" |
+| "Muchos jóvenes migran" | Porcentajes de migración que no tenemos |
+| "Fuera del altiplano hay que reentrenarlo" | "Sirve en cualquier parte del mundo" |
 | "Un piloto con `[N]` comunidades" | Clientes o convenios que todavía no existen |
