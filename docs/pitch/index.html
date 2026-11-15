@@ -86,6 +86,7 @@ body.cover #foot { display: none; }
 .s-hook .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
 .big-number { font-family: var(--titulo); font-style: italic; font-weight: 700; font-size: 300px; line-height: 1; color: var(--adobe); }
 .s-hook .q { font-family: var(--titulo); font-style: italic; font-weight: 700; font-size: 92px; line-height: 1.1; }
+.s-hook .q-small { font-size: 40px; line-height: 1.35; color: var(--tierra-suave); margin-bottom: 28px; }
 .s-hook .llama { width: 230px; margin-top: 40px; }
 
 /* 3. Problema */
@@ -214,7 +215,7 @@ body.show-notes #notes { display: block; }
 <div id="stage">
 
   <!-- 1. Portada -->
-  <section class="slide s-cover" data-notes="<b>[0:00–0:10] Gancho (1/2).</b> En unas semanas empieza la siembra en el altiplano de La Paz. En comunidades como Pumani, toda la comunidad decide qué sector abrir para cultivar.">
+  <section class="slide s-cover" data-notes="<b>[0:00–0:08] Gancho (1/2).</b> Este año el altiplano de La Paz siembra con El Niño activo.">
     <div class="skyline" data-skyline></div>
     <div class="body">
       <h1><span data-sprite="chakana"></span>Aynuqa Field Shift</h1>
@@ -227,7 +228,7 @@ body.show-notes #notes { display: block; }
   </section>
 
   <!-- 2. Gancho -->
-  <section class="slide s-hook" data-notes="<b>[0:10–0:20] Gancho (2/2).</b> Este año decide con El Niño activo: el índice de NOAA marcó +1,97. Si ustedes fueran parte de esa comunidad, ¿qué sector abrirían?">
+  <section class="slide s-hook" data-notes="<b>[0:08–0:20] Gancho (2/2).</b> El índice de NOAA marcó +1,97, y eso aumenta la probabilidad de sequía. Frente al clima, la agricultura industrial responde con maquinaria, sensores e insumos. Las comunidades aymaras tienen otra respuesta desde hace siglos: la aynuqa.">
     <div class="grid">
       <div>
         <div class="kicker">El Niño, hoy</div>
@@ -235,14 +236,15 @@ body.show-notes #notes { display: block; }
         <p class="suave">Índice RONI de NOAA, agosto a octubre de 2026.<br>Con El Niño aumenta la probabilidad de sequía en el altiplano.</p>
       </div>
       <div>
-        <div class="q">En unas semanas se siembra. ¿Qué sector abrirían?</div>
-        <div class="llama" data-sprite="llamaThinking"></div>
+        <div class="q-small">La agricultura industrial responde con maquinaria, sensores e insumos.</div>
+        <div class="q">Las comunidades aymaras, con la aynuqa.</div>
+        <div class="llama" data-sprite="llamaHappy"></div>
       </div>
     </div>
   </section>
 
   <!-- 3. Problema -->
-  <section class="slide s-problem" data-notes="<b>[0:20–0:45] Problema.</b> Muchas herramientas agrícolas piensan en un productor y su parcela. En el altiplano, la tierra se rota en comunidad: con la aynuqa, la comunidad cultiva algunos sectores, deja descansar otros durante años y decide en asamblea. Hoy esa decisión se toma por experiencia, y con el cambio climático la experiencia falla. Además, cada vez hay menos manos: muchos jóvenes migran y quedan las personas mayores, con poca señal y celulares sencillos.">
+  <section class="slide s-problem" data-notes="<b>[0:20–0:40] Problema.</b> Con la aynuqa, la comunidad cultiva algunos sectores, deja descansar otros durante años y decide en asamblea. Hoy esa decisión se toma por experiencia, y con el cambio climático la experiencia falla. Además, cada vez hay menos manos: muchos jóvenes migran y quedan las personas mayores, con poca señal y celulares sencillos.">
     <div class="kicker">El problema</div>
     <h2>En el altiplano, la tierra se rota y se decide en comunidad</h2>
     <div class="grid">
@@ -259,7 +261,7 @@ body.show-notes #notes { display: block; }
   </section>
 
   <!-- 4. Solución -->
-  <section class="slide s-solution" data-notes="<b>[0:45–1:05] Cómo lo resolvemos.</b> Aynuqa Field Shift usa datos de la NASA para estimar, en cada sector, el riesgo de sequía y la recuperación del suelo. Con eso aconseja qué sector abrir, cuántos años más descansar los otros, qué sembrar y cuándo. Cada consejo dice qué tan seguros estamos.">
+  <section class="slide s-solution" data-notes="<b>[0:40–1:00] Cómo lo resolvemos.</b> Aynuqa Field Shift usa datos de la NASA para estimar, en cada sector, el riesgo de sequía y la recuperación del suelo. Con eso aconseja qué sector abrir, cuántos años más descansar los otros, qué sembrar y cuándo. Cada consejo dice qué tan seguros estamos.">
     <div class="kicker">Cómo lo resolvemos</div>
     <h2>De los satélites a un consejo por sector</h2>
     <div class="flow">
@@ -284,7 +286,7 @@ body.show-notes #notes { display: block; }
   </section>
 
   <!-- 5. Agricultura sostenible y resiliencia comunitaria -->
-  <section class="slide s-access s-commons" data-notes="<b>[1:05–1:35] Resiliencia comunitaria.</b> ¿Por qué apostamos por la aynuqa? Porque ya es agricultura sostenible. El descanso deja que el suelo se recupere sin depender de abonos, y sembrar en varios sectores reparte el riesgo: si uno sufre la sequía, no se pierde todo. Nuestra app fortalece esa organización: basta un celular para toda la comunidad, lleva un resumen a la asamblea y registra lo que la comunidad decidió, aunque no siga el consejo.">
+  <section class="slide s-access s-commons" data-notes="<b>[1:00–1:25] Resiliencia comunitaria.</b> La aynuqa ya es agricultura sostenible. El descanso deja que el suelo se recupere sin depender de abonos, y sembrar en varios sectores reparte el riesgo: si uno sufre la sequía, no se pierde todo. La app fortalece esa organización: lleva un resumen a la asamblea y registra lo que la comunidad decidió.">
     <div class="kicker">Agricultura sostenible</div>
     <h2>La aynuqa: resiliencia comunitaria</h2>
     <div class="access">
@@ -295,44 +297,46 @@ body.show-notes #notes { display: block; }
     <div class="commons-app"><span data-sprite="llamaTalking"></span><div><b>La app fortalece la organización</b><p>Un celular para toda la comunidad · resumen para la asamblea · registra lo que la comunidad decidió, aunque no siga el consejo.</p></div></div>
   </section>
 
-  <!-- 6. La app (1/2) -->
-  <section class="slide" data-notes="<b>[1:35–1:55] La app (1/2).</b> Para que la use cualquiera, priorizamos la accesibilidad. Abre directo en la comunidad, sin registro y con pocas pantallas. La letra se puede agrandar, el lenguaje es simple y cada consejo se puede escuchar en voz alta.">
-    <div class="kicker">Accesibilidad: que cualquiera la pueda usar</div>
-    <h2>Simple de leer, simple de escuchar</h2>
+  <!-- 6. Accesibilidad -->
+  <section class="slide s-access" data-notes="<b>[1:25–1:50] Accesibilidad.</b> Un dato solo sirve si la persona lo puede usar, y por eso la accesibilidad fue nuestra prioridad. Seis puntos: diseño intuitivo, funciona sin señal, letra grande, lenguaje simple, audio en español, aymara y quechua, y un chat donde se pregunta como a una persona.">
+    <div class="kicker">Lo que más priorizamos</div>
+    <h2>Accesibilidad: que cualquiera la pueda usar</h2>
+    <div class="access">
+      <div class="card acc"><div class="acc-ic" data-sprite="llamaHappy"></div><div><h3>Diseño intuitivo</h3><p>Abre directo, sin registro. Pocas pantallas y botones grandes.</p></div></div>
+      <div class="card acc"><div class="acc-ic" data-sprite="llamaSleeping"></div><div><h3>Sin señal</h3><p>Sigue funcionando. Hecha para celulares de gama baja.</p></div></div>
+      <div class="card acc"><div class="acc-ic glyph">A+</div><div><h3>Letra grande</h3><p>Texto grande, alto contraste y un botón para agrandarlo más.</p></div></div>
+      <div class="card acc"><div class="acc-ic" data-sprite="plant"></div><div><h3>Lenguaje simple</h3><p>Español claro. También en aymara, quechua e inglés.</p></div></div>
+      <div class="card acc"><div class="acc-ic glyph">🔊</div><div><h3>Audio</h3><p>Cada consejo se escucha en voz alta, también en aymara y quechua.</p></div></div>
+      <div class="card acc"><div class="acc-ic" data-sprite="llamaTalking"></div><div><h3>Chat</h3><p>Se pregunta como a una persona, sin inventar cifras.</p></div></div>
+    </div>
+  </section>
+
+  <!-- 7. La app -->
+  <section class="slide" data-notes="<b>[1:50–2:15] La app.</b> Abre directo, sin registro, con el consejo agrupado por acción. Cada consejo se escucha con un toque. Y sin señal, la decisión de la comunidad se guarda en el celular y se envía sola cuando vuelve. Basta un celular sencillo para toda la comunidad.">
+    <div class="kicker">Accesibilidad en la app</div>
+    <h2>Simple de leer, de escuchar y sin señal</h2>
     <div class="phones">
       <div class="phone-wrap"><div class="phone"><video src="assets/clips/consejos.mp4" poster="assets/img/02_consejos.jpg" muted loop playsinline preload="auto"></video></div><div class="caption"><span class="ptag">Diseño intuitivo</span>Consejo agrupado por acción<span>abre directo, sin registro</span></div></div>
-      <div class="phone-wrap"><div class="phone"><img src="assets/img/letra_grande.jpg" alt="Letra grande"></div><div class="caption"><span class="ptag">Letra</span>Letra grande<span>un botón en Ajustes</span></div></div>
       <div class="phone-wrap"><div class="phone"><img src="assets/img/04_sector13.jpg" alt="Ficha del sector 13 con el botón Escuchar el consejo"></div><div class="caption"><span class="ptag">Audio</span>Escuchar el consejo<span>en voz alta, con un toque</span></div></div>
+      <div class="phone-wrap"><div class="phone"><video src="assets/clips/sin_senal.mp4" poster="assets/img/07b_decision_guardada.jpg" muted loop playsinline preload="auto"></video></div><div class="caption"><span class="ptag">Sin señal</span>Queda guardada<span>se envía sola con señal</span></div></div>
     </div>
   </section>
 
-  <!-- 7. La app (2/2) -->
-  <section class="slide" data-notes="<b>[1:55–2:15] La app (2/2).</b> Funciona sin señal: la decisión de la comunidad se guarda en el celular y se envía sola al volver la señal. A la llamita se le pregunta en lenguaje natural. Usa Gemini con llamadas a herramientas, así cada número sale de nuestros datos.">
-    <div class="kicker">Accesibilidad: que cualquiera la pueda usar</div>
-    <h2>Funciona sin señal y se le puede preguntar</h2>
-    <div class="phones">
-      <div class="phone-wrap"><div class="phone"><video src="assets/clips/sin_senal.mp4" poster="assets/img/07b_decision_guardada.jpg" muted loop playsinline preload="auto"></video></div><div class="caption"><span class="ptag">Offline first</span>Sin señal: queda guardada<span>"Se enviará cuando haya señal"</span></div></div>
-      <div class="phone-wrap"><div class="phone"><video src="assets/clips/enviada.mp4" poster="assets/img/09b_enviada.jpg" muted loop playsinline preload="auto"></video></div><div class="caption"><span class="ptag">Offline first</span>Vuelve la señal: se envía sola<span>"Enviada"</span></div></div>
-      <div class="phone-wrap"><div class="phone"><video src="assets/clips/chat.mp4" poster="assets/img/12a_chat_gemini.jpg" muted loop playsinline preload="auto"></video></div><div class="caption"><span class="ptag">Chat</span>Pregunta en lenguaje natural<span>Gemini + tool calling: sin cifras inventadas</span></div></div>
-    </div>
-  </section>
-
-  <!-- 8. Datos, validación y escala -->
-  <section class="slide s-data" data-notes="<b>[2:15–2:45] Datos, validación y otras zonas.</b> Usamos GPM IMERG, NASA POWER, el verdor (NDVI) de MODIS y NASADEM. Entrenamos con 8 zonas del altiplano y 26 campañas. En zonas nuevas el modelo supera a las alternativas simples; en temporadas nuevas todavía no, y por eso mostramos la confianza. Se puede llevar a otras comunidades de bajos recursos: los datos de la NASA son gratuitos y cubren todo el planeta, el modelo no usa la ubicación y la app funciona con un celular sencillo y sin señal. Fuera del altiplano habría que reentrenarlo con datos de la zona.">
-    <div class="kicker">Datos, validación y otras zonas</div>
-    <h2>Probado con el pasado, pensado para llevarse</h2>
+  <!-- 8. Llevar el modelo comunitario al mundo -->
+  <section class="slide s-data" data-notes="<b>[2:15–2:45] Llevarlo al mundo.</b> Este modelo comunitario se puede llevar a otras partes del mundo con pocos recursos, a bajo costo: no hay que instalar nada en el campo. Los datos de la NASA son gratuitos y cubren todo el planeta, basta un celular sencillo y la organización la pone la comunidad. El modelo de riesgo no usa la ubicación. En zonas nuevas supera a las alternativas simples; en temporadas nuevas todavía no, y lo mostramos con la confianza. Fuera del altiplano hay que reentrenarlo con datos de la zona.">
+    <div class="kicker">Llevarlo al mundo</div>
+    <h2>Un modelo comunitario de bajo costo</h2>
     <div class="grid">
       <div class="sources">
-        <div class="source"><b>GPM IMERG</b><span>lluvia</span></div>
-        <div class="source"><b>NASA POWER</b><span>temperatura y humedad del suelo</span></div>
-        <div class="source"><b>MODIS NDVI</b><span>verdor de cada sector, 250 m</span></div>
-        <div class="source"><b>NASADEM</b><span>terreno</span></div>
-        <div class="source"><b>RONI · NOAA</b><span>El Niño</span></div>
-        <p style="margin-top:18px"><span class="pill">8 zonas del altiplano</span> <span class="pill">26 campañas desde 2000</span></p>
-        <div class="scale-line"><span data-sprite="llamaWalking"></span><p>Para comunidades de bajos recursos: datos NASA gratuitos y globales, sin latitud ni longitud, un celular sencillo y sin señal.</p></div>
+        <div class="source"><b>Datos</b><span>NASA, gratuitos y de todo el planeta</span></div>
+        <div class="source"><b>En el campo</b><span>nada que instalar</span></div>
+        <div class="source"><b>Equipo</b><span>un celular sencillo por comunidad</span></div>
+        <div class="source"><b>Conexión</b><span>funciona sin señal</span></div>
+        <div class="source"><b>Organización</b><span>la que la comunidad ya tiene</span></div>
+        <div class="scale-line"><span data-sprite="llamaWalking"></span><p>El modelo no usa latitud ni longitud. Fuera del altiplano, se reentrena con datos de la zona.</p></div>
       </div>
       <div class="bars card">
-        <p class="small" style="margin-bottom:18px">Error de la predicción (RMSE). Más corto es mejor.</p>
+        <p class="small" style="margin-bottom:18px">Modelo de riesgo: 8 zonas del altiplano, 26 campañas desde 2000. Error (RMSE), más corto es mejor.</p>
         <h3>Zonas que el modelo no vio <span class="verdict ok">mejor que las líneas base</span></h3>
         <div class="bar"><span>Nuestro modelo</span><div class="track"><div class="fill model" style="--w:61%"></div></div><b>0,56</b></div>
         <div class="bar"><span>Líneas base</span><div class="track"><div class="fill base" style="--w:79%"></div></div><b>0,73</b></div>
@@ -345,7 +349,7 @@ body.show-notes #notes { display: block; }
   </section>
 
   <!-- 9. Cierre: equipo -->
-  <section class="slide s-end" data-notes="<b>[2:45–3:00] Cierre.</b> Frente al cambio climático y a comunidades con menos gente, apostamos por fortalecer la organización comunitaria con datos de la NASA. Lo milenario y lo nuevo, decidiendo juntos. Pueden probarla con el QR. Gracias.">
+  <section class="slide s-end" data-notes="<b>[2:45–3:00] Cierre.</b> Frente al cambio climático y a la expansión industrial, proponemos llevar al mundo una forma aymara de cultivar en comunidad, con datos de la NASA. Lo milenario y lo nuevo, decidiendo juntos. Pueden probarla con el QR. Gracias.">
     <div class="skyline short" data-skyline></div>
     <div class="end-body">
       <div>
