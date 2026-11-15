@@ -1,37 +1,41 @@
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 
 import { LlamaStanding, Plant } from '../../shared/sprites/Sprites'
+import { useLanguage } from '../i18n/languageContext'
 import { getPersistentSearch } from '../navigation/persistentSearch'
 import { useAppState } from '../providers/appStateContext'
 import { writeUrlState } from '../state/urlState'
 import { AppHeader } from './AppHeader'
 import styles from './AppShell.module.css'
 
-const navigationItems = [
-  { label: 'Mi comunidad', path: '/mi-comunidad', picture: <Plant size={2} /> },
-  {
-    label: 'Preguntar',
-    path: '/preguntar',
-    picture: <LlamaStanding size={1.9} />,
-  },
-] as const
-
 export function AppShell() {
   const location = useLocation()
   const { state } = useAppState()
+  const { t } = useLanguage()
   const persistentSearch = getPersistentSearch(location.search)
-  // "Mi comunidad" siempre vuelve al resumen, sin arrastrar un sector.
   const communitySearch = writeUrlState({
     selectedSectorId: null,
     scenario: state.scenario,
   })
-  // La barra aparece cuando ya hay comunidad elegida: antes solo hay que elegir.
   const hasCommunity = state.communityId !== null
+
+  const navigationItems = [
+    {
+      label: t.navMyCommunity,
+      path: '/mi-comunidad',
+      picture: <Plant size={2} />,
+    },
+    {
+      label: t.navAsk,
+      path: '/preguntar',
+      picture: <LlamaStanding size={1.9} />,
+    },
+  ] as const
 
   return (
     <div className={styles.shell}>
       <a className={styles.skipLink} href="#contenido-principal">
-        Saltar al contenido
+        {t.skipToContent}
       </a>
 
       <AppHeader />

@@ -26,13 +26,51 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .stepTwo {
-    display: none;
+.llamaStanding {
+  transform-origin: bottom center;
+  animation: llamaViva 3.2s ease-in-out infinite;
+}
+
+.llamaResting {
+  transform-origin: bottom center;
+  animation: llamaDescanso 4s ease-in-out infinite;
+}
+
+.plantSway {
+  transform-origin: bottom center;
+  animation: brisaAndina 3.5s ease-in-out infinite;
+}
+
+@keyframes llamaViva {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
   }
 
-  .stepOne {
-    animation: none;
+  50% {
+    transform: translateY(-3px) rotate(1.5deg);
+  }
+}
+
+@keyframes llamaDescanso {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+
+  50% {
+    transform: scaleY(1.04);
+  }
+}
+
+@keyframes brisaAndina {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+
+  50% {
+    transform: rotate(3deg);
   }
 }
 
@@ -55,12 +93,44 @@
   position: absolute;
   inset-block-start: 0.4rem;
   inset-inline-end: 1.2rem;
+  animation: solBrillo 4.5s ease-in-out infinite;
 }
 
 .cloud {
   position: absolute;
   inset-block-start: 0.6rem;
   inset-inline-start: 1.5rem;
+  animation: nubeFlota 14s ease-in-out infinite;
+}
+
+.cloudTwo {
+  position: absolute;
+  inset-block-start: 0.9rem;
+  inset-inline-start: 42%;
+  opacity: 0.85;
+  animation: nubeFlota 18s ease-in-out infinite reverse;
+}
+
+@keyframes solBrillo {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+
+  50% {
+    transform: scale(1.1) rotate(8deg);
+  }
+}
+
+@keyframes nubeFlota {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(18px);
+  }
 }
 
 .plain {
@@ -68,8 +138,8 @@
 }
 
 .aguayo {
-  block-size: 0.9rem;
-  margin-block: var(--space-8);
+  block-size: 0.7rem;
+  margin-block: var(--space-4);
   border-block: 2px solid var(--color-tierra);
   background: repeating-linear-gradient(
     90deg,
@@ -80,6 +150,22 @@
     var(--color-adobe) 3.25rem 4.5rem,
     var(--color-totora) 4.5rem 5rem
   );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stepTwo {
+    display: none;
+  }
+
+  .stepOne,
+  .llamaStanding,
+  .llamaResting,
+  .plantSway,
+  .sun,
+  .cloud,
+  .cloudTwo {
+    animation: none;
+  }
 }
 
 @media print {

@@ -17,18 +17,32 @@ interface SpriteProps {
 
 export function LlamaStanding({ size = 4.5, className }: SpriteProps) {
   return (
-    <PixelSprite rows={llamaStandingRows} size={size} className={className} />
+    <PixelSprite
+      rows={llamaStandingRows}
+      size={size}
+      className={[styles.llamaStanding, className].filter(Boolean).join(' ')}
+    />
   )
 }
 
 export function LlamaResting({ size = 5, className }: SpriteProps) {
   return (
-    <PixelSprite rows={llamaRestingRows} size={size} className={className} />
+    <PixelSprite
+      rows={llamaRestingRows}
+      size={size}
+      className={[styles.llamaResting, className].filter(Boolean).join(' ')}
+    />
   )
 }
 
 export function Plant({ size = 3.5, className }: SpriteProps) {
-  return <PixelSprite rows={plantRows} size={size} className={className} />
+  return (
+    <PixelSprite
+      rows={plantRows}
+      size={size}
+      className={[styles.plantSway, className].filter(Boolean).join(' ')}
+    />
+  )
 }
 
 export function Sun({ size = 2.5, className }: SpriteProps) {
@@ -67,6 +81,7 @@ export function Skyline() {
     <div className={styles.skyline} aria-hidden="true">
       <Sun className={styles.sun} size={2.4} />
       <Cloud className={styles.cloud} size={3.2} />
+      <Cloud className={styles.cloudTwo} size={2.3} />
       <svg
         className={styles.mountains}
         viewBox="0 0 120 30"

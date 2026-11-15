@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
+import { useLanguage } from '../../app/i18n/languageContext'
+
 /* Tipos mínimos del reconocimiento de voz del navegador. */
 interface RecognitionResultEvent {
   results: ArrayLike<ArrayLike<{ transcript: string }>>
@@ -39,8 +41,12 @@ export interface Dictation {
   stop: () => void
 }
 
-/** Dictado por voz: entrega el texto escuchado a `onText`. */
+/**
+ * Dictado por voz en español / lenguas andinas: captura la voz y usa el
+ * pipeline BERT (`/api/translate`) cuando el idioma activo es Aymara o Quechua.
+ */
 export function useDictation(onText: (text: string) => void): Dictation {
+  const { lang } = useLanguage()
   const [isListening, setIsListening] = useState(false)
   const recognitionRef = useRef<Recognition | null>(null)
   const isSupported = getRecognitionConstructor() !== null
@@ -58,14 +64,43 @@ export function useDictation(onText: (text: string) => void): Dictation {
 
     const recognition = new RecognitionClass()
 
-    recognition.lang = 'es-BO'
+    recognition.lang = 'es-MX'
     recognition.interimResults = false
     recognition.maxAlternatives = 1
     recognition.onresult = (event) => {
       const transcript = event.results[0]?.[0]?.transcript?.trim()
 
-      if (transcript) {
-        onText(transcript)
+      if (!transcript) {
+        return
+      }
+
+      onText(transcript)
+
+      // Si la persona eligió Aymara o Quechua, traducir la voz con el pipeline BERT
+      if (lang !== 'es' && import.meta.env.VITE_DATA_MODE === 'api') {
+        const base = (import.meta.env.VITE_API_BASE_URL || '/').replace(
+          /\/$/,
+          '',
+        )
+        void window
+          .fetch(`${base}/api/translate`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              text: transcript,
+              target_lang: lang,
+              source_lang: 'auto',
+            }),
+          })
+          .then((res) => (res.ok ? res.json() : null))
+          .then((data: { translated_text?: string } | null) => {
+            if (data?.translated_text) {
+              onText(data.translated_text)
+            }
+          })
+          .catch(() => {
+            // Si falla la traducción, conservar el texto dictado original
+          })
       }
     }
     recognition.onend = () => setIsListening(false)
@@ -78,7 +113,7 @@ export function useDictation(onText: (text: string) => void): Dictation {
     } catch {
       setIsListening(false)
     }
-  }, [onText])
+  }, [lang, onText])
 
   const stop = useCallback(() => {
     recognitionRef.current?.abort()

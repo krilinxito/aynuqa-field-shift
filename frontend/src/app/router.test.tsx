@@ -29,7 +29,8 @@ beforeEach(() => {
 })
 
 describe('recorrido principal', () => {
-  it('empieza pidiendo la comunidad y solo deja elegir la que tiene datos', async () => {
+  it('empieza pidiendo la comunidad y dosifica las comunidades sin datos', async () => {
+    const user = userEvent.setup()
     const router = renderRoute('/')
 
     expect(
@@ -43,7 +44,14 @@ describe('recorrido principal', () => {
     expect(
       screen.queryByRole('button', { name: /Patacamaya/ }),
     ).not.toBeInTheDocument()
+
+    // Las comunidades sin datos no abruman de entrada: se abren al tocar.
+    expect(screen.queryAllByText(/Todavía sin datos/)).toHaveLength(0)
+    await user.click(
+      screen.getByRole('button', { name: /Ver otras comunidades/ }),
+    )
     expect(screen.getAllByText(/Todavía sin datos/)).toHaveLength(7)
+
     // Sin comunidad elegida todavía no hay barra de navegación.
     expect(
       screen.queryByRole('navigation', { name: 'Navegación principal' }),
@@ -128,11 +136,18 @@ describe('resumen de la comunidad', () => {
     ).toBeInTheDocument()
   })
 
-  it('muestra las tierras gemelas como precedente y el riesgo sin afirmarlo', async () => {
+  it('dosifica tierras gemelas y riesgo/clima, mostrándolos al tocar', async () => {
+    const user = userEvent.setup()
     renderRoute('/mi-comunidad')
 
     await screen.findByRole('heading', { level: 1, name: 'Pumani' })
 
+    // De entrada están cerrados para no abrumar con texto
+    expect(
+      screen.queryByRole('heading', { name: 'Jesús de Machaca' }),
+    ).not.toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: /Tierras gemelas/ }))
     expect(
       screen.getByRole('heading', { name: 'Jesús de Machaca' }),
     ).toBeInTheDocument()
@@ -140,6 +155,10 @@ describe('resumen de la comunidad', () => {
       screen.getByText(/Se parece a los sectores 1 y 5/),
     ).toBeInTheDocument()
     expect(screen.getByText(/precedente, no como garantía/)).toBeInTheDocument()
+
+    await user.click(
+      screen.getByRole('button', { name: /Riesgo de sequía y clima/ }),
+    )
     expect(
       screen.getByText(/aumenta la probabilidad de sequía/),
     ).toBeInTheDocument()
@@ -161,6 +180,8 @@ describe('resumen de la comunidad', () => {
       expect(router.state.location.search).toBe('?scenario=normal')
     })
     expect(await screen.findByText('Esto es una comparación.')).toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: /Tierras gemelas/ }))
     expect(
       await screen.findByText(/no hay precedentes de tierras gemelas/),
     ).toBeInTheDocument()
@@ -170,20 +191,32 @@ describe('resumen de la comunidad', () => {
 describe('detalle de un sector', () => {
   beforeEach(rememberCommunity)
 
-  it('muestra confianza, datos simulados y la zona una sola vez', async () => {
+  it('muestra primero el consejo y dosifica motivos, tierra parecida y clima', async () => {
+    const user = userEvent.setup()
     renderRoute('/sector?sector=S1&scenario=nino')
 
     await screen.findByRole('heading', { level: 1, name: 'Sector 1' })
 
-    expect(screen.getAllByText(/Qué tan seguros estamos/).length).toBeGreaterThan(2)
     expect(screen.getByText(/Datos simulados:/)).toBeInTheDocument()
+
+    await user.click(
+      screen.getByRole('button', { name: /¿Por qué damos este consejo\?/ }),
+    )
     expect(
       screen.getByRole('heading', { name: /Riesgo de sequía: medio/ }),
     ).toBeInTheDocument()
+
+    await user.click(
+      screen.getByRole('button', { name: /Qué pasó en una tierra parecida/ }),
+    )
+    expect(screen.getByText(/precedente, no como garantía/)).toBeInTheDocument()
+
+    await user.click(
+      screen.getByRole('button', { name: /El tiempo en la zona/ }),
+    )
     expect(
       screen.getByRole('heading', { name: /El tiempo en toda la zona de Pumani/ }),
     ).toBeInTheDocument()
-    expect(screen.getByText(/precedente, no como garantía/)).toBeInTheDocument()
   })
 
   it('vuelve a la comunidad si el sector no existe', async () => {
@@ -215,7 +248,7 @@ describe('detalle de un sector', () => {
   })
 })
 
-describe('letra grande', () => {
+describe('letra grande, idiomas (Aymara / Quechua) y botón de descarga PWA', () => {
   it('agranda la letra de toda la app y lo recuerda', async () => {
     const user = userEvent.setup()
     renderRoute('/comunidad')
@@ -228,6 +261,54 @@ describe('letra grande', () => {
     expect(
       screen.getByRole('button', { name: /Letra normal/ }),
     ).toHaveAttribute('aria-pressed', 'true')
+  })
+
+  it('traduce el sitio a Aymara y Quechua al tocar el selector de idioma', async () => {
+    const user = userEvent.setup()
+    renderRoute('/comunidad')
+
+    await screen.findByRole('heading', {
+      level: 1,
+      name: '¿De qué comunidad es usted?',
+    })
+
+    await user.click(screen.getByRole('button', { name: 'Aymara' }))
+    expect(
+      screen.getByRole('heading', {
+        level: 1,
+        name: '¿Kawkïri markatätasa?',
+      }),
+    ).toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: 'Quechua' }))
+    expect(
+      screen.getByRole('heading', {
+        level: 1,
+        name: '¿Mayqin ayllumantataq kanki?',
+      }),
+    ).toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: 'Español' }))
+    expect(
+      screen.getByRole('heading', {
+        level: 1,
+        name: '¿De qué comunidad es usted?',
+      }),
+    ).toBeInTheDocument()
+  })
+
+  it('muestra el botón para descargar la PWA en el celular y abre la guía de instalación', async () => {
+    const user = userEvent.setup()
+    renderRoute('/comunidad')
+
+    const installBtn = await screen.findByRole('button', {
+      name: /Descargar en celular/,
+    })
+    await user.click(installBtn)
+
+    expect(
+      screen.getByText(/Para guardar Aynuqa en la pantalla de su celular/),
+    ).toBeInTheDocument()
   })
 })
 

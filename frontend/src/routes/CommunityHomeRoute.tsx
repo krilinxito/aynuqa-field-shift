@@ -1,5 +1,6 @@
 import { Link, Navigate } from 'react-router-dom'
 
+import { useLanguage } from '../app/i18n/languageContext'
 import { useAppState } from '../app/providers/appStateContext'
 import { writeUrlState } from '../app/state/urlState'
 import { CommunityOverview } from '../features/community'
@@ -7,14 +8,22 @@ import { useSectorSnapshot } from '../features/data/useSectorSnapshot'
 import { ScenarioSwitch } from '../features/scenario/ScenarioSwitch'
 import { Provenance } from '../features/zone/Provenance'
 import { PrimaryLink, SecondaryButton } from '../shared/components/Actions'
+import { DoseSection } from '../shared/components/DoseSection'
 import { LoadError } from '../shared/components/LoadError'
 import { RouteLoading } from '../shared/components/RouteLoading'
-import { AguayoDivider, PlainDivider } from '../shared/sprites/Sprites'
+import {
+  AguayoDivider,
+  Cloud,
+  LlamaResting,
+  PlainDivider,
+  Plant,
+} from '../shared/sprites/Sprites'
 import styles from './routes.module.css'
 
-/** Pantalla principal: el resumen de toda la comunidad y sus tierras gemelas. */
+/** Pantalla principal: el resumen de toda la comunidad dosificado paso a paso. */
 export function CommunityHomeRoute() {
   const { state, actions } = useAppState()
+  const { t } = useLanguage()
   const { status, snapshot } = useSectorSnapshot(state.scenario)
 
   if (!state.communityId) {
@@ -37,34 +46,57 @@ export function CommunityHomeRoute() {
     >
       <article className={styles.page}>
         <p className={`${styles.place} no-imprimir`}>
-          <Link to="/comunidad">Cambiar comunidad</Link>
+          <Link to="/comunidad">{t.changeCommunity}</Link>
         </p>
 
         <CommunityOverview.Heading />
         <ScenarioSwitch />
-        <CommunityOverview.Actions />
         <CommunityOverview.Listen />
+        <CommunityOverview.Actions />
 
         <div className="no-imprimir">
           <PrimaryLink to={{ pathname: '/preguntar', search }}>
-            Preguntar a la llamita
+            {t.askLlama}
           </PrimaryLink>
         </div>
 
         <AguayoDivider />
-        <CommunityOverview.Twins />
-        <PlainDivider />
-        <CommunityOverview.Risk />
-        <PlainDivider />
-        <CommunityOverview.Map />
-        <PlainDivider />
-        <CommunityOverview.Weather />
-        <AguayoDivider />
+
+        <div className={styles.doses}>
+          <p className={styles.dosesTitle}>{t.moreDetailsStepByStep}</p>
+
+          <DoseSection
+            title={t.mapTitle}
+            subtitle={t.mapSub}
+            icon={<Plant size={2.2} />}
+          >
+            <CommunityOverview.Map />
+          </DoseSection>
+
+          <DoseSection
+            title={t.riskWeatherTitle}
+            subtitle={t.riskWeatherSub}
+            icon={<Cloud size={2.4} />}
+          >
+            <CommunityOverview.Risk />
+            <PlainDivider />
+            <CommunityOverview.Weather />
+          </DoseSection>
+
+          <DoseSection
+            title={t.twinsTitle}
+            subtitle={t.twinsSub}
+            icon={<LlamaResting size={2.4} />}
+          >
+            <CommunityOverview.Twins />
+          </DoseSection>
+        </div>
+
         <Provenance provenance={snapshot.provenance} />
 
         <div className="no-imprimir">
           <SecondaryButton onClick={() => window.print()}>
-            Imprimir para la asamblea
+            {t.printAssembly}
           </SecondaryButton>
         </div>
       </article>

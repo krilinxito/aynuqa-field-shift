@@ -1,5 +1,6 @@
 import { Navigate } from 'react-router-dom'
 
+import { useLanguage } from '../app/i18n/languageContext'
 import { useAppState } from '../app/providers/appStateContext'
 import { Chat } from '../features/chat'
 import { useSectorSnapshot } from '../features/data/useSectorSnapshot'
@@ -11,10 +12,11 @@ import styles from './routes.module.css'
 
 /**
  * Pantalla del asistente: preguntar con un toque, hablando o escribiendo.
- * Pregunta sobre toda la comunidad, o sobre un sector si se llegó desde él.
+ * Soporta Español, Aymara y Quechua con traducción BERT y voz clara.
  */
 export function AskRoute() {
   const { state } = useAppState()
+  const { t } = useLanguage()
   const { status, snapshot } = useSectorSnapshot(state.scenario)
 
   if (!state.communityId) {
@@ -29,9 +31,9 @@ export function AskRoute() {
     snapshot.sectors.find(
       (candidate) => candidate.id === state.selectedSectorId,
     ) ?? null
-  const about = sector
-    ? `el ${sector.name.toLowerCase()} de ${snapshot.zone.name}`
-    : `la comunidad de ${snapshot.zone.name}`
+  const aboutText = sector
+    ? t.answersAboutSector(sector.name.toLowerCase(), snapshot.zone.name)
+    : t.answersAboutCommunity(snapshot.zone.name)
 
   return (
     <Chat.Provider
@@ -42,15 +44,12 @@ export function AskRoute() {
     >
       <div className={styles.page}>
         <header className={styles.welcome}>
-          <LlamaStanding size={5} />
+          <LlamaStanding size={4.5} />
           <div>
-            <h1>Pregunte a la llamita</h1>
+            <h1>{t.askLlamaTitle}</h1>
             <p>
-              Responde sobre {about}
-              {snapshot.scenario === 'normal'
-                ? ', comparando con un año normal'
-                : ''}
-              .
+              {aboutText}
+              {snapshot.scenario === 'normal' ? t.comparingNormal : ''}.
             </p>
           </div>
         </header>
@@ -62,10 +61,7 @@ export function AskRoute() {
           <Chat.DictateButton />
         </Chat.Composer>
 
-        <p className={styles.footnote}>
-          La llamita es un programa. Usa los datos de la comunidad y puede
-          equivocarse. No reemplaza a la asamblea ni al agrónomo.
-        </p>
+        <p className={styles.footnote}>{t.chatFootnote}</p>
       </div>
     </Chat.Provider>
   )

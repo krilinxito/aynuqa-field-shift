@@ -1,5 +1,6 @@
 import { Link, Navigate, useLocation } from 'react-router-dom'
 
+import { useLanguage } from '../app/i18n/languageContext'
 import { getPersistentSearch } from '../app/navigation/persistentSearch'
 import { useAppState } from '../app/providers/appStateContext'
 import { writeUrlState } from '../app/state/urlState'
@@ -7,15 +8,23 @@ import { useSelectedSector } from '../features/data/useSelectedSector'
 import { SectorInsight } from '../features/insight'
 import { ScenarioSwitch } from '../features/scenario/ScenarioSwitch'
 import { PrimaryLink, SecondaryButton } from '../shared/components/Actions'
+import { DoseSection } from '../shared/components/DoseSection'
 import { LoadError } from '../shared/components/LoadError'
 import { RouteLoading } from '../shared/components/RouteLoading'
-import { AguayoDivider, PlainDivider } from '../shared/sprites/Sprites'
+import {
+  AguayoDivider,
+  Cloud,
+  LlamaResting,
+  PlainDivider,
+  Plant,
+} from '../shared/sprites/Sprites'
 import styles from './routes.module.css'
 
-/** Detalle de un sector: se llega tocándolo en el resumen de la comunidad. */
+/** Detalle de un sector: muestra primero el consejo y dosifica el resto. */
 export function SectorDetailRoute() {
   const location = useLocation()
   const { state } = useAppState()
+  const { t } = useLanguage()
   const selected = useSelectedSector()
 
   if (selected.status === 'loading') {
@@ -49,7 +58,7 @@ export function SectorDetailRoute() {
       <article className={styles.page}>
         <p className={`${styles.place} no-imprimir`}>
           <Link to={{ pathname: '/mi-comunidad', search: communitySearch }}>
-            ← Volver a {snapshot.zone.name}
+            {t.backTo(snapshot.zone.name)}
           </Link>
         </p>
         <p className={styles.printOnly}>{snapshot.zone.name}</p>
@@ -61,26 +70,51 @@ export function SectorDetailRoute() {
 
         <div className="no-imprimir">
           <PrimaryLink to={{ pathname: '/preguntar', search }}>
-            Preguntar sobre este sector
+            {t.askAboutSector}
           </PrimaryLink>
         </div>
 
         <AguayoDivider />
-        <SectorInsight.Reasons />
-        <PlainDivider />
-        <SectorInsight.Risk />
-        <PlainDivider />
-        <SectorInsight.Recovery />
-        {sector.twinPrecedent ? <PlainDivider /> : null}
-        <SectorInsight.Twin />
-        <PlainDivider />
-        <SectorInsight.ZoneWeather />
-        <AguayoDivider />
+
+        <div className={styles.doses}>
+          <p className={styles.dosesTitle}>{t.explanationStepByStep}</p>
+
+          <DoseSection
+            title={t.whyAdviceTitle}
+            subtitle={t.whyAdviceSub}
+            icon={<Plant size={2.2} />}
+          >
+            <SectorInsight.Reasons />
+            <PlainDivider />
+            <SectorInsight.Risk />
+            <PlainDivider />
+            <SectorInsight.Recovery />
+          </DoseSection>
+
+          {sector.twinPrecedent ? (
+            <DoseSection
+              title={t.twinSectionTitle}
+              subtitle={t.twinSectionSub(sector.twinPrecedent.twin_zone)}
+              icon={<LlamaResting size={2.4} />}
+            >
+              <SectorInsight.Twin />
+            </DoseSection>
+          ) : null}
+
+          <DoseSection
+            title={t.weatherSectionTitle}
+            subtitle={t.weatherSectionSub}
+            icon={<Cloud size={2.4} />}
+          >
+            <SectorInsight.ZoneWeather />
+          </DoseSection>
+        </div>
+
         <SectorInsight.Provenance />
 
         <div className="no-imprimir">
           <SecondaryButton onClick={() => window.print()}>
-            Imprimir para la asamblea
+            {t.printAssembly}
           </SecondaryButton>
         </div>
       </article>

@@ -1,17 +1,34 @@
 .page {
   display: grid;
-  gap: var(--space-6);
-  /* Las franjas de aguayo ya traen su propio espacio. */
+  gap: var(--space-5);
+  animation: aparecerPagina 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes aparecerPagina {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .page > [role='presentation'] {
-  margin-block: var(--space-2);
+  margin-block: var(--space-1);
 }
 
 .welcome {
   display: flex;
   align-items: center;
   gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-nieve);
+  border: 2px solid var(--color-tierra);
+  border-radius: var(--radio);
+  box-shadow: 0 3px 0 var(--color-linea);
 }
 
 .welcome > svg {
@@ -24,8 +41,34 @@
 }
 
 .place a {
-  display: inline-block;
-  padding-block: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-tierra);
+  background: var(--color-nieve);
+  border: 2px solid var(--color-tierra);
+  border-radius: var(--radio);
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.15s ease, background-color 0.2s ease;
+}
+
+.place a:active {
+  transform: scale(0.98);
+  background: var(--color-lana-oscura);
+}
+
+.doses {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.dosesTitle {
+  color: var(--color-tierra-suave);
+  font-family: var(--font-texto);
+  font-size: var(--size-texto);
+  font-style: normal;
   font-weight: 700;
 }
 

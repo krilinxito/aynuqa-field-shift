@@ -7,7 +7,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-2) var(--space-4);
+  gap: var(--space-2) var(--space-3);
   max-inline-size: var(--ancho-lectura);
   margin-inline: auto;
   padding: var(--space-2) var(--margen);
@@ -23,11 +23,47 @@
   font-weight: 700;
 }
 
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.langSwitch {
+  display: inline-flex;
+  overflow: hidden;
+  border: 2px solid var(--color-tierra);
+  border-radius: var(--radio);
+  background: var(--color-nieve);
+}
+
+.langButton {
+  min-block-size: 2.75rem;
+  padding: var(--space-1) var(--space-2);
+  color: var(--color-tierra);
+  background: transparent;
+  border: 0;
+  border-inline-end: 1px solid var(--color-linea);
+  font-size: 0.82rem;
+  font-weight: 700;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.langButton:last-child {
+  border-inline-end: 0;
+}
+
+.langButton[aria-pressed='true'] {
+  color: var(--color-nieve);
+  background: var(--color-cielo);
+}
+
 .textSize {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  min-block-size: 3rem;
+  min-block-size: 2.75rem;
   padding: var(--space-1) var(--space-2);
   color: var(--color-tierra);
   background: transparent;
@@ -44,7 +80,7 @@
 
 .textSizeIcon {
   font-family: var(--font-titulo);
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-style: italic;
 }
 

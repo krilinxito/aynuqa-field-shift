@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 
+import { useLanguage } from '../../app/i18n/languageContext'
 import { RiskScale } from '../../shared/components/LevelScale'
 import { LlamaResting, LlamaStanding, Plant } from '../../shared/sprites/Sprites'
 import {
@@ -27,11 +28,6 @@ import {
 } from './communityText'
 import styles from './CommunityOverview.module.css'
 
-/*
- * Piezas del resumen de una comunidad. Todas leen la misma foto de la
- * comunidad (zona + sectores) desde el contexto.
- */
-
 export function CommunityProvider({
   children,
   ...value
@@ -41,14 +37,15 @@ export function CommunityProvider({
 
 export function CommunityHeading() {
   const { snapshot } = useCommunity()
+  const { t } = useLanguage()
 
   return (
     <header className={styles.heading}>
-      <LlamaStanding size={4.5} />
+      <LlamaStanding size={4} />
       <div>
         <h1>{snapshot.zone.name}</h1>
         <p className={styles.lead}>
-          {snapshot.sectors.length} sectores de la comunidad
+          {t.sectorsLead(snapshot.sectors.length)}
         </p>
       </div>
     </header>
@@ -56,41 +53,43 @@ export function CommunityHeading() {
 }
 
 const actionPictures = {
-  open: <Plant size={2.6} />,
-  extend_rest: <LlamaResting size={3.4} />,
-  keep_cultivating: <Plant size={2.6} />,
-  start_rest: <LlamaResting size={3.4} />,
+  open: <Plant size={2.4} />,
+  extend_rest: <LlamaResting size={3} />,
+  keep_cultivating: <Plant size={2.4} />,
+  start_rest: <LlamaResting size={3} />,
 } as const
 
 /** Qué conviene hacer con cada sector, agrupado por la acción recomendada. */
 export function CommunityActions() {
   const { snapshot, onOpenSector } = useCommunity()
+  const { t, tr } = useLanguage()
 
   return (
-    <section aria-labelledby="conviene-titulo">
+    <section aria-labelledby="conviene-titulo" className={styles.actionsSection}>
       <h2 id="conviene-titulo" className={styles.sectionTitle}>
-        Qué conviene este año
+        {t.whatToDoThisYear}
       </h2>
-      <p className={styles.hint}>Toque un sector para ver por qué.</p>
       {groupByAction(snapshot.sectors).map((group) => (
         <div key={group.action} className={styles.group}>
           <h3 className={styles.groupTitle}>
             {actionPictures[group.action]}
             <span>
-              {group.title}
+              {tr(group.title)}
               <span className={styles.count}>
                 {group.sectors.length === 1
-                  ? '1 sector'
-                  : `${group.sectors.length} sectores`}
+                  ? t.oneSector
+                  : t.manySectors(group.sectors.length)}
               </span>
             </span>
           </h3>
-          <ChoiceList.Root label={group.title}>
+          <ChoiceList.Root label={tr(group.title)}>
             {group.sectors.map((sector) => (
               <ChoiceList.Available
                 key={sector.id}
                 title={sector.name}
-                description={`${rotationText(sector)}. Confianza ${sector.recommendation.confidence_label}.`}
+                description={tr(
+                  `${rotationText(sector)}. Confianza ${sector.recommendation.confidence_label}.`,
+                )}
                 onChoose={() => onOpenSector(sector.id)}
               />
             ))}
@@ -104,10 +103,14 @@ export function CommunityActions() {
 /** Dibujo de los sectores; tocar uno abre su detalle. */
 export function CommunityMap() {
   const { snapshot, onOpenSector } = useCommunity()
+  const { t } = useLanguage()
 
   return (
     <section aria-labelledby="dibujo-titulo">
-      <h2 id="dibujo-titulo">Dibujo de los sectores</h2>
+      <h2 id="dibujo-titulo" className={styles.subHeading}>
+        {t.mapTitle}
+      </h2>
+      <p className={styles.hint}>{t.mapHint}</p>
       <SectorMap
         sectors={snapshot.sectors}
         selectedSectorId={null}
@@ -117,30 +120,33 @@ export function CommunityMap() {
   )
 }
 
-/** Riesgo de sequía: cuántos sectores hay en cada nivel. No inventa un puntaje de zona. */
+/** Riesgo de sequía: cuántos sectores hay en cada nivel. */
 export function CommunityRisk() {
   const { snapshot } = useCommunity()
+  const { t, tr } = useLanguage()
   const confidence = lowestConfidence(
     snapshot.sectors.map((sector) => sector.risk.confidence_label),
   )
 
   return (
     <section aria-labelledby="riesgo-comunidad-titulo">
-      <h2 id="riesgo-comunidad-titulo">Riesgo de sequía en la comunidad</h2>
-      <p>{riskExplanation(snapshot.scenario)}</p>
+      <h2 id="riesgo-comunidad-titulo" className={styles.subHeading}>
+        {t.riskWeatherTitle}
+      </h2>
+      <p className={styles.hint}>{tr(riskExplanation(snapshot.scenario))}</p>
       <ul className={styles.levels}>
         {groupByRisk(snapshot.sectors).map((group) => (
           <li key={group.level} className={styles.levelRow}>
             <RiskScale level={group.level} />
             <span>
-              <strong>{group.title}:</strong> {sectorsPhrase(group.sectors)}.
+              <strong>{tr(group.title)}:</strong> {sectorsPhrase(group.sectors)}.
             </span>
           </li>
         ))}
       </ul>
       {confidence ? (
         <p className={styles.confidence}>
-          <strong>Qué tan seguros estamos:</strong> {confidenceText(confidence)}
+          <strong>{t.howSure}</strong> {tr(confidenceText(confidence))}
         </p>
       ) : null}
     </section>
@@ -150,15 +156,14 @@ export function CommunityRisk() {
 /** Qué pasó en las tierras gemelas. Precedente, no garantía. */
 export function CommunityTwins() {
   const { snapshot } = useCommunity()
+  const { t, tr } = useLanguage()
   const groups = groupTwins(snapshot.sectors)
 
   return (
     <section aria-labelledby="gemelas-titulo">
-      <h2 id="gemelas-titulo">Tierras gemelas</h2>
-      <p>
-        Son tierras de otras comunidades del altiplano que se parecen a las de{' '}
-        {snapshot.zone.name}: altura y clima parecidos.
-      </p>
+      <h2 id="gemelas-titulo" className={styles.subHeading}>
+        {t.twinsTitle}
+      </h2>
       {groups.length === 0 ? (
         <p className={styles.empty}>
           {snapshot.scenario === 'normal'
@@ -168,25 +173,22 @@ export function CommunityTwins() {
       ) : (
         <ul className={styles.twins}>
           {groups.map((group) => (
-            <li key={group.key}>
+            <li key={group.key} className={styles.twinCard}>
               <h3 className={styles.twinName}>{group.zone}</h3>
-              <p>{twinGroupText(group)}</p>
+              <p>{tr(twinGroupText(group))}</p>
               {group.confidence ? (
-                <p className={styles.confidence}>
-                  <strong>Qué tan seguros estamos:</strong>{' '}
-                  {confidenceText(group.confidence)}
-                </p>
-              ) : null}
-              {group.isSimulated ? (
                 <p className={styles.note}>
-                  Los límites de esa tierra son simulados.
+                  {tr(`Confianza ${group.confidence}`)}
+                  {group.isSimulated ? ' · Límites simulados' : ''}
                 </p>
               ) : null}
             </li>
           ))}
         </ul>
       )}
-      {groups.length > 0 ? <p className={styles.caution}>{twinCaution}</p> : null}
+      {groups.length > 0 ? (
+        <p className={styles.caution}>{tr(twinCaution)}</p>
+      ) : null}
     </section>
   )
 }
@@ -200,6 +202,7 @@ export function CommunityWeather() {
 /** Botón que lee el resumen de la comunidad en voz alta. */
 export function CommunityListen() {
   const { snapshot } = useCommunity()
+  const { t } = useLanguage()
 
   return (
     <ListenButton
@@ -209,7 +212,7 @@ export function CommunityListen() {
         snapshot.sectors,
         snapshot.scenario,
       )}
-      label="Escuchar el resumen"
+      label={t.listenSummary}
     />
   )
 }

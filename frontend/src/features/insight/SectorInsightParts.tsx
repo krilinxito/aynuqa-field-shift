@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 
+import { useLanguage } from '../../app/i18n/languageContext'
 import { RecoveryScale, RiskScale } from '../../shared/components/LevelScale'
 import { LlamaResting, Plant } from '../../shared/sprites/Sprites'
 import { ListenButton } from '../speech/ListenButton'
@@ -21,11 +22,6 @@ import {
 } from './insightText'
 import styles from './SectorInsight.module.css'
 
-/*
- * Piezas de la ficha de un sector. Cada pantalla arma la ficha con las
- * piezas que necesita; todas leen el mismo sector desde el contexto.
- */
-
 export function InsightProvider({
   children,
   ...value
@@ -36,6 +32,7 @@ export function InsightProvider({
 /** Nombre del sector, su estado de rotación y el dibujo que lo acompaña. */
 export function InsightHeading() {
   const { sector } = useInsight()
+  const { t, tr } = useLanguage()
 
   return (
     <header className={styles.heading}>
@@ -44,8 +41,8 @@ export function InsightHeading() {
       </div>
       <div>
         <h1>{sector.name}</h1>
-        <p className={styles.rotation}>{rotationText(sector)}</p>
-        <p className={styles.note}>Años de descanso simulados</p>
+        <p className={styles.rotation}>{tr(rotationText(sector))}</p>
+        <p className={styles.note}>{t.simulatedRestNote}</p>
       </div>
     </header>
   )
@@ -54,24 +51,25 @@ export function InsightHeading() {
 /** El consejo, en grande, con su confianza siempre al lado. */
 export function InsightRecommendation() {
   const { sector } = useInsight()
+  const { t, tr } = useLanguage()
   const details = recommendationDetails(sector)
 
   return (
-    <section aria-labelledby="consejo-titulo">
+    <section aria-labelledby="consejo-titulo" className={styles.adviceCard}>
       <h2 id="consejo-titulo" className={styles.kicker}>
-        Consejo para este sector
+        {t.mainAdvice}
       </h2>
-      <p className={styles.phrase}>{sector.recommendation.text}</p>
+      <p className={styles.phrase}>{tr(sector.recommendation.text)}</p>
       {details.length > 0 ? (
         <ul className={styles.details}>
           {details.map((detail) => (
-            <li key={detail}>{detail}</li>
+            <li key={detail}>{tr(detail)}</li>
           ))}
         </ul>
       ) : null}
       <p className={styles.confidence}>
-        <strong>Qué tan seguros estamos:</strong>{' '}
-        {confidenceText(sector.recommendation.confidence_label)}
+        <strong>{t.howSure}</strong>{' '}
+        {tr(confidenceText(sector.recommendation.confidence_label))}
       </p>
     </section>
   )
@@ -80,25 +78,29 @@ export function InsightRecommendation() {
 /** Botón que lee toda la ficha en voz alta. */
 export function InsightListen() {
   const { sector, scenario } = useInsight()
+  const { t } = useLanguage()
 
   return (
     <ListenButton
       id={`ficha-${sector.id}-${scenario}`}
       text={spokenSummary(sector, scenario)}
-      label="Escuchar el consejo"
+      label={t.listenAdvice}
     />
   )
 }
 
 export function InsightReasons() {
   const { sector } = useInsight()
+  const { t, tr } = useLanguage()
 
   return (
     <section aria-labelledby="motivos-titulo">
-      <h2 id="motivos-titulo">¿Por qué?</h2>
+      <h2 id="motivos-titulo" className={styles.subHeading}>
+        {t.whyShort}
+      </h2>
       <ul className={styles.bullets}>
         {sector.recommendation.reasons.map((reason) => (
-          <li key={reason}>{reason}</li>
+          <li key={reason}>{tr(reason)}</li>
         ))}
       </ul>
     </section>
@@ -107,27 +109,27 @@ export function InsightReasons() {
 
 export function InsightRisk() {
   const { sector, scenario } = useInsight()
+  const { t, tr } = useLanguage()
 
   return (
     <section aria-labelledby="riesgo-titulo">
       <div className={styles.level}>
         <RiskScale level={sector.risk.level} />
-        <h2 id="riesgo-titulo">{riskTitle(sector.risk.level)}</h2>
+        <h2 id="riesgo-titulo" className={styles.subHeading}>
+          {tr(riskTitle(sector.risk.level))}
+        </h2>
       </div>
-      <p>{riskExplanation(scenario)}</p>
+      <p className={styles.shortText}>{tr(riskExplanation(scenario))}</p>
       {sector.risk.drivers.length > 0 ? (
-        <>
-          <p className={styles.listLabel}>Lo que más pesa:</p>
-          <ul className={styles.bullets}>
-            {sector.risk.drivers.map((driver) => (
-              <li key={driver.feature}>{driverText(driver)}</li>
-            ))}
-          </ul>
-        </>
+        <ul className={styles.bullets}>
+          {sector.risk.drivers.map((driver) => (
+            <li key={driver.feature}>{tr(driverText(driver))}</li>
+          ))}
+        </ul>
       ) : null}
       <p className={styles.confidence}>
-        <strong>Qué tan seguros estamos:</strong>{' '}
-        {confidenceText(sector.risk.confidence_label)}
+        <strong>{t.howSure}</strong>{' '}
+        {tr(confidenceText(sector.risk.confidence_label))}
       </p>
     </section>
   )
@@ -135,17 +137,22 @@ export function InsightRisk() {
 
 export function InsightRecovery() {
   const { sector } = useInsight()
+  const { t, tr } = useLanguage()
 
   return (
     <section aria-labelledby="recuperacion-titulo">
       <div className={styles.level}>
         <RecoveryScale level={sector.recovery.level} />
-        <h2 id="recuperacion-titulo">{recoveryTitle(sector.recovery.level)}</h2>
+        <h2 id="recuperacion-titulo" className={styles.subHeading}>
+          {tr(recoveryTitle(sector.recovery.level))}
+        </h2>
       </div>
-      <p>{recoveryExplanation(sector.recovery.level)}</p>
+      <p className={styles.shortText}>
+        {tr(recoveryExplanation(sector.recovery.level))}
+      </p>
       <p className={styles.confidence}>
-        <strong>Qué tan seguros estamos:</strong>{' '}
-        {confidenceText(sector.recovery.confidence_label)}
+        <strong>{t.howSure}</strong>{' '}
+        {tr(confidenceText(sector.recovery.confidence_label))}
       </p>
     </section>
   )
@@ -154,6 +161,7 @@ export function InsightRecovery() {
 /** Precedente de la tierra gemela. No se muestra si no existe. */
 export function InsightTwin() {
   const { sector } = useInsight()
+  const { t, tr } = useLanguage()
   const twin = sector.twinPrecedent
 
   if (!twin) {
@@ -162,16 +170,16 @@ export function InsightTwin() {
 
   return (
     <section aria-labelledby="gemela-titulo">
-      <h2 id="gemela-titulo">Qué pasó en una tierra parecida</h2>
-      <p>{twinText(twin)}</p>
-      <p className={styles.caution}>{twinCaution}</p>
+      <h2 id="gemela-titulo" className={styles.subHeading}>
+        {t.twinSectionTitle}
+      </h2>
+      <p className={styles.shortText}>{tr(twinText(twin))}</p>
+      <p className={styles.caution}>{tr(twinCaution)}</p>
       <p className={styles.confidence}>
-        <strong>Qué tan seguros estamos:</strong>{' '}
-        {confidenceText(twin.confidence_label)}
+        <strong>{t.howSure}</strong>{' '}
+        {tr(confidenceText(twin.confidence_label))}
+        {twin.is_simulated ? ' · Límites simulados.' : ''}
       </p>
-      {twin.is_simulated ? (
-        <p className={styles.note}>Los límites de esa tierra son simulados.</p>
-      ) : null}
     </section>
   )
 }

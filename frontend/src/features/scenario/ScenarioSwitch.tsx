@@ -1,23 +1,24 @@
+import { useLanguage } from '../../app/i18n/languageContext'
 import { useAppState } from '../../app/providers/appStateContext'
 import type { Scenario } from '../../data/repositories/DataRepository'
 import styles from './ScenarioSwitch.module.css'
 
-const options: ReadonlyArray<{ label: string; value: Scenario }> = [
-  { label: 'Hoy, con El Niño', value: 'nino' },
-  { label: 'Si fuera un año normal', value: 'normal' },
-]
-
 /**
  * Compara lo que pasa hoy (El Niño, el estado real) con un año normal.
- * Cuando se mira el año normal, lo dice con claridad.
  */
 export function ScenarioSwitch() {
   const { state, actions } = useAppState()
+  const { t } = useLanguage()
+
+  const options: ReadonlyArray<{ label: string; value: Scenario }> = [
+    { label: t.todayNino, value: 'nino' },
+    { label: t.normalYear, value: 'normal' },
+  ]
 
   return (
     <div className="no-imprimir">
       <fieldset className={styles.fieldset}>
-        <legend className={styles.legend}>Ver el consejo para:</legend>
+        <legend className={styles.legend}>{t.seeAdviceFor}</legend>
         <div className={styles.options}>
           {options.map((option) => (
             <button
@@ -34,8 +35,7 @@ export function ScenarioSwitch() {
       </fieldset>
       {state.scenario === 'normal' ? (
         <p className={styles.comparison} role="status">
-          <strong>Esto es una comparación.</strong> No es lo que pasa hoy: hoy
-          hay El Niño.
+          <strong>{t.comparisonTitle}</strong> {t.comparisonBody}
         </p>
       ) : null}
     </div>

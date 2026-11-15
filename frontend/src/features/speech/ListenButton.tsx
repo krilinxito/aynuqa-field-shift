@@ -1,3 +1,4 @@
+import { useLanguage } from '../../app/i18n/languageContext'
 import { useSpeech } from './speechContext'
 import styles from './ListenButton.module.css'
 
@@ -5,26 +6,31 @@ interface ListenButtonProps {
   /** Identifica este texto entre todos los que se pueden escuchar. */
   id: string
   text: string
-  /** Texto del botón; por defecto "Escuchar". */
+  /** Texto del botón; por defecto "Escuchar" en el idioma elegido. */
   label?: string
 }
 
-/** Botón que lee un texto en voz alta. No aparece si el celular no puede. */
-export function ListenButton({ id, text, label = 'Escuchar' }: ListenButtonProps) {
+/** Botón que lee un texto en voz alta en español claro / fonética andina. */
+export function ListenButton({ id, text, label }: ListenButtonProps) {
   const { state, actions, meta } = useSpeech()
+  const { t, tr } = useLanguage()
 
   if (!meta.canSpeak) {
     return null
   }
 
   const isSpeaking = state.speakingId === id
+  const buttonLabel = label ?? t.listen
+  const translatedText = tr(text)
 
   return (
     <button
       type="button"
       className={`${styles.button} no-imprimir`}
       aria-pressed={isSpeaking}
-      onClick={() => (isSpeaking ? actions.stop() : actions.speak(id, text))}
+      onClick={() =>
+        isSpeaking ? actions.stop() : actions.speak(id, translatedText)
+      }
     >
       <svg
         className={styles.icon}
@@ -47,7 +53,7 @@ export function ListenButton({ id, text, label = 'Escuchar' }: ListenButtonProps
           </>
         )}
       </svg>
-      {isSpeaking ? 'Parar' : label}
+      {isSpeaking ? t.stopListening : buttonLabel}
     </button>
   )
 }

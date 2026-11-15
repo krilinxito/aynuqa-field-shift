@@ -1,25 +1,22 @@
+import { useLanguage } from '../../app/i18n/languageContext'
 import { isDemoData } from '../../app/status/demoData'
 import type { ProvenanceViewModel } from '../../domain/presentationModels'
 import styles from './ZoneWeather.module.css'
 
-/** De dónde salen los datos, qué es simulado y cuándo se actualizaron. */
+/** Nota breve y clara al pie: origen de datos y fecha. */
 export function Provenance({ provenance }: { provenance: ProvenanceViewModel }) {
+  const { t } = useLanguage()
+
   return (
     <footer className={styles.provenance}>
       <p>
-        <strong>Datos simulados:</strong> los límites de los sectores y los años
-        de descanso. El clima y el verdor vienen de satélites de la NASA.
+        {t.simulatedFooter}{' '}
+        {provenance.dataSource === 'mock' || isDemoData() ? (
+          <span>{t.demoFooter} </span>
+        ) : null}
+        {t.updatedLabel}{' '}
+        <time dateTime={provenance.updatedAt}>{provenance.updatedAtText}</time>.
       </p>
-      {provenance.dataSource === 'mock' || isDemoData() ? (
-        <p>
-          <strong>Datos de demostración:</strong> estos números son de ejemplo.
-        </p>
-      ) : null}
-      <p>
-        Última actualización:{' '}
-        <time dateTime={provenance.updatedAt}>{provenance.updatedAtText}</time>
-      </p>
-      <p>Esta ayuda no reemplaza a la asamblea ni al agrónomo.</p>
     </footer>
   )
 }
