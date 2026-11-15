@@ -8,6 +8,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
 
 from app.config import Settings, get_settings
 from app.context import AppContext
@@ -57,6 +58,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         allow_headers=["*"],
         allow_credentials=False,
     )
+    # JSON comprimido: la lista de sectores baja de ~22 KB a ~4 KB con mala señal.
+    app.add_middleware(GZipMiddleware, minimum_size=1024, compresslevel=6)
     install_error_handlers(app)
     app.include_router(health.router)
     app.include_router(sectors.router)

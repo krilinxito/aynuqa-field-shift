@@ -3,6 +3,8 @@ import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 import wasm from 'vite-plugin-wasm'
 
+import { precompress, servePrecompressed } from './vite-precompress'
+
 // Para ver la app en el celular con un túnel (ngrok): la API se pide al
 // mismo sitio que sirve la app y aquí se reenvía al backend local.
 const backendProxy = {
@@ -40,6 +42,8 @@ export default defineConfig({
   plugins: [
     react(),
     wasm(),
+    precompress(),
+    servePrecompressed(),
     VitePWA({
       // La app se actualiza sola: no se le pide nada a la persona.
       registerType: 'autoUpdate',
