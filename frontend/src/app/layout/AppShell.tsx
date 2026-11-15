@@ -1,6 +1,6 @@
+import { lazy, Suspense } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 
-import { Mascot } from '../../features/mascot/Mascot'
 import { LlamaStanding, Plant } from '../../shared/sprites/Sprites'
 import { useLanguage } from '../i18n/languageContext'
 import { getPersistentSearch } from '../navigation/persistentSearch'
@@ -8,6 +8,13 @@ import { useAppState } from '../providers/appStateContext'
 import { writeUrlState } from '../state/urlState'
 import { AppHeader } from './AppHeader'
 import styles from './AppShell.module.css'
+
+// La llamita no es necesaria para el primer dibujo: llega justo después.
+const Mascot = lazy(() =>
+  import('../../features/mascot/Mascot').then((module) => ({
+    default: module.Mascot,
+  })),
+)
 
 export function AppShell() {
   const location = useLocation()
@@ -71,7 +78,9 @@ export function AppShell() {
           </ul>
         </nav>
 
-      <Mascot />
+      <Suspense fallback={null}>
+        <Mascot />
+      </Suspense>
     </div>
   )
 }

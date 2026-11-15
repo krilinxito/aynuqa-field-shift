@@ -1,9 +1,8 @@
 import { ConfigurationError } from '../transport/errors'
-import { getPowerSyncDatabase } from '../powersync/database'
 import { ApiDataRepository } from './ApiDataRepository'
 import type { DataRepository } from './DataRepository'
 import { MockDataRepository } from './MockDataRepository'
-import { PowerSyncDataRepository } from './PowerSyncDataRepository'
+import { LazyPowerSyncRepository } from './LazyPowerSyncRepository'
 
 export interface DataEnvironment {
   VITE_DATA_MODE?: string
@@ -54,13 +53,16 @@ export function createDataRepository(
         ? new URL(syncUrl, window.location.origin).toString().replace(/\/+$/, '')
         : undefined
 
-      return new PowerSyncDataRepository(
-        getPowerSyncDatabase(
-          absoluteUrl,
-          dependencies.fetchImplementation,
-          powersyncEndpoint,
+      // PowerSync va en un archivo aparte: no frena el primer dibujo.
+      return new LazyPowerSyncRepository(api, () =>
+        import('../powersync/loadPowerSync').then(({ createPowerSyncRepository }) =>
+          createPowerSyncRepository(
+            api,
+            absoluteUrl,
+            dependencies.fetchImplementation,
+            powersyncEndpoint,
+          ),
         ),
-        api,
       )
     } catch (error) {
       throw new ConfigurationError(
