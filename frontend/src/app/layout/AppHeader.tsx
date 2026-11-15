@@ -1,17 +1,12 @@
+import { useState } from 'react'
+
 import { useOnline } from '../../shared/hooks/useOnline'
 import { Chakana, Skyline } from '../../shared/sprites/Sprites'
 import { useLocalSyncStatus } from '../../data/powersync/syncStatus'
-import { useLanguage, type Language } from '../i18n/languageContext'
-import { InstallPwaButton } from '../pwa/InstallPwaButton'
+import { useLanguage } from '../i18n/languageContext'
 import { isDemoData } from '../status/demoData'
-import { useTextSize } from '../textsize/textSizeContext'
 import styles from './AppHeader.module.css'
-
-const LANGUAGE_OPTIONS: ReadonlyArray<{ code: Language; label: string }> = [
-  { code: 'es', label: 'Español' },
-  { code: 'ay', label: 'Aymara' },
-  { code: 'qu', label: 'Quechua' },
-]
+import { SettingsSheet } from './SettingsSheet'
 
 /** Aviso corto: solo aparece cuando hay algo que la persona debe saber. */
 function StatusLine() {
@@ -44,10 +39,10 @@ function StatusLine() {
   )
 }
 
+/** Cabecera mínima: marca y un solo botón de ajustes, para que quepa en 320 px. */
 export function AppHeader() {
-  const { state, actions } = useTextSize()
-  const { lang, setLang, t } = useLanguage()
-  const isLarge = state.size === 'grande'
+  const { t } = useLanguage()
+  const [settingsOpen, setSettingsOpen] = useState(false)
 
   return (
     <header className={styles.header}>
@@ -57,38 +52,35 @@ export function AppHeader() {
           <Chakana size={1.7} />
           <span>Aynuqa</span>
         </p>
-        <div className={`${styles.controls} no-imprimir`}>
-          <div
-            className={styles.langSwitch}
-            role="group"
-            aria-label="Idioma / Aru / Simi"
+        <button
+          type="button"
+          className={`${styles.settingsButton} no-imprimir`}
+          aria-expanded={settingsOpen}
+          aria-controls="ajustes"
+          onClick={() => setSettingsOpen((open) => !open)}
+        >
+          <svg
+            className={styles.settingsIcon}
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            focusable="false"
           >
-            {LANGUAGE_OPTIONS.map((option) => (
-              <button
-                key={option.code}
-                type="button"
-                className={styles.langButton}
-                aria-pressed={lang === option.code}
-                onClick={() => setLang(option.code)}
-              >
-                {option.label}
-              </button>
-            ))}
-          </div>
-          <InstallPwaButton />
-          <button
-            type="button"
-            className={styles.textSize}
-            aria-pressed={isLarge}
-            onClick={actions.toggle}
-          >
-            <span aria-hidden="true" className={styles.textSizeIcon}>
-              A+
-            </span>
-            {isLarge ? t.normalText : t.largeText}
-          </button>
-        </div>
+            <path
+              d="M4 7h10M18 7h2M4 17h2M10 17h10"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+            />
+            <circle cx="16" cy="7" r="2.4" fill="none" stroke="currentColor" strokeWidth="2.2" />
+            <circle cx="8" cy="17" r="2.4" fill="none" stroke="currentColor" strokeWidth="2.2" />
+          </svg>
+          <span>{settingsOpen ? t.closeSettings : t.settings}</span>
+        </button>
       </div>
+      {settingsOpen ? (
+        <SettingsSheet id="ajustes" onClose={() => setSettingsOpen(false)} />
+      ) : null}
       <StatusLine />
     </header>
   )

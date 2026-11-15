@@ -1,16 +1,14 @@
 import { Navigate, useLocation } from 'react-router-dom'
 
-import { useAppState } from '../providers/appStateContext'
 import { getPersistentSearch } from './persistentSearch'
 
 /**
- * Al abrir la app: quien ya eligió va directo a su comunidad; quien no,
- * empieza eligiéndola.
+ * Al abrir la app se entra directo a la comunidad con datos. Cambiarla es
+ * opcional (desde Ajustes).
  */
 export function RootRedirect() {
   const location = useLocation()
-  const { state } = useAppState()
-  const pathname = state.communityId ? '/mi-comunidad' : '/comunidad'
+  const pathname = '/mi-comunidad'
 
   return (
     <Navigate

@@ -2,7 +2,6 @@ import { Link, Navigate, useLocation } from 'react-router-dom'
 
 import { useLanguage } from '../app/i18n/languageContext'
 import { getPersistentSearch } from '../app/navigation/persistentSearch'
-import { useAppState } from '../app/providers/appStateContext'
 import { writeUrlState } from '../app/state/urlState'
 import { useSelectedSector } from '../features/data/useSelectedSector'
 import { SectorInsight } from '../features/insight'
@@ -23,7 +22,6 @@ import styles from './routes.module.css'
 /** Detalle de un sector: muestra primero el consejo y dosifica el resto. */
 export function SectorDetailRoute() {
   const location = useLocation()
-  const { state } = useAppState()
   const { t } = useLanguage()
   const selected = useSelectedSector()
 
@@ -37,7 +35,7 @@ export function SectorDetailRoute() {
 
   if (selected.status === 'missing') {
     return (
-      <Navigate replace to={state.communityId ? '/mi-comunidad' : '/comunidad'} />
+      <Navigate replace to="/mi-comunidad" />
     )
   }
 

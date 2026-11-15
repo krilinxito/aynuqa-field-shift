@@ -76,7 +76,9 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
         dispatch({
           type: 'hydrate',
           state: {
-            communityId: readStored(storageKeys.community),
+            // Sin obligar a elegir: si no eligió, se usa la comunidad con datos.
+            communityId:
+              readStored(storageKeys.community) ?? response.zone.id,
             ...resolved,
           },
         })

@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from 'react'
 
+import { useLanguage } from '../../app/i18n/languageContext'
 import styles from './DoseSection.module.css'
 
 interface DoseSectionProps {
@@ -22,6 +23,7 @@ export function DoseSection({
   children,
 }: DoseSectionProps) {
   const [isOpen, setIsOpen] = useState(defaultOpen)
+  const { t } = useLanguage()
 
   return (
     <div className={styles.card} data-open={isOpen}>
@@ -43,7 +45,7 @@ export function DoseSection({
           ) : null}
         </span>
         <span className={styles.badge} aria-hidden="true">
-          {isOpen ? 'Ocultar ▲' : 'Ver ▼'}
+          {isOpen ? `${t.hide} ▲` : `${t.show} ▼`}
         </span>
       </button>
 

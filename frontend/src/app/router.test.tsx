@@ -19,6 +19,10 @@ function renderRoute(initialEntry: InitialEntry) {
   return router
 }
 
+async function openSettings(user: ReturnType<typeof userEvent.setup>) {
+  await user.click(await screen.findByRole('button', { name: 'Ajustes' }))
+}
+
 function rememberCommunity() {
   localStorage.setItem('aynuqa:community', 'pumani')
 }
@@ -29,9 +33,22 @@ beforeEach(() => {
 })
 
 describe('recorrido principal', () => {
-  it('empieza pidiendo la comunidad y dosifica las comunidades sin datos', async () => {
-    const user = userEvent.setup()
+  it('entra directo a la comunidad con datos, sin obligar a elegir', async () => {
     const router = renderRoute('/')
+
+    expect(
+      await screen.findByRole('heading', { level: 1, name: 'Pumani' }),
+    ).toBeInTheDocument()
+    expect(router.state.location.pathname).toBe('/mi-comunidad')
+    // La barra de navegación está siempre.
+    expect(
+      screen.getByRole('navigation', { name: 'Navegación principal' }),
+    ).toBeInTheDocument()
+  })
+
+  it('cambiar de comunidad es opcional y dosifica las que no tienen datos', async () => {
+    const user = userEvent.setup()
+    renderRoute('/comunidad')
 
     expect(
       await screen.findByRole('heading', {
@@ -39,28 +56,17 @@ describe('recorrido principal', () => {
         name: '¿De qué comunidad es usted?',
       }),
     ).toBeInTheDocument()
-    expect(router.state.location.pathname).toBe('/comunidad')
     expect(screen.getByRole('button', { name: /Pumani/ })).toBeInTheDocument()
-    expect(
-      screen.queryByRole('button', { name: /Patacamaya/ }),
-    ).not.toBeInTheDocument()
-
-    // Las comunidades sin datos no abruman de entrada: se abren al tocar.
     expect(screen.queryAllByText(/Todavía sin datos/)).toHaveLength(0)
     await user.click(
       screen.getByRole('button', { name: /Ver otras comunidades/ }),
     )
     expect(screen.getAllByText(/Todavía sin datos/)).toHaveLength(7)
-
-    // Sin comunidad elegida todavía no hay barra de navegación.
-    expect(
-      screen.queryByRole('navigation', { name: 'Navegación principal' }),
-    ).not.toBeInTheDocument()
   })
 
   it('lleva de la comunidad a su resumen y de ahí al detalle de un sector', async () => {
     const user = userEvent.setup()
-    const router = renderRoute('/')
+    const router = renderRoute('/comunidad')
 
     await user.click(await screen.findByRole('button', { name: /Pumani/ }))
     expect(
@@ -94,11 +100,14 @@ describe('recorrido principal', () => {
     expect(router.state.location.pathname).toBe('/mi-comunidad')
   })
 
-  it('manda a elegir comunidad si todavía no hay una', async () => {
+  it('abre el resumen aunque todavía no se haya elegido comunidad', async () => {
     const router = renderRoute('/mi-comunidad')
 
+    expect(
+      await screen.findByRole('heading', { level: 1, name: 'Pumani' }),
+    ).toBeInTheDocument()
     await waitFor(() => {
-      expect(router.state.location.pathname).toBe('/comunidad')
+      expect(router.state.location.pathname).toBe('/mi-comunidad')
     })
   })
 
@@ -136,7 +145,7 @@ describe('resumen de la comunidad', () => {
     ).toBeInTheDocument()
   })
 
-  it('dosifica tierras gemelas y riesgo/clima, mostrándolos al tocar', async () => {
+  it('muestra riesgo y clima de entrada y dosifica las tierras gemelas', async () => {
     const user = userEvent.setup()
     renderRoute('/mi-comunidad')
 
@@ -156,9 +165,10 @@ describe('resumen de la comunidad', () => {
     ).toBeInTheDocument()
     expect(screen.getByText(/precedente, no como garantía/)).toBeInTheDocument()
 
-    await user.click(
+    // Riesgo y clima ya están abiertos: no hace falta tocar.
+    expect(
       screen.getByRole('button', { name: /Riesgo de sequía y clima/ }),
-    )
+    ).toHaveAttribute('aria-expanded', 'true')
     expect(
       screen.getByText(/aumenta la probabilidad de sequía/),
     ).toBeInTheDocument()
@@ -253,6 +263,7 @@ describe('letra grande, idiomas (Aymara / Quechua) y botón de descarga PWA', ()
     const user = userEvent.setup()
     renderRoute('/comunidad')
 
+    await openSettings(user)
     const button = await screen.findByRole('button', { name: /Letra grande/ })
     await user.click(button)
 
@@ -272,6 +283,7 @@ describe('letra grande, idiomas (Aymara / Quechua) y botón de descarga PWA', ()
       name: '¿De qué comunidad es usted?',
     })
 
+    await openSettings(user)
     await user.click(screen.getByRole('button', { name: 'Aymara' }))
     expect(
       screen.getByRole('heading', {
@@ -301,6 +313,7 @@ describe('letra grande, idiomas (Aymara / Quechua) y botón de descarga PWA', ()
     const user = userEvent.setup()
     renderRoute('/comunidad')
 
+    await openSettings(user)
     const installBtn = await screen.findByRole('button', {
       name: /Descargar en celular/,
     })

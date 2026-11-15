@@ -1,5 +1,3 @@
-import { Navigate } from 'react-router-dom'
-
 import { useLanguage } from '../app/i18n/languageContext'
 import { useAppState } from '../app/providers/appStateContext'
 import { Chat } from '../features/chat'
@@ -18,10 +16,6 @@ export function AskRoute() {
   const { state } = useAppState()
   const { t } = useLanguage()
   const { status, snapshot } = useSectorSnapshot(state.scenario)
-
-  if (!state.communityId) {
-    return <Navigate replace to="/comunidad" />
-  }
 
   if (!snapshot) {
     return status === 'error' ? <LoadError /> : <RouteLoading />

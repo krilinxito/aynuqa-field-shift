@@ -19,6 +19,16 @@ export interface UiStrings {
   navMyCommunity: string
   navAsk: string
   skipToContent: string
+  mainNavLabel: string
+  settings: string
+  closeSettings: string
+  languageLabel: string
+  textSizeLabel: string
+  show: string
+  hide: string
+  notFoundTitle: string
+  notFoundBody: string
+  backHome: string
 
   // Community picker (/comunidad)
   welcomeQuestion: string
@@ -117,6 +127,16 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
     navMyCommunity: 'Mi comunidad',
     navAsk: 'Preguntar',
     skipToContent: 'Saltar al contenido',
+    mainNavLabel: 'Navegación principal',
+    settings: 'Ajustes',
+    closeSettings: 'Cerrar ajustes',
+    languageLabel: 'Idioma',
+    textSizeLabel: 'Tamaño de letra',
+    show: 'Ver',
+    hide: 'Ocultar',
+    notFoundTitle: 'Esta página no existe',
+    notFoundBody: 'Puede volver al inicio con el botón.',
+    backHome: 'Volver al inicio',
 
     welcomeQuestion: '¿De qué comunidad es usted?',
     welcomeTap: 'Toque su comunidad para entrar.',
@@ -207,6 +227,16 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
     navMyCommunity: 'Markaja',
     navAsk: 'Jiskt’aña',
     skipToContent: 'Yatiyawiru saraña',
+    mainNavLabel: 'Nayriri thakhi',
+    settings: 'Wakicht’aña',
+    closeSettings: 'Wakicht’äwi jist’antaña',
+    languageLabel: 'Aru',
+    textSizeLabel: 'Qillqa jach’a',
+    show: 'Uñjaña',
+    hide: 'Imaña',
+    notFoundTitle: 'Aka laphix janiw utjkiti',
+    notFoundBody: 'Qalltaruw kutt’asma.',
+    backHome: 'Qalltaru kutt’aña',
 
     welcomeQuestion: '¿Kawkïri markatätasa?',
     welcomeTap: 'Markaman sutipa limt’amantañataki.',
@@ -297,6 +327,16 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
     navMyCommunity: 'Aylluy',
     navAsk: 'Tapukuy',
     skipToContent: 'Willakuyman pasay',
+    mainNavLabel: 'Hatun ñan',
+    settings: 'Allichay',
+    closeSettings: 'Allichayta wisq’ay',
+    languageLabel: 'Simi',
+    textSizeLabel: 'Qillqaq hatun kaynin',
+    show: 'Qhaway',
+    hide: 'Pakay',
+    notFoundTitle: 'Kay p’anqaqa manam kanchu',
+    notFoundBody: 'Qallariyman kutiyta atinki.',
+    backHome: 'Qallariyman kutiy',
 
     welcomeQuestion: '¿Mayqin ayllumantataq kanki?',
     welcomeTap: 'Aylluykiq sutinta ñit’iy yaykunapaq.',

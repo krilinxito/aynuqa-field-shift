@@ -17,7 +17,6 @@ export function AppShell() {
     selectedSectorId: null,
     scenario: state.scenario,
   })
-  const hasCommunity = state.communityId !== null
 
   const navigationItems = [
     {
@@ -44,10 +43,9 @@ export function AppShell() {
         <Outlet />
       </main>
 
-      {hasCommunity ? (
-        <nav
+      <nav
           className={`${styles.navigation} no-imprimir`}
-          aria-label="Navegación principal"
+          aria-label={t.mainNavLabel}
         >
           <ul className={styles.navigationList}>
             {navigationItems.map((item) => (
@@ -65,13 +63,12 @@ export function AppShell() {
                   <span className={styles.navigationPicture}>
                     {item.picture}
                   </span>
-                  {item.label}
+                  <span className={styles.navigationLabel}>{item.label}</span>
                 </NavLink>
               </li>
             ))}
           </ul>
         </nav>
-      ) : null}
     </div>
   )
 }

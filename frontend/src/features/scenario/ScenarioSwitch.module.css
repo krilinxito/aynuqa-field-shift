@@ -48,3 +48,19 @@
   background: var(--color-aviso-fondo);
   border-inline-start: 6px solid var(--color-aviso);
 }
+
+@media (max-width: 22.5rem) {
+  .options {
+    grid-template-columns: 1fr;
+  }
+
+  .option:first-child {
+    border-radius: var(--radio) var(--radio) 0 0;
+  }
+
+  .option:last-child {
+    border-inline-start: 2px solid var(--color-tierra);
+    border-block-start: 0;
+    border-radius: 0 0 var(--radio) var(--radio);
+  }
+}

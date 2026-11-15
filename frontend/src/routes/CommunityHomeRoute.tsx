@@ -1,4 +1,4 @@
-import { Link, Navigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import { useLanguage } from '../app/i18n/languageContext'
 import { useAppState } from '../app/providers/appStateContext'
@@ -25,10 +25,6 @@ export function CommunityHomeRoute() {
   const { state, actions } = useAppState()
   const { t } = useLanguage()
   const { status, snapshot } = useSectorSnapshot(state.scenario)
-
-  if (!state.communityId) {
-    return <Navigate replace to="/comunidad" />
-  }
 
   if (!snapshot) {
     return status === 'error' ? <LoadError /> : <RouteLoading />
@@ -69,6 +65,7 @@ export function CommunityHomeRoute() {
             title={t.mapTitle}
             subtitle={t.mapSub}
             icon={<Plant size={2.2} />}
+            defaultOpen
           >
             <CommunityOverview.Map />
           </DoseSection>
@@ -77,6 +74,7 @@ export function CommunityHomeRoute() {
             title={t.riskWeatherTitle}
             subtitle={t.riskWeatherSub}
             icon={<Cloud size={2.4} />}
+            defaultOpen
           >
             <CommunityOverview.Risk />
             <PlainDivider />
