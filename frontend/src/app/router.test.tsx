@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {
   RouterProvider,
@@ -227,6 +227,35 @@ describe('detalle de un sector', () => {
     expect(
       screen.getByRole('heading', { name: /El tiempo en toda la zona de Pumani/ }),
     ).toBeInTheDocument()
+  })
+
+  it('anota lo que decidió la comunidad, aunque no sea lo recomendado', async () => {
+    const user = userEvent.setup()
+    renderRoute('/sector?sector=S4&scenario=nino')
+
+    await screen.findByRole('heading', { level: 1, name: 'Sector 4' })
+    const group = screen.getByRole('group', { name: '¿Qué decidió la comunidad?' })
+    // La recomendación va primero y marcada, pero se puede elegir otra.
+    const options = within(group).getAllByRole('button')
+    expect(options[0]).toHaveTextContent(/lo recomendado/)
+
+    await user.click(within(group).getByRole('button', { name: /Abrir para cultivo/ }))
+    await user.type(screen.getByLabelText('Nota (opcional)'), 'Lo hablamos el domingo')
+    await user.click(screen.getByRole('button', { name: 'Guardar decisión' }))
+
+    expect(await screen.findByText('Decisión guardada.')).toBeInTheDocument()
+    expect(screen.getByText('Eligió otra cosa', { exact: false })).toBeInTheDocument()
+    expect(screen.getByText('«Lo hablamos el domingo»')).toBeInTheDocument()
+    const saved = JSON.parse(localStorage.getItem('aynuqa:decisions') ?? '[]') as Array<{
+      action: string
+      follows_recommendation: boolean
+    }>
+    expect(saved).toMatchObject([{ action: 'open', follows_recommendation: false }])
+
+    await user.click(screen.getByRole('button', { name: 'Borrar' }))
+    await waitFor(() => {
+      expect(screen.queryByText('Decisiones anotadas')).not.toBeInTheDocument()
+    })
   })
 
   it('vuelve a la comunidad si el sector no existe', async () => {

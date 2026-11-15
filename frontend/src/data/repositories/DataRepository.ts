@@ -2,6 +2,7 @@ import type {
   BacktestResponse,
   ChatRequest,
   ChatResponse,
+  Decision,
   HealthResponse,
   HistoryResponse,
   SectorRiskResponse,
@@ -20,6 +21,15 @@ export interface DateRange {
 export interface RequestOptions {
   signal?: AbortSignal
   timeoutMs?: number
+}
+
+export type { Decision }
+
+export interface DecisionList {
+  /** De la más nueva a la más vieja. */
+  decisions: Decision[]
+  /** Guardadas en el celular que todavía no subieron (sin señal). */
+  pendingIds: string[]
 }
 
 export interface DataRepository {
@@ -46,4 +56,14 @@ export interface DataRepository {
     request: ChatRequest,
     options?: RequestOptions,
   ): Promise<ChatResponse>
+  /** Lo que decidió la comunidad. Con PowerSync se guarda aunque no haya señal. */
+  saveDecision(decision: Decision, options?: RequestOptions): Promise<void>
+  deleteDecision(id: string, options?: RequestOptions): Promise<void>
+  listDecisions(
+    communityId: string,
+    sectorId?: string,
+    options?: RequestOptions,
+  ): Promise<DecisionList>
+  /** Avisa cuando cambian las decisiones (guardado, borrado o sincronización). */
+  onDecisionsChange(listener: () => void): () => void
 }

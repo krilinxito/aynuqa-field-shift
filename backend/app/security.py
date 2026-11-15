@@ -41,6 +41,19 @@ class TokenIssuer:
         )
         return token, expires_at
 
+    def verify(self, token: str) -> bool:
+        """True si el token lo firmó esta API y no venció."""
+        try:
+            jwt.decode(
+                token,
+                self._private_key.public_key(),
+                algorithms=["RS256"],
+                audience=self._audience,
+            )
+        except jwt.PyJWTError:
+            return False
+        return True
+
     def jwks(self) -> dict:
         numbers = self._private_key.public_key().public_numbers()
         return {

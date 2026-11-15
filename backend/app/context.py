@@ -12,6 +12,11 @@ from app.db import Database
 from app.loader import MLLoader
 from app.security import TokenIssuer
 from app.services.chat import ChatService
+from app.services.decisions import (
+    DecisionStore,
+    PostgresDecisionStore,
+    SqliteDecisionStore,
+)
 from app.services.history import HistoryService
 from app.services.local_tts import LocalTts
 from app.services.sensors import SensorSimulator
@@ -28,6 +33,7 @@ class AppContext:
     snapshots: SnapshotStore | None = field(init=False)
     tokens: TokenIssuer = field(init=False)
     local_tts: LocalTts = field(init=False)
+    decisions: DecisionStore = field(init=False)
 
     def __post_init__(self) -> None:
         self.db = Database(self.settings.database_file)
@@ -39,6 +45,11 @@ class AppContext:
             SnapshotStore(self.settings.database_url)
             if self.settings.database_url
             else None
+        )
+        self.decisions = (
+            PostgresDecisionStore(self.snapshots.pool)
+            if self.snapshots
+            else SqliteDecisionStore(self.db.connect)
         )
         self.local_tts = LocalTts(
             self.settings.path(self.settings.tts_cache_dir),
@@ -56,6 +67,7 @@ class AppContext:
         if self.snapshots:
             self.snapshots.open()
             self.sync_offline_snapshots()
+        self.decisions.initialize()
 
     def shutdown(self) -> None:
         if self.snapshots:

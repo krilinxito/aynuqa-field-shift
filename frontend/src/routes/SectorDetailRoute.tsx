@@ -2,8 +2,10 @@ import { Link, Navigate, useLocation } from 'react-router-dom'
 
 import { useLanguage } from '../app/i18n/languageContext'
 import { getPersistentSearch } from '../app/navigation/persistentSearch'
+import { useAppState } from '../app/providers/appStateContext'
 import { writeUrlState } from '../app/state/urlState'
 import { useSelectedSector } from '../features/data/useSelectedSector'
+import { DecisionPanel } from '../features/decisions/DecisionPanel'
 import { SectorInsight } from '../features/insight'
 import { ScenarioSwitch } from '../features/scenario/ScenarioSwitch'
 import { PrimaryLink, SecondaryButton } from '../shared/components/Actions'
@@ -23,6 +25,7 @@ import styles from './routes.module.css'
 export function SectorDetailRoute() {
   const location = useLocation()
   const { t } = useLanguage()
+  const { state } = useAppState()
   const selected = useSelectedSector()
 
   if (selected.status === 'loading') {
@@ -70,6 +73,14 @@ export function SectorDetailRoute() {
           <PrimaryLink to={{ pathname: '/preguntar', search }}>
             {t.askAboutSector}
           </PrimaryLink>
+        </div>
+
+        <div className="no-imprimir">
+          <DecisionPanel
+            communityId={state.communityId ?? snapshot.zone.id}
+            sector={sector}
+            scenario={snapshot.scenario}
+          />
         </div>
 
         <AguayoDivider />

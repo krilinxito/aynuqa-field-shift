@@ -129,6 +129,22 @@ Errores: `404 sector_not_found`, `422 invalid_request`, `502 llm_unavailable`.
 
 Ejemplos: `examples/api/chat_request.json` y `examples/api/chat_response.json`.
 
+## Decisiones de la comunidad
+
+Lo que la asamblea decidió hacer con un sector. Es lo único que escribe el celular. No es una predicción: la comunidad puede seguir la recomendación o no.
+
+Esquema: `decision.schema.json`. Ejemplo: `examples/api/decision.json`.
+
+- `PUT /api/decisions/{id}`: crea o reemplaza una decisión. El `id` es un UUID creado en el celular, para poder guardar sin señal. El cuerpo debe tener el mismo `id`. Responde `200` con la decisión guardada.
+- `DELETE /api/decisions/{id}`: la borra. Responde `204`, también si no existía.
+- `GET /api/decisions?community_id=pumani&sector_id=S4`: responde `{decisions: [...]}`, de la más nueva a la más vieja. `sector_id` es opcional.
+
+`PUT` y `DELETE` exigen `Authorization: Bearer <token>` con el token de `GET /api/powersync/token`.
+
+Sin señal, el celular guarda la decisión en su SQLite y PowerSync la sube con `PUT` cuando vuelve la señal. Las decisiones se sincronizan de vuelta a todos los celulares (stream `community_decisions`).
+
+Errores: `401 unauthorized`, `422 invalid_request`.
+
 ## POST /api/admin/reload
 
 Vuelve a cargar los archivos de `ml/outputs/`. Exige la cabecera `X-Admin-Token`. Responde igual que `/health`.

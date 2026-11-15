@@ -38,6 +38,7 @@ def test_schemas_are_valid():
     "example, schema_name",
     [
         ("sectors_normal.json", "sector_risk"),
+        ("decision.json", "decision"),
         ("sectors_nino.json", "sector_risk"),
         ("history_S1.json", "history"),
         ("sensors_S1.json", "sensors"),

@@ -12,7 +12,17 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.config import Settings, get_settings
 from app.context import AppContext
 from app.errors import install_error_handlers
-from app.routers import admin, backtest, chat, health, powersync, report, sectors, speech_translate
+from app.routers import (
+    admin,
+    backtest,
+    chat,
+    decisions,
+    health,
+    powersync,
+    report,
+    sectors,
+    speech_translate,
+)
 
 logging.basicConfig(
     level=os.getenv("LOG_LEVEL", "INFO"),
@@ -56,6 +66,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.include_router(report.router)
     app.include_router(speech_translate.router)
     app.include_router(powersync.router)
+    app.include_router(decisions.router)
     return app
 
 

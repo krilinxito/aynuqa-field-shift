@@ -25,6 +25,7 @@ const contracts = [
   ['health.schema.json', 'HealthResponse'],
   ['error.schema.json', 'ApiErrorResponse'],
   ['twin_precedent.schema.json', 'TwinPrecedent'],
+  ['decision.schema.json', 'Decision'],
 ]
 
 const bannerComment = `/*

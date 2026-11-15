@@ -2,6 +2,7 @@ import Ajv2020, { type ValidateFunction } from 'ajv/dist/2020.js'
 import addFormats from 'ajv-formats'
 
 import backtestSchema from '../../../../contracts/backtest.schema.json'
+import decisionSchema from '../../../../contracts/decision.schema.json'
 import chatRequestSchema from '../../../../contracts/chat_request.schema.json'
 import chatResponseSchema from '../../../../contracts/chat_response.schema.json'
 import errorSchema from '../../../../contracts/error.schema.json'
@@ -16,6 +17,7 @@ import type {
   BacktestResponse,
   ChatRequest,
   ChatResponse,
+  Decision,
   HealthResponse,
   HistoryResponse,
   SectorRiskResponse,
@@ -33,6 +35,7 @@ export const contractSchemas = {
   health: healthSchema,
   apiError: errorSchema,
   twinPrecedent: twinPrecedentSchema,
+  decision: decisionSchema,
 } as const
 
 export interface ContractTypes {
@@ -45,6 +48,7 @@ export interface ContractTypes {
   health: HealthResponse
   apiError: ApiErrorResponse
   twinPrecedent: TwinPrecedent
+  decision: Decision
 }
 
 export type ContractName = keyof ContractTypes

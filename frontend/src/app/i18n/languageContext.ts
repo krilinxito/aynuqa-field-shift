@@ -108,6 +108,23 @@ export interface UiStrings {
   writePlaceholder: string
   askButton: string
   chatFootnote: string
+
+  // Decisiones
+  decisionTitle: string
+  decisionIntro: string
+  decisionRecommended: string
+  decisionNoteLabel: string
+  decisionNotePlaceholder: string
+  decisionSave: string
+  decisionSaved: string
+  decisionSavedOffline: string
+  decisionSaveError: string
+  decisionHistory: string
+  decisionFollowed: string
+  decisionDifferent: string
+  decisionPending: string
+  decisionSynced: string
+  decisionDelete: string
 }
 
 export const UI_STRINGS: Record<Language, UiStrings> = {
@@ -212,6 +229,21 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
     askButton: 'Preguntar',
     chatFootnote:
       'La llamita usa los datos de la comunidad. La decisión final es de la asamblea.',
+    decisionTitle: '¿Qué decidió la comunidad?',
+    decisionIntro: 'Si la asamblea ya decidió, anótelo aquí. No es obligatorio y puede elegir algo distinto al consejo.',
+    decisionRecommended: 'lo recomendado',
+    decisionNoteLabel: 'Nota (opcional)',
+    decisionNotePlaceholder: 'Por ejemplo: lo hablamos en la asamblea del domingo',
+    decisionSave: 'Guardar decisión',
+    decisionSaved: 'Decisión guardada.',
+    decisionSavedOffline: 'Decisión guardada en el celular. Se enviará cuando haya señal.',
+    decisionSaveError: 'No se pudo guardar. Intente de nuevo.',
+    decisionHistory: 'Decisiones anotadas',
+    decisionFollowed: 'Siguió el consejo',
+    decisionDifferent: 'Eligió otra cosa',
+    decisionPending: 'Se enviará cuando haya señal',
+    decisionSynced: 'Enviada',
+    decisionDelete: 'Borrar',
   },
   ay: {
     largeText: "Jach'a qillqa",
@@ -313,6 +345,21 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
     askButton: 'Jiskt’aña',
     chatFootnote:
       'Qarwax markan yatiyawipampi yanapt’i. Tantachäwiw amti.',
+    decisionTitle: '¿Kunsa ayllux amtäna?',
+    decisionIntro: 'Tantachäwix amtchi ukhaxa, akan qillqt’am. Janiw wakiskiti, yaqha amtsa ajllitasma.',
+    decisionRecommended: 'iwxt’ata',
+    decisionNoteLabel: 'Qillqa (munasax)',
+    decisionNotePlaceholder: 'Sañäni: tumingu tantachäwin parlapxta',
+    decisionSave: 'Amta imaña',
+    decisionSaved: 'Amtax imatawa.',
+    decisionSavedOffline: 'Amtax celularan imatawa. Señal utjkani ukhaw apayasini.',
+    decisionSaveError: 'Janiw imaskiti. Wasitat yant’am.',
+    decisionHistory: 'Qillqt’at amtanaka',
+    decisionFollowed: 'Iwxt’äwir arkäna',
+    decisionDifferent: 'Yaqha ajllïna',
+    decisionPending: 'Señal utjkani ukhaw apayasini',
+    decisionSynced: 'Apayatawa',
+    decisionDelete: 'Chhaqtayaña',
   },
   qu: {
     largeText: 'Hatun qillqa',
@@ -414,6 +461,21 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
     askButton: 'Tapukuy',
     chatFootnote:
       'Llamitaqa aylluq willakuyninwan yanapan. Huñunakuymi qhipa simita nin.',
+    decisionTitle: '¿Imatataq ayllu yuyaykurqan?',
+    decisionIntro: 'Huñunakuy yuyaykurqanña chayqa, kaypi qillqay. Manam kamachikuychu, huk ruwaytapas akllayta atinki.',
+    decisionRecommended: 'yuyaychasqa',
+    decisionNoteLabel: 'Willay (munaspaqa)',
+    decisionNotePlaceholder: 'Kayhina: domingo huñunakuypi rimarqayku',
+    decisionSave: 'Yuyaykusqata waqaychay',
+    decisionSaved: 'Waqaychasqañam.',
+    decisionSavedOffline: 'Celularpi waqaychasqam. Señal kaptin apachikunqa.',
+    decisionSaveError: 'Mana waqaychakunchu. Wakmanta ruway.',
+    decisionHistory: 'Qillqasqa yuyaykusqakuna',
+    decisionFollowed: 'Yuyaychayta qatirqan',
+    decisionDifferent: 'Huk ruwayta akllarqan',
+    decisionPending: 'Señal kaptin apachikunqa',
+    decisionSynced: 'Apachisqañam',
+    decisionDelete: 'Pichay',
   },
 }
 
@@ -425,6 +487,7 @@ const PHRASE_REPLACEMENTS: Record<
     [/Abrir para cultivo/gi, 'Yapuchañataki llawiraña (Abrir para cultivo)'],
     [/Seguir en descanso/gi, 'Samarañanakakïpan (Seguir en descanso)'],
     [/Seguir cultivando/gi, 'Yapuchaskakiña (Seguir cultivando)'],
+    [/Otra cosa/gi, 'Yaqha luräwi (Otra cosa)'],
     [
       /Pasar a descanso después de la cosecha/gi,
       'Apthapi qhipat samarañaru uchaña',
@@ -468,6 +531,7 @@ const PHRASE_REPLACEMENTS: Record<
     [/Abrir para cultivo/gi, 'Tarpunapaq kichariy (Abrir para cultivo)'],
     [/Seguir en descanso/gi, 'Samayllapiraq kakuchun (Seguir en descanso)'],
     [/Seguir cultivando/gi, 'Tarpuyllapuni (Seguir cultivando)'],
+    [/Otra cosa/gi, 'Huk ruway (Otra cosa)'],
     [
       /Pasar a descanso después de la cosecha/gi,
       'Pallay qhipata samayman churay',

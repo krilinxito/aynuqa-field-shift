@@ -3,6 +3,7 @@ import type {
   BacktestResponse,
   ChatRequest,
   ChatResponse,
+  Decision,
   HealthResponse,
   HistoryResponse,
   SectorRiskResponse,
@@ -14,6 +15,7 @@ import type {
   BacktestEvent,
   DataRepository,
   DateRange,
+  DecisionList,
   RequestOptions,
   Scenario,
 } from './DataRepository'
@@ -24,9 +26,17 @@ import {
   assertScenario,
   assertSectorId,
 } from './inputValidation'
+import { DecisionEvents, sortDecisions } from './decisionEvents'
+
+interface TokenResponse {
+  token: string
+  expires_at: string
+}
 
 export class ApiDataRepository implements DataRepository {
   readonly #http: HttpClient
+  readonly #events = new DecisionEvents()
+  #token: { value: string; expiresAt: number } | null = null
 
   constructor(baseUrl: string, options?: HttpClientOptions) {
     this.#http = new HttpClient(baseUrl, options)
@@ -146,5 +156,74 @@ export class ApiDataRepository implements DataRepository {
         ...options,
       }),
     )
+  }
+
+  /** Token de la app (el mismo que usa PowerSync) para poder escribir. */
+  async authorization(options?: RequestOptions): Promise<string> {
+    if (this.#token && this.#token.expiresAt - Date.now() > 60_000) {
+      return `Bearer ${this.#token.value}`
+    }
+    const response = (await this.#http.request({
+      path: '/api/powersync/token',
+      ...options,
+    })) as Partial<TokenResponse>
+    if (!response.token || !response.expires_at) {
+      throw new ContractError('powersync:token')
+    }
+    this.#token = {
+      value: response.token,
+      expiresAt: Date.parse(response.expires_at),
+    }
+    return `Bearer ${response.token}`
+  }
+
+  async saveDecision(decision: Decision, options?: RequestOptions): Promise<void> {
+    const valid = parseContract('decision', decision)
+    await this.#http.request({
+      path: `/api/decisions/${encodeURIComponent(valid.id)}`,
+      method: 'PUT',
+      body: valid,
+      headers: { Authorization: await this.authorization(options) },
+      ...options,
+    })
+    this.#events.emit()
+  }
+
+  async deleteDecision(id: string, options?: RequestOptions): Promise<void> {
+    await this.#http.request({
+      path: `/api/decisions/${encodeURIComponent(id)}`,
+      method: 'DELETE',
+      headers: { Authorization: await this.authorization(options) },
+      ...options,
+    })
+    this.#events.emit()
+  }
+
+  async listDecisions(
+    communityId: string,
+    sectorId?: string,
+    options?: RequestOptions,
+  ): Promise<DecisionList> {
+    if (sectorId !== undefined) {
+      assertSectorId(sectorId)
+    }
+    const response = (await this.#http.request({
+      path: '/api/decisions',
+      query: { community_id: communityId, sector_id: sectorId },
+      ...options,
+    })) as { decisions?: unknown }
+    if (!Array.isArray(response.decisions)) {
+      throw new ContractError('decisions:list')
+    }
+    return {
+      decisions: sortDecisions(
+        response.decisions.map((item) => parseContract('decision', item)),
+      ),
+      pendingIds: [],
+    }
+  }
+
+  onDecisionsChange(listener: () => void): () => void {
+    return this.#events.subscribe(listener)
   }
 }

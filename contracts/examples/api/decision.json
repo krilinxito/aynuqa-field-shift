@@ -1,0 +1,11 @@
+{
+  "id": "6f1c2b0e-8a4d-4d6b-9c51-2f0e7a3b9d10",
+  "community_id": "pumani",
+  "sector_id": "S4",
+  "scenario": "nino",
+  "action": "extend_rest",
+  "recommended_action": "extend_rest",
+  "follows_recommendation": true,
+  "note": "Lo vimos en la asamblea del domingo.",
+  "decided_at": "2026-11-15T10:30:00-04:00"
+}

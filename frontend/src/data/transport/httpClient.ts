@@ -5,7 +5,8 @@ export type QueryValue = string | number | undefined
 
 export interface HttpRequest {
   path: string
-  method?: 'GET' | 'POST'
+  method?: 'GET' | 'POST' | 'PUT' | 'DELETE'
+  headers?: Record<string, string>
   query?: Record<string, QueryValue>
   body?: unknown
   signal?: AbortSignal
@@ -63,13 +64,13 @@ export class HttpClient {
     try {
       const response = await this.#fetch(url, {
         method: request.method ?? 'GET',
-        headers:
-          request.body === undefined
-            ? { Accept: 'application/json' }
-            : {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-              },
+        headers: {
+          Accept: 'application/json',
+          ...(request.body === undefined
+            ? {}
+            : { 'Content-Type': 'application/json' }),
+          ...request.headers,
+        },
         body:
           request.body === undefined ? undefined : JSON.stringify(request.body),
         signal: controller.signal,
@@ -113,6 +114,10 @@ export class HttpClient {
 
 async function readJson(response: Response): Promise<unknown> {
   const text = await response.text()
+
+  if (response.status === 204 || text === '') {
+    return null
+  }
 
   try {
     return JSON.parse(text) as unknown

@@ -4,6 +4,7 @@ import type {
   BacktestResponse,
   ChatRequest,
   ChatResponse,
+  Decision,
   HealthResponse,
   HistoryResponse,
   SectorRiskResponse,
@@ -14,6 +15,7 @@ import type {
   BacktestEvent,
   DataRepository,
   DateRange,
+  DecisionList,
   RequestOptions,
   Scenario,
 } from './DataRepository'
@@ -24,6 +26,26 @@ import {
   assertScenario,
   assertSectorId,
 } from './inputValidation'
+import { DecisionEvents, sortDecisions } from './decisionEvents'
+
+const DECISIONS_KEY = 'aynuqa:decisions'
+
+function readDecisions(): Decision[] {
+  try {
+    const raw = localStorage.getItem(DECISIONS_KEY)
+    return raw ? (JSON.parse(raw) as Decision[]) : []
+  } catch {
+    return []
+  }
+}
+
+function writeDecisions(list: Decision[]): void {
+  try {
+    localStorage.setItem(DECISIONS_KEY, JSON.stringify(list))
+  } catch {
+    // Sin almacenamiento: la decisión no se recuerda, pero nada se rompe.
+  }
+}
 
 function clone<T>(value: T): T {
   return structuredClone(value)
@@ -34,6 +56,8 @@ function checkSignal(options?: RequestOptions): void {
 }
 
 export class MockDataRepository implements DataRepository {
+  readonly #events = new DecisionEvents()
+
   async getHealth(options?: RequestOptions): Promise<HealthResponse> {
     checkSignal(options)
     await Promise.resolve()
@@ -158,5 +182,43 @@ export class MockDataRepository implements DataRepository {
     }
 
     return clone(parseContract('chatResponse', contractFixtures.chatResponse))
+  }
+
+  async saveDecision(decision: Decision, options?: RequestOptions): Promise<void> {
+    checkSignal(options)
+    await Promise.resolve()
+    const valid = parseContract('decision', decision)
+    writeDecisions([...readDecisions().filter((d) => d.id !== valid.id), valid])
+    this.#events.emit()
+  }
+
+  async deleteDecision(id: string, options?: RequestOptions): Promise<void> {
+    checkSignal(options)
+    await Promise.resolve()
+    writeDecisions(readDecisions().filter((d) => d.id !== id))
+    this.#events.emit()
+  }
+
+  async listDecisions(
+    communityId: string,
+    sectorId?: string,
+    options?: RequestOptions,
+  ): Promise<DecisionList> {
+    checkSignal(options)
+    await Promise.resolve()
+    return {
+      decisions: sortDecisions(
+        readDecisions().filter(
+          (d) =>
+            d.community_id === communityId &&
+            (sectorId === undefined || d.sector_id === sectorId),
+        ),
+      ),
+      pendingIds: [],
+    }
+  }
+
+  onDecisionsChange(listener: () => void): () => void {
+    return this.#events.subscribe(listener)
   }
 }
