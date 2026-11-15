@@ -39,7 +39,7 @@ Criterios de los jueces: **Impact, Creativity, Validity, Relevance, Presentation
 
 **Clientes:** gobiernos municipales, la gobernación y ONG de desarrollo rural o de adaptación al cambio climático que ya trabajan con comunidades del altiplano.
 
-**Usuarios:** las asambleas comunales y sus promotores.
+**Usuarios:** las comunidades y sus promotores.
 
 **Lo que compra la institución, en un solo paquete:**
 
@@ -53,7 +53,7 @@ Criterios de los jueces: **Impact, Creativity, Validity, Relevance, Presentation
 **Lo que obtiene la institución:**
 
 - Información por sector de cada comunidad a su cargo, basada en datos de la NASA.
-- Un registro de lo que decidió cada asamblea, útil para seguimiento y para informar a sus financiadores.
+- Un registro de lo que decidió cada comunidad, útil para seguimiento y para informar a sus financiadores.
 - Una herramienta que puede sumar a programas de adaptación al cambio climático que ya ejecuta.
 
 **Despliegue en una comunidad:**
@@ -88,43 +88,49 @@ Datos verificados que se pueden decir:
   - En temporadas que no vio, **todavía no las supera** (0,88 contra 0,74).
   - Por eso la app muestra la confianza de cada consejo. Hoy es **baja** en los 13 sectores.
 
-### Pitch A: "Un programa para municipios y ONG"
+### Pitch A (el que usamos): "Lo milenario y lo nuevo, decidiendo juntos"
 
-**[0:00–0:25] Contexto**
-> En el altiplano de La Paz, comunidades como Pumani organizan su tierra con la aynuqa: cultivan algunos sectores y dejan descansar otros para que el suelo se recupere. Cada año la asamblea decide qué sector abrir.
+Estructura: gancho, problema del reto, solución, producto, y cierre con escalabilidad y por qué usarlo. No hay presentación del equipo: el tiempo va al contenido. Sin términos económicos. Son unas 430 palabras. Diapositivas: `docs/pitch/index.html` (tecla N para ver este texto en pantalla).
+
+**[0:00–0:20] Gancho** · Diapositivas 1 y 2
+> En unas semanas empieza la siembra en el altiplano de La Paz. En comunidades como Pumani, toda la comunidad decide qué sector abrir para cultivar. Este año decide con El Niño activo: el índice de NOAA marcó +1,97. Si ustedes fueran parte de esa comunidad, ¿qué sector abrirían?
+
+**[0:20–0:50] Problema** · Diapositiva 3
+> Del reto Field Shift elegimos la aynuqa: la comunidad divide su tierra en sectores, cultiva algunos y deja descansar otros durante años para que el suelo se recupere. Con El Niño aumenta la probabilidad de sequía, y abrir un sector seco puede hacer perder la siembra del año. Hoy la comunidad elige de forma empírica, con la experiencia de años anteriores. Con el cambio climático, lamentablemente, esa experiencia falla. Además hay poca señal y pocos celulares.
+
+**[0:50–1:15] Cómo lo resolvemos** · Diapositiva 4
+> Aynuqa Field Shift estima para cada sector el riesgo de sequía y la recuperación del suelo. Con eso aconseja qué sector abrir, cuántos años más dejar descansar a los otros, qué sembrar y cuándo. Cada consejo dice qué tan seguros estamos.
 >
-> *Pantalla: foto del altiplano o la pantalla de inicio de la app.*
+> *Pantalla: la diapositiva aclara que la lluvia y la temperatura son iguales para toda la zona, y que el verdor (NDVI) y el terreno distinguen a cada sector. Si preguntan, se explica ahí.*
 
-**[0:25–0:50] Problema**
-> Este año NOAA registró El Niño con un índice de +1,97. Con El Niño aumenta la probabilidad de sequía en el altiplano. Las asambleas deciden con poca información, y muchas comunidades tienen poca señal y pocos celulares para consultarla.
-
-**[0:50–1:15] Propuesta**
-> Somos `[EQUIPO]` y presentamos Aynuqa Field Shift, un servicio para municipios, la gobernación y ONG que trabajan con estas comunidades. Incluye la herramienta configurada para cada comunidad, un punto de internet, celulares para los promotores y capacitación en el uso.
-
-**[1:15–1:55] Demo**
-> Esta es la app en un celular de gama baja. El mapa muestra los sectores sobre la foto satelital, con un borde de color según el riesgo de sequía. Al tocar el sector 4 aparece el consejo para este año y, al lado, qué tan seguros estamos. Se puede escuchar en aymara y quechua. La asamblea registra lo que decidió, aunque elija otra cosa. Sin señal la app sigue funcionando, y la decisión se envía cuando vuelve la conexión.
+**[1:15–2:10] El producto** · Diapositivas 5, 6 y 7
+> Esta es la app, hecha para celulares de gama baja. Abre directo en la comunidad y muestra el consejo del año agrupado por acción. Al tocar el sector 13, el que conviene abrir, aparece el consejo: papa, con siembra de octubre a noviembre y confianza baja.
 >
-> *Pantalla: mapa, sector 4, Escuchar, guardar decisión en modo avión.*
+> La comunidad anota lo que decidió, aunque elija otra cosa. Sin señal la app sigue funcionando: la decisión se guarda en el celular y se envía al volver la señal.
+>
+> A la llamita se le pregunta en lenguaje natural. El chat usa Gemini con llamadas a herramientas: cada número de la respuesta sale de nuestros datos, así no inventa cifras. Sin señal responde con los datos guardados.
 
-**[1:55–2:25] Datos y validación**
-> Usamos lluvia de GPM IMERG, humedad del suelo de NASA POWER, verdor de MODIS y terreno de NASADEM. Entrenamos con 8 zonas del altiplano y 26 campañas desde el año 2000, y lo probamos con el pasado. En zonas que el modelo no conocía, acierta mejor que las alternativas simples. En temporadas nuevas todavía no, y por eso cada consejo muestra su confianza.
+**[2:10–2:32] Datos y validación** · Diapositiva 8
+> Usamos la lluvia de GPM IMERG, la temperatura y la humedad del suelo de NASA POWER, el verdor (NDVI) de MODIS y el terreno de NASADEM. Entrenamos con 8 zonas del altiplano y 26 campañas desde el año 2000. En zonas que el modelo no vio, acierta mejor que las alternativas simples. En temporadas nuevas todavía no, y por eso la app siempre muestra la confianza.
 
-**[2:25–2:50] Qué gana la institución**
-> La institución recibe información por sector de cada comunidad a su cargo y un registro de las decisiones de cada asamblea, útil para el seguimiento y para sus financiadores. Además puede sumar la herramienta a los programas de adaptación que ya ejecuta.
+**[2:32–2:50] Escalabilidad y futuro** · Diapositiva 9
+> El modelo no usa latitud ni longitud: aprende de zonas parecidas. Por eso puede servir a otras comunidades del altiplano. Lo siguiente es trazar los límites reales con cada comunidad, sumar sensores de humedad en el campo y más temporadas para subir la confianza, y llegar a más comunidades con municipios y ONG.
 
-**[2:50–3:00] Pedido**
-> Buscamos un municipio o una ONG para un piloto con `[N]` comunidades en la próxima campaña. Gracias.
+**[2:50–3:00] Por qué usarlo** · Diapositiva 10
+> La comunidad sigue decidiendo. Con Aynuqa Field Shift tiene datos de la NASA por sector, también sin señal, y sabe qué tan seguro es cada consejo. Lo milenario y lo nuevo, decidiendo juntos. Gracias.
+
+**Preguntas (2 minutos)** · Diapositiva 11 de respaldo: números técnicos y qué es real y qué es simulado. Respuestas en la tabla de preguntas probables.
 
 ### Pitch B: "Datos NASA con resultados verificables"
 
 **[0:00–0:20] Contexto**
-> Las comunidades del altiplano rotan su tierra con la aynuqa. Con El Niño en +1,97, según NOAA, aumenta la probabilidad de sequía y cada decisión de la asamblea pesa más.
+> Las comunidades del altiplano rotan su tierra con la aynuqa. Con El Niño en +1,97, según NOAA, aumenta la probabilidad de sequía y cada decisión de la comunidad pesa más.
 
 **[0:20–0:45] Para quién**
 > Aynuqa Field Shift es un servicio para municipios y ONG que trabajan con comunidades rurales. Ellos lo despliegan: herramienta, conexión, celulares y capacitación para los promotores.
 
 **[0:45–1:25] Cómo funciona**
-> - **Escala de los datos:** la lluvia y la temperatura de NASA POWER son iguales para toda la comunidad, porque cae en una sola celda. Lo que distingue a cada sector es el verdor de MODIS a 250 metros y el terreno de NASADEM.
+> - **Escala de los datos:** la lluvia y la temperatura de NASA POWER son iguales para toda la comunidad, porque cae en una sola celda. Lo que distingue a cada sector es el verdor (NDVI) de MODIS a 250 metros y el terreno de NASADEM.
 > - **Riesgo de sequía:** un modelo LightGBM usa lluvia de GPM IMERG, humedad del suelo, temperatura y el índice RONI de NOAA con varios meses de rezago, junto al terreno y el verdor previo. No usa la ubicación, así que sirve para otras comunidades parecidas.
 > - **Recuperación del suelo:** el método RESTREND compara el verdor del sector con el que explicaría la lluvia.
 > - **Tierras gemelas:** el sector más parecido en otra zona del altiplano y cómo cambió su verdor en El Niño 2015-16 o 2023-24.
@@ -146,7 +152,7 @@ Datos verificados que se pueden decir:
 > En el altiplano boliviano, las comunidades rotan su tierra con la aynuqa: cultivan unos sectores y dejan descansar otros. Con El Niño en +1,97, según NOAA, aumenta la probabilidad de sequía. Abrir el sector equivocado puede costar una campaña.
 
 **[0:30–0:50] Cliente y usuario**
-> Nuestros clientes son municipios, la gobernación y ONG de desarrollo rural. Los usuarios son las asambleas comunales: muchas personas mayores, con poca señal y celulares básicos, que hablan español, aymara o quechua.
+> Nuestros clientes son municipios, la gobernación y ONG de desarrollo rural. Los usuarios son las comunidades: muchas personas mayores, con poca señal y celulares básicos, que hablan español, aymara o quechua.
 
 **[0:50–1:15] Solución**
 > Para cada sector, la app muestra:
@@ -158,9 +164,9 @@ Datos verificados que se pueden decir:
 
 **[1:15–1:55] Demo**
 > - **Entrada:** se entra directo, sin registro.
-> - **Mapa satelital:** cada sector tiene un borde de color según su riesgo.
+> - **Inicio:** el consejo del año agrupado por acción, y la comparación con un año normal.
 > - **Ficha del sector:** el consejo en grande, la confianza y el botón Escuchar.
-> - **Decisión:** la asamblea la anota y la llamita, la mascota de la app, lo celebra.
+> - **Decisión:** la comunidad la anota y la llamita, la mascota de la app, lo celebra.
 > - **Modo avión:** la app sigue funcionando y el chat responde con los datos guardados.
 
 **[1:55–2:25] Datos NASA y validación**
@@ -182,9 +188,7 @@ Datos verificados que se pueden decir:
 
 | Pregunta | Respuesta corta |
 | --- | --- |
-| ¿Quién paga? | El municipio, la gobernación o la ONG que trabaja con la comunidad. La comunidad recibe el servicio. |
-| ¿Cuánto cuesta? | `[definir con el equipo: costo por comunidad y por campaña]`. |
-| ¿Por qué el paquete incluye internet, celulares y capacitación? | Muchas comunidades no tienen conexión estable ni dispositivos, y la herramienta sirve solo si la saben usar. |
+| ¿Cómo llega a las comunidades? | Con los municipios y las ONG que ya trabajan con ellas: mapean los sectores, dejan la app instalada y capacitan a los promotores. |
 | ¿Qué tan preciso es? | En zonas nuevas supera a las líneas base (error 0,56 contra 0,73). En temporadas nuevas todavía no (0,88 contra 0,74). La app muestra la confianza, que hoy es baja. |
 | ¿Qué es real y qué es simulado? | Clima, verdor, terreno y RONI son reales. Los límites de los sectores, los años de descanso y los sensores son simulados, y la app lo indica en pantalla. |
 | ¿Por qué la lluvia es igual para todos los sectores? | La celda de NASA POWER cubre toda la comunidad. Cada sector se distingue por su verdor (250 m) y su terreno. |
@@ -195,41 +199,48 @@ Datos verificados que se pueden decir:
 
 ---
 
-## 3. Video demo oficial (30 segundos o menos)
+## 3. Video demo oficial (30 segundos o menos, en inglés)
 
-Este es el demo que se sube al formulario. Máximo 30 s, con subtítulos en inglés si hablan en español. Sigue los tiempos de la guía: 0:00, 0:02, 0:05, 0:10 y de 0:20 a 0:30.
+Este es el demo que se sube al formulario. Todo en inglés: voz, textos en pantalla y subtítulos en inglés (ayudan si hay ruido). Máximo 30 s. Sigue los tiempos de la guía: 0:00, 0:02, 0:05, 0:10 y de 0:20 a 0:30. Son unas 70 palabras para 28 s.
 
-Formato recomendado: horizontal **16:9, 1920×1080**, con la grabación del celular al centro y los motion graphics a los lados.
+Formato recomendado: horizontal **16:9, 1920×1080**, con la grabación del celular al centro y los motion graphics a los lados. Las tomas del celular salen de `C:\Users\barry\Videos\Aynuqa_demo\`.
 
-| Tiempo | Imagen | Voz (español) | Subtítulo (inglés) | Motion graphics |
-| --- | --- | --- | --- | --- |
-| 0:00–0:02 | Equipo a cámara, todos mayores de 18 | "Somos `[EQUIPO]`, de `[CIUDAD]`." | "We are `[TEAM]`, from `[CITY]`." | Nombre del equipo en barra inferior |
-| 0:02–0:05 | Paisaje del altiplano o animación de sectores | "En el altiplano, las comunidades rotan su tierra con la aynuqa." | "In the Bolivian Andes, communities rotate their land with the aynuqa." | Mapa animado: sectores en cultivo y en descanso |
-| 0:05–0:10 | Título de la app en el celular | "Aynuqa Field Shift ayuda a decidir qué sembrar con El Niño en +1,97." | "Aynuqa Field Shift helps decide what to plant with El Niño at +1.97." | Título, frase corta e indicador "RONI +1.97 (NOAA)" |
-| 0:10–0:20 | Celular: mapa satelital, sector 4 con su confianza, guardar decisión en modo avión | "Con datos de la NASA, cada sector recibe un consejo con su confianza, en su idioma y sin señal." | "Using NASA data, each sector gets advice with its confidence, in the local language, even offline." | Etiquetas de texto "GPM IMERG", "MODIS NDVI", "NASADEM", "NASA POWER", sin logos. Ícono de sin señal |
-| 0:20–0:30 | Promotor con el celular, la llamita celebrando | "Municipios y ONG lo entregan con internet, celulares y capacitación." | "Municipalities and NGOs deliver it with internet access, phones and training." | Íconos del paquete: app, conexión, celular, taller. Cierre con nombre y URL. Marca **"AI-generated graphics"** |
+| Tiempo | Imagen | Voz (inglés) | Motion graphics |
+| --- | --- | --- | --- |
+| 0:00–0:02 | Equipo a cámara, todos mayores de 18 | "We are Manada Prime." | "Manada Prime" en barra inferior |
+| 0:02–0:07 | Paisaje del altiplano o animación de sectores | "In the Andes, communities rotate their fields based on experience. Climate change is making that experience fail." | Sectores animados: en cultivo y en descanso |
+| 0:07–0:10 | Título de la app en el celular | "And El Niño, at plus 1.97, raises the chance of drought." | Título e indicador "RONI +1.97 (NOAA)" |
+| 0:10–0:18 | Celular: consejos por acción (escena 02), sector 13 con su confianza (escena 04), guardar la decisión sin señal (escena 07) | "Aynuqa Field Shift uses NASA data to advise each field: what to open, what to plant and when, with its confidence. Even offline." | Etiquetas de texto "GPM IMERG", "NASA POWER", "MODIS NDVI", "NASADEM", sin logos. Ícono de sin señal |
+| 0:18–0:25 | Celular: pregunta libre a la llamita y su respuesta con la confianza (escena 12) | "Ask the llama in plain language. Tool calling keeps every number tied to our data." | Esquema: pregunta → herramienta → dato con fuente |
+| 0:25–0:28 | La llamita celebrando, cierre | "The ancient and the new, deciding together." | Nombre, lema y URL. Marca **"AI-generated graphics"** |
 
 Notas:
 
 - **Duren 28 s o menos** para tener margen, y revisen la duración en YouTube después de subirlo.
-- Digan "aumenta la probabilidad de sequía". Eviten "va a haber sequía".
+- Digan "raises the chance of drought". Eviten "brings drought" o "will cause drought".
 
 ---
 
-## 4. Video de demo larga (respaldo, 2 minutos)
+## 4. Video de demo larga (respaldo, 2 minutos, en inglés)
 
-Sirve como **Link to Final Project** junto al repositorio, o en el pitch presencial si falla el celular en vivo. El demo del formulario sigue siendo el de 30 s.
+Opcional: si el **Link to Final Project** es el repo, no hace falta. Sirve como respaldo en el pitch presencial si falla el celular. Todo en inglés, igual que el video de 30 s. Las tomas están en `C:\Users\barry\Videos\Aynuqa_demo\`; `demo_completa.mp4` ya las trae en este orden, sin voz. Son unas 185 palabras para 2 minutos: queda espacio para que se vea la app entre frase y frase.
 
-| # | Tiempo | Toma | Qué mostrar | Voz |
+| # | Tiempo | Archivo | Qué se ve | Voz (inglés) |
 | --- | --- | --- | --- | --- |
-| 1 | 0:00–0:10 | Equipo a cámara | Presentación | "Somos `[EQUIPO]` y esto es Aynuqa Field Shift, un servicio para municipios y ONG." |
-| 2 | 0:10–0:25 | Celular: abrir la app | Entra directo a Pumani; la llamita saluda | "La app abre directo en la comunidad, sin registro." |
-| 3 | 0:25–0:45 | Celular: Mi comunidad | Consejo agrupado por acción e interruptor "Hoy con El Niño / año normal" | "Este es el consejo de este año para cada sector, y la comparación con un año normal." |
-| 4 | 0:45–1:00 | Celular: mapa | Foto satelital, bordes por riesgo, tocar el sector 4 | "Sobre la foto satelital, el color del borde indica el riesgo de sequía." |
-| 5 | 1:00–1:15 | Celular: ficha del sector | Consejo, confianza, Escuchar en aymara | "Cada consejo muestra su confianza y se puede escuchar en aymara y quechua." |
-| 6 | 1:15–1:30 | Celular: modo avanzado | Riesgo con intervalo, factores, serie de NDVI | "Los técnicos de la institución ven todos los números del modelo." |
-| 7 | 1:30–1:50 | Celular: modo avión | Guardar decisión ("Se enviará cuando haya señal"), la llamita celebra, el chat responde | "Sin señal, la decisión queda guardada y el chat responde con los datos del celular." |
-| 8 | 1:50–2:00 | Celular: vuelve la señal | La decisión pasa a "Enviada" | "Cuando vuelve la señal, la decisión se envía sola." |
+| 1 | 0:00–0:08 | Equipo a cámara | Presentación | "We are Manada Prime, and this is Aynuqa Field Shift." |
+| 2 | 0:08–0:18 | escena01 | Entra directo a Pumani; la llamita saluda | "In the Andes, communities rotate their fields with the aynuqa. The app opens straight into the community, no sign-up." |
+| 3 | 0:18–0:35 | escena02 y escena03 | Consejo agrupado por acción e interruptor "Hoy con El Niño / año normal" | "This is this year's advice for every field, grouped by what to do. One tap compares it with a normal year. Today El Niño is at plus 1.97, which raises the chance of drought." |
+| 4 | 0:35–0:50 | escena04 | Ficha del sector 13: abrir, papa, de octubre a noviembre, confianza baja | "Tap a field to see its advice. Sector 13 can open for planting: potatoes, from October to November. The app always shows how confident we are. Here, it's low." |
+| 5 | 0:50–1:02 | escena06 | "¿Por qué damos este consejo?" | "It also explains why. Rain and temperature are the same for the whole area. What sets each field apart is its greenness, NDVI from MODIS, and its terrain." |
+| 6 | 1:02–1:22 | escena12 | Pregunta libre a la llamita y respuesta de Gemini con su confianza | "You can ask the llama in plain language. The chat runs on Gemini with tool calling: every number in the answer comes from our data, so it doesn't make figures up." |
+| 7 | 1:22–1:40 | escena07 y escena08 | Sin señal: guardar la decisión ("Se enviará cuando haya señal") y el chat responde con los datos guardados | "Signal is poor in the highlands, so the app works offline. The community records its decision on the phone, and the llama still answers from saved data." |
+| 8 | 1:40–1:50 | escena09 | Vuelve la señal: la decisión pasa a "Enviada" | "When the signal comes back, the decision is sent on its own." |
+| 9 | 1:50–2:00 | escena11 | Modo avanzado: riesgo con intervalo, factores, NDVI | "For more detail, advanced mode shows every number behind the advice. The ancient and the new, deciding together." |
+
+Notas:
+
+- La app está en español. Si hace falta, el editor puede poner una etiqueta corta en inglés sobre cada pantalla, como en el video de 30 s.
+- Digan "raises the chance of drought". Eviten "brings drought".
 
 ---
 
@@ -255,7 +266,7 @@ Sirve como **Link to Final Project** junto al repositorio, o en el pitch presenc
 
 ### Lo que hago yo
 
-- Motion graphics: mapa de sectores animado, indicador RONI +1,97, etiquetas de datos NASA (solo texto), íconos del paquete B2B, título, cierre y subtítulos en inglés.
+- Motion graphics: sectores animados (cultivo y descanso), indicador RONI +1,97, etiquetas de datos NASA (solo texto), íconos del paquete B2B, título, cierre y subtítulos en inglés.
 - Marca **"AI-generated graphics"** visible en cada pieza que genere.
 - Montaje del video oficial (28 s como máximo) y del video de respaldo (2 min).
 
@@ -267,8 +278,8 @@ Si prefieren diapositivas. **Máximo 7, en inglés**, con poco texto e imágenes
 
 1. **Title.** *Aynuqa Field Shift: NASA data for Andean communal land rotation.* Equipo, integrantes y reto *Field Shift: Adapting Farms with NASA Data*.
 2. **The aynuqa.** Foto del altiplano y diagrama de sectores en cultivo y en descanso. "Communities rotate their land every year. El Niño (NOAA RONI +1.97) increases the likelihood of drought."
-3. **Customers and users.** Municipalities, the regional government and NGOs deploy it; community assemblies use it. Low-end phones, poor signal, Spanish, Aymara or Quechua.
-4. **What it does.** Per sector: drought risk, soil recovery and a recommended action, always with its confidence. Capturas del mapa satelital y de la ficha del sector.
+3. **Customers and users.** Municipalities, the regional government and NGOs deploy it; communities use it. Low-end phones, poor signal, Spanish, Aymara or Quechua.
+4. **What it does.** Per sector: drought risk, soil recovery and a recommended action, always with its confidence. Capturas de la pantalla de inicio (consejos por acción) y de la ficha del sector.
 5. **NASA data.** GPM IMERG (rainfall), NASA POWER (temperature, root-zone soil moisture, radiation), MODIS NDVI MOD13Q1/MYD13Q1 via AppEEARS (greenness, 250 m), NASADEM (terrain), plus NOAA RONI. Diagrama: datos, modelo, consejo.
 6. **Validation.** New zones: beats baselines (RMSE 0.56 vs 0.73). New seasons: does not yet (0.88 vs 0.74). Confidence shown with every recommendation.
 7. **Deployment package and next steps.** App configured per community, internet access point, phones, training. Pilot with `[N]` communities; next: real sector boundaries, field sensors, institution dashboard.
@@ -295,7 +306,7 @@ Aynuqa Field Shift
 >
 > With these it estimates each sector's drought risk and soil recovery. It turns them into advice: which sector to open, how long to extend the rest, and what and when to sow. Every recommendation shows its confidence.
 >
-> The app works offline on low-end phones, in Spanish, Aymara and Quechua, and records the assembly's decisions.
+> The app works offline on low-end phones, in Spanish, Aymara and Quechua, and records each community's decisions.
 >
 > It is designed as a service for municipalities, the regional government and NGOs. They deploy it to the communities they support with internet access, phones and training on how to use the tool.
 
@@ -326,7 +337,7 @@ Aynuqa Field Shift
 > - low-end phones;
 > - training for community promoters and leaders.
 >
-> Community assemblies are the end users. The institution gets sector-level information for each community and a record of assembly decisions for monitoring and reporting.
+> Communities are the end users. The institution gets sector-level information for each community and a record of community decisions for monitoring and reporting.
 >
 > **How it works.**
 > - **Data pipeline (Python).** Monthly NASA data for Pumani and 7 analog Altiplano zones (8 zones, 26 growing seasons since 2000):
@@ -384,21 +395,61 @@ Aynuqa Field Shift
 
 ### NASA Data
 
-> - **NASA POWER**, daily point API, AG community: T2M (temperature), PRECTOTCORR (precipitation), GWETROOT (root-zone soil wetness) and ALLSKY_SFC_SW_DWN (solar radiation), 2000–2026, for 8 Altiplano zones.
-> - **GPM IMERG V07** (NASA GES DISC): monthly Final (GPM_3IMERGM) and daily Late (GPM_3IMERGDL) precipitation via OPeNDAP.
-> - **MODIS Vegetation Indices MOD13Q1.061 and MYD13Q1.061** (Terra and Aqua, 250 m, 16-day NDVI), retrieved through **NASA AppEEARS** (LP DAAC).
-> - **NASADEM** (NASADEM_HGT and NASADEM_NC.001) elevation, slope and aspect, retrieved through AppEEARS.
+Se cargan con **+ Add New Link**: un renglón por fila. **Link Text** es el nombre del dato y **Link Url** la URL completa. Todos los links se verificaron el 15 de noviembre de 2026: responden 200, son públicos y llevan a la página oficial del dato.
+
+| Link Text | Link Url |
+| --- | --- |
+| NASA POWER (daily point API, AG community: temperature, soil moisture, solar radiation) | https://power.larc.nasa.gov/ |
+| NASA POWER Daily API documentation | https://power.larc.nasa.gov/docs/services/api/temporal/daily/ |
+| GPM IMERG Final Precipitation, monthly, V07 (GPM_3IMERGM) | https://www.earthdata.nasa.gov/data/catalog/ges-disc-gpm-3imergm-07 |
+| GPM IMERG Late Precipitation, daily, V07 (GPM_3IMERGDL) | https://www.earthdata.nasa.gov/data/catalog/ges-disc-gpm-3imergdl-07 |
+| MODIS/Terra Vegetation Indices 16-Day 250 m V061 (MOD13Q1, NDVI) | https://www.earthdata.nasa.gov/data/catalog/lpcloud-mod13q1-061 |
+| MODIS/Aqua Vegetation Indices 16-Day 250 m V061 (MYD13Q1, NDVI) | https://www.earthdata.nasa.gov/data/catalog/lpcloud-myd13q1-061 |
+| NASADEM Merged DEM Global 1 arc second V001 (elevation, slope, aspect) | https://www.earthdata.nasa.gov/data/catalog/lpcloud-nasadem-hgt-001 |
+| NASA AppEEARS (used to extract MODIS NDVI and NASADEM) | https://appeears.earthdatacloud.nasa.gov/ |
 
 ### Space Agency Partner Data and Other References
 
-> - **NOAA CPC Relative Oceanic Niño Index (RONI)**, with ONI as reference: https://www.cpc.ncep.noaa.gov/data/indices/RONI.ascii.txt
-> - **CHIRPS v2.0** (UCSB Climate Hazards Center), through the IRI Data Library, for rainfall gap-filling.
-> - **SENAMHI Bolivia**, Ayo Ayo station, used to validate satellite rainfall and temperature (not used for training).
-> - **Esri World Imagery** basemap: Esri, Maxar, Earthstar Geographics and the GIS User Community.
-> - **Meta MMS-TTS** models facebook/mms-tts-ayr and facebook/mms-tts-quh (CC-BY-NC 4.0).
-> - **Google Gemini API** (google-genai) and **WebLLM** (MLC) with Qwen2.5-0.5B-Instruct.
-> - **Open-source software:** LightGBM, SHAP, pandas, xarray, FastAPI, PowerSync, React, Vite, Workbox, and the Atkinson Hyperlegible and Lora fonts (OFL).
-> - `[Agreguen datos de las agencias socias si los usan. Hoy no usamos ninguno.]`
+No usamos datos de agencias socias. Aquí van los demás datos, modelos, código y tipografías que usamos, incluidas las herramientas con las que hicimos los videos. Mismo formato.
+
+| Link Text | Link Url |
+| --- | --- |
+| NOAA CPC Relative Oceanic Niño Index (RONI) | https://www.cpc.ncep.noaa.gov/data/indices/RONI.ascii.txt |
+| NOAA CPC Oceanic Niño Index (ONI), reference only | https://www.cpc.ncep.noaa.gov/data/indices/oni.ascii.txt |
+| CHIRPS v2.0 rainfall (UCSB Climate Hazards Center), gap-filling | https://www.chc.ucsb.edu/data/chirps |
+| SENAMHI Bolivia, Ayo Ayo station (validation only) | https://senamhi.gob.bo/ |
+| Esri World Imagery basemap (Esri, Maxar, Earthstar Geographics, GIS User Community) | https://www.arcgis.com/home/item.html?id=10df2279f9684e4a9f6a7f08febac2a4 |
+| Meta MMS-TTS Aymara voice (facebook/mms-tts-ayr, CC-BY-NC 4.0) | https://huggingface.co/facebook/mms-tts-ayr |
+| Meta MMS-TTS Quechua voice (facebook/mms-tts-quh, CC-BY-NC 4.0) | https://huggingface.co/facebook/mms-tts-quh |
+| Google Gemini API | https://ai.google.dev/gemini-api/docs |
+| Google Gen AI Python SDK (google-genai) | https://github.com/googleapis/python-genai |
+| WebLLM (MLC), optional on-device model | https://github.com/mlc-ai/web-llm |
+| Qwen2.5-0.5B-Instruct (MLC build used by WebLLM) | https://huggingface.co/mlc-ai/Qwen2.5-0.5B-Instruct-q4f16_1-MLC |
+| LightGBM | https://github.com/lightgbm-org/LightGBM |
+| SHAP | https://github.com/shap/shap |
+| pandas | https://pandas.pydata.org/ |
+| xarray | https://xarray.dev/ |
+| FastAPI | https://fastapi.tiangolo.com/ |
+| PostgreSQL | https://www.postgresql.org/ |
+| PowerSync (self-hosted service) | https://github.com/powersync-ja/powersync-service |
+| React | https://react.dev/ |
+| Vite | https://vite.dev/ |
+| Workbox (offline caching) | https://developer.chrome.com/docs/workbox/ |
+| Docker | https://www.docker.com/ |
+| Atkinson Hyperlegible font (SIL OFL) | https://fonts.google.com/specimen/Atkinson+Hyperlegible |
+| Lora font (SIL OFL) | https://fonts.google.com/specimen/Lora |
+| faster-whisper (demo video: subtitle timing) | https://github.com/SYSTRAN/faster-whisper |
+| noisereduce (demo video: audio cleanup) | https://github.com/timsainb/noisereduce |
+| FFmpeg (demo video: editing and encoding) | https://ffmpeg.org/ |
+| Playwright (demo video: screen recording and motion graphics) | https://playwright.dev/ |
+| Project source code (GitHub) | https://github.com/krilinxito/aynuqa-field-shift |
+| Demo video (YouTube) | https://youtu.be/_nsD0_TYTzk |
+
+Notas:
+
+- La página de CHIRPS en la IRI Data Library (de donde descarga el código) ahora pide inicio de sesión; por eso el link es la página pública de UCSB.
+- NASADEM_NC.001 no tiene página propia: su DOI lleva a la misma página de NASADEM.
+- La documentación de Gemini redirige a Google AI Studio ("Docs - Gemini API").
 
 ---
 
@@ -407,9 +458,9 @@ Aynuqa Field Shift
 | Usen | Eviten |
 | --- | --- |
 | "El Niño aumenta la probabilidad de sequía" | "Va a haber sequía" |
-| "Confianza baja; es una guía para la asamblea" | "El modelo predice con precisión" |
+| "Confianza baja; es una guía para la comunidad" | "El modelo predice con precisión" |
 | "Los límites y años de descanso son simulados" | Presentar los sectores como reales |
 | "La lluvia es la misma para toda la comunidad" | Diferencias de lluvia entre sectores |
 | "La tierra gemela tuvo una anomalía de verdor de X" | Cultivos, rendimientos o pérdidas inventados |
-| "La asamblea decide" | "La app decide" |
+| "La comunidad decide" | "La app decide" |
 | "Un piloto con `[N]` comunidades" | Clientes o convenios que todavía no existen |
