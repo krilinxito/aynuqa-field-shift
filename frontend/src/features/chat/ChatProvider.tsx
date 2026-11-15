@@ -18,7 +18,10 @@ import {
   type ChatMessage,
 } from './chatContext'
 import { mascotSignals } from '../mascot/mascotSignals'
+import { adaptSectorSnapshot } from '../../data/adapters/sectorAdapter'
+import { NetworkError, TimeoutError } from '../../data/transport/errors'
 import { chatErrorText } from './chatErrors'
+import { answerOffline as answerOffline_ } from './offline/answerOffline'
 
 const maxLength = 1000
 const chatTimeoutMs = 45_000
@@ -77,11 +80,24 @@ export function ChatProvider({
       append({ role: 'user', text: message })
       setDraft('')
 
+      // Sin señal (o si falla la red) la llamita contesta con lo guardado.
+      const answerOffline = async () => {
+        try {
+          const snapshot = adaptSectorSnapshot(await repository.getSectors(scenario))
+          const local = await answerOffline_(message, snapshot, { sectorId, lang })
+          append({
+            role: 'assistant',
+            text: local.text,
+            confidenceNote: local.confidenceNote,
+          })
+        } catch {
+          append({ role: 'notice', text: chatErrorText(new NetworkError()) })
+        }
+      }
+
       if (!isOnline) {
-        append({
-          role: 'notice',
-          text: 'No hay señal. La llamita necesita señal para contestar. Los datos de su sector sí se pueden ver sin señal.',
-        })
+        setIsSending(true)
+        void answerOffline().finally(() => setIsSending(false))
         return
       }
 
@@ -109,7 +125,11 @@ export function ChatProvider({
             confidenceNote: response.confidence_note,
           })
         })
-        .catch((error: unknown) => {
+        .catch(async (error: unknown) => {
+          if (error instanceof NetworkError || error instanceof TimeoutError) {
+            await answerOffline()
+            return
+          }
           append({ role: 'notice', text: chatErrorText(error) })
         })
         .finally(() => setIsSending(false))
