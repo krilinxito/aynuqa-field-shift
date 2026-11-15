@@ -41,7 +41,8 @@ Lo que nos distingue de otros proyectos del reto: muchos piensan en un productor
 
 - **Accesibilidad primero.** Un dato solo sirve si la persona lo puede usar: diseño intuitivo, sin señal, letra grande, lenguaje simple, audio en español, aymara y quechua, y un chat en lenguaje natural.
 - **La aynuqa ya es agricultura sostenible.** El descanso deja que el suelo se recupere sin depender de abonos, y sembrar en varios sectores reparte el riesgo. Damos datos a una práctica milenaria para que se adapte al clima de hoy.
-- **Un modelo comunitario aymara para el mundo, de bajo costo.** Frente a la expansión de la agricultura industrial (maquinaria, sensores, insumos), proponemos llevar a otras comunidades con pocos recursos una forma de cultivar en comunidad. Lo que hace falta:
+- **La agricultura industrial es parte del problema.** Según el IPCC (informe especial *El cambio climático y la tierra*, 2019), la agricultura y el cambio de uso del suelo, como la deforestación para expandir cultivos, están entre las principales fuentes de gases de efecto invernadero. Los fertilizantes sintéticos suman óxido nitroso. Aun así, la respuesta industrial al clima es más maquinaria, sensores e insumos.
+- **Un modelo comunitario aymara para el mundo, de bajo costo.** Frente a la expansión de la agricultura industrial, proponemos llevar a otras comunidades con pocos recursos una forma de cultivar en comunidad. Lo que hace falta:
   - datos de la NASA, gratuitos y de todo el planeta;
   - nada que instalar en el campo;
   - un celular sencillo por comunidad, que funciona sin señal;
@@ -51,7 +52,7 @@ Lo que nos distingue de otros proyectos del reto: muchos piensan en un productor
 Cuidado con la validez:
 - El modelo de riesgo no usa latitud ni longitud y sirve tal cual en comunidades del altiplano parecidas a las 8 zonas de entrenamiento. **Fuera del altiplano hay que reentrenarlo con datos de la zona.** Lo que se lleva al mundo es la forma de trabajar (organización comunitaria + datos NASA + app accesible), no el modelo ya entrenado.
 - "Bajo costo" se defiende por lo que no hace falta (sensores, maquinaria, conexión). No tenemos un precio calculado: no digan cifras.
-- No hablen mal de la agricultura industrial ni den cifras sobre ella. Basta con decir con qué responde: maquinaria, sensores e insumos.
+- Digan que la agricultura industrial es **una de las causas** del cambio climático, no "la causa", y citen al IPCC. **El Niño es un fenómeno natural:** no lo causa la agricultura. Separen bien El Niño (natural, de este año) del cambio climático (de largo plazo).
 - No hablen de sensores propios: los de la app son simulados. Si preguntan, son una opción a futuro y la app funciona sin ellos.
 - No afirmen cifras de suelo, carbono ni migración.
 
@@ -114,13 +115,13 @@ Datos verificados que se pueden decir:
 
 Estructura: gancho (El Niño y la respuesta aymara frente a la industrial), problema, solución, agricultura sostenible y resiliencia comunitaria, **accesibilidad** (lo que más priorizamos), la app, **llevar el modelo comunitario al mundo a bajo costo**, y cierre con el equipo. Sin gancho de "imagínense". Sin términos económicos. Diapositivas: `docs/pitch/index.html`, 9 en total (portada, 7 de contenido y cierre), con QR a https://aynuqa.maxi42.space en la portada y el cierre. Tecla N: este texto en pantalla.
 
-**[0:00–0:20] Gancho** · Diapositivas 1 y 2
-> Este año el altiplano de La Paz siembra con El Niño activo. El índice de NOAA marcó +1,97, y eso aumenta la probabilidad de sequía. Frente al clima, la agricultura industrial responde con maquinaria, sensores e insumos. Las comunidades aymaras tienen otra respuesta desde hace siglos: la aynuqa.
+**[0:00–0:25] Gancho** · Diapositivas 1 y 2
+> Este año el altiplano de La Paz siembra con El Niño activo. El índice de NOAA marcó +1,97, y eso aumenta la probabilidad de sequía. A eso se suma el cambio climático, y una de sus causas es la misma agricultura industrial: la deforestación y los fertilizantes, según el IPCC. Aun así, su respuesta es más maquinaria, sensores e insumos. Las comunidades aymaras tienen otra respuesta desde hace siglos: la aynuqa.
 
-**[0:20–0:40] Problema** · Diapositiva 3
+**[0:25–0:42] Problema** · Diapositiva 3
 > Con la aynuqa, la comunidad cultiva algunos sectores, deja descansar otros durante años y decide en asamblea. Hoy esa decisión se toma por experiencia, y con el cambio climático la experiencia falla. Además, cada vez hay menos manos: muchos jóvenes migran y quedan las personas mayores, con poca señal y celulares sencillos.
 
-**[0:40–1:00] Cómo lo resolvemos** · Diapositiva 4
+**[0:42–1:00] Cómo lo resolvemos** · Diapositiva 4
 > Aynuqa Field Shift usa datos de la NASA para estimar, en cada sector, el riesgo de sequía y la recuperación del suelo. Con eso aconseja qué sector abrir, cuántos años más descansar los otros, qué sembrar y cuándo. Cada consejo dice qué tan seguros estamos.
 
 **[1:00–1:25] Resiliencia comunitaria** · Diapositiva 5
@@ -130,7 +131,7 @@ Estructura: gancho (El Niño y la respuesta aymara frente a la industrial), prob
 > Un dato solo sirve si la persona lo puede usar, y por eso la accesibilidad fue nuestra prioridad. Seis puntos: diseño intuitivo, funciona sin señal, letra grande, lenguaje simple, audio en español, aymara y quechua, y un chat donde se pregunta como a una persona.
 
 **[1:50–2:15] La app** · Diapositiva 7
-> Abre directo, sin registro, con el consejo agrupado por acción. Cada consejo se escucha con un toque. Y sin señal, la decisión de la comunidad se guarda en el celular y se envía sola cuando vuelve. Basta un celular sencillo para toda la comunidad.
+> Abre directo, sin registro, con el consejo agrupado por acción. Cada consejo se escucha con un toque. Y sin señal, la decisión de la comunidad se guarda en el celular y se envía sola cuando vuelve.
 
 **[2:15–2:45] Llevarlo al mundo** · Diapositiva 8
 > Este modelo comunitario se puede llevar a otras partes del mundo con pocos recursos, a bajo costo: no hay que instalar nada en el campo. Los datos de la NASA son gratuitos y cubren todo el planeta, basta un celular sencillo y la organización la pone la comunidad. El modelo de riesgo no usa la ubicación. En zonas nuevas supera a las alternativas simples; en temporadas nuevas todavía no, y lo mostramos con la confianza. Fuera del altiplano hay que reentrenarlo con datos de la zona.
@@ -217,6 +218,8 @@ Estructura: gancho (El Niño y la respuesta aymara frente a la industrial), prob
 | ¿En qué se diferencia de otras apps agrícolas? | Trabaja con la comunidad como unidad de decisión, no con un productor y su parcela. Apoya la aynuqa, que ya es agricultura sostenible: descanso del suelo y riesgo repartido entre sectores. |
 | ¿Por qué dicen que es sostenible? | Porque la aynuqa deja descansar la tierra años para que se recupere sin depender de abonos. La app mide esa recuperación con el verdor (RESTREND) y aconseja cuánto extender el descanso. No medimos carbono ni nutrientes. |
 | ¿Sirve en otros lugares? | En comunidades del altiplano parecidas a nuestras 8 zonas, sí: el modelo no usa ubicación. Fuera del altiplano hay que reentrenarlo con datos de la zona; los datos de la NASA que usamos cubren todo el planeta y son gratuitos. Lo que se lleva es la forma de trabajar: organización comunitaria, datos NASA y una app accesible. |
+| ¿De dónde sale que la agricultura industrial causa el cambio climático? | Del IPCC, informe especial *El cambio climático y la tierra* (2019): la agricultura y el cambio de uso del suelo, como la deforestación, están entre las principales fuentes de gases de efecto invernadero. Decimos que es una de las causas, no la única. |
+| ¿La agricultura causa El Niño? | No. El Niño es un fenómeno natural del Pacífico. Lo que se suma es el cambio climático, que hace menos confiable la experiencia de siempre. |
 | ¿Por qué es de bajo costo? | No hay que instalar sensores ni maquinaria. Los datos de la NASA son gratuitos, basta un celular sencillo por comunidad y funciona sin señal. Todavía no calculamos un precio. |
 | ¿Y los sensores? | Son una opción a futuro y en la demo están simulados. La app funciona sin ellos, con datos satelitales. |
 | ¿Qué ve la institución? | Hoy las decisiones se guardan en su base de datos. El panel para la institución es el siguiente paso. |
@@ -320,7 +323,7 @@ Aynuqa Field Shift
 
 ### High-Level Project Summary
 
-> Industrial agriculture answers climate change with machinery, sensors and inputs. Aymara communities have had another answer for centuries: the aynuqa, a communal land rotation. Aynuqa Field Shift helps Andean communities manage the aynuqa, the communal land rotation of the Bolivian Altiplano, during El Niño. NOAA's RONI reached +1.97 in Aug–Oct 2026, which increases the likelihood of drought.
+> Industrial agriculture is one of the drivers of climate change, through deforestation and synthetic fertilizers (IPCC Special Report on Climate Change and Land, 2019), yet it answers with more machinery, sensors and inputs. Aymara communities have had another answer for centuries: the aynuqa, a communal land rotation. Aynuqa Field Shift helps Andean communities manage the aynuqa, the communal land rotation of the Bolivian Altiplano, during El Niño. NOAA's RONI reached +1.97 in Aug–Oct 2026, which increases the likelihood of drought.
 >
 > The aynuqa is already sustainable agriculture: long rest periods let the soil recover without relying on fertilizers, and spreading crops across sectors spreads the risk. We support that community resilience with data instead of replacing it.
 >
@@ -496,6 +499,6 @@ Notas:
 | "Muchos jóvenes migran" | Porcentajes de migración que no tenemos |
 | "Fuera del altiplano hay que reentrenarlo" | "Sirve en cualquier parte del mundo" |
 | "Bajo costo: no hay que instalar nada en el campo" | Precios o ahorros que no calculamos |
-| "La agricultura industrial responde con maquinaria, sensores e insumos" | Ataques o cifras sobre la agricultura industrial |
+| "La agricultura industrial es una de las causas del cambio climático, según el IPCC" | "La agricultura industrial causa el cambio climático" o "causa El Niño" |
 | Afirmaciones directas | El gancho de "imagínense" o "si ustedes fueran" |
 | "Un piloto con `[N]` comunidades" | Clientes o convenios que todavía no existen |
