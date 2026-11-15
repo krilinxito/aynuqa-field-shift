@@ -90,36 +90,32 @@ Datos verificados que se pueden decir:
 
 ### Pitch A (el que usamos): "Lo milenario y lo nuevo, decidiendo juntos"
 
-Estructura: gancho, problema del reto, solución, producto, y cierre con escalabilidad y por qué usarlo. No hay presentación del equipo: el tiempo va al contenido. Sin términos económicos. Son unas 430 palabras. Diapositivas: `docs/pitch/index.html` (tecla N para ver este texto en pantalla).
+Estructura: gancho, problema del reto, solución, **accesibilidad** (lo que más priorizamos), producto, y cierre con escalabilidad y el equipo. No hay presentación del equipo al inicio: el nombre y los integrantes van en la última diapositiva. Sin términos económicos. Diapositivas: `docs/pitch/index.html`, 9 en total (portada, 7 de contenido y cierre), con QR a https://aynuqa.maxi42.space en la portada y el cierre. Tecla N: este texto en pantalla.
 
 **[0:00–0:20] Gancho** · Diapositivas 1 y 2
 > En unas semanas empieza la siembra en el altiplano de La Paz. En comunidades como Pumani, toda la comunidad decide qué sector abrir para cultivar. Este año decide con El Niño activo: el índice de NOAA marcó +1,97. Si ustedes fueran parte de esa comunidad, ¿qué sector abrirían?
 
-**[0:20–0:50] Problema** · Diapositiva 3
-> Del reto Field Shift elegimos la aynuqa: la comunidad divide su tierra en sectores, cultiva algunos y deja descansar otros durante años para que el suelo se recupere. Con El Niño aumenta la probabilidad de sequía, y abrir un sector seco puede hacer perder la siembra del año. Hoy la comunidad elige de forma empírica, con la experiencia de años anteriores. Con el cambio climático, lamentablemente, esa experiencia falla. Además hay poca señal y pocos celulares.
+**[0:20–0:45] Problema** · Diapositiva 3
+> Del reto Field Shift elegimos la aynuqa: la comunidad cultiva algunos sectores y deja descansar otros durante años. Con El Niño aumenta la probabilidad de sequía. Hoy se elige de forma empírica, y con el cambio climático, lamentablemente, esa experiencia falla. Además, en el campo hay poca señal, celulares sencillos y muchas personas mayores.
 
-**[0:50–1:15] Cómo lo resolvemos** · Diapositiva 4
-> Aynuqa Field Shift estima para cada sector el riesgo de sequía y la recuperación del suelo. Con eso aconseja qué sector abrir, cuántos años más dejar descansar a los otros, qué sembrar y cuándo. Cada consejo dice qué tan seguros estamos.
+**[0:45–1:05] Cómo lo resolvemos** · Diapositiva 4
+> Aynuqa Field Shift usa datos de la NASA para estimar, en cada sector, el riesgo de sequía y la recuperación del suelo. Con eso aconseja qué sector abrir, qué sembrar y cuándo. Cada consejo dice qué tan seguros estamos.
+
+**[1:05–1:30] Accesibilidad** · Diapositiva 5
+> Un dato solo sirve si la persona lo puede usar. Por eso lo que más priorizamos fue la accesibilidad, en seis puntos: diseño intuitivo, funciona sin señal, letra grande, lenguaje simple, audio y un chat donde se pregunta como a una persona.
+
+**[1:30–2:20] La app** · Diapositivas 6 y 7
+> Abre directo en la comunidad, sin registro y con pocas pantallas. El consejo viene agrupado por acción y con un toque se ve cada sector. La letra se puede agrandar, y cada consejo se puede escuchar en voz alta.
 >
-> *Pantalla: la diapositiva aclara que la lluvia y la temperatura son iguales para toda la zona, y que el verdor (NDVI) y el terreno distinguen a cada sector. Si preguntan, se explica ahí.*
+> Está hecha para celulares de gama baja y funciona sin señal: la decisión de la comunidad se guarda en el celular y se envía sola al volver la señal. A la llamita se le pregunta en lenguaje natural. Usa Gemini con llamadas a herramientas, así cada número sale de nuestros datos y no inventa cifras.
 
-**[1:15–2:10] El producto** · Diapositivas 5, 6 y 7
-> Esta es la app, hecha para celulares de gama baja. Abre directo en la comunidad y muestra el consejo del año agrupado por acción. Al tocar el sector 13, el que conviene abrir, aparece el consejo: papa, con siembra de octubre a noviembre y confianza baja.
->
-> La comunidad anota lo que decidió, aunque elija otra cosa. Sin señal la app sigue funcionando: la decisión se guarda en el celular y se envía al volver la señal.
->
-> A la llamita se le pregunta en lenguaje natural. El chat usa Gemini con llamadas a herramientas: cada número de la respuesta sale de nuestros datos, así no inventa cifras. Sin señal responde con los datos guardados.
+**[2:20–2:45] Datos, validación y escala** · Diapositiva 8
+> Usamos GPM IMERG, NASA POWER, el verdor (NDVI) de MODIS y NASADEM. Entrenamos con 8 zonas del altiplano y 26 campañas. En zonas nuevas el modelo supera a las alternativas simples; en temporadas nuevas todavía no, y por eso mostramos la confianza. Como no usa latitud ni longitud, puede servir a otras comunidades del altiplano.
 
-**[2:10–2:32] Datos y validación** · Diapositiva 8
-> Usamos la lluvia de GPM IMERG, la temperatura y la humedad del suelo de NASA POWER, el verdor (NDVI) de MODIS y el terreno de NASADEM. Entrenamos con 8 zonas del altiplano y 26 campañas desde el año 2000. En zonas que el modelo no vio, acierta mejor que las alternativas simples. En temporadas nuevas todavía no, y por eso la app siempre muestra la confianza.
+**[2:45–3:00] Cierre** · Diapositiva 9
+> La comunidad sigue decidiendo, ahora con datos de la NASA que cualquiera puede usar. Lo milenario y lo nuevo, decidiendo juntos. Pueden probarla con el QR. Gracias.
 
-**[2:32–2:50] Escalabilidad y futuro** · Diapositiva 9
-> El modelo no usa latitud ni longitud: aprende de zonas parecidas. Por eso puede servir a otras comunidades del altiplano. Lo siguiente es trazar los límites reales con cada comunidad, sumar sensores de humedad en el campo y más temporadas para subir la confianza, y llegar a más comunidades con municipios y ONG.
-
-**[2:50–3:00] Por qué usarlo** · Diapositiva 10
-> La comunidad sigue decidiendo. Con Aynuqa Field Shift tiene datos de la NASA por sector, también sin señal, y sabe qué tan seguro es cada consejo. Lo milenario y lo nuevo, decidiendo juntos. Gracias.
-
-**Preguntas (2 minutos)** · Diapositiva 11 de respaldo: números técnicos y qué es real y qué es simulado. Respuestas en la tabla de preguntas probables.
+**Preguntas (2 minutos).** Respuestas en la tabla de preguntas probables. Equipo Manada Prime: Andres Gabriel Maydana Garcia, Randol Armando Villa Cordero, Maximiliano Gomez Mallo, Hernan Laruta Espinal, Eliseo Eliezer Condori Mamani y Joel Fernando Flores Choque.
 
 ### Pitch B: "Datos NASA con resultados verificables"
 
