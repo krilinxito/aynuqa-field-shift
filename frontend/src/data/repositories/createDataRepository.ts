@@ -1,11 +1,14 @@
 import { ConfigurationError } from '../transport/errors'
+import { getPowerSyncDatabase } from '../powersync/database'
 import { ApiDataRepository } from './ApiDataRepository'
 import type { DataRepository } from './DataRepository'
 import { MockDataRepository } from './MockDataRepository'
+import { PowerSyncDataRepository } from './PowerSyncDataRepository'
 
 export interface DataEnvironment {
   VITE_DATA_MODE?: string
   VITE_API_BASE_URL?: string
+  VITE_POWERSYNC_ENABLED?: string
 }
 
 export interface RepositoryDependencies {
@@ -39,7 +42,15 @@ export function createDataRepository(
         ? new URL(baseUrl, window.location.origin).toString()
         : baseUrl
 
-      return new ApiDataRepository(absoluteUrl, dependencies)
+      const api = new ApiDataRepository(absoluteUrl, dependencies)
+      if (environment.VITE_POWERSYNC_ENABLED !== 'true') {
+        return api
+      }
+
+      return new PowerSyncDataRepository(
+        getPowerSyncDatabase(absoluteUrl, dependencies.fetchImplementation),
+        api,
+      )
     } catch (error) {
       throw new ConfigurationError(
         'VITE_API_BASE_URL debe ser una URL HTTP o HTTPS válida.',

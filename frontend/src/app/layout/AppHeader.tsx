@@ -1,5 +1,6 @@
 import { useOnline } from '../../shared/hooks/useOnline'
 import { Chakana, Skyline } from '../../shared/sprites/Sprites'
+import { useLocalSyncStatus } from '../../data/powersync/syncStatus'
 import { useLanguage, type Language } from '../i18n/languageContext'
 import { InstallPwaButton } from '../pwa/InstallPwaButton'
 import { isDemoData } from '../status/demoData'
@@ -17,14 +18,27 @@ function StatusLine() {
   const isOnline = useOnline()
   const isDemo = isDemoData()
   const { t } = useLanguage()
+  const sync = useLocalSyncStatus()
+  const lastSync = sync.lastSyncedAt
+    ? new Intl.DateTimeFormat('es-BO', {
+        dateStyle: 'short',
+        timeStyle: 'short',
+        timeZone: 'America/La_Paz',
+      }).format(sync.lastSyncedAt)
+    : null
 
-  if (isOnline && !isDemo) {
+  if (isOnline && !isDemo && !sync.syncing && !sync.error) {
     return null
   }
 
   return (
     <p className={styles.status} role="status">
       {!isOnline ? <span>{t.offlineNotice}</span> : null}
+      {!isOnline && lastSync ? <span>{t.lastSyncNotice(lastSync)}</span> : null}
+      {isOnline && sync.syncing ? <span>Actualizando datos guardados…</span> : null}
+      {isOnline && sync.error ? (
+        <span>No se pudo actualizar. Conservamos los últimos datos.</span>
+      ) : null}
       {isDemo ? <span>{t.demoDataNotice}</span> : null}
     </p>
   )

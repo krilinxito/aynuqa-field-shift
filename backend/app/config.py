@@ -25,8 +25,13 @@ class Settings(BaseSettings):
     version: str = "0.1.0"
 
     database_path: str = "data/app.db"
+    database_url: str = ""
     ml_outputs_dir: str = "../ml/outputs"
     contracts_dir: str = "../contracts"
+
+    powersync_public_url: str = "http://localhost:8080"
+    powersync_audience: str = "powersync"
+    powersync_token_minutes: int = 60
 
     admin_token: str = ""
     llm_api_key: str = ""

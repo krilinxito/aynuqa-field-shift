@@ -14,6 +14,7 @@ export interface UiStrings {
   installAndroid2: string
   understood: string
   offlineNotice: string
+  lastSyncNotice: (date: string) => string
   demoDataNotice: string
   navMyCommunity: string
   navAsk: string
@@ -111,6 +112,7 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
       '2. Toque «Instalar aplicación» o «Agregar a pantalla de inicio».',
     understood: 'Entendido',
     offlineNotice: 'Sin señal. Se muestran los últimos datos guardados.',
+    lastSyncNotice: (date) => `Última conexión con datos: ${date}.`,
     demoDataNotice: 'Datos de demostración',
     navMyCommunity: 'Mi comunidad',
     navAsk: 'Preguntar',
@@ -200,6 +202,7 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
     installAndroid2: '2. «Instalar aplicación» ajllim.',
     understood: 'Walikiwa',
     offlineNotice: 'Janiw señal utjkiti. Qhipa imat yatiyawinakaw uñacht’ayasi.',
+    lastSyncNotice: (date) => `Qhipa yatiyawi katuqata: ${date}.`,
     demoDataNotice: 'Uñacht’äwi yatiyawinaka',
     navMyCommunity: 'Markaja',
     navAsk: 'Jiskt’aña',
@@ -289,6 +292,7 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
     installAndroid2: '2. «Instalar aplicación» akllay.',
     understood: 'Allinmi',
     offlineNotice: 'Mana señal kanchu. Qhipa waqaychasqa willakuykuna rikuchikushan.',
+    lastSyncNotice: (date) => `Qhipa willakuy chaskisqa: ${date}.`,
     demoDataNotice: 'Qhawarichiy willakuykuna',
     navMyCommunity: 'Aylluy',
     navAsk: 'Tapukuy',

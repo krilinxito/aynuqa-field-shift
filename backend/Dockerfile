@@ -4,20 +4,19 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
 WORKDIR /app
+COPY backend/requirements.txt /app/backend/requirements.txt
+RUN pip install --no-cache-dir -r /app/backend/requirements.txt
 
-COPY backend/requirements.txt ./requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+COPY backend /app/backend
+COPY contracts /app/contracts
+COPY ml /app/ml
 
-COPY backend/app ./app
-COPY backend/pytest.ini ./pytest.ini
-COPY contracts /contracts
+RUN mkdir -p /app/backend/data
 
-RUN mkdir -p /app/data
-
-ENV CONTRACTS_DIR=/contracts \
-    ML_OUTPUTS_DIR=/ml/outputs \
-    DATABASE_PATH=/app/data/app.db
+WORKDIR /app/backend
+ENV CONTRACTS_DIR=/app/contracts \
+    ML_OUTPUTS_DIR=/app/ml/outputs \
+    DATABASE_PATH=/app/backend/data/app.db
 
 EXPOSE 8000
-
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

@@ -51,6 +51,7 @@ Celulares de gama baja, pantalla chica, señal débil o intermitente y uso al ai
 
 - Instalable en la pantalla de inicio: manifest con nombre, íconos y color de tema.
 - Service worker (por ejemplo, con `vite-plugin-pwa`) que guarda la app y la última respuesta de la API.
+- PowerSync mantiene una base SQLite WASM persistente (OPFS cuando está disponible) con las instantáneas comunitarias.
 - Sin señal, la app abre y muestra los últimos datos guardados, con la fecha de la última actualización a la vista.
 - El chat necesita conexión: sin señal lo dice con claridad en vez de fallar.
 - Descarga inicial liviana: pocos polígonos, texturas pequeñas, sin dependencias pesadas de más.
@@ -93,9 +94,12 @@ Copia `.env.example` a `.env` y completa los valores públicos necesarios:
 ```env
 VITE_API_BASE_URL=http://localhost:8000
 VITE_DATA_MODE=mock
+VITE_POWERSYNC_ENABLED=false
 ```
 
 `VITE_DATA_MODE=mock` es el modo predeterminado de desarrollo. Usa los fixtures oficiales de `contracts/examples/api/`. Para consumir FastAPI configura `VITE_DATA_MODE=api` y una `VITE_API_BASE_URL` HTTP(S) válida. No existe fallback silencioso desde API a mocks. Todas las variables `VITE_*` quedan expuestas al navegador: nunca deben contener secretos, claves de Gemini ni tokens administrativos.
+
+Con el stack Docker en ejecución, use `VITE_POWERSYNC_ENABLED=true`. En ese modo la lectura intenta primero SQLite local y solo consulta FastAPI cuando el dispositivo aún no recibió su primera réplica. PowerSync obtiene un JWT corto desde `/api/powersync/token`; ninguna clave privada llega al navegador.
 
 ## Cómo correr
 

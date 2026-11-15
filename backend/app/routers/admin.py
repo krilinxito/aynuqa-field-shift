@@ -28,4 +28,5 @@ def reload_predictions(
             "Falta el token de administración o es incorrecto.",
         )
     ctx.loader.load_all()
+    ctx.sync_offline_snapshots()
     return health_payload(ctx)

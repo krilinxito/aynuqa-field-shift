@@ -1,0 +1,92 @@
+services:
+  postgres:
+    image: postgres:18
+    restart: unless-stopped
+    command: ["postgres", "-c", "wal_level=logical"]
+    environment:
+      POSTGRES_DB: aynuqa
+      POSTGRES_USER: aynuqa
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-aynuqa-local}
+    ports:
+      - "5432:5432"
+    volumes:
+      - aynuqa_postgres:/var/lib/postgresql
+      - ./backend/sql/001-powersync.sql:/docker-entrypoint-initdb.d/001-powersync.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U aynuqa -d aynuqa"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  powersync-storage:
+    image: postgres:18
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: powersync
+      POSTGRES_USER: powersync
+      POSTGRES_PASSWORD: ${POWERSYNC_STORAGE_PASSWORD:-powersync-local}
+    volumes:
+      - powersync_storage:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U powersync -d powersync"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://aynuqa:${POSTGRES_PASSWORD:-aynuqa-local}@postgres:5432/aynuqa
+      DATABASE_PATH: /app/backend/data/app.db
+      POWERSYNC_PUBLIC_URL: ${POWERSYNC_PUBLIC_URL:-http://localhost:8080}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173,http://localhost:4173}
+      ADMIN_TOKEN: ${ADMIN_TOKEN:-change-me-local}
+      CONTRACTS_DIR: /app/contracts
+      ML_OUTPUTS_DIR: /app/ml/outputs
+    ports:
+      - "8000:8000"
+    volumes:
+      - aynuqa_backend:/app/backend/data
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+
+  powersync:
+    image: journeyapps/powersync-service:1.28.3
+    restart: unless-stopped
+    command: ["start", "-r", "unified"]
+    environment:
+      POWERSYNC_CONFIG_PATH: /config/service.yaml
+      PS_DATA_SOURCE_URI: postgresql://aynuqa:${POSTGRES_PASSWORD:-aynuqa-local}@postgres:5432/aynuqa
+      PS_STORAGE_SOURCE_URI: postgresql://powersync:${POWERSYNC_STORAGE_PASSWORD:-powersync-local}@powersync-storage:5432/powersync
+      PS_JWKS_URL: http://backend:8000/api/powersync/jwks
+      PS_PORT: "8080"
+      PS_ADMIN_TOKEN: ${POWERSYNC_ADMIN_TOKEN:-change-me-powersync-local}
+      NODE_OPTIONS: --max-old-space-size=1000
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./powersync:/config:ro
+    depends_on:
+      backend:
+        condition: service_healthy
+      powersync-storage:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:8080/probes/liveness').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+
+volumes:
+  aynuqa_postgres:
+  aynuqa_backend:
+  powersync_storage:

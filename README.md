@@ -27,6 +27,21 @@ La comunidad lo usa desde el celular, como una app instalable (PWA) que sigue mo
 - Un asistente por chat que responde en español simple.
 - Un reporte imprimible para la asamblea.
 
+## Modo sin señal
+
+El modo offline usa PowerSync autohospedado. FastAPI publica instantáneas validadas en PostgreSQL, PowerSync las replica y la PWA las consulta desde SQLite WASM persistente en el celular. Al perder señal se muestran los últimos datos junto con la fecha de la última sincronización; el chat sigue indicando que necesita conexión.
+
+El stack local completo se levanta con Docker Desktop:
+
+```powershell
+docker compose up --build -d
+cd frontend
+npm install
+npm run dev
+```
+
+Para habilitar la sincronización, configure `VITE_DATA_MODE=api` y `VITE_POWERSYNC_ENABLED=true`. La arquitectura, prueba sin señal y recomendaciones de producción están en [docs/OFFLINE_POWERSYNC.md](docs/OFFLINE_POWERSYNC.md).
+
 El sistema se valida con el pasado (backtest): compara cómo se comportó la zona durante El Niño de 2015-16 y 2023-24 frente a La Niña de 2020-22. Si el resultado es modesto, se dice.
 
 No reemplaza a la asamblea ni al agrónomo. Les da evidencia para decidir mejor.
@@ -78,10 +93,11 @@ Una sola comunidad da pocas muestras, porque todos sus sectores comparten el mis
 
 ```
 contracts/   Contrato de datos compartido: schema JSON, endpoints y ejemplos (mock)
-backend/     API con FastAPI y SQLite, simulador de sensores y chat
+backend/     API FastAPI con PostgreSQL, instantáneas offline y autenticación PowerSync
 ml/          Ingesta de datos, variables, modelos, backtest y exportación de predicciones
 frontend/    App web instalable (PWA) con Vite y Three.js
 docs/        Guion del demo, documentación de datos NASA y declaración de uso de IA
+powersync/   Servicio autohospedado y reglas YAML de sincronización offline
 ```
 
 Cada carpeta tiene su propio README con el alcance del equipo.

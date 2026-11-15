@@ -7,8 +7,10 @@ from dataclasses import dataclass, field
 from fastapi import Request
 
 from app.config import Settings
+from app.database import SnapshotStore
 from app.db import Database
 from app.loader import MLLoader
+from app.security import TokenIssuer
 from app.services.chat import ChatService
 from app.services.history import HistoryService
 from app.services.sensors import SensorSimulator
@@ -22,6 +24,8 @@ class AppContext:
     sensors: SensorSimulator = field(init=False)
     history: HistoryService = field(init=False)
     chat: ChatService = field(init=False)
+    snapshots: SnapshotStore | None = field(init=False)
+    tokens: TokenIssuer = field(init=False)
 
     def __post_init__(self) -> None:
         self.db = Database(self.settings.database_file)
@@ -29,13 +33,57 @@ class AppContext:
         self.sensors = SensorSimulator()
         self.history = HistoryService(self)
         self.chat = ChatService(self)
+        self.snapshots = (
+            SnapshotStore(self.settings.database_url)
+            if self.settings.database_url
+            else None
+        )
+        self.tokens = TokenIssuer(
+            self.settings.powersync_audience,
+            self.settings.powersync_token_minutes,
+        )
 
     def startup(self) -> None:
         self.db.initialize()
         self.loader.load_all()
+        if self.snapshots:
+            self.snapshots.open()
+            self.sync_offline_snapshots()
 
     def shutdown(self) -> None:
-        pass
+        if self.snapshots:
+            self.snapshots.close()
+
+    def sync_offline_snapshots(self) -> None:
+        """Copia al origen PowerSync el último conjunto validado por el backend."""
+        if not self.snapshots:
+            return
+
+        meta = self.db.get_meta()
+        values: list[tuple[str, str, dict]] = [
+            (
+                "health",
+                "global",
+                {
+                    "status": "ok",
+                    "version": self.settings.version,
+                    "updated_at": meta["updated_at"],
+                    "sources": meta["sources"],
+                },
+            )
+        ]
+        for scenario in ("normal", "nino"):
+            payload = self.db.get_predictions(scenario)
+            if payload:
+                values.append(("sectors", scenario, payload))
+        for sector_id in self.db.sector_ids():
+            values.append(("history", sector_id, self.history.get(sector_id)))
+            values.append(("sensors", sector_id, self.sensors.generate(sector_id, 168)))
+        for event in ("2015-16", "2020-22", "2023-24"):
+            payload = self.db.get_backtest(event)
+            if payload:
+                values.append(("backtest", event, payload))
+        self.snapshots.replace_all(values)
 
 
 def get_ctx(request: Request) -> AppContext:

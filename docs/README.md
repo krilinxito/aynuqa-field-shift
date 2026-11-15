@@ -7,6 +7,7 @@ Material de la entrega, a cargo de todos los equipos.
 - Guion del demo de 3 minutos y enlace al video.
 - Qué datos NASA se usaron y cómo (requisito de la entrega).
 - Declaración del uso de IA y de lo que es simulado.
+- Arquitectura y operación del modo sin señal en `OFFLINE_POWERSYNC.md`.
 
 ## Cuidado en el pitch
 

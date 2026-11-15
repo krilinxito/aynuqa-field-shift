@@ -2,7 +2,7 @@
 
 Equipo Back. Rama: `team/back`.
 
-API con FastAPI y SQLite que cumple `contracts/`.
+API con FastAPI y SQLite que cumple `contracts/`. Para el modo offline publica las últimas instantáneas en PostgreSQL; PowerSync las replica al SQLite local de cada navegador mediante `@powersync/web`.
 
 ## Contexto del plan
 
@@ -154,12 +154,28 @@ Copia `.env.example` a `.env` y completa los valores:
 | `ML_OUTPUTS_DIR` | `../ml/outputs` | Archivos que exporta ML. Si faltan, se usan los mocks de `contracts/`. |
 | `CONTRACTS_DIR` | `../contracts` | Schemas para validar y ejemplos mock. |
 | `DATABASE_PATH` | `data/app.db` | SQLite local; se crea al iniciar. |
+| `DATABASE_URL` | vacío | PostgreSQL de instantáneas PowerSync. Vacío deshabilita solo la replicación. |
+| `POWERSYNC_PUBLIC_URL` | `http://localhost:8080` | URL que reciben los clientes para sincronizar. |
+| `POWERSYNC_AUDIENCE` | `powersync` | Audiencia de los JWT cortos. |
+| `POWERSYNC_TOKEN_MINUTES` | `60` | Duración de las credenciales PowerSync. |
 | `ADMIN_TOKEN` | vacío | Cabecera `X-Admin-Token` de `/api/admin/reload`. Vacío = recarga deshabilitada (401). |
 | `LLM_API_KEY` | vacío | Clave de Google Gemini. |
 | `LLM_MODEL` | vacío | Modelo Flash, por ejemplo `gemini-2.5-flash`. Vacío = chat 502. |
 | `CORS_ORIGINS` | `*` | Orígenes permitidos, separados por comas. |
 
 No hay fallback local del chat: sin clave o sin modelo, `POST /api/chat` responde `502 llm_unavailable` en vez de inventar una respuesta.
+
+## Modo offline y PowerSync
+
+La tabla `offline_snapshots` guarda el contrato completo como JSON validado, con una clave estable por conjunto de datos. Esta forma evita reconstruir objetos científicos mediante joins dentro del celular. PowerSync replica esa tabla conforme a `../powersync/sync-config.yaml`.
+
+Endpoints añadidos:
+
+| Endpoint | Uso |
+| --- | --- |
+| `GET /api/powersync/token` | JWT corto y URL pública de PowerSync |
+| `GET /api/powersync/jwks` | Clave pública para validar el JWT |
+| `POST /api/admin/reload` | Recarga instantáneas con `X-Admin-Token` |
 
 ## Cómo correr
 
@@ -213,3 +229,11 @@ El contexto de build es la raíz del repo para poder copiar `contracts/`. La bas
 - **Sensores:** simulados y deterministas con semilla 42 por `(sector_id, ts)`. Helada programada en `S1` (04:00–06:30) y estrés hídrico en `S2` (11:00–16:00); el resto de los sectores sigue el ciclo diario normal. `is_simulated: true` siempre.
 - **Chat:** Gemini con cinco herramientas, sin memoria y máximo 5 rondas. El modelo solo explica; no calcula ni cambia recomendaciones. Las cifras siempre salen de SQLite o del simulador.
 - **Recarga:** `ADMIN_TOKEN` vacío deshabilita `/api/admin/reload` con 401, en lugar de aceptar cualquier token.
+
+Para levantar la opción completa con PostgreSQL y PowerSync, ejecute desde la raíz:
+
+```powershell
+docker compose up --build -d
+```
+
+Consulte `../docs/OFFLINE_POWERSYNC.md` para la prueba sin señal y la configuración de producción.

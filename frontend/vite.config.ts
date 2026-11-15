@@ -1,6 +1,7 @@
-import { defineConfig } from 'vite'
+import { defineConfig, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
+import wasm from 'vite-plugin-wasm'
 
 // Para ver la app en el celular con un túnel (ngrok): la API se pide al
 // mismo sitio que sirve la app y aquí se reenvía al backend local.
@@ -13,8 +14,16 @@ const tunnelHosts = ['.ngrok-free.app', '.ngrok-free.dev', '.ngrok.app', '.ngrok
 export default defineConfig({
   server: { proxy: backendProxy, allowedHosts: tunnelHosts },
   preview: { proxy: backendProxy, allowedHosts: tunnelHosts },
+  optimizeDeps: {
+    exclude: ['@journeyapps/wa-sqlite', '@powersync/web'],
+  },
+  worker: {
+    format: 'es',
+    plugins: () => [wasm() as Plugin],
+  },
   plugins: [
     react(),
+    wasm(),
     VitePWA({
       // La app se actualiza sola: no se le pide nada a la persona.
       registerType: 'autoUpdate',
@@ -61,6 +70,15 @@ export default defineConfig({
         // Sin señal se muestran los últimos datos guardados. El chat nunca
         // se guarda: necesita señal y lo dice.
         runtimeCaching: [
+          {
+            urlPattern: ({ url }) => url.pathname.endsWith('.wasm'),
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'aynuqa-sqlite-wasm',
+              expiration: { maxEntries: 4, maxAgeSeconds: 365 * 24 * 60 * 60 },
+              cacheableResponse: { statuses: [200] },
+            },
+          },
           {
             urlPattern: ({ url }) =>
               url.pathname === '/api/sectors' || url.pathname === '/health',

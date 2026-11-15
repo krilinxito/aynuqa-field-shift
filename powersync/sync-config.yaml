@@ -1,0 +1,10 @@
+# yaml-language-server: $schema=https://unpkg.com/@powersync/service-sync-rules@latest/schema/sync_rules.json
+# Datos publicos de solo lectura que toda comunidad puede conservar sin senal.
+config:
+  edition: 3
+
+streams:
+  community_snapshots:
+    auto_subscribe: true
+    queries:
+      - SELECT id, dataset, cache_key, payload, updated_at FROM offline_snapshots
