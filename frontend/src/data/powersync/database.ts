@@ -9,6 +9,7 @@ let database: PowerSyncDatabase | undefined
 export function getPowerSyncDatabase(
   apiBaseUrl: string,
   fetchImplementation?: typeof fetch,
+  endpointOverride?: string,
 ): PowerSyncDatabase {
   if (database) return database
 
@@ -43,6 +44,6 @@ export function getPowerSyncDatabase(
     error: null,
   })
 
-  void database.connect(new AynuqaPowerSyncConnector(apiBaseUrl, fetchImplementation))
+  void database.connect(new AynuqaPowerSyncConnector(apiBaseUrl, fetchImplementation, endpointOverride))
   return database
 }

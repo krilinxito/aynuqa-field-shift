@@ -8,6 +8,13 @@ import wasm from 'vite-plugin-wasm'
 const backendProxy = {
   '/api': 'http://127.0.0.1:8000',
   '/health': 'http://127.0.0.1:8000',
+  // PowerSync detrás del mismo túnel (VITE_POWERSYNC_URL=/powersync).
+  '/powersync': {
+    target: 'http://127.0.0.1:8081',
+    changeOrigin: true,
+    ws: true,
+    rewrite: (path: string) => path.replace(/^\/powersync/, ''),
+  },
 }
 const tunnelHosts = ['.ngrok-free.app', '.ngrok-free.dev', '.ngrok.app', '.ngrok.io']
 
