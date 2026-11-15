@@ -180,6 +180,22 @@ export function ChatProvider({
           ]
     }
 
+    if (lang === 'en') {
+      return sectorNumber
+        ? [
+            `Should we open field ${sectorNumber} this year?`,
+            `Why is there drought risk in field ${sectorNumber}?`,
+            `What can we plant in field ${sectorNumber}, and when?`,
+            `What happened on the twin land of field ${sectorNumber}?`,
+          ]
+        : [
+            'Which fields should we open this year?',
+            'Why is there drought risk this year?',
+            'What happened on the twin lands during El Niño?',
+            'What can we plant, and when?',
+          ]
+    }
+
     return sectorNumber
       ? [
           `¿Conviene abrir el sector ${sectorNumber} este año?`,

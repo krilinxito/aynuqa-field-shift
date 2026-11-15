@@ -37,7 +37,7 @@ interface DecisionPanelProps {
  * aparece primero, pero se puede elegir cualquier otra cosa.
  */
 export function DecisionPanel({ communityId, sector, scenario }: DecisionPanelProps) {
-  const { t, tr } = useLanguage()
+  const { t, tr, lang } = useLanguage()
   const isOnline = useOnline()
   const noteId = useId()
   const { decisions, pendingIds, save, remove } = useDecisions(communityId, sector.id)
@@ -74,7 +74,7 @@ export function DecisionPanel({ communityId, sector, scenario }: DecisionPanelPr
     }
   }
 
-  const dateFormat = new Intl.DateTimeFormat('es-BO', {
+  const dateFormat = new Intl.DateTimeFormat(lang === 'en' ? 'en-US' : 'es-BO', {
     dateStyle: 'medium',
     timeZone: 'America/La_Paz',
   })

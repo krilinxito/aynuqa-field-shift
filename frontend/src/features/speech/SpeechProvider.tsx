@@ -61,8 +61,16 @@ function pickSpanishVoice(
   )
 }
 
+/** Voz en inglés del celular, si tiene una. */
+function pickEnglishVoice(synthesis: SpeechSynthesis): SpeechSynthesisVoice | null {
+  const voices = synthesis
+    .getVoices()
+    .filter((voice) => voice.lang.toLowerCase().replace('_', '-').startsWith('en'))
+  return voices.find((voice) => voice.localService) ?? voices[0] ?? null
+}
+
 function adaptPhoneticsForLocalTts(text: string, lang: Language): string {
-  if (lang === 'es') {
+  if (lang === 'es' || lang === 'en') {
     return text
   }
   return text
@@ -171,11 +179,14 @@ export function SpeechProvider({ children, remoteTts }: SpeechProviderProps) {
       const utterance = new SpeechSynthesisUtterance(
         adaptPhoneticsForLocalTts(text, lang),
       )
-      const voice = pickSpanishVoice(synthesis)
+      const voice =
+        lang === 'en' ? pickEnglishVoice(synthesis) : pickSpanishVoice(synthesis)
 
       // Importante: nunca asignar `utterance.voice = null`, porque en Chrome/Android
       // eso borra `utterance.lang` y hace que hable en inglés (`en-US`).
-      if (voice) {
+      if (lang === 'en' && !voice) {
+        utterance.lang = 'en-US'
+      } else if (voice) {
         utterance.voice = voice
         utterance.lang = voice.lang.replace('_', '-')
       } else {
@@ -207,7 +218,8 @@ export function SpeechProvider({ children, remoteTts }: SpeechProviderProps) {
       const isOnline =
         typeof navigator !== 'undefined' ? navigator.onLine : false
 
-      if (!useRemote || !isOnline) {
+      // La voz del servidor es para español, aymara y quechua; el inglés usa la del celular.
+      if (!useRemote || !isOnline || lang === 'en') {
         speakWithBrowser(request, id, text)
         return
       }

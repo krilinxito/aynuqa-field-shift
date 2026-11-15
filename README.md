@@ -6,6 +6,12 @@ A phone app that helps Andean communities plan their communal field rotation (th
 
 Built by **Manada Prime** for the NASA Space Apps Challenge 2026, challenge *Field Shift: Adapting Farms with NASA Data*.
 
+**Try it live: [aynuqa.maxi42.space](https://aynuqa.maxi42.space)**: open it on your phone, install it, and switch to airplane mode to see it work offline. Change the language (Español, English, Aymara, Quechua) in Settings.
+
+## Live demo
+
+The production app runs at **https://aynuqa.maxi42.space**. It uses real NASA-based data for Pumani; field boundaries and rest years are simulated.
+
 ## Demo video
 
 [![Watch the Aynuqa Field Shift demo on YouTube](https://img.youtube.com/vi/_nsD0_TYTzk/maxresdefault.jpg)](https://youtu.be/_nsD0_TYTzk)
@@ -38,7 +44,7 @@ It turns them into simple advice: **which field to open, how many more years to 
 | <img src="docs/img/offline-saved.jpg" width="230" alt="Decision saved offline"> | <img src="docs/img/sent.jpg" width="230" alt="Decision sent when signal returns"> | <img src="docs/img/advanced.jpg" width="230" alt="Advanced mode with technical numbers"> |
 | **No signal?** The decision is saved on the phone. | **Signal back:** the decision is sent on its own. | **Advanced mode** shows every number behind the advice. |
 
-The app is in Spanish, which is what communities use day to day. It also has Aymara and Quechua translations and voice; native speakers still need to review them.
+The app is in Spanish, which is what communities use day to day, and in English. It also has Aymara and Quechua translations and voice; native speakers still need to review them.
 
 ### Main features
 

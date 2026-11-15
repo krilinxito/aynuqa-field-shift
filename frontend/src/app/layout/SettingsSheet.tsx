@@ -15,6 +15,7 @@ import styles from './SettingsSheet.module.css'
 
 const LANGUAGE_OPTIONS: ReadonlyArray<{ code: Language; label: string }> = [
   { code: 'es', label: 'Español' },
+  { code: 'en', label: 'English' },
   { code: 'ay', label: 'Aymara' },
   { code: 'qu', label: 'Quechua' },
 ]

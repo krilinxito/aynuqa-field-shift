@@ -13,7 +13,7 @@ const storageKey = 'aynuqa:lang'
 function readStoredLanguage(): Language {
   try {
     const raw = localStorage.getItem(storageKey)
-    if (raw === 'ay' || raw === 'qu' || raw === 'es') {
+    if (raw === 'ay' || raw === 'qu' || raw === 'es' || raw === 'en') {
       return raw
     }
   } catch {

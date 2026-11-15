@@ -45,9 +45,10 @@ export default defineConfig({
     precompress(),
     servePrecompressed(),
     VitePWA({
-      // La app se actualiza sola: no se le pide nada a la persona.
-      registerType: 'autoUpdate',
-      injectRegister: 'auto',
+      // Una versión nueva se descarga sola y se activa cuando la persona toca
+      // "Actualizar" (src/app/pwa/UpdatePrompt.tsx), para no recargar a mitad de uso.
+      registerType: 'prompt',
+      injectRegister: false,
       includeAssets: ['icons/aynuqa-mark.svg'],
       manifest: {
         id: '/',
@@ -86,6 +87,8 @@ export default defineConfig({
       workbox: {
         cleanupOutdatedCaches: true,
         navigateFallback: '/index.html',
+        // La API, el estado y PowerSync no son páginas de la app.
+        navigateFallbackDenylist: [/^\/api\//, /^\/health$/, /^\/powersync\//],
         globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
         globIgnores: ['**/web-llm-*.js'],
         // Avisos de la llamita con la app cerrada.

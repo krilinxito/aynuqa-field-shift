@@ -13,10 +13,10 @@ import { SettingsSheet } from './SettingsSheet'
 function StatusLine() {
   const isOnline = useOnline()
   const isDemo = isDemoData()
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
   const sync = useLocalSyncStatus()
   const lastSync = sync.lastSyncedAt
-    ? new Intl.DateTimeFormat('es-BO', {
+    ? new Intl.DateTimeFormat(lang === 'en' ? 'en-US' : 'es-BO', {
         dateStyle: 'short',
         timeStyle: 'short',
         timeZone: 'America/La_Paz',
