@@ -71,7 +71,11 @@ services:
       interval: 5s
       timeout: 3s
       retries: 24
-    networks: [aynuqa]
+    networks:
+      aynuqa:
+        # Nombre único: "web" también está en la red compartida de Dokploy,
+        # donde otro proyecto puede tener un servicio llamado "backend".
+        aliases: [aynuqa-backend]
 
   powersync:
     build:
@@ -81,7 +85,7 @@ services:
     environment:
       PS_DATA_SOURCE_URI: postgresql://aynuqa:${POSTGRES_PASSWORD}@postgres:5432/aynuqa
       PS_STORAGE_SOURCE_URI: postgresql://powersync:${POWERSYNC_STORAGE_PASSWORD}@powersync-storage:5432/powersync
-      PS_JWKS_URL: http://backend:8000/api/powersync/jwks
+      PS_JWKS_URL: http://aynuqa-backend:8000/api/powersync/jwks
       PS_PORT: "8080"
       PS_ADMIN_TOKEN: ${POWERSYNC_ADMIN_TOKEN:?Falta POWERSYNC_ADMIN_TOKEN}
       NODE_OPTIONS: --max-old-space-size=1000
@@ -96,7 +100,9 @@ services:
       interval: 5s
       timeout: 3s
       retries: 24
-    networks: [aynuqa]
+    networks:
+      aynuqa:
+        aliases: [aynuqa-powersync]
 
   # Único servicio público: app + proxy de /api, /health y /powersync.
   web:
