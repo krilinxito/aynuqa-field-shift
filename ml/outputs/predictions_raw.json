@@ -1,0 +1,2827 @@
+{
+  "scenarios": {
+    "normal": [
+      {
+        "zone_id": "pumani",
+        "sector_id": "S1",
+        "score": 0.2765,
+        "level": "low",
+        "interval": {
+          "low": 0.215,
+          "high": 0.3568
+        },
+        "confidence": 0.7873,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.2817
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2785
+          },
+          {
+            "feature": "roni_lag_4",
+            "label": "El Niño (índice RONI de marzo a mayo)",
+            "direction": "decreases",
+            "weight": 0.0912
+          }
+        ],
+        "q10": -0.9126,
+        "q50": 0.0223,
+        "q90": 0.3695
+      },
+      {
+        "zone_id": "pumani",
+        "sector_id": "S2",
+        "score": 0.2974,
+        "level": "low",
+        "interval": {
+          "low": 0.258,
+          "high": 0.3936
+        },
+        "confidence": 0.7967,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.2872
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2707
+          },
+          {
+            "feature": "roni_lag_4",
+            "label": "El Niño (índice RONI de marzo a mayo)",
+            "direction": "decreases",
+            "weight": 0.0886
+          }
+        ],
+        "q10": -0.9927,
+        "q50": 0.0059,
+        "q90": 0.3723
+      },
+      {
+        "zone_id": "pumani",
+        "sector_id": "S3",
+        "score": 0.2736,
+        "level": "low",
+        "interval": {
+          "low": 0.2325,
+          "high": 0.3567
+        },
+        "confidence": 0.8138,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2836
+          },
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.2823
+          },
+          {
+            "feature": "roni_lag_4",
+            "label": "El Niño (índice RONI de marzo a mayo)",
+            "direction": "decreases",
+            "weight": 0.0916
+          }
+        ],
+        "q10": -0.8972,
+        "q50": 0.0178,
+        "q90": 0.3941
+      },
+      {
+        "zone_id": "pumani",
+        "sector_id": "S4",
+        "score": 0.2724,
+        "level": "low",
+        "interval": {
+          "low": 0.2338,
+          "high": 0.3874
+        },
+        "confidence": 0.7697,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.2901
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2778
+          },
+          {
+            "feature": "roni_lag_4",
+            "label": "El Niño (índice RONI de marzo a mayo)",
+            "direction": "decreases",
+            "weight": 0.0912
+          }
+        ],
+        "q10": -0.9001,
+        "q50": 0.0282,
+        "q90": 0.3738
+      },
+      {
+        "zone_id": "pumani",
+        "sector_id": "S5",
+        "score": 0.2994,
+        "level": "low",
+        "interval": {
+          "low": 0.2523,
+          "high": 0.417
+        },
+        "confidence": 0.753,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.2871
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2744
+          },
+          {
+            "feature": "roni_lag_4",
+            "label": "El Niño (índice RONI de marzo a mayo)",
+            "direction": "decreases",
+            "weight": 0.0902
+          }
+        ],
+        "q10": -1.0002,
+        "q50": 0.0033,
+        "q90": 0.3734
+      },
+      {
+        "zone_id": "pumani",
+        "sector_id": "S6",
+        "score": 0.2719,
+        "level": "low",
+        "interval": {
+          "low": 0.2178,
+          "high": 0.4011
+        },
+        "confidence": 0.725,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.2805
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2757
+          },
+          {
+            "feature": "roni_lag_4",
+            "label": "El Niño (índice RONI de marzo a mayo)",
+            "direction": "decreases",
+            "weight": 0.093
+          }
+        ],
+        "q10": -0.9279,
+        "q50": 0.0681,
+        "q90": 0.4007
+      },
+      {
+        "zone_id": "pumani",
+        "sector_id": "S7",
+        "score": 0.303,
+        "level": "low",
+        "interval": {
+          "low": 0.2466,
+          "high": 0.419
+        },
+        "confidence": 0.7413,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.2963
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2784
+          },
+          {
+            "feature": "roni_lag_4",
+            "label": "El Niño (índice RONI de marzo a mayo)",
+            "direction": "decreases",
+            "weight": 0.095
+          }
+        ],
+        "q10": -1.0455,
+        "q50": 0.0293,
+        "q90": 0.3734
+      },
+      {
+        "zone_id": "pumani",
+        "sector_id": "S8",
+        "score": 0.2768,
+        "level": "low",
+        "interval": {
+          "low": 0.2402,
+          "high": 0.3959
+        },
+        "confidence": 0.7664,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.2885
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2769
+          },
+          {
+            "feature": "roni_lag_4",
+            "label": "El Niño (índice RONI de marzo a mayo)",
+            "direction": "decreases",
+            "weight": 0.091
+          }
+        ],
+        "q10": -0.9011,
+        "q50": 0.0063,
+        "q90": 0.3706
+      },
+      {
+        "zone_id": "pumani",
+        "sector_id": "S9",
+        "score": 0.2878,
+        "level": "low",
+        "interval": {
+          "low": 0.2477,
+          "high": 0.3936
+        },
+        "confidence": 0.7812,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.2894
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2772
+          },
+          {
+            "feature": "roni_lag_4",
+            "label": "El Niño (índice RONI de marzo a mayo)",
+            "direction": "decreases",
+            "weight": 0.0912
+          }
+        ],
+        "q10": -0.9484,
+        "q50": 0.0065,
+        "q90": 0.376
+      },
+      {
+        "zone_id": "pumani",
+        "sector_id": "S10",
+        "score": 0.2835,
+        "level": "low",
+        "interval": {
+          "low": 0.2409,
+          "high": 0.4056
+        },
+        "confidence": 0.7529,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.2832
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2725
+          },
+          {
+            "feature": "roni_lag_4",
+            "label": "El Niño (índice RONI de marzo a mayo)",
+            "direction": "decreases",
+            "weight": 0.0919
+          }
+        ],
+        "q10": -0.9566,
+        "q50": 0.0388,
+        "q90": 0.3721
+      },
+      {
+        "zone_id": "pumani",
+        "sector_id": "S11",
+        "score": 0.2825,
+        "level": "low",
+        "interval": {
+          "low": 0.2383,
+          "high": 0.3842
+        },
+        "confidence": 0.7811,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.2902
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2864
+          },
+          {
+            "feature": "roni_lag_4",
+            "label": "El Niño (índice RONI de marzo a mayo)",
+            "direction": "decreases",
+            "weight": 0.097
+          }
+        ],
+        "q10": -0.9693,
+        "q50": 0.0594,
+        "q90": 0.3734
+      },
+      {
+        "zone_id": "pumani",
+        "sector_id": "S12",
+        "score": 0.2859,
+        "level": "low",
+        "interval": {
+          "low": 0.2447,
+          "high": 0.4129
+        },
+        "confidence": 0.7477,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.2873
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2764
+          },
+          {
+            "feature": "roni_lag_4",
+            "label": "El Niño (índice RONI de marzo a mayo)",
+            "direction": "decreases",
+            "weight": 0.0932
+          }
+        ],
+        "q10": -0.9677,
+        "q50": 0.0388,
+        "q90": 0.3787
+      },
+      {
+        "zone_id": "pumani",
+        "sector_id": "S13",
+        "score": 0.2863,
+        "level": "low",
+        "interval": {
+          "low": 0.2415,
+          "high": 0.3747
+        },
+        "confidence": 0.8002,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2901
+          },
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.2893
+          },
+          {
+            "feature": "roni_lag_4",
+            "label": "El Niño (índice RONI de marzo a mayo)",
+            "direction": "decreases",
+            "weight": 0.0975
+          }
+        ],
+        "q10": -0.9799,
+        "q50": 0.0504,
+        "q90": 0.4008
+      },
+      {
+        "zone_id": "jesus_de_machaca",
+        "sector_id": "S1",
+        "score": 0.2846,
+        "level": "low",
+        "interval": {
+          "low": 0.2418,
+          "high": 0.3669
+        },
+        "confidence": 0.8123,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.277
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2624
+          },
+          {
+            "feature": "soil_moisture_anom",
+            "label": "Humedad del suelo en septiembre",
+            "direction": "increases",
+            "weight": 0.1434
+          }
+        ],
+        "q10": -0.8854,
+        "q50": -0.0501,
+        "q90": 0.3812
+      },
+      {
+        "zone_id": "jesus_de_machaca",
+        "sector_id": "S2",
+        "score": 0.2945,
+        "level": "low",
+        "interval": {
+          "low": 0.2486,
+          "high": 0.3702
+        },
+        "confidence": 0.8177,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.2713
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2612
+          },
+          {
+            "feature": "soil_moisture_anom",
+            "label": "Humedad del suelo en septiembre",
+            "direction": "increases",
+            "weight": 0.1422
+          }
+        ],
+        "q10": -0.9444,
+        "q50": -0.0303,
+        "q90": 0.3583
+      },
+      {
+        "zone_id": "jesus_de_machaca",
+        "sector_id": "S3",
+        "score": 0.2949,
+        "level": "low",
+        "interval": {
+          "low": 0.2505,
+          "high": 0.4093
+        },
+        "confidence": 0.7618,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.2755
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2578
+          },
+          {
+            "feature": "soil_moisture_anom",
+            "label": "Humedad del suelo en septiembre",
+            "direction": "increases",
+            "weight": 0.1456
+          }
+        ],
+        "q10": -0.9233,
+        "q50": -0.0545,
+        "q90": 0.3606
+      },
+      {
+        "zone_id": "jesus_de_machaca",
+        "sector_id": "S4",
+        "score": 0.2975,
+        "level": "low",
+        "interval": {
+          "low": 0.248,
+          "high": 0.3819
+        },
+        "confidence": 0.7991,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.272
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.262
+          },
+          {
+            "feature": "soil_moisture_anom",
+            "label": "Humedad del suelo en septiembre",
+            "direction": "increases",
+            "weight": 0.1424
+          }
+        ],
+        "q10": -0.9598,
+        "q50": -0.0287,
+        "q90": 0.3656
+      },
+      {
+        "zone_id": "jesus_de_machaca",
+        "sector_id": "S5",
+        "score": 0.2814,
+        "level": "low",
+        "interval": {
+          "low": 0.2391,
+          "high": 0.3685
+        },
+        "confidence": 0.8059,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.2679
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2617
+          },
+          {
+            "feature": "soil_moisture_anom",
+            "label": "Humedad del suelo en septiembre",
+            "direction": "increases",
+            "weight": 0.1391
+          }
+        ],
+        "q10": -0.8945,
+        "q50": -0.0246,
+        "q90": 0.3804
+      },
+      {
+        "zone_id": "jesus_de_machaca",
+        "sector_id": "S6",
+        "score": 0.2772,
+        "level": "low",
+        "interval": {
+          "low": 0.2367,
+          "high": 0.3985
+        },
+        "confidence": 0.7573,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.2704
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2607
+          },
+          {
+            "feature": "soil_moisture_anom",
+            "label": "Humedad del suelo en septiembre",
+            "direction": "increases",
+            "weight": 0.1312
+          }
+        ],
+        "q10": -0.8837,
+        "q50": -0.0175,
+        "q90": 0.3556
+      },
+      {
+        "zone_id": "jesus_de_machaca",
+        "sector_id": "S7",
+        "score": 0.2754,
+        "level": "low",
+        "interval": {
+          "low": 0.2344,
+          "high": 0.3564
+        },
+        "confidence": 0.8171,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.2673
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2626
+          },
+          {
+            "feature": "soil_moisture_anom",
+            "label": "Humedad del suelo en septiembre",
+            "direction": "increases",
+            "weight": 0.1389
+          }
+        ],
+        "q10": -0.8714,
+        "q50": -0.0246,
+        "q90": 0.3556
+      },
+      {
+        "zone_id": "jesus_de_machaca",
+        "sector_id": "S8",
+        "score": 0.2784,
+        "level": "low",
+        "interval": {
+          "low": 0.2337,
+          "high": 0.3578
+        },
+        "confidence": 0.8139,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2651
+          },
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.2647
+          },
+          {
+            "feature": "soil_moisture_anom",
+            "label": "Humedad del suelo en septiembre",
+            "direction": "increases",
+            "weight": 0.1341
+          }
+        ],
+        "q10": -0.9215,
+        "q50": 0.0235,
+        "q90": 0.3583
+      },
+      {
+        "zone_id": "jesus_de_machaca",
+        "sector_id": "S9",
+        "score": 0.2986,
+        "level": "low",
+        "interval": {
+          "low": 0.2625,
+          "high": 0.4075
+        },
+        "confidence": 0.7825,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.2704
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2573
+          },
+          {
+            "feature": "soil_moisture_anom",
+            "label": "Humedad del suelo en septiembre",
+            "direction": "increases",
+            "weight": 0.1401
+          }
+        ],
+        "q10": -0.9515,
+        "q50": -0.0421,
+        "q90": 0.3583
+      },
+      {
+        "zone_id": "jesus_de_machaca",
+        "sector_id": "S10",
+        "score": 0.308,
+        "level": "low",
+        "interval": {
+          "low": 0.2638,
+          "high": 0.4269
+        },
+        "confidence": 0.7553,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.274
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2565
+          },
+          {
+            "feature": "soil_moisture_anom",
+            "label": "Humedad del suelo en septiembre",
+            "direction": "increases",
+            "weight": 0.1391
+          }
+        ],
+        "q10": -0.9888,
+        "q50": -0.0487,
+        "q90": 0.3802
+      },
+      {
+        "zone_id": "jesus_de_machaca",
+        "sector_id": "S11",
+        "score": 0.2888,
+        "level": "low",
+        "interval": {
+          "low": 0.2537,
+          "high": 0.3724
+        },
+        "confidence": 0.8218,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.2653
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2642
+          },
+          {
+            "feature": "soil_moisture_anom",
+            "label": "Humedad del suelo en septiembre",
+            "direction": "increases",
+            "weight": 0.1345
+          }
+        ],
+        "q10": -0.968,
+        "q50": 0.0235,
+        "q90": 0.3829
+      },
+      {
+        "zone_id": "jesus_de_machaca",
+        "sector_id": "S12",
+        "score": 0.2958,
+        "level": "low",
+        "interval": {
+          "low": 0.2556,
+          "high": 0.4173
+        },
+        "confidence": 0.7574,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.2731
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2616
+          },
+          {
+            "feature": "soil_moisture_anom",
+            "label": "Humedad del suelo en septiembre",
+            "direction": "increases",
+            "weight": 0.138
+          }
+        ],
+        "q10": -0.9805,
+        "q50": 0.0013,
+        "q90": 0.3556
+      },
+      {
+        "zone_id": "jesus_de_machaca",
+        "sector_id": "S13",
+        "score": 0.3092,
+        "level": "low",
+        "interval": {
+          "low": 0.268,
+          "high": 0.4223
+        },
+        "confidence": 0.7685,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.2729
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2621
+          },
+          {
+            "feature": "soil_moisture_anom",
+            "label": "Humedad del suelo en septiembre",
+            "direction": "increases",
+            "weight": 0.1485
+          }
+        ],
+        "q10": -1.041,
+        "q50": -0.0066,
+        "q90": 0.3583
+      },
+      {
+        "zone_id": "caquiaviri",
+        "sector_id": "S1",
+        "score": 0.3245,
+        "level": "low",
+        "interval": {
+          "low": 0.2896,
+          "high": 0.4165
+        },
+        "confidence": 0.8097,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.3247
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2446
+          },
+          {
+            "feature": "soil_moisture_anom",
+            "label": "Humedad del suelo en septiembre",
+            "direction": "increases",
+            "weight": 0.1282
+          }
+        ],
+        "q10": -1.0746,
+        "q50": -0.0509,
+        "q90": 0.3637
+      },
+      {
+        "zone_id": "caquiaviri",
+        "sector_id": "S2",
+        "score": 0.2984,
+        "level": "low",
+        "interval": {
+          "low": 0.245,
+          "high": 0.3502
+        },
+        "confidence": 0.8422,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.3362
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2478
+          },
+          {
+            "feature": "soil_moisture_anom",
+            "label": "Humedad del suelo en septiembre",
+            "direction": "increases",
+            "weight": 0.109
+          }
+        ],
+        "q10": -0.9342,
+        "q50": -0.0586,
+        "q90": 0.3663
+      },
+      {
+        "zone_id": "caquiaviri",
+        "sector_id": "S3",
+        "score": 0.2966,
+        "level": "low",
+        "interval": {
+          "low": 0.2602,
+          "high": 0.4007
+        },
+        "confidence": 0.7893,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.3261
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2402
+          },
+          {
+            "feature": "soil_moisture_anom",
+            "label": "Humedad del suelo en septiembre",
+            "direction": "increases",
+            "weight": 0.1251
+          }
+        ],
+        "q10": -0.9284,
+        "q50": -0.0565,
+        "q90": 0.3616
+      },
+      {
+        "zone_id": "caquiaviri",
+        "sector_id": "S4",
+        "score": 0.3117,
+        "level": "low",
+        "interval": {
+          "low": 0.2574,
+          "high": 0.4033
+        },
+        "confidence": 0.7812,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.3287
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2372
+          },
+          {
+            "feature": "soil_moisture_anom",
+            "label": "Humedad del suelo en septiembre",
+            "direction": "increases",
+            "weight": 0.1218
+          }
+        ],
+        "q10": -0.9849,
+        "q50": -0.0686,
+        "q90": 0.3641
+      },
+      {
+        "zone_id": "caquiaviri",
+        "sector_id": "S5",
+        "score": 0.2952,
+        "level": "low",
+        "interval": {
+          "low": 0.2606,
+          "high": 0.4055
+        },
+        "confidence": 0.7827,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.329
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2455
+          },
+          {
+            "feature": "soil_moisture_anom",
+            "label": "Humedad del suelo en septiembre",
+            "direction": "increases",
+            "weight": 0.1124
+          }
+        ],
+        "q10": -0.9295,
+        "q50": -0.0492,
+        "q90": 0.3637
+      },
+      {
+        "zone_id": "caquiaviri",
+        "sector_id": "S6",
+        "score": 0.2886,
+        "level": "low",
+        "interval": {
+          "low": 0.2531,
+          "high": 0.3209
+        },
+        "confidence": 0.8983,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.3168
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.248
+          },
+          {
+            "feature": "soil_moisture_anom",
+            "label": "Humedad del suelo en septiembre",
+            "direction": "increases",
+            "weight": 0.109
+          }
+        ],
+        "q10": -0.9267,
+        "q50": -0.022,
+        "q90": 0.4015
+      },
+      {
+        "zone_id": "caquiaviri",
+        "sector_id": "S7",
+        "score": 0.2856,
+        "level": "low",
+        "interval": {
+          "low": 0.2599,
+          "high": 0.3897
+        },
+        "confidence": 0.8054,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.3229
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2413
+          },
+          {
+            "feature": "soil_moisture_anom",
+            "label": "Humedad del suelo en septiembre",
+            "direction": "increases",
+            "weight": 0.0992
+          }
+        ],
+        "q10": -0.9036,
+        "q50": -0.034,
+        "q90": 0.3885
+      },
+      {
+        "zone_id": "caquiaviri",
+        "sector_id": "S8",
+        "score": 0.3094,
+        "level": "low",
+        "interval": {
+          "low": 0.2723,
+          "high": 0.3995
+        },
+        "confidence": 0.8092,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.313
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.245
+          },
+          {
+            "feature": "soil_moisture_anom",
+            "label": "Humedad del suelo en septiembre",
+            "direction": "increases",
+            "weight": 0.1284
+          }
+        ],
+        "q10": -1.0172,
+        "q50": -0.0291,
+        "q90": 0.377
+      },
+      {
+        "zone_id": "caquiaviri",
+        "sector_id": "S9",
+        "score": 0.3173,
+        "level": "low",
+        "interval": {
+          "low": 0.2711,
+          "high": 0.3668
+        },
+        "confidence": 0.8564,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.3326
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2457
+          },
+          {
+            "feature": "soil_moisture_anom",
+            "label": "Humedad del suelo en septiembre",
+            "direction": "increases",
+            "weight": 0.1284
+          }
+        ],
+        "q10": -1.0259,
+        "q50": -0.058,
+        "q90": 0.3949
+      },
+      {
+        "zone_id": "caquiaviri",
+        "sector_id": "S10",
+        "score": 0.3244,
+        "level": "low",
+        "interval": {
+          "low": 0.2799,
+          "high": 0.4218
+        },
+        "confidence": 0.7871,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.3348
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2435
+          },
+          {
+            "feature": "soil_moisture_anom",
+            "label": "Humedad del suelo en septiembre",
+            "direction": "increases",
+            "weight": 0.1267
+          }
+        ],
+        "q10": -1.0506,
+        "q50": -0.069,
+        "q90": 0.3612
+      },
+      {
+        "zone_id": "caquiaviri",
+        "sector_id": "S11",
+        "score": 0.3184,
+        "level": "low",
+        "interval": {
+          "low": 0.2736,
+          "high": 0.4112
+        },
+        "confidence": 0.7935,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.323
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2434
+          },
+          {
+            "feature": "soil_moisture_anom",
+            "label": "Humedad del suelo en septiembre",
+            "direction": "increases",
+            "weight": 0.1192
+          }
+        ],
+        "q10": -1.051,
+        "q50": -0.042,
+        "q90": 0.4015
+      },
+      {
+        "zone_id": "caquiaviri",
+        "sector_id": "S12",
+        "score": 0.3151,
+        "level": "low",
+        "interval": {
+          "low": 0.2859,
+          "high": 0.4236
+        },
+        "confidence": 0.7936,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.3192
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2465
+          },
+          {
+            "feature": "soil_moisture_anom",
+            "label": "Humedad del suelo en septiembre",
+            "direction": "increases",
+            "weight": 0.1279
+          }
+        ],
+        "q10": -1.0331,
+        "q50": -0.0415,
+        "q90": 0.3744
+      },
+      {
+        "zone_id": "caquiaviri",
+        "sector_id": "S13",
+        "score": 0.3008,
+        "level": "low",
+        "interval": {
+          "low": 0.285,
+          "high": 0.4075
+        },
+        "confidence": 0.8163,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.3145
+          },
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "decreases",
+            "weight": 0.2491
+          },
+          {
+            "feature": "soil_moisture_anom",
+            "label": "Humedad del suelo en septiembre",
+            "direction": "increases",
+            "weight": 0.1001
+          }
+        ],
+        "q10": -1.0064,
+        "q50": 0.0021,
+        "q90": 0.4113
+      }
+    ],
+    "nino": [
+      {
+        "zone_id": "pumani",
+        "sector_id": "S1",
+        "score": 0.98,
+        "level": "high",
+        "interval": {
+          "low": 0.891,
+          "high": 0.98
+        },
+        "confidence": 0.8665,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6466
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1559
+          },
+          {
+            "feature": "roni_lag_2",
+            "label": "El Niño (índice RONI de mayo a julio)",
+            "direction": "increases",
+            "weight": 0.057
+          }
+        ],
+        "q10": -2.532,
+        "q50": -1.9875,
+        "q90": -1.4386
+      },
+      {
+        "zone_id": "pumani",
+        "sector_id": "S2",
+        "score": 0.98,
+        "level": "high",
+        "interval": {
+          "low": 0.8734,
+          "high": 0.98
+        },
+        "confidence": 0.8402,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6318
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1406
+          },
+          {
+            "feature": "ndvi_anom_prev_peak",
+            "label": "Estado de la vegetación en campaña anterior",
+            "direction": "decreases",
+            "weight": 0.0554
+          }
+        ],
+        "q10": -2.6772,
+        "q50": -1.8838,
+        "q90": -1.4077
+      },
+      {
+        "zone_id": "pumani",
+        "sector_id": "S3",
+        "score": 0.98,
+        "level": "high",
+        "interval": {
+          "low": 0.8788,
+          "high": 0.98
+        },
+        "confidence": 0.8482,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6411
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1546
+          },
+          {
+            "feature": "roni_lag_2",
+            "label": "El Niño (índice RONI de mayo a julio)",
+            "direction": "increases",
+            "weight": 0.0566
+          }
+        ],
+        "q10": -2.5635,
+        "q50": -1.98,
+        "q90": -1.4158
+      },
+      {
+        "zone_id": "pumani",
+        "sector_id": "S4",
+        "score": 0.98,
+        "level": "high",
+        "interval": {
+          "low": 0.8898,
+          "high": 0.98
+        },
+        "confidence": 0.8646,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6466
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1554
+          },
+          {
+            "feature": "roni_lag_2",
+            "label": "El Niño (índice RONI de mayo a julio)",
+            "direction": "increases",
+            "weight": 0.059
+          }
+        ],
+        "q10": -2.5355,
+        "q50": -1.997,
+        "q90": -1.4404
+      },
+      {
+        "zone_id": "pumani",
+        "sector_id": "S5",
+        "score": 0.98,
+        "level": "high",
+        "interval": {
+          "low": 0.877,
+          "high": 0.98
+        },
+        "confidence": 0.8455,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6471
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1552
+          },
+          {
+            "feature": "roni_lag_2",
+            "label": "El Niño (índice RONI de mayo a julio)",
+            "direction": "increases",
+            "weight": 0.0577
+          }
+        ],
+        "q10": -2.6382,
+        "q50": -2.0009,
+        "q90": -1.4323
+      },
+      {
+        "zone_id": "pumani",
+        "sector_id": "S6",
+        "score": 0.98,
+        "level": "high",
+        "interval": {
+          "low": 0.8888,
+          "high": 0.98
+        },
+        "confidence": 0.8632,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6506
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1538
+          },
+          {
+            "feature": "roni_lag_2",
+            "label": "El Niño (índice RONI de mayo a julio)",
+            "direction": "increases",
+            "weight": 0.0594
+          }
+        ],
+        "q10": -2.5217,
+        "q50": -1.9425,
+        "q90": -1.414
+      },
+      {
+        "zone_id": "pumani",
+        "sector_id": "S7",
+        "score": 0.9793,
+        "level": "high",
+        "interval": {
+          "low": 0.8856,
+          "high": 0.9797
+        },
+        "confidence": 0.859,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6462
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1668
+          },
+          {
+            "feature": "roni_lag_2",
+            "label": "El Niño (índice RONI de mayo a julio)",
+            "direction": "increases",
+            "weight": 0.0615
+          }
+        ],
+        "q10": -2.7902,
+        "q50": -2.0249,
+        "q90": -1.4323
+      },
+      {
+        "zone_id": "pumani",
+        "sector_id": "S8",
+        "score": 0.9766,
+        "level": "high",
+        "interval": {
+          "low": 0.8881,
+          "high": 0.9797
+        },
+        "confidence": 0.8625,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6457
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1647
+          },
+          {
+            "feature": "roni_lag_2",
+            "label": "El Niño (índice RONI de mayo a julio)",
+            "direction": "increases",
+            "weight": 0.0634
+          }
+        ],
+        "q10": -2.5493,
+        "q50": -2.0875,
+        "q90": -1.4404
+      },
+      {
+        "zone_id": "pumani",
+        "sector_id": "S9",
+        "score": 0.9765,
+        "level": "high",
+        "interval": {
+          "low": 0.879,
+          "high": 0.9792
+        },
+        "confidence": 0.8497,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6472
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.166
+          },
+          {
+            "feature": "roni_lag_2",
+            "label": "El Niño (índice RONI de mayo a julio)",
+            "direction": "increases",
+            "weight": 0.061
+          }
+        ],
+        "q10": -2.6106,
+        "q50": -2.0762,
+        "q90": -1.4323
+      },
+      {
+        "zone_id": "pumani",
+        "sector_id": "S10",
+        "score": 0.98,
+        "level": "high",
+        "interval": {
+          "low": 0.8926,
+          "high": 0.98
+        },
+        "confidence": 0.8688,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6472
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1546
+          },
+          {
+            "feature": "roni_lag_2",
+            "label": "El Niño (índice RONI de mayo a julio)",
+            "direction": "increases",
+            "weight": 0.0592
+          }
+        ],
+        "q10": -2.5565,
+        "q50": -1.977,
+        "q90": -1.4404
+      },
+      {
+        "zone_id": "pumani",
+        "sector_id": "S11",
+        "score": 0.98,
+        "level": "high",
+        "interval": {
+          "low": 0.8811,
+          "high": 0.98
+        },
+        "confidence": 0.8516,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6513
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1678
+          },
+          {
+            "feature": "roni_lag_2",
+            "label": "El Niño (índice RONI de mayo a julio)",
+            "direction": "increases",
+            "weight": 0.0614
+          }
+        ],
+        "q10": -2.7243,
+        "q50": -2.0118,
+        "q90": -1.4323
+      },
+      {
+        "zone_id": "pumani",
+        "sector_id": "S12",
+        "score": 0.979,
+        "level": "high",
+        "interval": {
+          "low": 0.8895,
+          "high": 0.98
+        },
+        "confidence": 0.8643,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6515
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1648
+          },
+          {
+            "feature": "roni_lag_2",
+            "label": "El Niño (índice RONI de mayo a julio)",
+            "direction": "increases",
+            "weight": 0.0628
+          }
+        ],
+        "q10": -2.5519,
+        "q50": -2.0434,
+        "q90": -1.4404
+      },
+      {
+        "zone_id": "pumani",
+        "sector_id": "S13",
+        "score": 0.9771,
+        "level": "high",
+        "interval": {
+          "low": 0.8839,
+          "high": 0.9796
+        },
+        "confidence": 0.8563,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6561
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1682
+          },
+          {
+            "feature": "roni_lag_2",
+            "label": "El Niño (índice RONI de mayo a julio)",
+            "direction": "increases",
+            "weight": 0.063
+          }
+        ],
+        "q10": -2.6807,
+        "q50": -2.0369,
+        "q90": -1.4157
+      },
+      {
+        "zone_id": "jesus_de_machaca",
+        "sector_id": "S1",
+        "score": 0.9726,
+        "level": "high",
+        "interval": {
+          "low": 0.8767,
+          "high": 0.978
+        },
+        "confidence": 0.8481,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6301
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1654
+          },
+          {
+            "feature": "roni_lag_2",
+            "label": "El Niño (índice RONI de mayo a julio)",
+            "direction": "increases",
+            "weight": 0.0597
+          }
+        ],
+        "q10": -2.6257,
+        "q50": -2.0746,
+        "q90": -1.3885
+      },
+      {
+        "zone_id": "jesus_de_machaca",
+        "sector_id": "S2",
+        "score": 0.978,
+        "level": "high",
+        "interval": {
+          "low": 0.8914,
+          "high": 0.98
+        },
+        "confidence": 0.8671,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6318
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1518
+          },
+          {
+            "feature": "roni_lag_2",
+            "label": "El Niño (índice RONI de mayo a julio)",
+            "direction": "increases",
+            "weight": 0.0554
+          }
+        ],
+        "q10": -2.5799,
+        "q50": -2.0285,
+        "q90": -1.421
+      },
+      {
+        "zone_id": "jesus_de_machaca",
+        "sector_id": "S3",
+        "score": 0.9734,
+        "level": "high",
+        "interval": {
+          "low": 0.8827,
+          "high": 0.9792
+        },
+        "confidence": 0.8552,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.626
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1628
+          },
+          {
+            "feature": "roni_lag_2",
+            "label": "El Niño (índice RONI de mayo a julio)",
+            "direction": "increases",
+            "weight": 0.0592
+          }
+        ],
+        "q10": -2.653,
+        "q50": -2.1015,
+        "q90": -1.4129
+      },
+      {
+        "zone_id": "jesus_de_machaca",
+        "sector_id": "S4",
+        "score": 0.9781,
+        "level": "high",
+        "interval": {
+          "low": 0.8884,
+          "high": 0.9792
+        },
+        "confidence": 0.8639,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6316
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.152
+          },
+          {
+            "feature": "roni_lag_2",
+            "label": "El Niño (índice RONI de mayo a julio)",
+            "direction": "increases",
+            "weight": 0.0554
+          }
+        ],
+        "q10": -2.6004,
+        "q50": -2.0269,
+        "q90": -1.421
+      },
+      {
+        "zone_id": "jesus_de_machaca",
+        "sector_id": "S5",
+        "score": 0.9778,
+        "level": "high",
+        "interval": {
+          "low": 0.8874,
+          "high": 0.98
+        },
+        "confidence": 0.8611,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.635
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1546
+          },
+          {
+            "feature": "roni_lag_2",
+            "label": "El Niño (índice RONI de mayo a julio)",
+            "direction": "increases",
+            "weight": 0.0546
+          }
+        ],
+        "q10": -2.5614,
+        "q50": -1.9974,
+        "q90": -1.3999
+      },
+      {
+        "zone_id": "jesus_de_machaca",
+        "sector_id": "S6",
+        "score": 0.9792,
+        "level": "high",
+        "interval": {
+          "low": 0.8817,
+          "high": 0.9793
+        },
+        "confidence": 0.8535,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.635
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1527
+          },
+          {
+            "feature": "roni_lag_2",
+            "label": "El Niño (índice RONI de mayo a julio)",
+            "direction": "increases",
+            "weight": 0.0566
+          }
+        ],
+        "q10": -2.5506,
+        "q50": -1.9955,
+        "q90": -1.414
+      },
+      {
+        "zone_id": "jesus_de_machaca",
+        "sector_id": "S7",
+        "score": 0.9781,
+        "level": "high",
+        "interval": {
+          "low": 0.881,
+          "high": 0.9781
+        },
+        "confidence": 0.8544,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6342
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1537
+          },
+          {
+            "feature": "roni_lag_2",
+            "label": "El Niño (índice RONI de mayo a julio)",
+            "direction": "increases",
+            "weight": 0.0543
+          }
+        ],
+        "q10": -2.5833,
+        "q50": -2.0138,
+        "q90": -1.4129
+      },
+      {
+        "zone_id": "jesus_de_machaca",
+        "sector_id": "S8",
+        "score": 0.98,
+        "level": "high",
+        "interval": {
+          "low": 0.8878,
+          "high": 0.98
+        },
+        "confidence": 0.8618,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6348
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.152
+          },
+          {
+            "feature": "roni_lag_2",
+            "label": "El Niño (índice RONI de mayo a julio)",
+            "direction": "increases",
+            "weight": 0.0556
+          }
+        ],
+        "q10": -2.6083,
+        "q50": -1.9703,
+        "q90": -1.421
+      },
+      {
+        "zone_id": "jesus_de_machaca",
+        "sector_id": "S9",
+        "score": 0.978,
+        "level": "high",
+        "interval": {
+          "low": 0.889,
+          "high": 0.98
+        },
+        "confidence": 0.8635,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.631
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1531
+          },
+          {
+            "feature": "roni_lag_2",
+            "label": "El Niño (índice RONI de mayo a julio)",
+            "direction": "increases",
+            "weight": 0.0562
+          }
+        ],
+        "q10": -2.5906,
+        "q50": -2.0304,
+        "q90": -1.4221
+      },
+      {
+        "zone_id": "jesus_de_machaca",
+        "sector_id": "S10",
+        "score": 0.9753,
+        "level": "high",
+        "interval": {
+          "low": 0.8718,
+          "high": 0.9776
+        },
+        "confidence": 0.8412,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6252
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1535
+          },
+          {
+            "feature": "roni_lag_2",
+            "label": "El Niño (índice RONI de mayo a julio)",
+            "direction": "increases",
+            "weight": 0.056
+          }
+        ],
+        "q10": -2.6955,
+        "q50": -2.0233,
+        "q90": -1.3883
+      },
+      {
+        "zone_id": "jesus_de_machaca",
+        "sector_id": "S11",
+        "score": 0.98,
+        "level": "high",
+        "interval": {
+          "low": 0.8906,
+          "high": 0.98
+        },
+        "confidence": 0.8659,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6357
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1529
+          },
+          {
+            "feature": "roni_lag_2",
+            "label": "El Niño (índice RONI de mayo a julio)",
+            "direction": "increases",
+            "weight": 0.056
+          }
+        ],
+        "q10": -2.7108,
+        "q50": -1.9539,
+        "q90": -1.3975
+      },
+      {
+        "zone_id": "jesus_de_machaca",
+        "sector_id": "S12",
+        "score": 0.9775,
+        "level": "high",
+        "interval": {
+          "low": 0.8841,
+          "high": 0.9799
+        },
+        "confidence": 0.8563,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6353
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1629
+          },
+          {
+            "feature": "roni_lag_2",
+            "label": "El Niño (índice RONI de mayo a julio)",
+            "direction": "increases",
+            "weight": 0.0602
+          }
+        ],
+        "q10": -2.7475,
+        "q50": -2.0251,
+        "q90": -1.4129
+      },
+      {
+        "zone_id": "jesus_de_machaca",
+        "sector_id": "S13",
+        "score": 0.9752,
+        "level": "high",
+        "interval": {
+          "low": 0.8895,
+          "high": 0.9789
+        },
+        "confidence": 0.8658,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6393
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1619
+          },
+          {
+            "feature": "roni_lag_2",
+            "label": "El Niño (índice RONI de mayo a julio)",
+            "direction": "increases",
+            "weight": 0.0612
+          }
+        ],
+        "q10": -2.7564,
+        "q50": -2.0823,
+        "q90": -1.421
+      },
+      {
+        "zone_id": "caquiaviri",
+        "sector_id": "S1",
+        "score": 0.9745,
+        "level": "high",
+        "interval": {
+          "low": 0.8741,
+          "high": 0.9783
+        },
+        "confidence": 0.8436,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6283
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1596
+          },
+          {
+            "feature": "roni_lag_2",
+            "label": "El Niño (índice RONI de mayo a julio)",
+            "direction": "increases",
+            "weight": 0.0593
+          }
+        ],
+        "q10": -2.7827,
+        "q50": -2.1293,
+        "q90": -1.4404
+      },
+      {
+        "zone_id": "caquiaviri",
+        "sector_id": "S2",
+        "score": 0.9737,
+        "level": "high",
+        "interval": {
+          "low": 0.8872,
+          "high": 0.9772
+        },
+        "confidence": 0.8651,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6256
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.16
+          },
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.0619
+          }
+        ],
+        "q10": -2.647,
+        "q50": -2.1452,
+        "q90": -1.4404
+      },
+      {
+        "zone_id": "caquiaviri",
+        "sector_id": "S3",
+        "score": 0.9768,
+        "level": "high",
+        "interval": {
+          "low": 0.8917,
+          "high": 0.9774
+        },
+        "confidence": 0.8714,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6237
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1485
+          },
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.06
+          }
+        ],
+        "q10": -2.6194,
+        "q50": -2.0845,
+        "q90": -1.4404
+      },
+      {
+        "zone_id": "caquiaviri",
+        "sector_id": "S4",
+        "score": 0.9785,
+        "level": "high",
+        "interval": {
+          "low": 0.8773,
+          "high": 0.9785
+        },
+        "confidence": 0.8482,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6189
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1346
+          },
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.0612
+          }
+        ],
+        "q10": -2.7044,
+        "q50": -1.9956,
+        "q90": -1.4059
+      },
+      {
+        "zone_id": "caquiaviri",
+        "sector_id": "S5",
+        "score": 0.9782,
+        "level": "high",
+        "interval": {
+          "low": 0.8833,
+          "high": 0.9794
+        },
+        "confidence": 0.8558,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6254
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1494
+          },
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.0601
+          }
+        ],
+        "q10": -2.5974,
+        "q50": -2.0552,
+        "q90": -1.4386
+      },
+      {
+        "zone_id": "caquiaviri",
+        "sector_id": "S6",
+        "score": 0.9783,
+        "level": "high",
+        "interval": {
+          "low": 0.884,
+          "high": 0.9783
+        },
+        "confidence": 0.8585,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6205
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1494
+          },
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.0557
+          }
+        ],
+        "q10": -2.6445,
+        "q50": -2.0147,
+        "q90": -1.4158
+      },
+      {
+        "zone_id": "caquiaviri",
+        "sector_id": "S7",
+        "score": 0.9763,
+        "level": "high",
+        "interval": {
+          "low": 0.8869,
+          "high": 0.9763
+        },
+        "confidence": 0.8659,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6181
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1486
+          },
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.0594
+          }
+        ],
+        "q10": -2.5954,
+        "q50": -2.0493,
+        "q90": -1.414
+      },
+      {
+        "zone_id": "caquiaviri",
+        "sector_id": "S8",
+        "score": 0.9754,
+        "level": "high",
+        "interval": {
+          "low": 0.8875,
+          "high": 0.9788
+        },
+        "confidence": 0.8632,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6301
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1593
+          },
+          {
+            "feature": "roni_lag_2",
+            "label": "El Niño (índice RONI de mayo a julio)",
+            "direction": "increases",
+            "weight": 0.0608
+          }
+        ],
+        "q10": -2.6737,
+        "q50": -2.1113,
+        "q90": -1.4404
+      },
+      {
+        "zone_id": "caquiaviri",
+        "sector_id": "S9",
+        "score": 0.976,
+        "level": "high",
+        "interval": {
+          "low": 0.8806,
+          "high": 0.976
+        },
+        "confidence": 0.857,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6254
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1496
+          },
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.0602
+          }
+        ],
+        "q10": -2.7741,
+        "q50": -2.0583,
+        "q90": -1.4158
+      },
+      {
+        "zone_id": "caquiaviri",
+        "sector_id": "S10",
+        "score": 0.9729,
+        "level": "high",
+        "interval": {
+          "low": 0.8792,
+          "high": 0.9779
+        },
+        "confidence": 0.8519,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6261
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1597
+          },
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.0612
+          }
+        ],
+        "q10": -2.7829,
+        "q50": -2.147,
+        "q90": -1.4323
+      },
+      {
+        "zone_id": "caquiaviri",
+        "sector_id": "S11",
+        "score": 0.976,
+        "level": "high",
+        "interval": {
+          "low": 0.8848,
+          "high": 0.9789
+        },
+        "confidence": 0.8589,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6272
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1499
+          },
+          {
+            "feature": "temp_anom_3m",
+            "label": "Temperatura de julio a septiembre",
+            "direction": "increases",
+            "weight": 0.058
+          }
+        ],
+        "q10": -2.7521,
+        "q50": -2.0578,
+        "q90": -1.4157
+      },
+      {
+        "zone_id": "caquiaviri",
+        "sector_id": "S12",
+        "score": 0.9746,
+        "level": "high",
+        "interval": {
+          "low": 0.8802,
+          "high": 0.9793
+        },
+        "confidence": 0.8513,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6277
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1611
+          },
+          {
+            "feature": "roni_lag_2",
+            "label": "El Niño (índice RONI de mayo a julio)",
+            "direction": "increases",
+            "weight": 0.0594
+          }
+        ],
+        "q10": -2.7512,
+        "q50": -2.1127,
+        "q90": -1.4323
+      },
+      {
+        "zone_id": "caquiaviri",
+        "sector_id": "S13",
+        "score": 0.9767,
+        "level": "high",
+        "interval": {
+          "low": 0.8828,
+          "high": 0.9783
+        },
+        "confidence": 0.8568,
+        "confidence_label": "alta",
+        "drivers": [
+          {
+            "feature": "roni_lag_0",
+            "label": "El Niño (índice RONI de julio a septiembre)",
+            "direction": "increases",
+            "weight": 0.6318
+          },
+          {
+            "feature": "roni_lag_1",
+            "label": "El Niño (índice RONI de junio a agosto)",
+            "direction": "increases",
+            "weight": 0.1519
+          },
+          {
+            "feature": "roni_lag_2",
+            "label": "El Niño (índice RONI de mayo a julio)",
+            "direction": "increases",
+            "weight": 0.0564
+          }
+        ],
+        "q10": -2.7685,
+        "q50": -2.0098,
+        "q90": -1.3954
+      }
+    ]
+  },
+  "shap_importance": [
+    {
+      "feature": "roni_lag_0",
+      "importance": 0.4192
+    },
+    {
+      "feature": "roni_lag_1",
+      "importance": 0.1872
+    },
+    {
+      "feature": "roni_lag_4",
+      "importance": 0.0784
+    },
+    {
+      "feature": "temp_anom_3m",
+      "importance": 0.0663
+    },
+    {
+      "feature": "roni_lag_2",
+      "importance": 0.0624
+    },
+    {
+      "feature": "precip_anom_12m",
+      "importance": 0.0403
+    },
+    {
+      "feature": "roni_lag_3",
+      "importance": 0.032
+    },
+    {
+      "feature": "roni_lag_5",
+      "importance": 0.0315
+    },
+    {
+      "feature": "ndvi_anom_prev_peak",
+      "importance": 0.0268
+    },
+    {
+      "feature": "soil_moisture_anom",
+      "importance": 0.0172
+    },
+    {
+      "feature": "roni_lag_6",
+      "importance": 0.0114
+    },
+    {
+      "feature": "ndvi_anom_sep",
+      "importance": 0.0113
+    },
+    {
+      "feature": "elevation_m",
+      "importance": 0.0051
+    },
+    {
+      "feature": "slope_pct",
+      "importance": 0.0032
+    },
+    {
+      "feature": "aspect_cos",
+      "importance": 0.0028
+    },
+    {
+      "feature": "precip_anom_3m",
+      "importance": 0.0027
+    },
+    {
+      "feature": "aspect_sin",
+      "importance": 0.0024
+    }
+  ],
+  "feature_cols": [
+    "roni_lag_0",
+    "roni_lag_1",
+    "roni_lag_2",
+    "roni_lag_3",
+    "roni_lag_4",
+    "roni_lag_5",
+    "roni_lag_6",
+    "precip_anom_3m",
+    "precip_anom_12m",
+    "temp_anom_3m",
+    "soil_moisture_anom",
+    "ndvi_anom_prev_peak",
+    "ndvi_anom_sep",
+    "elevation_m",
+    "slope_pct",
+    "aspect_sin",
+    "aspect_cos"
+  ]
+}

@@ -1,0 +1,228 @@
+{
+  "leave_one_season_out": {
+    "group_col": "season",
+    "lgb": {
+      "mae": 0.5858,
+      "rmse": 0.8006,
+      "spearman": 0.4267,
+      "n": 1014
+    },
+    "baseline_zero": {
+      "mae": 0.7269,
+      "rmse": 0.9941,
+      "spearman": null,
+      "n": 1014
+    },
+    "baseline_linear_roni0": {
+      "mae": 0.5348,
+      "rmse": 0.6784,
+      "spearman": 0.434,
+      "n": 1014
+    },
+    "beats_zero": true,
+    "beats_linear_roni0": false,
+    "verdict": "LightGBM NO supera ambas baselines en season (RMSE LGB=0.8006, lineal=0.6784, cero=0.9941). Resultado reportado tal cual.",
+    "per_group": {
+      "2000-01": {
+        "n": 39,
+        "lgb_rmse": 0.4711,
+        "zero_rmse": 0.4515,
+        "linear_roni0_rmse": 0.4711
+      },
+      "2001-02": {
+        "n": 39,
+        "lgb_rmse": 0.5321,
+        "zero_rmse": 0.6741,
+        "linear_roni0_rmse": 0.6215
+      },
+      "2002-03": {
+        "n": 39,
+        "lgb_rmse": 0.6215,
+        "zero_rmse": 0.512,
+        "linear_roni0_rmse": 0.4384
+      },
+      "2003-04": {
+        "n": 39,
+        "lgb_rmse": 0.5381,
+        "zero_rmse": 0.6266,
+        "linear_roni0_rmse": 0.6953
+      },
+      "2004-05": {
+        "n": 39,
+        "lgb_rmse": 0.591,
+        "zero_rmse": 0.5347,
+        "linear_roni0_rmse": 0.5295
+      },
+      "2005-06": {
+        "n": 39,
+        "lgb_rmse": 0.5437,
+        "zero_rmse": 0.6651,
+        "linear_roni0_rmse": 0.6913
+      },
+      "2006-07": {
+        "n": 39,
+        "lgb_rmse": 0.459,
+        "zero_rmse": 0.577,
+        "linear_roni0_rmse": 0.5856
+      },
+      "2007-08": {
+        "n": 39,
+        "lgb_rmse": 0.4887,
+        "zero_rmse": 0.4409,
+        "linear_roni0_rmse": 0.4374
+      },
+      "2008-09": {
+        "n": 39,
+        "lgb_rmse": 0.5247,
+        "zero_rmse": 0.5496,
+        "linear_roni0_rmse": 0.5321
+      },
+      "2009-10": {
+        "n": 39,
+        "lgb_rmse": 0.6364,
+        "zero_rmse": 0.9698,
+        "linear_roni0_rmse": 0.9375
+      },
+      "2010-11": {
+        "n": 39,
+        "lgb_rmse": 0.5796,
+        "zero_rmse": 1.0459,
+        "linear_roni0_rmse": 0.7724
+      },
+      "2011-12": {
+        "n": 39,
+        "lgb_rmse": 0.5745,
+        "zero_rmse": 0.4853,
+        "linear_roni0_rmse": 0.4811
+      },
+      "2012-13": {
+        "n": 39,
+        "lgb_rmse": 0.6887,
+        "zero_rmse": 0.6485,
+        "linear_roni0_rmse": 0.5887
+      },
+      "2013-14": {
+        "n": 39,
+        "lgb_rmse": 2.0938,
+        "zero_rmse": 0.7005,
+        "linear_roni0_rmse": 0.9698
+      },
+      "2014-15": {
+        "n": 39,
+        "lgb_rmse": 0.7294,
+        "zero_rmse": 0.7136,
+        "linear_roni0_rmse": 0.6865
+      },
+      "2015-16": {
+        "n": 39,
+        "lgb_rmse": 0.5254,
+        "zero_rmse": 2.3253,
+        "linear_roni0_rmse": 0.5569
+      },
+      "2016-17": {
+        "n": 39,
+        "lgb_rmse": 0.5088,
+        "zero_rmse": 0.5122,
+        "linear_roni0_rmse": 0.528
+      },
+      "2017-18": {
+        "n": 39,
+        "lgb_rmse": 0.4391,
+        "zero_rmse": 0.5855,
+        "linear_roni0_rmse": 0.4615
+      },
+      "2018-19": {
+        "n": 39,
+        "lgb_rmse": 0.5222,
+        "zero_rmse": 0.5076,
+        "linear_roni0_rmse": 0.4933
+      },
+      "2019-20": {
+        "n": 39,
+        "lgb_rmse": 0.462,
+        "zero_rmse": 0.505,
+        "linear_roni0_rmse": 0.467
+      },
+      "2020-21": {
+        "n": 39,
+        "lgb_rmse": 0.6206,
+        "zero_rmse": 1.1891,
+        "linear_roni0_rmse": 0.5348
+      },
+      "2021-22": {
+        "n": 39,
+        "lgb_rmse": 0.5575,
+        "zero_rmse": 0.8464,
+        "linear_roni0_rmse": 0.7926
+      },
+      "2022-23": {
+        "n": 39,
+        "lgb_rmse": 0.7795,
+        "zero_rmse": 0.5883,
+        "linear_roni0_rmse": 0.6676
+      },
+      "2023-24": {
+        "n": 39,
+        "lgb_rmse": 0.651,
+        "zero_rmse": 2.5416,
+        "linear_roni0_rmse": 0.5756
+      },
+      "2024-25": {
+        "n": 39,
+        "lgb_rmse": 0.5187,
+        "zero_rmse": 0.5178,
+        "linear_roni0_rmse": 0.5023
+      },
+      "2025-26": {
+        "n": 39,
+        "lgb_rmse": 2.1082,
+        "zero_rmse": 1.8446,
+        "linear_roni0_rmse": 1.5603
+      }
+    }
+  },
+  "leave_one_zone_out": {
+    "group_col": "zone_id",
+    "lgb": {
+      "mae": 0.4127,
+      "rmse": 0.5199,
+      "spearman": 0.6342,
+      "n": 1014
+    },
+    "baseline_zero": {
+      "mae": 0.7269,
+      "rmse": 0.9941,
+      "spearman": null,
+      "n": 1014
+    },
+    "baseline_linear_roni0": {
+      "mae": 0.5173,
+      "rmse": 0.6569,
+      "spearman": 0.4706,
+      "n": 1014
+    },
+    "beats_zero": true,
+    "beats_linear_roni0": true,
+    "verdict": "LightGBM supera ambas baselines en zone_id (RMSE LGB=0.5199 < lineal=0.6569, cero=0.9941).",
+    "per_group": {
+      "caquiaviri": {
+        "n": 338,
+        "lgb_rmse": 0.5297,
+        "zero_rmse": 0.995,
+        "linear_roni0_rmse": 0.6561
+      },
+      "jesus_de_machaca": {
+        "n": 338,
+        "lgb_rmse": 0.5093,
+        "zero_rmse": 0.9958,
+        "linear_roni0_rmse": 0.6798
+      },
+      "pumani": {
+        "n": 338,
+        "lgb_rmse": 0.5204,
+        "zero_rmse": 0.9914,
+        "linear_roni0_rmse": 0.634
+      }
+    }
+  }
+}

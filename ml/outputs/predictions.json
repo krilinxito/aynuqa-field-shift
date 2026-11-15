@@ -1,0 +1,2887 @@
+{
+  "generated_at": "2026-11-14T19:23:09-04:00",
+  "scenarios": {
+    "normal": {
+      "updated_at": "2026-11-14T19:23:09-04:00",
+      "data_source": "mock",
+      "scenario": "normal",
+      "zone": {
+        "id": "pumani",
+        "name": "Pumani (Pomani)",
+        "lat": -17.1344,
+        "lon": -68.0692,
+        "climate": {
+          "period": "2026-10",
+          "precip_mm": 14.77,
+          "precip_anomaly_pct": -71.2,
+          "temp_c": 9.73,
+          "temp_anomaly_c": 1.15,
+          "soil_moisture": 0.239,
+          "soil_moisture_anomaly": -0.0968
+        },
+        "roni": {
+          "value": 0.0,
+          "season": null,
+          "year": null,
+          "kind": "assumed"
+        }
+      },
+      "sectors": [
+        {
+          "id": "S1",
+          "name": "Sector 1",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -68.004244,
+                  -17.092904
+                ],
+                [
+                  -67.996244,
+                  -17.092904
+                ],
+                [
+                  -67.996244,
+                  -17.084904
+                ],
+                [
+                  -68.004244,
+                  -17.084904
+                ],
+                [
+                  -68.004244,
+                  -17.092904
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.089704,
+            "lon": -68.001044
+          },
+          "area_ha": 44.34,
+          "terrain": {
+            "elevation_m": 3921.0,
+            "slope_pct": 6.38,
+            "aspect_deg": 33.9
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 10,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.0529,
+            "ndvi_anomaly": -2.718
+          },
+          "risk": {
+            "score": 0.2765,
+            "level": "low",
+            "interval": {
+              "low": 0.215,
+              "high": 0.3568
+            },
+            "confidence": 0.7,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "temp_anom_3m",
+                "label": "Temperatura de julio a septiembre",
+                "direction": "increases",
+                "weight": 0.2817
+              },
+              {
+                "feature": "roni_lag_0",
+                "label": "El Niño (índice RONI de julio a septiembre)",
+                "direction": "decreases",
+                "weight": 0.2785
+              },
+              {
+                "feature": "roni_lag_4",
+                "label": "El Niño (índice RONI de marzo a mayo)",
+                "direction": "decreases",
+                "weight": 0.0912
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.9211,
+            "level": "high",
+            "confidence": 0.4602,
+            "confidence_label": "media",
+            "ndvi_residual": -0.0044
+          },
+          "recommendation": {
+            "action": "open",
+            "text": "Se puede abrir este sector para cultivo.",
+            "reasons": [
+              "Completó 10 años de descanso y la recuperación del suelo es alta.",
+              "El riesgo de sequía es bajo.",
+              "Como es costumbre en la aynuqa, el primer año se siembra papa (de octubre a noviembre)."
+            ],
+            "extend_rest_years": null,
+            "crop": "papa",
+            "sowing_window": "octubre a noviembre",
+            "confidence": 0.7,
+            "confidence_label": "media"
+          },
+          "twin_precedent": null,
+          "is_simulated": true
+        },
+        {
+          "id": "S2",
+          "name": "Sector 2",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -67.990856,
+                  -17.092955
+                ],
+                [
+                  -67.982856,
+                  -17.092955
+                ],
+                [
+                  -67.982856,
+                  -17.084955
+                ],
+                [
+                  -67.990856,
+                  -17.084955
+                ],
+                [
+                  -67.990856,
+                  -17.092955
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.089755,
+            "lon": -67.987656
+          },
+          "area_ha": 28.01,
+          "terrain": {
+            "elevation_m": 3960.0,
+            "slope_pct": 2.4,
+            "aspect_deg": 162.1
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 9,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.05,
+            "ndvi_anomaly": -2.095
+          },
+          "risk": {
+            "score": 0.2974,
+            "level": "low",
+            "interval": {
+              "low": 0.258,
+              "high": 0.3936
+            },
+            "confidence": 0.7,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "temp_anom_3m",
+                "label": "Temperatura de julio a septiembre",
+                "direction": "increases",
+                "weight": 0.2872
+              },
+              {
+                "feature": "roni_lag_0",
+                "label": "El Niño (índice RONI de julio a septiembre)",
+                "direction": "decreases",
+                "weight": 0.2707
+              },
+              {
+                "feature": "roni_lag_4",
+                "label": "El Niño (índice RONI de marzo a mayo)",
+                "direction": "decreases",
+                "weight": 0.0886
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.9737,
+            "level": "high",
+            "confidence": 0.4781,
+            "confidence_label": "media",
+            "ndvi_residual": -0.0032
+          },
+          "recommendation": {
+            "action": "extend_rest",
+            "text": "Mantener este sector en descanso.",
+            "reasons": [
+              "Lleva 9 año(s) de descanso; el ciclo de la aynuqa es de 10 años.",
+              "Le faltan 1 año(s) para completar el descanso."
+            ],
+            "extend_rest_years": 1,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.7,
+            "confidence_label": "media"
+          },
+          "twin_precedent": null,
+          "is_simulated": true
+        },
+        {
+          "id": "S3",
+          "name": "Sector 3",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -67.979425,
+                  -17.092293
+                ],
+                [
+                  -67.971425,
+                  -17.092293
+                ],
+                [
+                  -67.971425,
+                  -17.084293
+                ],
+                [
+                  -67.979425,
+                  -17.084293
+                ],
+                [
+                  -67.979425,
+                  -17.092293
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.089093,
+            "lon": -67.976225
+          },
+          "area_ha": 32.97,
+          "terrain": {
+            "elevation_m": 3919.0,
+            "slope_pct": 4.6,
+            "aspect_deg": 81.8
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 8,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.05,
+            "ndvi_anomaly": -1.954
+          },
+          "risk": {
+            "score": 0.2736,
+            "level": "low",
+            "interval": {
+              "low": 0.2325,
+              "high": 0.3567
+            },
+            "confidence": 0.7,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_0",
+                "label": "El Niño (índice RONI de julio a septiembre)",
+                "direction": "decreases",
+                "weight": 0.2836
+              },
+              {
+                "feature": "temp_anom_3m",
+                "label": "Temperatura de julio a septiembre",
+                "direction": "increases",
+                "weight": 0.2823
+              },
+              {
+                "feature": "roni_lag_4",
+                "label": "El Niño (índice RONI de marzo a mayo)",
+                "direction": "decreases",
+                "weight": 0.0916
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.8947,
+            "level": "high",
+            "confidence": 0.446,
+            "confidence_label": "media",
+            "ndvi_residual": -0.0053
+          },
+          "recommendation": {
+            "action": "extend_rest",
+            "text": "Mantener este sector en descanso.",
+            "reasons": [
+              "Lleva 8 año(s) de descanso; el ciclo de la aynuqa es de 10 años.",
+              "Le faltan 2 año(s) para completar el descanso."
+            ],
+            "extend_rest_years": 2,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.7,
+            "confidence_label": "media"
+          },
+          "twin_precedent": null,
+          "is_simulated": true
+        },
+        {
+          "id": "S4",
+          "name": "Sector 4",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -67.966689,
+                  -17.095745
+                ],
+                [
+                  -67.958689,
+                  -17.095745
+                ],
+                [
+                  -67.958689,
+                  -17.087745
+                ],
+                [
+                  -67.966689,
+                  -17.087745
+                ],
+                [
+                  -67.966689,
+                  -17.095745
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.092545,
+            "lon": -67.963489
+          },
+          "area_ha": 27.57,
+          "terrain": {
+            "elevation_m": 3957.0,
+            "slope_pct": 5.92,
+            "aspect_deg": 272.9
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 7,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.05,
+            "ndvi_anomaly": -1.933
+          },
+          "risk": {
+            "score": 0.2724,
+            "level": "low",
+            "interval": {
+              "low": 0.2338,
+              "high": 0.3874
+            },
+            "confidence": 0.7,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "temp_anom_3m",
+                "label": "Temperatura de julio a septiembre",
+                "direction": "increases",
+                "weight": 0.2901
+              },
+              {
+                "feature": "roni_lag_0",
+                "label": "El Niño (índice RONI de julio a septiembre)",
+                "direction": "decreases",
+                "weight": 0.2778
+              },
+              {
+                "feature": "roni_lag_4",
+                "label": "El Niño (índice RONI de marzo a mayo)",
+                "direction": "decreases",
+                "weight": 0.0912
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.8684,
+            "level": "high",
+            "confidence": 0.4441,
+            "confidence_label": "media",
+            "ndvi_residual": -0.0055
+          },
+          "recommendation": {
+            "action": "extend_rest",
+            "text": "Mantener este sector en descanso.",
+            "reasons": [
+              "Lleva 7 año(s) de descanso; el ciclo de la aynuqa es de 10 años.",
+              "Le faltan 3 año(s) para completar el descanso."
+            ],
+            "extend_rest_years": 3,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.7,
+            "confidence_label": "media"
+          },
+          "twin_precedent": null,
+          "is_simulated": true
+        },
+        {
+          "id": "S5",
+          "name": "Sector 5",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -68.002428,
+                  -17.080117
+                ],
+                [
+                  -67.994428,
+                  -17.080117
+                ],
+                [
+                  -67.994428,
+                  -17.072117
+                ],
+                [
+                  -68.002428,
+                  -17.072117
+                ],
+                [
+                  -68.002428,
+                  -17.080117
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.076917,
+            "lon": -67.999228
+          },
+          "area_ha": 19.18,
+          "terrain": {
+            "elevation_m": 3944.0,
+            "slope_pct": 2.86,
+            "aspect_deg": 168.0
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 6,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.05,
+            "ndvi_anomaly": -2.184
+          },
+          "risk": {
+            "score": 0.2994,
+            "level": "low",
+            "interval": {
+              "low": 0.2523,
+              "high": 0.417
+            },
+            "confidence": 0.7,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "temp_anom_3m",
+                "label": "Temperatura de julio a septiembre",
+                "direction": "increases",
+                "weight": 0.2871
+              },
+              {
+                "feature": "roni_lag_0",
+                "label": "El Niño (índice RONI de julio a septiembre)",
+                "direction": "decreases",
+                "weight": 0.2744
+              },
+              {
+                "feature": "roni_lag_4",
+                "label": "El Niño (índice RONI de marzo a mayo)",
+                "direction": "decreases",
+                "weight": 0.0902
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.6842,
+            "level": "high",
+            "confidence": 0.4482,
+            "confidence_label": "media",
+            "ndvi_residual": -0.0109
+          },
+          "recommendation": {
+            "action": "extend_rest",
+            "text": "Mantener este sector en descanso.",
+            "reasons": [
+              "Lleva 6 año(s) de descanso; el ciclo de la aynuqa es de 10 años.",
+              "Le faltan 4 año(s) para completar el descanso."
+            ],
+            "extend_rest_years": 4,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.6924,
+            "confidence_label": "media"
+          },
+          "twin_precedent": null,
+          "is_simulated": true
+        },
+        {
+          "id": "S6",
+          "name": "Sector 6",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -67.991268,
+                  -17.083383
+                ],
+                [
+                  -67.983268,
+                  -17.083383
+                ],
+                [
+                  -67.983268,
+                  -17.075383
+                ],
+                [
+                  -67.991268,
+                  -17.075383
+                ],
+                [
+                  -67.991268,
+                  -17.083383
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.080183,
+            "lon": -67.988068
+          },
+          "area_ha": 26.8,
+          "terrain": {
+            "elevation_m": 3953.0,
+            "slope_pct": 6.71,
+            "aspect_deg": 348.3
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 5,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.0904,
+            "ndvi_anomaly": -1.405
+          },
+          "risk": {
+            "score": 0.2719,
+            "level": "low",
+            "interval": {
+              "low": 0.2178,
+              "high": 0.4011
+            },
+            "confidence": 0.7,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "temp_anom_3m",
+                "label": "Temperatura de julio a septiembre",
+                "direction": "increases",
+                "weight": 0.2805
+              },
+              {
+                "feature": "roni_lag_0",
+                "label": "El Niño (índice RONI de julio a septiembre)",
+                "direction": "decreases",
+                "weight": 0.2757
+              },
+              {
+                "feature": "roni_lag_4",
+                "label": "El Niño (índice RONI de marzo a mayo)",
+                "direction": "decreases",
+                "weight": 0.093
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.5263,
+            "level": "medium",
+            "confidence": 0.3367,
+            "confidence_label": "baja",
+            "ndvi_residual": -0.0166
+          },
+          "recommendation": {
+            "action": "extend_rest",
+            "text": "Mantener este sector en descanso.",
+            "reasons": [
+              "Lleva 5 año(s) de descanso; el ciclo de la aynuqa es de 10 años.",
+              "Le faltan 5 año(s) para completar el descanso."
+            ],
+            "extend_rest_years": 5,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.6272,
+            "confidence_label": "media"
+          },
+          "twin_precedent": null,
+          "is_simulated": true
+        },
+        {
+          "id": "S7",
+          "name": "Sector 7",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -67.980122,
+                  -17.082518
+                ],
+                [
+                  -67.972122,
+                  -17.082518
+                ],
+                [
+                  -67.972122,
+                  -17.074518
+                ],
+                [
+                  -67.980122,
+                  -17.074518
+                ],
+                [
+                  -67.980122,
+                  -17.082518
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.079318,
+            "lon": -67.976922
+          },
+          "area_ha": 24.13,
+          "terrain": {
+            "elevation_m": 3954.0,
+            "slope_pct": 2.41,
+            "aspect_deg": 171.3
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 4,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.074,
+            "ndvi_anomaly": -1.268
+          },
+          "risk": {
+            "score": 0.303,
+            "level": "low",
+            "interval": {
+              "low": 0.2466,
+              "high": 0.419
+            },
+            "confidence": 0.7,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "temp_anom_3m",
+                "label": "Temperatura de julio a septiembre",
+                "direction": "increases",
+                "weight": 0.2963
+              },
+              {
+                "feature": "roni_lag_0",
+                "label": "El Niño (índice RONI de julio a septiembre)",
+                "direction": "decreases",
+                "weight": 0.2784
+              },
+              {
+                "feature": "roni_lag_4",
+                "label": "El Niño (índice RONI de marzo a mayo)",
+                "direction": "decreases",
+                "weight": 0.095
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.3158,
+            "level": "low",
+            "confidence": 0.2465,
+            "confidence_label": "baja",
+            "ndvi_residual": -0.0235
+          },
+          "recommendation": {
+            "action": "extend_rest",
+            "text": "Mantener este sector en descanso.",
+            "reasons": [
+              "Lleva 4 año(s) de descanso; el ciclo de la aynuqa es de 10 años.",
+              "Le faltan 6 año(s) para completar el descanso."
+            ],
+            "extend_rest_years": 6,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.5064,
+            "confidence_label": "media"
+          },
+          "twin_precedent": null,
+          "is_simulated": true
+        },
+        {
+          "id": "S8",
+          "name": "Sector 8",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -67.968251,
+                  -17.081321
+                ],
+                [
+                  -67.960251,
+                  -17.081321
+                ],
+                [
+                  -67.960251,
+                  -17.073321
+                ],
+                [
+                  -67.968251,
+                  -17.073321
+                ],
+                [
+                  -67.968251,
+                  -17.081321
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.078121,
+            "lon": -67.965051
+          },
+          "area_ha": 26.43,
+          "terrain": {
+            "elevation_m": 3900.0,
+            "slope_pct": 7.33,
+            "aspect_deg": 252.1
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 3,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.0585,
+            "ndvi_anomaly": -1.918
+          },
+          "risk": {
+            "score": 0.2768,
+            "level": "low",
+            "interval": {
+              "low": 0.2402,
+              "high": 0.3959
+            },
+            "confidence": 0.7,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "temp_anom_3m",
+                "label": "Temperatura de julio a septiembre",
+                "direction": "increases",
+                "weight": 0.2885
+              },
+              {
+                "feature": "roni_lag_0",
+                "label": "El Niño (índice RONI de julio a septiembre)",
+                "direction": "decreases",
+                "weight": 0.2769
+              },
+              {
+                "feature": "roni_lag_4",
+                "label": "El Niño (índice RONI de marzo a mayo)",
+                "direction": "decreases",
+                "weight": 0.091
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.1579,
+            "level": "low",
+            "confidence": 0.4979,
+            "confidence_label": "media",
+            "ndvi_residual": -0.0319
+          },
+          "recommendation": {
+            "action": "extend_rest",
+            "text": "Mantener este sector en descanso.",
+            "reasons": [
+              "Lleva 3 año(s) de descanso; el ciclo de la aynuqa es de 10 años.",
+              "Le faltan 7 año(s) para completar el descanso."
+            ],
+            "extend_rest_years": 7,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.4406,
+            "confidence_label": "media"
+          },
+          "twin_precedent": null,
+          "is_simulated": true
+        },
+        {
+          "id": "S9",
+          "name": "Sector 9",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -68.002781,
+                  -17.068671
+                ],
+                [
+                  -67.994781,
+                  -17.068671
+                ],
+                [
+                  -67.994781,
+                  -17.060671
+                ],
+                [
+                  -68.002781,
+                  -17.060671
+                ],
+                [
+                  -68.002781,
+                  -17.068671
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.065471,
+            "lon": -67.999581
+          },
+          "area_ha": 21.77,
+          "terrain": {
+            "elevation_m": 3958.0,
+            "slope_pct": 3.52,
+            "aspect_deg": 245.7
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 2,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.05,
+            "ndvi_anomaly": -1.735
+          },
+          "risk": {
+            "score": 0.2878,
+            "level": "low",
+            "interval": {
+              "low": 0.2477,
+              "high": 0.3936
+            },
+            "confidence": 0.7,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "temp_anom_3m",
+                "label": "Temperatura de julio a septiembre",
+                "direction": "increases",
+                "weight": 0.2894
+              },
+              {
+                "feature": "roni_lag_0",
+                "label": "El Niño (índice RONI de julio a septiembre)",
+                "direction": "decreases",
+                "weight": 0.2772
+              },
+              {
+                "feature": "roni_lag_4",
+                "label": "El Niño (índice RONI de marzo a mayo)",
+                "direction": "decreases",
+                "weight": 0.0912
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.9474,
+            "level": "high",
+            "confidence": 0.3427,
+            "confidence_label": "baja",
+            "ndvi_residual": -0.0043
+          },
+          "recommendation": {
+            "action": "extend_rest",
+            "text": "Mantener este sector en descanso.",
+            "reasons": [
+              "Lleva 2 año(s) de descanso; el ciclo de la aynuqa es de 10 años.",
+              "Le faltan 8 año(s) para completar el descanso."
+            ],
+            "extend_rest_years": 8,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.7,
+            "confidence_label": "media"
+          },
+          "twin_precedent": null,
+          "is_simulated": true
+        },
+        {
+          "id": "S10",
+          "name": "Sector 10",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -67.993971,
+                  -17.0712
+                ],
+                [
+                  -67.985971,
+                  -17.0712
+                ],
+                [
+                  -67.985971,
+                  -17.0632
+                ],
+                [
+                  -67.993971,
+                  -17.0632
+                ],
+                [
+                  -67.993971,
+                  -17.0712
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.068,
+            "lon": -67.990771
+          },
+          "area_ha": 37.04,
+          "terrain": {
+            "elevation_m": 3917.0,
+            "slope_pct": 7.01,
+            "aspect_deg": 239.3
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 1,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.05,
+            "ndvi_anomaly": -1.959
+          },
+          "risk": {
+            "score": 0.2835,
+            "level": "low",
+            "interval": {
+              "low": 0.2409,
+              "high": 0.4056
+            },
+            "confidence": 0.7,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "temp_anom_3m",
+                "label": "Temperatura de julio a septiembre",
+                "direction": "increases",
+                "weight": 0.2832
+              },
+              {
+                "feature": "roni_lag_0",
+                "label": "El Niño (índice RONI de julio a septiembre)",
+                "direction": "decreases",
+                "weight": 0.2725
+              },
+              {
+                "feature": "roni_lag_4",
+                "label": "El Niño (índice RONI de marzo a mayo)",
+                "direction": "decreases",
+                "weight": 0.0919
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.0789,
+            "level": "low",
+            "confidence": 0.5473,
+            "confidence_label": "media",
+            "ndvi_residual": -0.0399
+          },
+          "recommendation": {
+            "action": "extend_rest",
+            "text": "Mantener este sector en descanso.",
+            "reasons": [
+              "Lleva 1 año(s) de descanso; el ciclo de la aynuqa es de 10 años.",
+              "Le faltan 9 año(s) para completar el descanso."
+            ],
+            "extend_rest_years": 9,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.3977,
+            "confidence_label": "baja"
+          },
+          "twin_precedent": null,
+          "is_simulated": true
+        },
+        {
+          "id": "S11",
+          "name": "Sector 11",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -67.980164,
+                  -17.068877
+                ],
+                [
+                  -67.972164,
+                  -17.068877
+                ],
+                [
+                  -67.972164,
+                  -17.060877
+                ],
+                [
+                  -67.980164,
+                  -17.060877
+                ],
+                [
+                  -67.980164,
+                  -17.068877
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.065677,
+            "lon": -67.976964
+          },
+          "area_ha": 36.05,
+          "terrain": {
+            "elevation_m": 3928.0,
+            "slope_pct": 2.48,
+            "aspect_deg": 41.2
+          },
+          "rotation": {
+            "status": "cultivated",
+            "years_in_status": 1,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.05,
+            "ndvi_anomaly": -1.844
+          },
+          "risk": {
+            "score": 0.2825,
+            "level": "low",
+            "interval": {
+              "low": 0.2383,
+              "high": 0.3842
+            },
+            "confidence": 0.7,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "temp_anom_3m",
+                "label": "Temperatura de julio a septiembre",
+                "direction": "increases",
+                "weight": 0.2902
+              },
+              {
+                "feature": "roni_lag_0",
+                "label": "El Niño (índice RONI de julio a septiembre)",
+                "direction": "decreases",
+                "weight": 0.2864
+              },
+              {
+                "feature": "roni_lag_4",
+                "label": "El Niño (índice RONI de marzo a mayo)",
+                "direction": "decreases",
+                "weight": 0.097
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.6053,
+            "level": "medium",
+            "confidence": 0.3707,
+            "confidence_label": "baja",
+            "ndvi_residual": -0.0159
+          },
+          "recommendation": {
+            "action": "keep_cultivating",
+            "text": "Seguir cultivando este sector un año más.",
+            "reasons": [
+              "Lleva 1 año(s) de cultivo; el ciclo de la aynuqa es de 3 años.",
+              "El riesgo de sequía es bajo."
+            ],
+            "extend_rest_years": null,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.7,
+            "confidence_label": "media"
+          },
+          "twin_precedent": null,
+          "is_simulated": true
+        },
+        {
+          "id": "S12",
+          "name": "Sector 12",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -67.967739,
+                  -17.070116
+                ],
+                [
+                  -67.959739,
+                  -17.070116
+                ],
+                [
+                  -67.959739,
+                  -17.062116
+                ],
+                [
+                  -67.967739,
+                  -17.062116
+                ],
+                [
+                  -67.967739,
+                  -17.070116
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.066916,
+            "lon": -67.964539
+          },
+          "area_ha": 32.95,
+          "terrain": {
+            "elevation_m": 3934.0,
+            "slope_pct": 6.85,
+            "aspect_deg": 228.5
+          },
+          "rotation": {
+            "status": "cultivated",
+            "years_in_status": 2,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.05,
+            "ndvi_anomaly": -2.16
+          },
+          "risk": {
+            "score": 0.2859,
+            "level": "low",
+            "interval": {
+              "low": 0.2447,
+              "high": 0.4129
+            },
+            "confidence": 0.7,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "temp_anom_3m",
+                "label": "Temperatura de julio a septiembre",
+                "direction": "increases",
+                "weight": 0.2873
+              },
+              {
+                "feature": "roni_lag_0",
+                "label": "El Niño (índice RONI de julio a septiembre)",
+                "direction": "decreases",
+                "weight": 0.2764
+              },
+              {
+                "feature": "roni_lag_4",
+                "label": "El Niño (índice RONI de marzo a mayo)",
+                "direction": "decreases",
+                "weight": 0.0932
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.3684,
+            "level": "medium",
+            "confidence": 0.3557,
+            "confidence_label": "baja",
+            "ndvi_residual": -0.0221
+          },
+          "recommendation": {
+            "action": "keep_cultivating",
+            "text": "Seguir cultivando este sector un año más.",
+            "reasons": [
+              "Lleva 2 año(s) de cultivo; el ciclo de la aynuqa es de 3 años.",
+              "El riesgo de sequía es bajo."
+            ],
+            "extend_rest_years": null,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.7,
+            "confidence_label": "media"
+          },
+          "twin_precedent": null,
+          "is_simulated": true
+        },
+        {
+          "id": "S13",
+          "name": "Sector 13",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -68.004784,
+                  -17.057763
+                ],
+                [
+                  -67.996784,
+                  -17.057763
+                ],
+                [
+                  -67.996784,
+                  -17.049763
+                ],
+                [
+                  -68.004784,
+                  -17.049763
+                ],
+                [
+                  -68.004784,
+                  -17.057763
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.054563,
+            "lon": -68.001584
+          },
+          "area_ha": 29.03,
+          "terrain": {
+            "elevation_m": 3937.0,
+            "slope_pct": 4.56,
+            "aspect_deg": 77.3
+          },
+          "rotation": {
+            "status": "cultivated",
+            "years_in_status": 3,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.0516,
+            "ndvi_anomaly": -1.636
+          },
+          "risk": {
+            "score": 0.2863,
+            "level": "low",
+            "interval": {
+              "low": 0.2415,
+              "high": 0.3747
+            },
+            "confidence": 0.7,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_0",
+                "label": "El Niño (índice RONI de julio a septiembre)",
+                "direction": "decreases",
+                "weight": 0.2901
+              },
+              {
+                "feature": "temp_anom_3m",
+                "label": "Temperatura de julio a septiembre",
+                "direction": "increases",
+                "weight": 0.2893
+              },
+              {
+                "feature": "roni_lag_4",
+                "label": "El Niño (índice RONI de marzo a mayo)",
+                "direction": "decreases",
+                "weight": 0.0975
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.2895,
+            "level": "low",
+            "confidence": 0.4878,
+            "confidence_label": "media",
+            "ndvi_residual": -0.0245
+          },
+          "recommendation": {
+            "action": "start_rest",
+            "text": "Pasar este sector a descanso cuando termine la cosecha.",
+            "reasons": [
+              "Ya lleva 3 años seguidos de cultivo, el ciclo completo de la aynuqa.",
+              "El suelo necesita descansar para recuperar su fertilidad."
+            ],
+            "extend_rest_years": null,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.7,
+            "confidence_label": "media"
+          },
+          "twin_precedent": null,
+          "is_simulated": true
+        }
+      ]
+    },
+    "nino": {
+      "updated_at": "2026-11-14T19:23:09-04:00",
+      "data_source": "mock",
+      "scenario": "nino",
+      "zone": {
+        "id": "pumani",
+        "name": "Pumani (Pomani)",
+        "lat": -17.1344,
+        "lon": -68.0692,
+        "climate": {
+          "period": "2026-10",
+          "precip_mm": 14.77,
+          "precip_anomaly_pct": -71.2,
+          "temp_c": 9.73,
+          "temp_anomaly_c": 1.15,
+          "soil_moisture": 0.239,
+          "soil_moisture_anomaly": -0.0968
+        },
+        "roni": {
+          "value": 1.888,
+          "season": "SON",
+          "year": 2026,
+          "kind": "observed"
+        }
+      },
+      "sectors": [
+        {
+          "id": "S1",
+          "name": "Sector 1",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -68.004244,
+                  -17.092904
+                ],
+                [
+                  -67.996244,
+                  -17.092904
+                ],
+                [
+                  -67.996244,
+                  -17.084904
+                ],
+                [
+                  -68.004244,
+                  -17.084904
+                ],
+                [
+                  -68.004244,
+                  -17.092904
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.089704,
+            "lon": -68.001044
+          },
+          "area_ha": 44.34,
+          "terrain": {
+            "elevation_m": 3921.0,
+            "slope_pct": 6.38,
+            "aspect_deg": 33.9
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 10,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.0529,
+            "ndvi_anomaly": -2.718
+          },
+          "risk": {
+            "score": 0.98,
+            "level": "high",
+            "interval": {
+              "low": 0.891,
+              "high": 0.98
+            },
+            "confidence": 0.7,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_0",
+                "label": "El Niño (índice RONI de julio a septiembre)",
+                "direction": "increases",
+                "weight": 0.6466
+              },
+              {
+                "feature": "roni_lag_1",
+                "label": "El Niño (índice RONI de junio a agosto)",
+                "direction": "increases",
+                "weight": 0.1559
+              },
+              {
+                "feature": "roni_lag_2",
+                "label": "El Niño (índice RONI de mayo a julio)",
+                "direction": "increases",
+                "weight": 0.057
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.9211,
+            "level": "high",
+            "confidence": 0.4602,
+            "confidence_label": "media",
+            "ndvi_residual": -0.0044
+          },
+          "recommendation": {
+            "action": "extend_rest",
+            "text": "Alargar el descanso un año más antes de abrir este sector.",
+            "reasons": [
+              "Ya completó 10 años de descanso.",
+              "El Niño aumenta la probabilidad de sequía en esta campaña.",
+              "Esperar un año reduce el riesgo de perder la primera siembra."
+            ],
+            "extend_rest_years": 1,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.4706,
+            "confidence_label": "media"
+          },
+          "twin_precedent": {
+            "sector_id": "S1",
+            "twin_zone": "Jesus de Machaca",
+            "twin_elevation_m": 3890.0,
+            "twin_slope_pct": 5.55,
+            "similarity": 0.5669,
+            "event": "2023-24",
+            "observed_ndvi_anomaly": -2.628,
+            "confidence": 0.4819,
+            "confidence_label": "media",
+            "is_simulated": true
+          },
+          "is_simulated": true
+        },
+        {
+          "id": "S2",
+          "name": "Sector 2",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -67.990856,
+                  -17.092955
+                ],
+                [
+                  -67.982856,
+                  -17.092955
+                ],
+                [
+                  -67.982856,
+                  -17.084955
+                ],
+                [
+                  -67.990856,
+                  -17.084955
+                ],
+                [
+                  -67.990856,
+                  -17.092955
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.089755,
+            "lon": -67.987656
+          },
+          "area_ha": 28.01,
+          "terrain": {
+            "elevation_m": 3960.0,
+            "slope_pct": 2.4,
+            "aspect_deg": 162.1
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 9,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.05,
+            "ndvi_anomaly": -2.095
+          },
+          "risk": {
+            "score": 0.98,
+            "level": "high",
+            "interval": {
+              "low": 0.8734,
+              "high": 0.98
+            },
+            "confidence": 0.7,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_0",
+                "label": "El Niño (índice RONI de julio a septiembre)",
+                "direction": "increases",
+                "weight": 0.6318
+              },
+              {
+                "feature": "roni_lag_1",
+                "label": "El Niño (índice RONI de junio a agosto)",
+                "direction": "increases",
+                "weight": 0.1406
+              },
+              {
+                "feature": "ndvi_anom_prev_peak",
+                "label": "Estado de la vegetación en campaña anterior",
+                "direction": "decreases",
+                "weight": 0.0554
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.9737,
+            "level": "high",
+            "confidence": 0.4781,
+            "confidence_label": "media",
+            "ndvi_residual": -0.0032
+          },
+          "recommendation": {
+            "action": "extend_rest",
+            "text": "Mantener este sector en descanso.",
+            "reasons": [
+              "Lleva 9 año(s) de descanso; el ciclo de la aynuqa es de 10 años.",
+              "Le faltan 1 año(s) para completar el descanso."
+            ],
+            "extend_rest_years": 1,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.4969,
+            "confidence_label": "media"
+          },
+          "twin_precedent": {
+            "sector_id": "S2",
+            "twin_zone": "Jesus de Machaca",
+            "twin_elevation_m": 3894.0,
+            "twin_slope_pct": 1.79,
+            "similarity": 0.5561,
+            "event": "2023-24",
+            "observed_ndvi_anomaly": -2.4222,
+            "confidence": 0.4727,
+            "confidence_label": "media",
+            "is_simulated": true
+          },
+          "is_simulated": true
+        },
+        {
+          "id": "S3",
+          "name": "Sector 3",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -67.979425,
+                  -17.092293
+                ],
+                [
+                  -67.971425,
+                  -17.092293
+                ],
+                [
+                  -67.971425,
+                  -17.084293
+                ],
+                [
+                  -67.979425,
+                  -17.084293
+                ],
+                [
+                  -67.979425,
+                  -17.092293
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.089093,
+            "lon": -67.976225
+          },
+          "area_ha": 32.97,
+          "terrain": {
+            "elevation_m": 3919.0,
+            "slope_pct": 4.6,
+            "aspect_deg": 81.8
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 8,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.05,
+            "ndvi_anomaly": -1.954
+          },
+          "risk": {
+            "score": 0.98,
+            "level": "high",
+            "interval": {
+              "low": 0.8788,
+              "high": 0.98
+            },
+            "confidence": 0.7,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_0",
+                "label": "El Niño (índice RONI de julio a septiembre)",
+                "direction": "increases",
+                "weight": 0.6411
+              },
+              {
+                "feature": "roni_lag_1",
+                "label": "El Niño (índice RONI de junio a agosto)",
+                "direction": "increases",
+                "weight": 0.1546
+              },
+              {
+                "feature": "roni_lag_2",
+                "label": "El Niño (índice RONI de mayo a julio)",
+                "direction": "increases",
+                "weight": 0.0566
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.8947,
+            "level": "high",
+            "confidence": 0.446,
+            "confidence_label": "media",
+            "ndvi_residual": -0.0053
+          },
+          "recommendation": {
+            "action": "extend_rest",
+            "text": "Mantener este sector en descanso.",
+            "reasons": [
+              "Lleva 8 año(s) de descanso; el ciclo de la aynuqa es de 10 años.",
+              "Le faltan 2 año(s) para completar el descanso."
+            ],
+            "extend_rest_years": 2,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.4574,
+            "confidence_label": "media"
+          },
+          "twin_precedent": {
+            "sector_id": "S3",
+            "twin_zone": "Jesus de Machaca",
+            "twin_elevation_m": 3890.0,
+            "twin_slope_pct": 5.55,
+            "similarity": 0.6408,
+            "event": "2023-24",
+            "observed_ndvi_anomaly": -2.628,
+            "confidence": 0.5446,
+            "confidence_label": "media",
+            "is_simulated": true
+          },
+          "is_simulated": true
+        },
+        {
+          "id": "S4",
+          "name": "Sector 4",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -67.966689,
+                  -17.095745
+                ],
+                [
+                  -67.958689,
+                  -17.095745
+                ],
+                [
+                  -67.958689,
+                  -17.087745
+                ],
+                [
+                  -67.966689,
+                  -17.087745
+                ],
+                [
+                  -67.966689,
+                  -17.095745
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.092545,
+            "lon": -67.963489
+          },
+          "area_ha": 27.57,
+          "terrain": {
+            "elevation_m": 3957.0,
+            "slope_pct": 5.92,
+            "aspect_deg": 272.9
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 7,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.05,
+            "ndvi_anomaly": -1.933
+          },
+          "risk": {
+            "score": 0.98,
+            "level": "high",
+            "interval": {
+              "low": 0.8898,
+              "high": 0.98
+            },
+            "confidence": 0.7,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_0",
+                "label": "El Niño (índice RONI de julio a septiembre)",
+                "direction": "increases",
+                "weight": 0.6466
+              },
+              {
+                "feature": "roni_lag_1",
+                "label": "El Niño (índice RONI de junio a agosto)",
+                "direction": "increases",
+                "weight": 0.1554
+              },
+              {
+                "feature": "roni_lag_2",
+                "label": "El Niño (índice RONI de mayo a julio)",
+                "direction": "increases",
+                "weight": 0.059
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.8684,
+            "level": "high",
+            "confidence": 0.4441,
+            "confidence_label": "media",
+            "ndvi_residual": -0.0055
+          },
+          "recommendation": {
+            "action": "extend_rest",
+            "text": "Mantener este sector en descanso.",
+            "reasons": [
+              "Lleva 7 año(s) de descanso; el ciclo de la aynuqa es de 10 años.",
+              "Le faltan 3 año(s) para completar el descanso."
+            ],
+            "extend_rest_years": 3,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.4442,
+            "confidence_label": "media"
+          },
+          "twin_precedent": {
+            "sector_id": "S4",
+            "twin_zone": "Caquiaviri",
+            "twin_elevation_m": 3967.0,
+            "twin_slope_pct": 6.9,
+            "similarity": 0.5093,
+            "event": "2023-24",
+            "observed_ndvi_anomaly": -2.6532,
+            "confidence": 0.4329,
+            "confidence_label": "media",
+            "is_simulated": true
+          },
+          "is_simulated": true
+        },
+        {
+          "id": "S5",
+          "name": "Sector 5",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -68.002428,
+                  -17.080117
+                ],
+                [
+                  -67.994428,
+                  -17.080117
+                ],
+                [
+                  -67.994428,
+                  -17.072117
+                ],
+                [
+                  -68.002428,
+                  -17.072117
+                ],
+                [
+                  -68.002428,
+                  -17.080117
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.076917,
+            "lon": -67.999228
+          },
+          "area_ha": 19.18,
+          "terrain": {
+            "elevation_m": 3944.0,
+            "slope_pct": 2.86,
+            "aspect_deg": 168.0
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 6,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.05,
+            "ndvi_anomaly": -2.184
+          },
+          "risk": {
+            "score": 0.98,
+            "level": "high",
+            "interval": {
+              "low": 0.877,
+              "high": 0.98
+            },
+            "confidence": 0.7,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_0",
+                "label": "El Niño (índice RONI de julio a septiembre)",
+                "direction": "increases",
+                "weight": 0.6471
+              },
+              {
+                "feature": "roni_lag_1",
+                "label": "El Niño (índice RONI de junio a agosto)",
+                "direction": "increases",
+                "weight": 0.1552
+              },
+              {
+                "feature": "roni_lag_2",
+                "label": "El Niño (índice RONI de mayo a julio)",
+                "direction": "increases",
+                "weight": 0.0577
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.6842,
+            "level": "high",
+            "confidence": 0.4482,
+            "confidence_label": "media",
+            "ndvi_residual": -0.0109
+          },
+          "recommendation": {
+            "action": "extend_rest",
+            "text": "Mantener este sector en descanso.",
+            "reasons": [
+              "Lleva 6 año(s) de descanso; el ciclo de la aynuqa es de 10 años.",
+              "Le faltan 4 año(s) para completar el descanso."
+            ],
+            "extend_rest_years": 4,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.3521,
+            "confidence_label": "baja"
+          },
+          "twin_precedent": {
+            "sector_id": "S5",
+            "twin_zone": "Jesus de Machaca",
+            "twin_elevation_m": 3894.0,
+            "twin_slope_pct": 1.79,
+            "similarity": 0.6205,
+            "event": "2023-24",
+            "observed_ndvi_anomaly": -2.4222,
+            "confidence": 0.5275,
+            "confidence_label": "media",
+            "is_simulated": true
+          },
+          "is_simulated": true
+        },
+        {
+          "id": "S6",
+          "name": "Sector 6",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -67.991268,
+                  -17.083383
+                ],
+                [
+                  -67.983268,
+                  -17.083383
+                ],
+                [
+                  -67.983268,
+                  -17.075383
+                ],
+                [
+                  -67.991268,
+                  -17.075383
+                ],
+                [
+                  -67.991268,
+                  -17.083383
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.080183,
+            "lon": -67.988068
+          },
+          "area_ha": 26.8,
+          "terrain": {
+            "elevation_m": 3953.0,
+            "slope_pct": 6.71,
+            "aspect_deg": 348.3
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 5,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.0904,
+            "ndvi_anomaly": -1.405
+          },
+          "risk": {
+            "score": 0.98,
+            "level": "high",
+            "interval": {
+              "low": 0.8888,
+              "high": 0.98
+            },
+            "confidence": 0.7,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_0",
+                "label": "El Niño (índice RONI de julio a septiembre)",
+                "direction": "increases",
+                "weight": 0.6506
+              },
+              {
+                "feature": "roni_lag_1",
+                "label": "El Niño (índice RONI de junio a agosto)",
+                "direction": "increases",
+                "weight": 0.1538
+              },
+              {
+                "feature": "roni_lag_2",
+                "label": "El Niño (índice RONI de mayo a julio)",
+                "direction": "increases",
+                "weight": 0.0594
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.5263,
+            "level": "medium",
+            "confidence": 0.3367,
+            "confidence_label": "baja",
+            "ndvi_residual": -0.0166
+          },
+          "recommendation": {
+            "action": "extend_rest",
+            "text": "Mantener este sector en descanso.",
+            "reasons": [
+              "Lleva 5 año(s) de descanso; el ciclo de la aynuqa es de 10 años.",
+              "Le faltan 5 año(s) para completar el descanso."
+            ],
+            "extend_rest_years": 5,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.2732,
+            "confidence_label": "baja"
+          },
+          "twin_precedent": {
+            "sector_id": "S6",
+            "twin_zone": "Jesus de Machaca",
+            "twin_elevation_m": 3890.0,
+            "twin_slope_pct": 5.55,
+            "similarity": 0.49,
+            "event": "2023-24",
+            "observed_ndvi_anomaly": -2.628,
+            "confidence": 0.4165,
+            "confidence_label": "media",
+            "is_simulated": true
+          },
+          "is_simulated": true
+        },
+        {
+          "id": "S7",
+          "name": "Sector 7",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -67.980122,
+                  -17.082518
+                ],
+                [
+                  -67.972122,
+                  -17.082518
+                ],
+                [
+                  -67.972122,
+                  -17.074518
+                ],
+                [
+                  -67.980122,
+                  -17.074518
+                ],
+                [
+                  -67.980122,
+                  -17.082518
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.079318,
+            "lon": -67.976922
+          },
+          "area_ha": 24.13,
+          "terrain": {
+            "elevation_m": 3954.0,
+            "slope_pct": 2.41,
+            "aspect_deg": 171.3
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 4,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.074,
+            "ndvi_anomaly": -1.268
+          },
+          "risk": {
+            "score": 0.9793,
+            "level": "high",
+            "interval": {
+              "low": 0.8856,
+              "high": 0.9797
+            },
+            "confidence": 0.7,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_0",
+                "label": "El Niño (índice RONI de julio a septiembre)",
+                "direction": "increases",
+                "weight": 0.6462
+              },
+              {
+                "feature": "roni_lag_1",
+                "label": "El Niño (índice RONI de junio a agosto)",
+                "direction": "increases",
+                "weight": 0.1668
+              },
+              {
+                "feature": "roni_lag_2",
+                "label": "El Niño (índice RONI de mayo a julio)",
+                "direction": "increases",
+                "weight": 0.0615
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.3158,
+            "level": "low",
+            "confidence": 0.2465,
+            "confidence_label": "baja",
+            "ndvi_residual": -0.0235
+          },
+          "recommendation": {
+            "action": "extend_rest",
+            "text": "Mantener este sector en descanso.",
+            "reasons": [
+              "Lleva 4 año(s) de descanso; el ciclo de la aynuqa es de 10 años.",
+              "Le faltan 6 año(s) para completar el descanso."
+            ],
+            "extend_rest_years": 6,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.1683,
+            "confidence_label": "baja"
+          },
+          "twin_precedent": {
+            "sector_id": "S7",
+            "twin_zone": "Jesus de Machaca",
+            "twin_elevation_m": 3894.0,
+            "twin_slope_pct": 1.79,
+            "similarity": 0.5937,
+            "event": "2023-24",
+            "observed_ndvi_anomaly": -2.4222,
+            "confidence": 0.5047,
+            "confidence_label": "media",
+            "is_simulated": true
+          },
+          "is_simulated": true
+        },
+        {
+          "id": "S8",
+          "name": "Sector 8",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -67.968251,
+                  -17.081321
+                ],
+                [
+                  -67.960251,
+                  -17.081321
+                ],
+                [
+                  -67.960251,
+                  -17.073321
+                ],
+                [
+                  -67.968251,
+                  -17.073321
+                ],
+                [
+                  -67.968251,
+                  -17.081321
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.078121,
+            "lon": -67.965051
+          },
+          "area_ha": 26.43,
+          "terrain": {
+            "elevation_m": 3900.0,
+            "slope_pct": 7.33,
+            "aspect_deg": 252.1
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 3,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.0585,
+            "ndvi_anomaly": -1.918
+          },
+          "risk": {
+            "score": 0.9766,
+            "level": "high",
+            "interval": {
+              "low": 0.8881,
+              "high": 0.9797
+            },
+            "confidence": 0.7,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_0",
+                "label": "El Niño (índice RONI de julio a septiembre)",
+                "direction": "increases",
+                "weight": 0.6457
+              },
+              {
+                "feature": "roni_lag_1",
+                "label": "El Niño (índice RONI de junio a agosto)",
+                "direction": "increases",
+                "weight": 0.1647
+              },
+              {
+                "feature": "roni_lag_2",
+                "label": "El Niño (índice RONI de mayo a julio)",
+                "direction": "increases",
+                "weight": 0.0634
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.1579,
+            "level": "low",
+            "confidence": 0.4979,
+            "confidence_label": "media",
+            "ndvi_residual": -0.0319
+          },
+          "recommendation": {
+            "action": "extend_rest",
+            "text": "Mantener este sector en descanso.",
+            "reasons": [
+              "Lleva 3 año(s) de descanso; el ciclo de la aynuqa es de 10 años.",
+              "Le faltan 7 año(s) para completar el descanso."
+            ],
+            "extend_rest_years": 7,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.0906,
+            "confidence_label": "baja"
+          },
+          "twin_precedent": {
+            "sector_id": "S8",
+            "twin_zone": "Jesus de Machaca",
+            "twin_elevation_m": 3853.0,
+            "twin_slope_pct": 4.52,
+            "similarity": 0.5503,
+            "event": "2023-24",
+            "observed_ndvi_anomaly": -1.8746,
+            "confidence": 0.4677,
+            "confidence_label": "media",
+            "is_simulated": true
+          },
+          "is_simulated": true
+        },
+        {
+          "id": "S9",
+          "name": "Sector 9",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -68.002781,
+                  -17.068671
+                ],
+                [
+                  -67.994781,
+                  -17.068671
+                ],
+                [
+                  -67.994781,
+                  -17.060671
+                ],
+                [
+                  -68.002781,
+                  -17.060671
+                ],
+                [
+                  -68.002781,
+                  -17.068671
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.065471,
+            "lon": -67.999581
+          },
+          "area_ha": 21.77,
+          "terrain": {
+            "elevation_m": 3958.0,
+            "slope_pct": 3.52,
+            "aspect_deg": 245.7
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 2,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.05,
+            "ndvi_anomaly": -1.735
+          },
+          "risk": {
+            "score": 0.9765,
+            "level": "high",
+            "interval": {
+              "low": 0.879,
+              "high": 0.9792
+            },
+            "confidence": 0.7,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_0",
+                "label": "El Niño (índice RONI de julio a septiembre)",
+                "direction": "increases",
+                "weight": 0.6472
+              },
+              {
+                "feature": "roni_lag_1",
+                "label": "El Niño (índice RONI de junio a agosto)",
+                "direction": "increases",
+                "weight": 0.166
+              },
+              {
+                "feature": "roni_lag_2",
+                "label": "El Niño (índice RONI de mayo a julio)",
+                "direction": "increases",
+                "weight": 0.061
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.9474,
+            "level": "high",
+            "confidence": 0.3427,
+            "confidence_label": "baja",
+            "ndvi_residual": -0.0043
+          },
+          "recommendation": {
+            "action": "extend_rest",
+            "text": "Mantener este sector en descanso.",
+            "reasons": [
+              "Lleva 2 año(s) de descanso; el ciclo de la aynuqa es de 10 años.",
+              "Le faltan 8 año(s) para completar el descanso."
+            ],
+            "extend_rest_years": 8,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.4854,
+            "confidence_label": "media"
+          },
+          "twin_precedent": {
+            "sector_id": "S9",
+            "twin_zone": "Caquiaviri",
+            "twin_elevation_m": 3956.0,
+            "twin_slope_pct": 2.42,
+            "similarity": 0.5078,
+            "event": "2023-24",
+            "observed_ndvi_anomaly": -1.9789,
+            "confidence": 0.4316,
+            "confidence_label": "media",
+            "is_simulated": true
+          },
+          "is_simulated": true
+        },
+        {
+          "id": "S10",
+          "name": "Sector 10",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -67.993971,
+                  -17.0712
+                ],
+                [
+                  -67.985971,
+                  -17.0712
+                ],
+                [
+                  -67.985971,
+                  -17.0632
+                ],
+                [
+                  -67.993971,
+                  -17.0632
+                ],
+                [
+                  -67.993971,
+                  -17.0712
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.068,
+            "lon": -67.990771
+          },
+          "area_ha": 37.04,
+          "terrain": {
+            "elevation_m": 3917.0,
+            "slope_pct": 7.01,
+            "aspect_deg": 239.3
+          },
+          "rotation": {
+            "status": "resting",
+            "years_in_status": 1,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.05,
+            "ndvi_anomaly": -1.959
+          },
+          "risk": {
+            "score": 0.98,
+            "level": "high",
+            "interval": {
+              "low": 0.8926,
+              "high": 0.98
+            },
+            "confidence": 0.7,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_0",
+                "label": "El Niño (índice RONI de julio a septiembre)",
+                "direction": "increases",
+                "weight": 0.6472
+              },
+              {
+                "feature": "roni_lag_1",
+                "label": "El Niño (índice RONI de junio a agosto)",
+                "direction": "increases",
+                "weight": 0.1546
+              },
+              {
+                "feature": "roni_lag_2",
+                "label": "El Niño (índice RONI de mayo a julio)",
+                "direction": "increases",
+                "weight": 0.0592
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.0789,
+            "level": "low",
+            "confidence": 0.5473,
+            "confidence_label": "media",
+            "ndvi_residual": -0.0399
+          },
+          "recommendation": {
+            "action": "extend_rest",
+            "text": "Mantener este sector en descanso.",
+            "reasons": [
+              "Lleva 1 año(s) de descanso; el ciclo de la aynuqa es de 10 años.",
+              "Le faltan 9 año(s) para completar el descanso."
+            ],
+            "extend_rest_years": 9,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.0495,
+            "confidence_label": "baja"
+          },
+          "twin_precedent": {
+            "sector_id": "S10",
+            "twin_zone": "Jesus de Machaca",
+            "twin_elevation_m": 3910.0,
+            "twin_slope_pct": 6.37,
+            "similarity": 0.5248,
+            "event": "2023-24",
+            "observed_ndvi_anomaly": -3.0392,
+            "confidence": 0.4461,
+            "confidence_label": "media",
+            "is_simulated": true
+          },
+          "is_simulated": true
+        },
+        {
+          "id": "S11",
+          "name": "Sector 11",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -67.980164,
+                  -17.068877
+                ],
+                [
+                  -67.972164,
+                  -17.068877
+                ],
+                [
+                  -67.972164,
+                  -17.060877
+                ],
+                [
+                  -67.980164,
+                  -17.060877
+                ],
+                [
+                  -67.980164,
+                  -17.068877
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.065677,
+            "lon": -67.976964
+          },
+          "area_ha": 36.05,
+          "terrain": {
+            "elevation_m": 3928.0,
+            "slope_pct": 2.48,
+            "aspect_deg": 41.2
+          },
+          "rotation": {
+            "status": "cultivated",
+            "years_in_status": 1,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.05,
+            "ndvi_anomaly": -1.844
+          },
+          "risk": {
+            "score": 0.98,
+            "level": "high",
+            "interval": {
+              "low": 0.8811,
+              "high": 0.98
+            },
+            "confidence": 0.7,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_0",
+                "label": "El Niño (índice RONI de julio a septiembre)",
+                "direction": "increases",
+                "weight": 0.6513
+              },
+              {
+                "feature": "roni_lag_1",
+                "label": "El Niño (índice RONI de junio a agosto)",
+                "direction": "increases",
+                "weight": 0.1678
+              },
+              {
+                "feature": "roni_lag_2",
+                "label": "El Niño (índice RONI de mayo a julio)",
+                "direction": "increases",
+                "weight": 0.0614
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.6053,
+            "level": "medium",
+            "confidence": 0.3707,
+            "confidence_label": "baja",
+            "ndvi_residual": -0.0159
+          },
+          "recommendation": {
+            "action": "keep_cultivating",
+            "text": "Seguir cultivando este sector un año más.",
+            "reasons": [
+              "Lleva 1 año(s) de cultivo; el ciclo de la aynuqa es de 3 años.",
+              "El Niño aumenta la probabilidad de sequía en esta campaña.",
+              "Conviene cuidar la humedad del suelo."
+            ],
+            "extend_rest_years": null,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.5,
+            "confidence_label": "media"
+          },
+          "twin_precedent": {
+            "sector_id": "S11",
+            "twin_zone": "Jesus de Machaca",
+            "twin_elevation_m": 3881.0,
+            "twin_slope_pct": 1.66,
+            "similarity": 0.5604,
+            "event": "2023-24",
+            "observed_ndvi_anomaly": -3.2321,
+            "confidence": 0.4763,
+            "confidence_label": "media",
+            "is_simulated": true
+          },
+          "is_simulated": true
+        },
+        {
+          "id": "S12",
+          "name": "Sector 12",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -67.967739,
+                  -17.070116
+                ],
+                [
+                  -67.959739,
+                  -17.070116
+                ],
+                [
+                  -67.959739,
+                  -17.062116
+                ],
+                [
+                  -67.967739,
+                  -17.062116
+                ],
+                [
+                  -67.967739,
+                  -17.070116
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.066916,
+            "lon": -67.964539
+          },
+          "area_ha": 32.95,
+          "terrain": {
+            "elevation_m": 3934.0,
+            "slope_pct": 6.85,
+            "aspect_deg": 228.5
+          },
+          "rotation": {
+            "status": "cultivated",
+            "years_in_status": 2,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.05,
+            "ndvi_anomaly": -2.16
+          },
+          "risk": {
+            "score": 0.979,
+            "level": "high",
+            "interval": {
+              "low": 0.8895,
+              "high": 0.98
+            },
+            "confidence": 0.7,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_0",
+                "label": "El Niño (índice RONI de julio a septiembre)",
+                "direction": "increases",
+                "weight": 0.6515
+              },
+              {
+                "feature": "roni_lag_1",
+                "label": "El Niño (índice RONI de junio a agosto)",
+                "direction": "increases",
+                "weight": 0.1648
+              },
+              {
+                "feature": "roni_lag_2",
+                "label": "El Niño (índice RONI de mayo a julio)",
+                "direction": "increases",
+                "weight": 0.0628
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.3684,
+            "level": "medium",
+            "confidence": 0.3557,
+            "confidence_label": "baja",
+            "ndvi_residual": -0.0221
+          },
+          "recommendation": {
+            "action": "keep_cultivating",
+            "text": "Seguir cultivando este sector un año más.",
+            "reasons": [
+              "Lleva 2 año(s) de cultivo; el ciclo de la aynuqa es de 3 años.",
+              "El Niño aumenta la probabilidad de sequía en esta campaña.",
+              "Conviene cuidar la humedad del suelo."
+            ],
+            "extend_rest_years": null,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.5,
+            "confidence_label": "media"
+          },
+          "twin_precedent": {
+            "sector_id": "S12",
+            "twin_zone": "Jesus de Machaca",
+            "twin_elevation_m": 3879.0,
+            "twin_slope_pct": 4.91,
+            "similarity": 0.5263,
+            "event": "2023-24",
+            "observed_ndvi_anomaly": -2.9391,
+            "confidence": 0.4474,
+            "confidence_label": "media",
+            "is_simulated": true
+          },
+          "is_simulated": true
+        },
+        {
+          "id": "S13",
+          "name": "Sector 13",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -68.004784,
+                  -17.057763
+                ],
+                [
+                  -67.996784,
+                  -17.057763
+                ],
+                [
+                  -67.996784,
+                  -17.049763
+                ],
+                [
+                  -68.004784,
+                  -17.049763
+                ],
+                [
+                  -68.004784,
+                  -17.057763
+                ]
+              ]
+            ]
+          },
+          "centroid": {
+            "lat": -17.054563,
+            "lon": -68.001584
+          },
+          "area_ha": 29.03,
+          "terrain": {
+            "elevation_m": 3937.0,
+            "slope_pct": 4.56,
+            "aspect_deg": 77.3
+          },
+          "rotation": {
+            "status": "cultivated",
+            "years_in_status": 3,
+            "is_simulated": true
+          },
+          "vegetation": {
+            "date": "2026-10",
+            "ndvi": 0.0516,
+            "ndvi_anomaly": -1.636
+          },
+          "risk": {
+            "score": 0.9771,
+            "level": "high",
+            "interval": {
+              "low": 0.8839,
+              "high": 0.9796
+            },
+            "confidence": 0.7,
+            "confidence_label": "media",
+            "drivers": [
+              {
+                "feature": "roni_lag_0",
+                "label": "El Niño (índice RONI de julio a septiembre)",
+                "direction": "increases",
+                "weight": 0.6561
+              },
+              {
+                "feature": "roni_lag_1",
+                "label": "El Niño (índice RONI de junio a agosto)",
+                "direction": "increases",
+                "weight": 0.1682
+              },
+              {
+                "feature": "roni_lag_2",
+                "label": "El Niño (índice RONI de mayo a julio)",
+                "direction": "increases",
+                "weight": 0.063
+              }
+            ]
+          },
+          "recovery": {
+            "score": 0.2895,
+            "level": "low",
+            "confidence": 0.4878,
+            "confidence_label": "media",
+            "ndvi_residual": -0.0245
+          },
+          "recommendation": {
+            "action": "start_rest",
+            "text": "Pasar este sector a descanso cuando termine la cosecha.",
+            "reasons": [
+              "Ya lleva 3 años seguidos de cultivo, el ciclo completo de la aynuqa.",
+              "El suelo necesita descansar para recuperar su fertilidad.",
+              "El Niño aumenta la probabilidad de sequía en esta campaña."
+            ],
+            "extend_rest_years": null,
+            "crop": null,
+            "sowing_window": null,
+            "confidence": 0.5,
+            "confidence_label": "media"
+          },
+          "twin_precedent": {
+            "sector_id": "S13",
+            "twin_zone": "Jesus de Machaca",
+            "twin_elevation_m": 3890.0,
+            "twin_slope_pct": 5.55,
+            "similarity": 0.5293,
+            "event": "2023-24",
+            "observed_ndvi_anomaly": -2.628,
+            "confidence": 0.4499,
+            "confidence_label": "media",
+            "is_simulated": true
+          },
+          "is_simulated": true
+        }
+      ]
+    }
+  }
+}
