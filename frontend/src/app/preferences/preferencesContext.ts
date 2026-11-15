@@ -8,6 +8,8 @@ export interface Preferences {
   mascotTalkative: boolean
   /** La llamita lee sus frases en voz alta sola. */
   mascotAutoSpeak: boolean
+  /** Avisos con la app cerrada (si el celular lo permite). */
+  mascotNotify: boolean
 }
 
 export interface PreferencesContextValue {
@@ -19,6 +21,7 @@ export const defaultPreferences: Preferences = {
   advanced: false,
   mascotTalkative: true,
   mascotAutoSpeak: false,
+  mascotNotify: false,
 }
 
 export const PreferencesContext = createContext<PreferencesContextValue>({

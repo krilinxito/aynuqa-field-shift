@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import {
@@ -6,6 +6,7 @@ import {
   downloadLocalModel,
   useLocalModel,
 } from '../../features/chat/offline/localModel'
+import { setReminders, type ReminderResult } from '../../features/mascot/reminders'
 
 import { useLanguage, type Language } from '../i18n/languageContext'
 import { usePreferences, type Preferences } from '../preferences/preferencesContext'
@@ -31,6 +32,13 @@ export function SettingsSheet({ id, onClose }: SettingsSheetProps) {
   const isLarge = state.size === 'grande'
   const { preferences, setPreference } = usePreferences()
   const localModel = useLocalModel()
+  const [reminder, setReminder] = useState<ReminderResult | null>(null)
+
+  async function toggleReminders() {
+    const result = await setReminders(!preferences.mascotNotify)
+    setPreference('mascotNotify', result === 'on')
+    setReminder(result)
+  }
 
   useEffect(() => {
     void checkLocalModel()
@@ -96,6 +104,21 @@ export function SettingsSheet({ id, onClose }: SettingsSheetProps) {
               <span>{item.label}</span>
             </button>
           ))}
+          <button
+            type="button"
+            role="switch"
+            aria-checked={preferences.mascotNotify}
+            className={styles.switch}
+            onClick={() => void toggleReminders()}
+          >
+            <span className={styles.switchTrack} aria-hidden="true">
+              <span className={styles.switchThumb} />
+            </span>
+            <span>{t.mascotNotify}</span>
+          </button>
+          {reminder === 'unsupported' ? <p>{t.remindersUnsupported}</p> : null}
+          {reminder === 'denied' ? <p>{t.remindersDenied}</p> : null}
+          {reminder === 'on' ? <p>{t.remindersOn}</p> : null}
         </div>
 
         {localModel.status !== 'unsupported' ? (

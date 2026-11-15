@@ -77,6 +77,8 @@ export default defineConfig({
         navigateFallback: '/index.html',
         globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
         globIgnores: ['**/web-llm-*.js'],
+        // Avisos de la llamita con la app cerrada.
+        importScripts: ['llamita-sw.js'],
         // Sin señal se muestran los últimos datos guardados. El chat nunca
         // se guarda: necesita señal y lo dice.
         runtimeCaching: [

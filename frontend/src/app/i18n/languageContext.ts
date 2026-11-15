@@ -158,6 +158,11 @@ export interface UiStrings {
   localAiDownloading: (percent: number) => string
   localAiReady: string
   localAiError: string
+
+  // Avisos de la llamita
+  remindersUnsupported: string
+  remindersDenied: string
+  remindersOn: string
 }
 
 export const UI_STRINGS: Record<Language, UiStrings> = {
@@ -302,6 +307,9 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
     localAiDownloading: (p) => `Descargando la llamita sin señal… ${p} %`,
     localAiReady: 'Llamita sin señal lista ✓ (contesta mejor sin internet)',
     localAiError: 'No se pudo descargar. Intente con wifi.',
+    remindersUnsupported: 'Este celular no permite avisos con la app cerrada. Instale la app en Android (Chrome) para recibirlos.',
+    remindersDenied: 'No dio permiso para avisos. Puede cambiarlo en los ajustes del celular.',
+    remindersOn: 'Listo: si pasan 3 días sin visitar, la llamita le avisa.',
   },
   ay: {
     largeText: "Jach'a qillqa",
@@ -443,6 +451,9 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
     localAiDownloading: (p) => `Jan señal qarwa apaqaski… ${p} %`,
     localAiReady: 'Jan señal qarwax wakicht’atawa ✓',
     localAiError: 'Janiw apaqañjamäkiti. Wifimpi yant’am.',
+    remindersUnsupported: 'Aka celularax janiw yatiyawinak churkiti. Android (Chrome) ukan app uchantam.',
+    remindersDenied: 'Janiw yatiyawinakatak iyaw sktati. Celularan wakicht’äwipan turkasma.',
+    remindersOn: 'Walikiwa: 3 uru jan visitstaxa, qarwax yatiyätam.',
   },
   qu: {
     largeText: 'Hatun qillqa',
@@ -584,6 +595,9 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
     localAiDownloading: (p) => `Mana señal llamitata uraykachichkan… ${p} %`,
     localAiReady: 'Mana señal llamitaqa listañam ✓',
     localAiError: 'Mana uraykachiyta atikunchu. Wifiwan ruway.',
+    remindersUnsupported: 'Kay celularqa mana willakuykunata qunchu. Android (Chrome) nisqapi appta churay.',
+    remindersDenied: 'Mana willakuykunapaq ari nirqankichu. Celularpa allichayninpi t’ikrayta atinki.',
+    remindersOn: 'Listo: 3 p’unchaw mana watukuspaqa, llamita willasunki.',
   },
 }
 

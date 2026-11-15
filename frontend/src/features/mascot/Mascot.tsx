@@ -33,6 +33,7 @@ import {
   type MascotMood,
 } from './mascotLines'
 import { mascotSignals, useMascotSignals } from './mascotSignals'
+import { saveVisitForReminders } from './reminders'
 import {
   readVisitRecord,
   todayInBolivia,
@@ -81,6 +82,11 @@ export function Mascot() {
   const signals = useMascotSignals()
 
   const [visit] = useState(registerVisit)
+
+  // El service worker lee la última visita para los avisos con la app cerrada.
+  useEffect(() => {
+    void saveVisitForReminders(todayInBolivia(), preferences.mascotNotify)
+  }, [preferences.mascotNotify])
   const [line, setLine] = useState<MascotLine | null>(null)
   const [greeted, setGreeted] = useState(false)
   const [celebrating, setCelebrating] = useState(false)
