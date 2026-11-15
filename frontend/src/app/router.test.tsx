@@ -1,11 +1,11 @@
-import { render, screen, waitFor, within } from '@testing-library/react'
+import { act, render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {
   RouterProvider,
   createMemoryRouter,
   type InitialEntry,
 } from 'react-router-dom'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { appRoutes } from './router'
 
@@ -343,19 +343,30 @@ describe('letra grande, idiomas (Aymara / Quechua) y botón de descarga PWA', ()
     ).toBeInTheDocument()
   })
 
-  it('muestra el botón para descargar la PWA en el celular y abre la guía de instalación', async () => {
-    const user = userEvent.setup()
+  it('sin permiso del navegador no muestra el botón de instalar', async () => {
     renderRoute('/comunidad')
 
-    await openSettings(user)
-    const installBtn = await screen.findByRole('button', {
-      name: /Descargar en celular/,
-    })
-    await user.click(installBtn)
+    await screen.findByRole('heading', { level: 1, name: '¿De qué comunidad es usted?' })
+    expect(screen.queryByRole('button', { name: /Instalar/ })).not.toBeInTheDocument()
+  })
 
-    expect(
-      screen.getByText(/Para guardar Aynuqa en la pantalla de su celular/),
-    ).toBeInTheDocument()
+  it('instala directo con un toque cuando el navegador lo permite', async () => {
+    const user = userEvent.setup()
+    renderRoute('/comunidad')
+    await screen.findByRole('heading', { level: 1, name: '¿De qué comunidad es usted?' })
+
+    const prompt = vi.fn().mockResolvedValue(undefined)
+    const event = Object.assign(new Event('beforeinstallprompt', { cancelable: true }), {
+      prompt,
+      userChoice: Promise.resolve({ outcome: 'accepted', platform: 'web' }),
+    })
+    act(() => {
+      window.dispatchEvent(event)
+    })
+
+    await user.click(await screen.findByRole('button', { name: 'Instalar' }))
+    expect(prompt).toHaveBeenCalledOnce()
+    expect(screen.queryByText(/Toque los tres puntitos/)).not.toBeInTheDocument()
   })
 })
 
