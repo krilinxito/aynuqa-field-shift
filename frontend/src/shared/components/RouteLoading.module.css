@@ -1,0 +1,9 @@
+.loading {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-3);
+  padding-block: var(--space-12);
+  font-family: var(--font-titulo);
+  font-size: var(--size-grande);
+  font-style: italic;
+}
