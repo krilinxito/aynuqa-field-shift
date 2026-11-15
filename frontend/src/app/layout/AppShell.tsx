@@ -6,6 +6,7 @@ import { useLanguage } from '../i18n/languageContext'
 import { getPersistentSearch } from '../navigation/persistentSearch'
 import { useAppState } from '../providers/appStateContext'
 import { writeUrlState } from '../state/urlState'
+import { UpdatePrompt } from '../pwa/UpdatePrompt'
 import { AppHeader } from './AppHeader'
 import styles from './AppShell.module.css'
 
@@ -45,6 +46,7 @@ export function AppShell() {
         {t.skipToContent}
       </a>
 
+      <UpdatePrompt />
       <AppHeader />
 
       <main className={styles.main} id="contenido-principal" tabIndex={-1}>
