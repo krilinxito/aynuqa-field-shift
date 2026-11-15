@@ -2,226 +2,250 @@
   "leave_one_season_out": {
     "group_col": "season",
     "lgb": {
-      "mae": 0.5858,
-      "rmse": 0.8006,
-      "spearman": 0.4267,
-      "n": 1014
+      "mae": 0.7309,
+      "rmse": 0.8817,
+      "spearman": -0.2603,
+      "n": 2366
     },
     "baseline_zero": {
-      "mae": 0.7269,
-      "rmse": 0.9941,
+      "mae": 0.5864,
+      "rmse": 0.7368,
       "spearman": null,
-      "n": 1014
+      "n": 2366
     },
     "baseline_linear_roni0": {
-      "mae": 0.5348,
-      "rmse": 0.6784,
-      "spearman": 0.434,
-      "n": 1014
+      "mae": 0.621,
+      "rmse": 0.7767,
+      "spearman": -0.3148,
+      "n": 2366
     },
-    "beats_zero": true,
+    "beats_zero": false,
     "beats_linear_roni0": false,
-    "verdict": "LightGBM NO supera ambas baselines en season (RMSE LGB=0.8006, lineal=0.6784, cero=0.9941). Resultado reportado tal cual.",
+    "verdict": "LightGBM NO supera ambas baselines en season (RMSE LGB=0.8817, lineal=0.7767, cero=0.7368). Resultado reportado tal cual.",
     "per_group": {
       "2000-01": {
-        "n": 39,
-        "lgb_rmse": 0.4711,
-        "zero_rmse": 0.4515,
-        "linear_roni0_rmse": 0.4711
+        "n": 91,
+        "lgb_rmse": 1.0719,
+        "zero_rmse": 0.9244,
+        "linear_roni0_rmse": 0.9388
       },
       "2001-02": {
-        "n": 39,
-        "lgb_rmse": 0.5321,
-        "zero_rmse": 0.6741,
-        "linear_roni0_rmse": 0.6215
+        "n": 91,
+        "lgb_rmse": 0.5915,
+        "zero_rmse": 0.5282,
+        "linear_roni0_rmse": 0.5326
       },
       "2002-03": {
-        "n": 39,
-        "lgb_rmse": 0.6215,
-        "zero_rmse": 0.512,
-        "linear_roni0_rmse": 0.4384
+        "n": 91,
+        "lgb_rmse": 0.6051,
+        "zero_rmse": 0.3503,
+        "linear_roni0_rmse": 0.4381
       },
       "2003-04": {
-        "n": 39,
-        "lgb_rmse": 0.5381,
-        "zero_rmse": 0.6266,
-        "linear_roni0_rmse": 0.6953
+        "n": 91,
+        "lgb_rmse": 0.6616,
+        "zero_rmse": 0.5351,
+        "linear_roni0_rmse": 0.5613
       },
       "2004-05": {
-        "n": 39,
-        "lgb_rmse": 0.591,
-        "zero_rmse": 0.5347,
-        "linear_roni0_rmse": 0.5295
+        "n": 91,
+        "lgb_rmse": 0.615,
+        "zero_rmse": 0.56,
+        "linear_roni0_rmse": 0.5349
       },
       "2005-06": {
-        "n": 39,
-        "lgb_rmse": 0.5437,
-        "zero_rmse": 0.6651,
-        "linear_roni0_rmse": 0.6913
+        "n": 91,
+        "lgb_rmse": 0.5136,
+        "zero_rmse": 0.4375,
+        "linear_roni0_rmse": 0.4356
       },
       "2006-07": {
-        "n": 39,
-        "lgb_rmse": 0.459,
-        "zero_rmse": 0.577,
-        "linear_roni0_rmse": 0.5856
+        "n": 91,
+        "lgb_rmse": 0.9946,
+        "zero_rmse": 0.8932,
+        "linear_roni0_rmse": 0.8706
       },
       "2007-08": {
-        "n": 39,
-        "lgb_rmse": 0.4887,
-        "zero_rmse": 0.4409,
-        "linear_roni0_rmse": 0.4374
+        "n": 91,
+        "lgb_rmse": 0.9963,
+        "zero_rmse": 0.8121,
+        "linear_roni0_rmse": 0.937
       },
       "2008-09": {
-        "n": 39,
-        "lgb_rmse": 0.5247,
-        "zero_rmse": 0.5496,
-        "linear_roni0_rmse": 0.5321
+        "n": 91,
+        "lgb_rmse": 1.0397,
+        "zero_rmse": 0.505,
+        "linear_roni0_rmse": 0.5087
       },
       "2009-10": {
-        "n": 39,
-        "lgb_rmse": 0.6364,
-        "zero_rmse": 0.9698,
-        "linear_roni0_rmse": 0.9375
+        "n": 91,
+        "lgb_rmse": 0.6375,
+        "zero_rmse": 0.5885,
+        "linear_roni0_rmse": 0.6147
       },
       "2010-11": {
-        "n": 39,
-        "lgb_rmse": 0.5796,
-        "zero_rmse": 1.0459,
-        "linear_roni0_rmse": 0.7724
+        "n": 91,
+        "lgb_rmse": 0.7245,
+        "zero_rmse": 0.4441,
+        "linear_roni0_rmse": 0.4818
       },
       "2011-12": {
-        "n": 39,
-        "lgb_rmse": 0.5745,
-        "zero_rmse": 0.4853,
-        "linear_roni0_rmse": 0.4811
+        "n": 91,
+        "lgb_rmse": 0.927,
+        "zero_rmse": 0.9085,
+        "linear_roni0_rmse": 0.9138
       },
       "2012-13": {
-        "n": 39,
-        "lgb_rmse": 0.6887,
-        "zero_rmse": 0.6485,
-        "linear_roni0_rmse": 0.5887
+        "n": 91,
+        "lgb_rmse": 0.5699,
+        "zero_rmse": 0.4635,
+        "linear_roni0_rmse": 0.4856
       },
       "2013-14": {
-        "n": 39,
-        "lgb_rmse": 2.0938,
-        "zero_rmse": 0.7005,
-        "linear_roni0_rmse": 0.9698
+        "n": 91,
+        "lgb_rmse": 0.9329,
+        "zero_rmse": 0.5486,
+        "linear_roni0_rmse": 0.5802
       },
       "2014-15": {
-        "n": 39,
-        "lgb_rmse": 0.7294,
-        "zero_rmse": 0.7136,
-        "linear_roni0_rmse": 0.6865
+        "n": 91,
+        "lgb_rmse": 0.9633,
+        "zero_rmse": 0.8516,
+        "linear_roni0_rmse": 0.8742
       },
       "2015-16": {
-        "n": 39,
-        "lgb_rmse": 0.5254,
-        "zero_rmse": 2.3253,
-        "linear_roni0_rmse": 0.5569
+        "n": 91,
+        "lgb_rmse": 1.2198,
+        "zero_rmse": 1.1508,
+        "linear_roni0_rmse": 1.2739
       },
       "2016-17": {
-        "n": 39,
-        "lgb_rmse": 0.5088,
-        "zero_rmse": 0.5122,
-        "linear_roni0_rmse": 0.528
+        "n": 91,
+        "lgb_rmse": 0.8831,
+        "zero_rmse": 0.6038,
+        "linear_roni0_rmse": 0.6057
       },
       "2017-18": {
-        "n": 39,
-        "lgb_rmse": 0.4391,
-        "zero_rmse": 0.5855,
-        "linear_roni0_rmse": 0.4615
+        "n": 91,
+        "lgb_rmse": 0.5911,
+        "zero_rmse": 0.4334,
+        "linear_roni0_rmse": 0.4353
       },
       "2018-19": {
-        "n": 39,
-        "lgb_rmse": 0.5222,
-        "zero_rmse": 0.5076,
-        "linear_roni0_rmse": 0.4933
+        "n": 91,
+        "lgb_rmse": 0.7836,
+        "zero_rmse": 0.6048,
+        "linear_roni0_rmse": 0.6309
       },
       "2019-20": {
-        "n": 39,
-        "lgb_rmse": 0.462,
-        "zero_rmse": 0.505,
-        "linear_roni0_rmse": 0.467
+        "n": 91,
+        "lgb_rmse": 0.494,
+        "zero_rmse": 0.5045,
+        "linear_roni0_rmse": 0.505
       },
       "2020-21": {
-        "n": 39,
-        "lgb_rmse": 0.6206,
-        "zero_rmse": 1.1891,
-        "linear_roni0_rmse": 0.5348
+        "n": 91,
+        "lgb_rmse": 0.7121,
+        "zero_rmse": 0.931,
+        "linear_roni0_rmse": 1.07
       },
       "2021-22": {
-        "n": 39,
-        "lgb_rmse": 0.5575,
-        "zero_rmse": 0.8464,
-        "linear_roni0_rmse": 0.7926
+        "n": 91,
+        "lgb_rmse": 1.4498,
+        "zero_rmse": 1.0502,
+        "linear_roni0_rmse": 1.0454
       },
       "2022-23": {
-        "n": 39,
-        "lgb_rmse": 0.7795,
-        "zero_rmse": 0.5883,
-        "linear_roni0_rmse": 0.6676
+        "n": 91,
+        "lgb_rmse": 1.0364,
+        "zero_rmse": 1.1403,
+        "linear_roni0_rmse": 1.3339
       },
       "2023-24": {
-        "n": 39,
-        "lgb_rmse": 0.651,
-        "zero_rmse": 2.5416,
-        "linear_roni0_rmse": 0.5756
+        "n": 91,
+        "lgb_rmse": 0.8339,
+        "zero_rmse": 0.4347,
+        "linear_roni0_rmse": 0.4663
       },
       "2024-25": {
-        "n": 39,
-        "lgb_rmse": 0.5187,
-        "zero_rmse": 0.5178,
-        "linear_roni0_rmse": 0.5023
+        "n": 91,
+        "lgb_rmse": 1.3822,
+        "zero_rmse": 1.1161,
+        "linear_roni0_rmse": 1.1241
       },
       "2025-26": {
-        "n": 39,
-        "lgb_rmse": 2.1082,
-        "zero_rmse": 1.8446,
-        "linear_roni0_rmse": 1.5603
+        "n": 91,
+        "lgb_rmse": 0.7249,
+        "zero_rmse": 0.7371,
+        "linear_roni0_rmse": 0.7267
       }
     }
   },
   "leave_one_zone_out": {
     "group_col": "zone_id",
     "lgb": {
-      "mae": 0.4127,
-      "rmse": 0.5199,
-      "spearman": 0.6342,
-      "n": 1014
+      "mae": 0.451,
+      "rmse": 0.5633,
+      "spearman": 0.59,
+      "n": 2366
     },
     "baseline_zero": {
-      "mae": 0.7269,
-      "rmse": 0.9941,
+      "mae": 0.5864,
+      "rmse": 0.7368,
       "spearman": null,
-      "n": 1014
+      "n": 2366
     },
     "baseline_linear_roni0": {
-      "mae": 0.5173,
-      "rmse": 0.6569,
-      "spearman": 0.4706,
-      "n": 1014
+      "mae": 0.5874,
+      "rmse": 0.7332,
+      "spearman": 0.0182,
+      "n": 2366
     },
     "beats_zero": true,
     "beats_linear_roni0": true,
-    "verdict": "LightGBM supera ambas baselines en zone_id (RMSE LGB=0.5199 < lineal=0.6569, cero=0.9941).",
+    "verdict": "LightGBM supera ambas baselines en zone_id (RMSE LGB=0.5633 < lineal=0.7332, cero=0.7368).",
     "per_group": {
       "caquiaviri": {
         "n": 338,
-        "lgb_rmse": 0.5297,
-        "zero_rmse": 0.995,
-        "linear_roni0_rmse": 0.6561
+        "lgb_rmse": 0.5785,
+        "zero_rmse": 0.707,
+        "linear_roni0_rmse": 0.7124
+      },
+      "curahuara": {
+        "n": 338,
+        "lgb_rmse": 0.5728,
+        "zero_rmse": 0.7264,
+        "linear_roni0_rmse": 0.7168
       },
       "jesus_de_machaca": {
         "n": 338,
-        "lgb_rmse": 0.5093,
-        "zero_rmse": 0.9958,
-        "linear_roni0_rmse": 0.6798
+        "lgb_rmse": 0.5262,
+        "zero_rmse": 0.7373,
+        "linear_roni0_rmse": 0.7383
+      },
+      "patacamaya": {
+        "n": 338,
+        "lgb_rmse": 0.5588,
+        "zero_rmse": 0.7604,
+        "linear_roni0_rmse": 0.7457
       },
       "pumani": {
         "n": 338,
-        "lgb_rmse": 0.5204,
-        "zero_rmse": 0.9914,
-        "linear_roni0_rmse": 0.634
+        "lgb_rmse": 0.5754,
+        "zero_rmse": 0.7653,
+        "linear_roni0_rmse": 0.7583
+      },
+      "sica_sica": {
+        "n": 338,
+        "lgb_rmse": 0.5655,
+        "zero_rmse": 0.7781,
+        "linear_roni0_rmse": 0.7735
+      },
+      "tiahuanaco": {
+        "n": 338,
+        "lgb_rmse": 0.5643,
+        "zero_rmse": 0.6779,
+        "linear_roni0_rmse": 0.6834
       }
     }
   }
