@@ -100,7 +100,7 @@ def test_twin_precedent_definition_is_not_duplicated_by_hand():
 
 def test_sector_ids_are_consistent():
     expected = [s["id"] for s in load(API / "sectors_normal.json")["sectors"]]
-    assert len(expected) == 8
+    assert len(expected) == 13
     assert [s["id"] for s in load(API / "sectors_nino.json")["sectors"]] == expected
     assert sorted(load(ML / "history.json")["sectors"]) == sorted(expected)
     assert {p["sector_id"] for p in load(ML / "analogs.json")["precedents"]} == set(expected)

@@ -193,6 +193,126 @@
       "confidence": 0.6,
       "confidence_label": "media",
       "is_simulated": false
+    },
+    {
+      "sector_id": "S9",
+      "twin_zone": "Jesús de Machaca",
+      "twin_elevation_m": 3871,
+      "twin_slope_pct": 5.0,
+      "similarity": 0.91,
+      "event": "2015-16",
+      "observed_ndvi_anomaly": -0.67,
+      "confidence": 0.6,
+      "confidence_label": "media",
+      "is_simulated": false
+    },
+    {
+      "sector_id": "S9",
+      "twin_zone": "Jesús de Machaca",
+      "twin_elevation_m": 3871,
+      "twin_slope_pct": 5.0,
+      "similarity": 0.91,
+      "event": "2023-24",
+      "observed_ndvi_anomaly": -0.61,
+      "confidence": 0.6,
+      "confidence_label": "media",
+      "is_simulated": false
+    },
+    {
+      "sector_id": "S10",
+      "twin_zone": "Caquiaviri",
+      "twin_elevation_m": 3932,
+      "twin_slope_pct": 7.5,
+      "similarity": 0.89,
+      "event": "2015-16",
+      "observed_ndvi_anomaly": -0.82,
+      "confidence": 0.6,
+      "confidence_label": "media",
+      "is_simulated": false
+    },
+    {
+      "sector_id": "S10",
+      "twin_zone": "Caquiaviri",
+      "twin_elevation_m": 3932,
+      "twin_slope_pct": 7.5,
+      "similarity": 0.89,
+      "event": "2023-24",
+      "observed_ndvi_anomaly": -0.85,
+      "confidence": 0.6,
+      "confidence_label": "media",
+      "is_simulated": false
+    },
+    {
+      "sector_id": "S11",
+      "twin_zone": "Sica Sica",
+      "twin_elevation_m": 3942,
+      "twin_slope_pct": 2.8,
+      "similarity": 0.9,
+      "event": "2015-16",
+      "observed_ndvi_anomaly": -0.4,
+      "confidence": 0.6,
+      "confidence_label": "media",
+      "is_simulated": false
+    },
+    {
+      "sector_id": "S11",
+      "twin_zone": "Sica Sica",
+      "twin_elevation_m": 3942,
+      "twin_slope_pct": 2.8,
+      "similarity": 0.9,
+      "event": "2023-24",
+      "observed_ndvi_anomaly": -0.3,
+      "confidence": 0.6,
+      "confidence_label": "media",
+      "is_simulated": false
+    },
+    {
+      "sector_id": "S12",
+      "twin_zone": "Curahuara de Carangas",
+      "twin_elevation_m": 3908,
+      "twin_slope_pct": 3.8,
+      "similarity": 0.93,
+      "event": "2015-16",
+      "observed_ndvi_anomaly": -0.75,
+      "confidence": 0.6,
+      "confidence_label": "media",
+      "is_simulated": false
+    },
+    {
+      "sector_id": "S12",
+      "twin_zone": "Curahuara de Carangas",
+      "twin_elevation_m": 3908,
+      "twin_slope_pct": 3.8,
+      "similarity": 0.93,
+      "event": "2023-24",
+      "observed_ndvi_anomaly": -0.76,
+      "confidence": 0.6,
+      "confidence_label": "media",
+      "is_simulated": false
+    },
+    {
+      "sector_id": "S13",
+      "twin_zone": "Jesús de Machaca",
+      "twin_elevation_m": 3871,
+      "twin_slope_pct": 3.1,
+      "similarity": 0.86,
+      "event": "2015-16",
+      "observed_ndvi_anomaly": -0.34,
+      "confidence": 0.6,
+      "confidence_label": "media",
+      "is_simulated": false
+    },
+    {
+      "sector_id": "S13",
+      "twin_zone": "Jesús de Machaca",
+      "twin_elevation_m": 3871,
+      "twin_slope_pct": 3.1,
+      "similarity": 0.86,
+      "event": "2023-24",
+      "observed_ndvi_anomaly": -0.16,
+      "confidence": 0.6,
+      "confidence_label": "media",
+      "is_simulated": false
     }
   ]
 }

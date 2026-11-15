@@ -48,7 +48,7 @@ No reemplaza a la asamblea ni al agrónomo. Les da evidencia para decidir mejor.
 
 ## Caso de estudio
 
-Altiplano central de La Paz, comunidad tipo Pumani (Provincia Aroma, cerca de Ayo Ayo, unos 3.900 m). Coordenadas aproximadas: -17.09, -68.0 (por verificar).
+Altiplano central de La Paz, comunidad de Pumani (Pomani, municipio de Ayo Ayo, Provincia Aroma, unos 3.900 m). Coordenadas del pueblo: -17.1344, -68.0692 (OpenStreetMap). Su aynuqa fue estudiada por IBTA-ORSTOM en los años 90: 13 sectores, cada uno con 3 años de cultivo y 10 de descanso.
 
 ## Datos
 

@@ -7,25 +7,25 @@
  "zone": {
   "id": "pumani",
   "series": [
-   {"date": "2015-07", "roni": 1.27, "predicted_risk": 0.74, "observed_ndvi_anomaly": -0.74, "precip_anomaly_pct": -23.2},
-   {"date": "2015-08", "roni": 1.54, "predicted_risk": 0.69, "observed_ndvi_anomaly": -0.85, "precip_anomaly_pct": -34.0},
-   {"date": "2015-09", "roni": 1.8, "predicted_risk": 0.69, "observed_ndvi_anomaly": -0.78, "precip_anomaly_pct": -12.9},
-   {"date": "2015-10", "roni": 2.03, "predicted_risk": 0.67, "observed_ndvi_anomaly": -0.94, "precip_anomaly_pct": -24.1},
-   {"date": "2015-11", "roni": 2.18, "predicted_risk": 0.75, "observed_ndvi_anomaly": -0.83, "precip_anomaly_pct": -20.0},
-   {"date": "2015-12", "roni": 2.25, "predicted_risk": 0.62, "observed_ndvi_anomaly": -0.91, "precip_anomaly_pct": -19.8},
-   {"date": "2016-01", "roni": 2.14, "predicted_risk": 0.71, "observed_ndvi_anomaly": -0.64, "precip_anomaly_pct": -21.2},
-   {"date": "2016-02", "roni": 1.81, "predicted_risk": 0.61, "observed_ndvi_anomaly": -0.5, "precip_anomaly_pct": -15.1},
-   {"date": "2016-03", "roni": 1.3, "predicted_risk": 0.63, "observed_ndvi_anomaly": -0.58, "precip_anomaly_pct": -31.6},
-   {"date": "2016-04", "roni": 0.65, "predicted_risk": 0.75, "observed_ndvi_anomaly": -0.74, "precip_anomaly_pct": -28.9},
-   {"date": "2016-05", "roni": 0.08, "predicted_risk": 0.69, "observed_ndvi_anomaly": -0.65, "precip_anomaly_pct": -33.3},
-   {"date": "2016-06", "roni": -0.43, "predicted_risk": 0.76, "observed_ndvi_anomaly": -0.84, "precip_anomaly_pct": -20.1}
+   {"date": "2015-07", "roni": 1.27, "predicted_risk": null, "observed_ndvi_anomaly": -0.74, "precip_anomaly_pct": -23.2},
+   {"date": "2015-08", "roni": 1.54, "predicted_risk": null, "observed_ndvi_anomaly": -0.85, "precip_anomaly_pct": -34.0},
+   {"date": "2015-09", "roni": 1.8, "predicted_risk": null, "observed_ndvi_anomaly": -0.78, "precip_anomaly_pct": -12.9},
+   {"date": "2015-10", "roni": 2.03, "predicted_risk": 0.72, "observed_ndvi_anomaly": -0.94, "precip_anomaly_pct": -24.1},
+   {"date": "2015-11", "roni": 2.18, "predicted_risk": 0.72, "observed_ndvi_anomaly": -0.83, "precip_anomaly_pct": -20.0},
+   {"date": "2015-12", "roni": 2.25, "predicted_risk": 0.72, "observed_ndvi_anomaly": -0.91, "precip_anomaly_pct": -19.8},
+   {"date": "2016-01", "roni": 2.14, "predicted_risk": 0.72, "observed_ndvi_anomaly": -0.64, "precip_anomaly_pct": -21.2},
+   {"date": "2016-02", "roni": 1.81, "predicted_risk": 0.72, "observed_ndvi_anomaly": -0.5, "precip_anomaly_pct": -15.1},
+   {"date": "2016-03", "roni": 1.3, "predicted_risk": 0.72, "observed_ndvi_anomaly": -0.58, "precip_anomaly_pct": -31.6},
+   {"date": "2016-04", "roni": 0.65, "predicted_risk": 0.72, "observed_ndvi_anomaly": -0.74, "precip_anomaly_pct": -28.9},
+   {"date": "2016-05", "roni": 0.08, "predicted_risk": 0.72, "observed_ndvi_anomaly": -0.65, "precip_anomaly_pct": -33.3},
+   {"date": "2016-06", "roni": -0.43, "predicted_risk": 0.72, "observed_ndvi_anomaly": -0.84, "precip_anomaly_pct": -20.1}
   ],
-  "mean_predicted_risk": 0.69,
+  "mean_predicted_risk": 0.72,
   "mean_observed_ndvi_anomaly": -0.75,
   "metric": {
    "spearman": -0.52,
-   "n": 12,
-   "note": "Correlación entre riesgo predicho y anomalía de NDVI, mes a mes."
+   "n": 26,
+   "note": "Spearman entre el riesgo predicho y la anomalía de NDVI de febrero a abril en las 26 campañas de Pumani, cada una predicha con un modelo que no la vio. Se espera un valor negativo: más riesgo, menos verdor."
   }
  },
  "per_sector": [
@@ -68,12 +68,37 @@
    "sector_id": "S8",
    "predicted_risk": 0.79,
    "observed_ndvi_anomaly": -0.92
+  },
+  {
+   "sector_id": "S9",
+   "predicted_risk": 0.72,
+   "observed_ndvi_anomaly": -0.81
+  },
+  {
+   "sector_id": "S10",
+   "predicted_risk": 0.65,
+   "observed_ndvi_anomaly": -0.92
+  },
+  {
+   "sector_id": "S11",
+   "predicted_risk": 0.84,
+   "observed_ndvi_anomaly": -0.82
+  },
+  {
+   "sector_id": "S12",
+   "predicted_risk": 0.86,
+   "observed_ndvi_anomaly": -0.9
+  },
+  {
+   "sector_id": "S13",
+   "predicted_risk": 0.74,
+   "observed_ndvi_anomaly": -0.51
   }
  ],
  "per_sector_metric": {
   "spearman": null,
-  "n": 8,
-  "note": "Con 8 sectores la correlación no es confiable. Es evidencia secundaria."
+  "n": 13,
+  "note": "Con 13 sectores la correlación no es confiable. Es evidencia secundaria."
  },
  "note": "Valores de ejemplo, no resultados reales."
 }

@@ -1,6 +1,6 @@
 # Archivos de ML para Back
 
-ML los genera con `make predict` en `ml/outputs/`, en JSON con UTF-8. Back los carga en SQLite al iniciar y con `POST /api/admin/reload`.
+ML los genera con `python -m ml.run predict --input ml/data/interim` en `ml/outputs/`, en JSON con UTF-8. Back los carga en SQLite al iniciar y con `POST /api/admin/reload`.
 
 Hay un juego completo de ejemplo en `contracts/examples/ml_outputs/`. Back lo sirve mientras ML no entregue los archivos reales.
 

@@ -7,37 +7,37 @@
  "zone": {
   "id": "pumani",
   "series": [
-   {"date": "2020-07", "roni": -0.76, "predicted_risk": 0.26, "observed_ndvi_anomaly": 0.44, "precip_anomaly_pct": 20.1},
-   {"date": "2020-08", "roni": -0.85, "predicted_risk": 0.3, "observed_ndvi_anomaly": 0.26, "precip_anomaly_pct": 0.9},
-   {"date": "2020-09", "roni": -1.16, "predicted_risk": 0.23, "observed_ndvi_anomaly": 0.09, "precip_anomaly_pct": 20.3},
-   {"date": "2020-10", "roni": -1.37, "predicted_risk": 0.24, "observed_ndvi_anomaly": 0.04, "precip_anomaly_pct": 7.6},
-   {"date": "2020-11", "roni": -1.46, "predicted_risk": 0.24, "observed_ndvi_anomaly": 0.3, "precip_anomaly_pct": -0.8},
-   {"date": "2020-12", "roni": -1.39, "predicted_risk": 0.26, "observed_ndvi_anomaly": 0.6, "precip_anomaly_pct": 12.9},
-   {"date": "2021-01", "roni": -1.32, "predicted_risk": 0.2, "observed_ndvi_anomaly": -0.01, "precip_anomaly_pct": 6.3},
-   {"date": "2021-02", "roni": -1.18, "predicted_risk": 0.28, "observed_ndvi_anomaly": 0.5, "precip_anomaly_pct": 2.2},
-   {"date": "2021-03", "roni": -1.08, "predicted_risk": 0.33, "observed_ndvi_anomaly": 0.62, "precip_anomaly_pct": -2.6},
-   {"date": "2021-04", "roni": -0.89, "predicted_risk": 0.33, "observed_ndvi_anomaly": 0.1, "precip_anomaly_pct": 18.6},
+   {"date": "2020-07", "roni": -0.76, "predicted_risk": null, "observed_ndvi_anomaly": 0.44, "precip_anomaly_pct": 20.1},
+   {"date": "2020-08", "roni": -0.85, "predicted_risk": null, "observed_ndvi_anomaly": 0.26, "precip_anomaly_pct": 0.9},
+   {"date": "2020-09", "roni": -1.16, "predicted_risk": null, "observed_ndvi_anomaly": 0.09, "precip_anomaly_pct": 20.3},
+   {"date": "2020-10", "roni": -1.37, "predicted_risk": 0.27, "observed_ndvi_anomaly": 0.04, "precip_anomaly_pct": 7.6},
+   {"date": "2020-11", "roni": -1.46, "predicted_risk": 0.27, "observed_ndvi_anomaly": 0.3, "precip_anomaly_pct": -0.8},
+   {"date": "2020-12", "roni": -1.39, "predicted_risk": 0.27, "observed_ndvi_anomaly": 0.6, "precip_anomaly_pct": 12.9},
+   {"date": "2021-01", "roni": -1.32, "predicted_risk": 0.27, "observed_ndvi_anomaly": -0.01, "precip_anomaly_pct": 6.3},
+   {"date": "2021-02", "roni": -1.18, "predicted_risk": 0.27, "observed_ndvi_anomaly": 0.5, "precip_anomaly_pct": 2.2},
+   {"date": "2021-03", "roni": -1.08, "predicted_risk": 0.27, "observed_ndvi_anomaly": 0.62, "precip_anomaly_pct": -2.6},
+   {"date": "2021-04", "roni": -0.89, "predicted_risk": 0.27, "observed_ndvi_anomaly": 0.1, "precip_anomaly_pct": 18.6},
    {"date": "2021-05", "roni": -0.68, "predicted_risk": 0.27, "observed_ndvi_anomaly": 0.33, "precip_anomaly_pct": 20.9},
    {"date": "2021-06", "roni": -0.57, "predicted_risk": 0.27, "observed_ndvi_anomaly": 0.37, "precip_anomaly_pct": 20.8},
-   {"date": "2021-07", "roni": -0.6, "predicted_risk": 0.28, "observed_ndvi_anomaly": 0.28, "precip_anomaly_pct": 3.1},
-   {"date": "2021-08", "roni": -0.76, "predicted_risk": 0.22, "observed_ndvi_anomaly": 0.21, "precip_anomaly_pct": -2.0},
-   {"date": "2021-09", "roni": -0.95, "predicted_risk": 0.3, "observed_ndvi_anomaly": 0.18, "precip_anomaly_pct": 17.2},
-   {"date": "2021-10", "roni": -1.08, "predicted_risk": 0.21, "observed_ndvi_anomaly": 0.39, "precip_anomaly_pct": 17.4},
-   {"date": "2021-11", "roni": -1.24, "predicted_risk": 0.31, "observed_ndvi_anomaly": 0.34, "precip_anomaly_pct": 1.4},
-   {"date": "2021-12", "roni": -1.22, "predicted_risk": 0.19, "observed_ndvi_anomaly": 0.06, "precip_anomaly_pct": -1.2},
+   {"date": "2021-07", "roni": -0.6, "predicted_risk": null, "observed_ndvi_anomaly": 0.28, "precip_anomaly_pct": 3.1},
+   {"date": "2021-08", "roni": -0.76, "predicted_risk": null, "observed_ndvi_anomaly": 0.21, "precip_anomaly_pct": -2.0},
+   {"date": "2021-09", "roni": -0.95, "predicted_risk": null, "observed_ndvi_anomaly": 0.18, "precip_anomaly_pct": 17.2},
+   {"date": "2021-10", "roni": -1.08, "predicted_risk": 0.28, "observed_ndvi_anomaly": 0.39, "precip_anomaly_pct": 17.4},
+   {"date": "2021-11", "roni": -1.24, "predicted_risk": 0.28, "observed_ndvi_anomaly": 0.34, "precip_anomaly_pct": 1.4},
+   {"date": "2021-12", "roni": -1.22, "predicted_risk": 0.28, "observed_ndvi_anomaly": 0.06, "precip_anomaly_pct": -1.2},
    {"date": "2022-01", "roni": -1.18, "predicted_risk": 0.28, "observed_ndvi_anomaly": 0.6, "precip_anomaly_pct": 15.9},
-   {"date": "2022-02", "roni": -1.13, "predicted_risk": 0.33, "observed_ndvi_anomaly": 0.26, "precip_anomaly_pct": 0.9},
-   {"date": "2022-03", "roni": -1.19, "predicted_risk": 0.32, "observed_ndvi_anomaly": 0.63, "precip_anomaly_pct": 13.5},
-   {"date": "2022-04", "roni": -1.26, "predicted_risk": 0.23, "observed_ndvi_anomaly": 0.43, "precip_anomaly_pct": 14.5},
-   {"date": "2022-05", "roni": -1.17, "predicted_risk": 0.27, "observed_ndvi_anomaly": 0.49, "precip_anomaly_pct": 10.6},
-   {"date": "2022-06", "roni": -0.95, "predicted_risk": 0.35, "observed_ndvi_anomaly": 0.14, "precip_anomaly_pct": 7.0}
+   {"date": "2022-02", "roni": -1.13, "predicted_risk": 0.28, "observed_ndvi_anomaly": 0.26, "precip_anomaly_pct": 0.9},
+   {"date": "2022-03", "roni": -1.19, "predicted_risk": 0.28, "observed_ndvi_anomaly": 0.63, "precip_anomaly_pct": 13.5},
+   {"date": "2022-04", "roni": -1.26, "predicted_risk": 0.28, "observed_ndvi_anomaly": 0.43, "precip_anomaly_pct": 14.5},
+   {"date": "2022-05", "roni": -1.17, "predicted_risk": 0.28, "observed_ndvi_anomaly": 0.49, "precip_anomaly_pct": 10.6},
+   {"date": "2022-06", "roni": -0.95, "predicted_risk": 0.28, "observed_ndvi_anomaly": 0.14, "precip_anomaly_pct": 7.0}
   ],
-  "mean_predicted_risk": 0.27,
+  "mean_predicted_risk": 0.28,
   "mean_observed_ndvi_anomaly": 0.32,
   "metric": {
    "spearman": -0.31,
-   "n": 24,
-   "note": "Correlación entre riesgo predicho y anomalía de NDVI, mes a mes."
+   "n": 26,
+   "note": "Spearman entre el riesgo predicho y la anomalía de NDVI de febrero a abril en las 26 campañas de Pumani, cada una predicha con un modelo que no la vio. Se espera un valor negativo: más riesgo, menos verdor."
   }
  },
  "per_sector": [
@@ -80,12 +80,37 @@
    "sector_id": "S8",
    "predicted_risk": 0.37,
    "observed_ndvi_anomaly": 0.4
+  },
+  {
+   "sector_id": "S9",
+   "predicted_risk": 0.34,
+   "observed_ndvi_anomaly": 0.58
+  },
+  {
+   "sector_id": "S10",
+   "predicted_risk": 0.31,
+   "observed_ndvi_anomaly": 0.39
+  },
+  {
+   "sector_id": "S11",
+   "predicted_risk": 0.43,
+   "observed_ndvi_anomaly": 0.28
+  },
+  {
+   "sector_id": "S12",
+   "predicted_risk": 0.46,
+   "observed_ndvi_anomaly": 0.58
+  },
+  {
+   "sector_id": "S13",
+   "predicted_risk": 0.36,
+   "observed_ndvi_anomaly": 0.4
   }
  ],
  "per_sector_metric": {
   "spearman": null,
-  "n": 8,
-  "note": "Con 8 sectores la correlación no es confiable. Es evidencia secundaria."
+  "n": 13,
+  "note": "Con 13 sectores la correlación no es confiable. Es evidencia secundaria."
  },
  "note": "Valores de ejemplo, no resultados reales."
 }

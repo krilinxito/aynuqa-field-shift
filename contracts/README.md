@@ -11,7 +11,7 @@ Contrato de datos compartido entre Back, ML y Front. Es el acuerdo entre los tre
 - `examples/ml_outputs/`: un juego completo de archivos de ML de ejemplo. Back los sirve hasta que lleguen los reales.
 - `tests/`: valida todos los ejemplos contra sus schemas.
 
-Los ejemplos son datos inventados para desarrollar, con 8 sectores simulados cerca de lat -17.09, lon -68.0. Llevan `"data_source": "mock"`. El único dato real que contienen es el RONI de NOAA.
+Los ejemplos son datos inventados para desarrollar, con 13 sectores simulados alrededor del pueblo de Pomani (Pumani), municipio de Ayo Ayo (lat -17.1344, lon -68.0692), con el ciclo documentado de 3 años de cultivo y 10 de descanso. Llevan `"data_source": "mock"`. El único dato real que contienen es el RONI de NOAA.
 
 ## Cómo validar
 
