@@ -34,6 +34,9 @@ import {
 import { rowToDecision, type DecisionRow } from '../powersync/decisionRows'
 import { sortDecisions } from './decisionEvents'
 
+/** Cuánto se espera al SQLite antes de pedir también a la API. */
+const LOCAL_WAIT_MS = 400
+
 interface SnapshotRow {
   payload: string
 }
@@ -59,8 +62,41 @@ export class PowerSyncDataRepository implements DataRepository {
     }
   }
 
+  /**
+   * Lo guardado en el celular primero, sin hacer esperar a la persona: si el
+   * SQLite (WASM) todavía está arrancando en la primera visita, a los 400 ms
+   * se pide también a la API y gana lo que llegue antes. Si el SQLite ya
+   * tiene el dato, no se gastan datos móviles en la API.
+   */
+  async #first<T>(local: () => Promise<T | null>, remote: () => Promise<T>): Promise<T> {
+    const fromLocal = local().then((value) => {
+      if (value === null) throw new Error('Sin dato guardado.')
+      return value
+    })
+    let fromRemote: Promise<T> | null = null
+    const startRemote = () => (fromRemote ??= remote())
+    const remoteAfterWait = new Promise<T>((resolve, reject) => {
+      const timer = setTimeout(() => startRemote().then(resolve, reject), LOCAL_WAIT_MS)
+      // Si lo guardado no existe, no hay que esperar.
+      fromLocal.catch(() => {
+        clearTimeout(timer)
+        startRemote().then(resolve, reject)
+      })
+      // Si lo guardado llegó a tiempo, la API nunca se llama.
+      fromLocal.then(() => clearTimeout(timer), () => undefined)
+    })
+    try {
+      return await Promise.any([fromLocal, remoteAfterWait])
+    } catch {
+      return startRemote()
+    }
+  }
+
   async getHealth(options?: RequestOptions): Promise<HealthResponse> {
-    return (await this.#read('health', 'health', 'global')) ?? this.api.getHealth(options)
+    return this.#first(
+      () => this.#read('health', 'health', 'global'),
+      () => this.api.getHealth(options),
+    )
   }
 
   async getSectors(
@@ -68,9 +104,9 @@ export class PowerSyncDataRepository implements DataRepository {
     options?: RequestOptions,
   ): Promise<SectorRiskResponse> {
     assertScenario(scenario)
-    return (
-      (await this.#read('sectorRisk', 'sectors', scenario)) ??
-      this.api.getSectors(scenario, options)
+    return this.#first(
+      () => this.#read('sectorRisk', 'sectors', scenario),
+      () => this.api.getSectors(scenario, options),
     )
   }
 
@@ -120,9 +156,9 @@ export class PowerSyncDataRepository implements DataRepository {
     options?: RequestOptions,
   ): Promise<BacktestResponse> {
     assertBacktestEvent(event)
-    return (
-      (await this.#read('backtest', 'backtest', event)) ??
-      this.api.getBacktest(event, options)
+    return this.#first(
+      () => this.#read('backtest', 'backtest', event),
+      () => this.api.getBacktest(event, options),
     )
   }
 
