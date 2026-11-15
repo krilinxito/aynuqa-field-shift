@@ -1,4 +1,11 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+
+import {
+  checkLocalModel,
+  downloadLocalModel,
+  useLocalModel,
+} from '../../features/chat/offline/localModel'
 
 import { useLanguage, type Language } from '../i18n/languageContext'
 import { usePreferences, type Preferences } from '../preferences/preferencesContext'
@@ -23,6 +30,11 @@ export function SettingsSheet({ id, onClose }: SettingsSheetProps) {
   const { state, actions } = useTextSize()
   const isLarge = state.size === 'grande'
   const { preferences, setPreference } = usePreferences()
+  const localModel = useLocalModel()
+
+  useEffect(() => {
+    void checkLocalModel()
+  }, [])
   const switches: ReadonlyArray<{ key: keyof Preferences; label: string }> = [
     { key: 'advanced', label: t.advancedMode },
     { key: 'mascotTalkative', label: t.mascotTalkative },
@@ -85,6 +97,26 @@ export function SettingsSheet({ id, onClose }: SettingsSheetProps) {
             </button>
           ))}
         </div>
+
+        {localModel.status !== 'unsupported' ? (
+          <div className={styles.group}>
+            {localModel.status === 'ready' ? (
+              <p className={styles.label}>{t.localAiReady}</p>
+            ) : (
+              <button
+                type="button"
+                className={styles.toggle}
+                disabled={localModel.status === 'downloading'}
+                onClick={() => void downloadLocalModel()}
+              >
+                {localModel.status === 'downloading'
+                  ? t.localAiDownloading(Math.round(localModel.progress * 100))
+                  : t.localAiDownload}
+              </button>
+            )}
+            {localModel.status === 'error' ? <p>{t.localAiError}</p> : null}
+          </div>
+        ) : null}
 
         <div className={styles.group}>
           <InstallPwaButton />

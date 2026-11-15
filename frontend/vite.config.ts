@@ -17,6 +17,15 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['@journeyapps/wa-sqlite', '@powersync/web'],
   },
+  build: {
+    rollupOptions: {
+      output: {
+        // La IA local (WebLLM, ~6 MB) va aparte: solo se baja si la piden.
+        manualChunks: (id) =>
+          id.includes('@mlc-ai/web-llm') ? 'web-llm' : undefined,
+      },
+    },
+  },
   worker: {
     format: 'es',
     plugins: () => [wasm() as Plugin],
@@ -67,6 +76,7 @@ export default defineConfig({
         cleanupOutdatedCaches: true,
         navigateFallback: '/index.html',
         globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
+        globIgnores: ['**/web-llm-*.js'],
         // Sin señal se muestran los últimos datos guardados. El chat nunca
         // se guarda: necesita señal y lo dice.
         runtimeCaching: [
@@ -76,6 +86,16 @@ export default defineConfig({
             options: {
               cacheName: 'aynuqa-sqlite-wasm',
               expiration: { maxEntries: 4, maxAgeSeconds: 365 * 24 * 60 * 60 },
+              cacheableResponse: { statuses: [200] },
+            },
+          },
+          {
+            // La IA local se guarda solo cuando la persona la descarga.
+            urlPattern: ({ url }) => /\/assets\/web-llm-[\w-]+\.js$/.test(url.pathname),
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'aynuqa-ia-local',
+              expiration: { maxEntries: 2 },
               cacheableResponse: { statuses: [200] },
             },
           },

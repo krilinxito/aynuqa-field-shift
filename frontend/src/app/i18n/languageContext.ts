@@ -152,6 +152,12 @@ export interface UiStrings {
   mapNorthSimulated: string
   mapPhotoUnavailable: string
   mapSectorLabel: (number: string, risk: string) => string
+
+  // IA sin señal
+  localAiDownload: string
+  localAiDownloading: (percent: number) => string
+  localAiReady: string
+  localAiError: string
 }
 
 export const UI_STRINGS: Record<Language, UiStrings> = {
@@ -292,6 +298,10 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
     mapNorthSimulated: 'Arriba es el norte. Límites de sectores simulados.',
     mapPhotoUnavailable: 'La foto no cargó (sin señal). Se muestra el dibujo.',
     mapSectorLabel: (n, risk) => `Sector ${n}, riesgo ${risk}. Tocar para abrir.`,
+    localAiDownload: 'Descargar la llamita sin señal (IA, unos 400 MB, una vez)',
+    localAiDownloading: (p) => `Descargando la llamita sin señal… ${p} %`,
+    localAiReady: 'Llamita sin señal lista ✓ (contesta mejor sin internet)',
+    localAiError: 'No se pudo descargar. Intente con wifi.',
   },
   ay: {
     largeText: "Jach'a qillqa",
@@ -429,6 +439,10 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
     mapNorthSimulated: 'Patax alay toqiwa. Suyunakan thiyanakapax uñacht’äwiwa.',
     mapPhotoUnavailable: 'Jamuqax janiw apanintkiti (jan señal). Siq’iw uñacht’ayasi.',
     mapSectorLabel: (n, risk) => `${n} suyu, waña ${risk}. Limt’am llawirañataki.`,
+    localAiDownload: 'Jan señal qarwa apaqaña (IA, 400 MB, mä kuti)',
+    localAiDownloading: (p) => `Jan señal qarwa apaqaski… ${p} %`,
+    localAiReady: 'Jan señal qarwax wakicht’atawa ✓',
+    localAiError: 'Janiw apaqañjamäkiti. Wifimpi yant’am.',
   },
   qu: {
     largeText: 'Hatun qillqa',
@@ -566,6 +580,10 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
     mapNorthSimulated: 'Hanaqqa wichay ladom. Suyukunaq patanqa rikch’anachisqam.',
     mapPhotoUnavailable: 'Rikch’ayqa mana chayamunchu (mana señal). Siq’im rikuchikun.',
     mapSectorLabel: (n, risk) => `${n} suyu, ch’aki ${risk}. Ñit’iy kicharinapaq.`,
+    localAiDownload: 'Mana señal llamitata uraykachiy (IA, 400 MB, huk kutilla)',
+    localAiDownloading: (p) => `Mana señal llamitata uraykachichkan… ${p} %`,
+    localAiReady: 'Mana señal llamitaqa listañam ✓',
+    localAiError: 'Mana uraykachiyta atikunchu. Wifiwan ruway.',
   },
 }
 
