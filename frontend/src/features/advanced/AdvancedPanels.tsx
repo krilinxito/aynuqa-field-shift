@@ -12,8 +12,16 @@ import styles from './Advanced.module.css'
 import { NdviSparkline, type NdviPoint } from './NdviSparkline'
 
 function fmt(value: number | null | undefined, digits = 2): string {
-  return value === null || value === undefined ? '—' : value.toFixed(digits)
+  return value === null || value === undefined
+    ? '—'
+    : value.toLocaleString('es-BO', {
+        minimumFractionDigits: digits,
+        maximumFractionDigits: digits,
+      })
 }
+
+/** Últimos 3 años: suficiente para ver la estación y legible en un celular. */
+const NDVI_MONTHS = 36
 
 function pct(value: number | null | undefined): string {
   return value === null || value === undefined ? '—' : `${Math.round(value * 100)} %`
@@ -46,7 +54,11 @@ export function AdvancedSectorPanel({ sector }: { sector: SectorDiagnosisViewMod
     repository
       .getSectorHistory(sector.id, undefined, { signal: controller.signal })
       .then((history) =>
-        setSeries(history.series.map((p) => ({ date: p.date, ndvi: p.ndvi }))),
+        setSeries(
+          history.series
+            .slice(-NDVI_MONTHS)
+            .map((p) => ({ date: p.date, ndvi: p.ndvi })),
+        ),
       )
       .catch(() => setSeries([]))
     return () => controller.abort()

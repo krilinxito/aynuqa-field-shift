@@ -76,7 +76,7 @@ export function NdviSparkline({
               className={styles.grid}
             />
             <text x={PAD.left - 4} y={y(tick) + 3} className={styles.axisLabel} textAnchor="end">
-              {tick.toFixed(2)}
+              {tick.toLocaleString('es-BO', { maximumFractionDigits: 2 })}
             </text>
           </g>
         ))}
@@ -110,7 +110,7 @@ export function NdviSparkline({
       </svg>
       <p className={styles.readout} aria-live="polite">
         {current
-          ? `${current.date.slice(0, 7)}: NDVI ${current.ndvi.toFixed(3)}`
+          ? `${current.date.slice(0, 7)}: NDVI ${current.ndvi.toLocaleString('es-BO', { maximumFractionDigits: 3 })}`
           : 'Toque la línea para ver cada mes.'}
       </p>
       <details className={styles.tableToggle}>
@@ -126,7 +126,7 @@ export function NdviSparkline({
             {points.map((p) => (
               <tr key={p.date}>
                 <td>{p.date.slice(0, 7)}</td>
-                <td>{p.ndvi === null ? '—' : p.ndvi.toFixed(3)}</td>
+                <td>{p.ndvi === null ? '—' : p.ndvi.toLocaleString('es-BO', { maximumFractionDigits: 3 })}</td>
               </tr>
             ))}
           </tbody>

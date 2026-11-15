@@ -15,7 +15,10 @@ interface TokenResponse {
 export class AynuqaPowerSyncConnector implements PowerSyncBackendConnector {
   constructor(
     private readonly apiBaseUrl: string,
-    private readonly fetchImplementation: typeof fetch = fetch,
+    // En el navegador `fetch` exige llamarse sobre `window`: guardado suelto
+    // falla con "Illegal invocation".
+    private readonly fetchImplementation: typeof fetch = (input, init) =>
+      fetch(input, init),
   ) {}
 
   async fetchCredentials(): Promise<PowerSyncCredentials> {

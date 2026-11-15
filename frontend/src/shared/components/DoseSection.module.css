@@ -99,9 +99,14 @@
   }
 }
 
-@media (max-width: 22.5rem) {
+/* En celulares angostos el título no se aprieta: la insignia baja a otra fila. */
+@media (max-width: 26rem) {
   .trigger {
     flex-wrap: wrap;
+  }
+
+  .headingText {
+    flex: 1 1 9rem;
   }
 
   .badge {
