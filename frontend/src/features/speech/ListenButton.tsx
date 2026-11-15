@@ -20,6 +20,7 @@ export function ListenButton({ id, text, label }: ListenButtonProps) {
   }
 
   const isSpeaking = state.speakingId === id
+  const isLoading = state.loadingId === id
   const buttonLabel = label ?? t.listen
   const translatedText = tr(text)
 
@@ -28,6 +29,7 @@ export function ListenButton({ id, text, label }: ListenButtonProps) {
       type="button"
       className={`${styles.button} no-imprimir`}
       aria-pressed={isSpeaking}
+      aria-busy={isLoading}
       onClick={() =>
         isSpeaking ? actions.stop() : actions.speak(id, translatedText)
       }
@@ -53,7 +55,7 @@ export function ListenButton({ id, text, label }: ListenButtonProps) {
           </>
         )}
       </svg>
-      {isSpeaking ? t.stopListening : buttonLabel}
+      {isLoading ? t.loadingAudio : isSpeaking ? t.stopListening : buttonLabel}
     </button>
   )
 }

@@ -58,6 +58,7 @@ export interface UiStrings {
   listenAdvice: string
   listen: string
   stopListening: string
+  loadingAudio: string
 
   // Scenario switch
   seeAdviceFor: string
@@ -164,6 +165,7 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
     listenAdvice: 'Escuchar el consejo',
     listen: 'Escuchar',
     stopListening: 'Parar',
+    loadingAudio: 'Cargando… (toque para parar)',
 
     seeAdviceFor: 'Ver el consejo para:',
     todayNino: 'Hoy, con El Niño',
@@ -264,6 +266,7 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
     listenAdvice: 'Iwxt’äwi ist’aña',
     listen: 'Ist’aña',
     stopListening: 'Sayt’ayaña',
+    loadingAudio: 'Apanintaski… (sayt’ayañataki limt’am)',
 
     seeAdviceFor: 'Iwxt’äwi uñjaña:',
     todayNino: 'Jichhürunaka, El Niño pachampi',
@@ -364,6 +367,7 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
     listenAdvice: 'Yuyaychayta uyariy',
     listen: 'Uyariy',
     stopListening: 'Sayachiy',
+    loadingAudio: 'Apamuchkan… (sayachinapaq ñit’iy)',
 
     seeAdviceFor: 'Yuyaychayta qhaway:',
     todayNino: 'Kunan, El Niño pachawan',

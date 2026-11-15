@@ -7,6 +7,12 @@ WORKDIR /app
 COPY backend/requirements.txt /app/backend/requirements.txt
 RUN pip install --no-cache-dir -r /app/backend/requirements.txt
 
+# Voz nativa en aymara/quechua (Meta MMS, ~700 MB más). Activar con
+# `TTS_LOCAL=true docker compose build backend`.
+ARG TTS_LOCAL=false
+COPY backend/requirements-tts.txt /app/backend/requirements-tts.txt
+RUN if [ "$TTS_LOCAL" = "true" ]; then       pip install --no-cache-dir -r /app/backend/requirements-tts.txt;     fi
+
 COPY backend /app/backend
 COPY contracts /app/contracts
 COPY ml /app/ml

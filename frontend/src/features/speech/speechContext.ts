@@ -4,6 +4,8 @@ export interface SpeechContextValue {
   state: {
     /** Identificador del texto que se está leyendo, o `null`. */
     speakingId: string | null
+    /** Texto cuyo audio todavía se está descargando, o `null`. */
+    loadingId: string | null
   }
   actions: {
     speak: (id: string, text: string) => void

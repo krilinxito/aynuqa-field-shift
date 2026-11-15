@@ -37,6 +37,8 @@ services:
     build:
       context: .
       dockerfile: backend/Dockerfile
+      args:
+        TTS_LOCAL: ${TTS_LOCAL:-false}
     restart: unless-stopped
     environment:
       DATABASE_URL: postgresql://aynuqa:${POSTGRES_PASSWORD:-aynuqa-local}@postgres:5432/aynuqa
@@ -46,6 +48,9 @@ services:
       ADMIN_TOKEN: ${ADMIN_TOKEN:-change-me-local}
       CONTRACTS_DIR: /app/contracts
       ML_OUTPUTS_DIR: /app/ml/outputs
+      TTS_LOCAL_MODELS: ${TTS_LOCAL:-false}
+      TTS_CACHE_DIR: /app/backend/data/tts_cache
+      HF_HOME: /app/backend/data/hf
     ports:
       - "8000:8000"
     volumes:

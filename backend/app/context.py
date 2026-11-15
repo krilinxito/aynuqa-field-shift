@@ -13,6 +13,7 @@ from app.loader import MLLoader
 from app.security import TokenIssuer
 from app.services.chat import ChatService
 from app.services.history import HistoryService
+from app.services.local_tts import LocalTts
 from app.services.sensors import SensorSimulator
 
 
@@ -26,6 +27,7 @@ class AppContext:
     chat: ChatService = field(init=False)
     snapshots: SnapshotStore | None = field(init=False)
     tokens: TokenIssuer = field(init=False)
+    local_tts: LocalTts = field(init=False)
 
     def __post_init__(self) -> None:
         self.db = Database(self.settings.database_file)
@@ -38,6 +40,10 @@ class AppContext:
             if self.settings.database_url
             else None
         )
+        self.local_tts = LocalTts(
+            self.settings.path(self.settings.tts_cache_dir),
+            self.settings.tts_local_models,
+        )
         self.tokens = TokenIssuer(
             self.settings.powersync_audience,
             self.settings.powersync_token_minutes,
@@ -46,6 +52,7 @@ class AppContext:
     def startup(self) -> None:
         self.db.initialize()
         self.loader.load_all()
+        self.local_tts.warm_up()
         if self.snapshots:
             self.snapshots.open()
             self.sync_offline_snapshots()

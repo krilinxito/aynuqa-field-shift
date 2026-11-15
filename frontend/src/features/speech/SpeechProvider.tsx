@@ -77,18 +77,52 @@ function adaptPhoneticsForLocalTts(text: string, lang: Language): string {
     .replace(/'/g, '')
 }
 
+/** Toques más seguidos que esto se toman como uno solo (doble toque sin querer). */
+const DOUBLE_TAP_MS = 400
+
+function isRemoteTtsEnabled(): boolean {
+  return (
+    import.meta.env.MODE !== 'test' &&
+    import.meta.env.VITE_DATA_MODE === 'api' &&
+    typeof Audio !== 'undefined'
+  )
+}
+
+function ttsUrl(text: string, lang: Language): string {
+  const base = (import.meta.env.VITE_API_BASE_URL || '/').replace(/\/$/, '')
+  return `${base}/api/tts?lang=${encodeURIComponent(lang)}&text=${encodeURIComponent(text.slice(0, 900))}`
+}
+
+/** Suelta un audio sin que sus eventos viejos vuelvan a disparar nada. */
+function detachAudio(audio: HTMLAudioElement) {
+  audio.onended = null
+  audio.onerror = null
+  audio.onplaying = null
+  audio.pause()
+  audio.removeAttribute('src')
+}
+
+interface SpeechProviderProps {
+  children: ReactNode
+  /** Solo para pruebas: fuerza o apaga la voz del servidor. */
+  remoteTts?: boolean
+}
+
 /**
- * Lee textos en voz alta siempre en español claro (y fonética andina para
- * Aymara y Quechua). Cuando hay conexión con el backend usa `/api/tts` para
- * garantizar voz clara en español latinoamericano aunque el celular tenga
- * configurado el motor local en inglés; sin señal usa `speechSynthesis`.
+ * Lee textos en voz alta. Con señal usa `/api/tts` (voz clara aunque el
+ * celular tenga el motor en inglés); sin señal o si falla, la voz del
+ * navegador. Cada lectura tiene un número propio: cuando la persona para o
+ * pide otra, los eventos de la lectura anterior se ignoran. Así un segundo
+ * toque nunca vuelve a arrancar la voz.
  */
-export function SpeechProvider({ children }: { children: ReactNode }) {
+export function SpeechProvider({ children, remoteTts }: SpeechProviderProps) {
   const { lang } = useLanguage()
   const [speakingId, setSpeakingId] = useState<string | null>(null)
+  const [loadingId, setLoadingId] = useState<string | null>(null)
   const audioRef = useRef<HTMLAudioElement | null>(null)
-  const canSpeak =
-    getSynthesis() !== null || typeof window !== 'undefined'
+  const requestRef = useRef(0)
+  const lastTapRef = useRef(0)
+  const canSpeak = typeof window !== 'undefined'
 
   useEffect(() => {
     const synthesis = getSynthesis()
@@ -107,29 +141,36 @@ export function SpeechProvider({ children }: { children: ReactNode }) {
     }
   }, [])
 
+  /** Corta todo y deja inválidos los eventos pendientes. */
   const stopAll = useCallback(() => {
+    requestRef.current += 1
     if (audioRef.current) {
-      audioRef.current.pause()
-      audioRef.current.src = ''
+      detachAudio(audioRef.current)
       audioRef.current = null
     }
     getSynthesis()?.cancel()
     setSpeakingId(null)
+    setLoadingId(null)
   }, [])
 
   useEffect(() => () => stopAll(), [stopAll])
 
   const speakWithBrowser = useCallback(
-    (id: string, text: string) => {
+    (request: number, id: string, text: string) => {
+      if (request !== requestRef.current) {
+        return
+      }
       const synthesis = getSynthesis()
       if (!synthesis) {
         setSpeakingId(null)
+        setLoadingId(null)
         return
       }
 
       synthesis.cancel()
-      const spokenText = adaptPhoneticsForLocalTts(text, lang)
-      const utterance = new SpeechSynthesisUtterance(spokenText)
+      const utterance = new SpeechSynthesisUtterance(
+        adaptPhoneticsForLocalTts(text, lang),
+      )
       const voice = pickSpanishVoice(synthesis)
 
       // Importante: nunca asignar `utterance.voice = null`, porque en Chrome/Android
@@ -143,69 +184,110 @@ export function SpeechProvider({ children }: { children: ReactNode }) {
 
       utterance.rate = 0.9
       utterance.pitch = 1.0
-      utterance.onend = () =>
-        setSpeakingId((current) => (current === id ? null : current))
-      utterance.onerror = utterance.onend
+      const finish = () => {
+        if (request === requestRef.current) {
+          setSpeakingId(null)
+        }
+      }
+      utterance.onend = finish
+      utterance.onerror = finish
 
+      setLoadingId(null)
       setSpeakingId(id)
       synthesis.speak(utterance)
     },
     [lang],
   )
 
-  const speak = useCallback(
+  const startSpeaking = useCallback(
     (id: string, text: string) => {
       stopAll()
-
-      const isTest = import.meta.env.MODE === 'test'
-      const isApiMode = import.meta.env.VITE_DATA_MODE === 'api'
+      const request = requestRef.current
+      const useRemote = remoteTts ?? isRemoteTtsEnabled()
       const isOnline =
         typeof navigator !== 'undefined' ? navigator.onLine : false
 
-      if (!isTest && isApiMode && isOnline && typeof Audio !== 'undefined') {
-        try {
-          const base = (import.meta.env.VITE_API_BASE_URL || '/').replace(
-            /\/$/,
-            '',
-          )
-          const url = `${base}/api/tts?lang=${encodeURIComponent(lang)}&text=${encodeURIComponent(text.slice(0, 900))}`
-          const audio = new Audio(url)
-          audioRef.current = audio
-          setSpeakingId(id)
-
-          audio.onended = () => {
-            setSpeakingId((current) => (current === id ? null : current))
-          }
-          audio.onerror = () => {
-            audioRef.current = null
-            speakWithBrowser(id, text)
-          }
-
-          void audio.play().catch(() => {
-            audioRef.current = null
-            speakWithBrowser(id, text)
-          })
-          return
-        } catch {
-          // Si falla Audio, usar la síntesis del navegador en español
-        }
+      if (!useRemote || !isOnline) {
+        speakWithBrowser(request, id, text)
+        return
       }
 
-      speakWithBrowser(id, text)
+      let fellBack = false
+      const fallback = () => {
+        // Una sola vez y solo si esta lectura sigue siendo la actual.
+        if (fellBack || request !== requestRef.current) {
+          return
+        }
+        fellBack = true
+        if (audioRef.current) {
+          detachAudio(audioRef.current)
+          audioRef.current = null
+        }
+        speakWithBrowser(request, id, text)
+      }
+
+      const audio = new Audio(ttsUrl(text, lang))
+      audioRef.current = audio
+      setLoadingId(id)
+      setSpeakingId(id)
+
+      audio.onplaying = () => {
+        if (request === requestRef.current) {
+          setLoadingId(null)
+        }
+      }
+      audio.onended = () => {
+        if (request === requestRef.current) {
+          audioRef.current = null
+          setSpeakingId(null)
+          setLoadingId(null)
+        }
+      }
+      audio.onerror = fallback
+
+      void audio.play().catch((error: unknown) => {
+        // Pausar mientras carga rechaza play() con AbortError: no es un fallo.
+        if (error instanceof DOMException && error.name === 'AbortError') {
+          return
+        }
+        fallback()
+      })
     },
-    [lang, speakWithBrowser, stopAll],
+    [lang, remoteTts, speakWithBrowser, stopAll],
   )
+
+  /** Ignora un segundo toque demasiado seguido. */
+  const acceptTap = useCallback(() => {
+    const now = Date.now()
+    if (now - lastTapRef.current < DOUBLE_TAP_MS) {
+      return false
+    }
+    lastTapRef.current = now
+    return true
+  }, [])
+
+  const speak = useCallback(
+    (id: string, text: string) => {
+      if (acceptTap()) {
+        startSpeaking(id, text)
+      }
+    },
+    [acceptTap, startSpeaking],
+  )
+
+  const stop = useCallback(() => {
+    if (acceptTap()) {
+      stopAll()
+    }
+  }, [acceptTap, stopAll])
 
   const value = useMemo<SpeechContextValue>(
     () => ({
-      state: { speakingId },
-      actions: {
-        speak,
-        stop: stopAll,
-      },
+      state: { speakingId, loadingId },
+      actions: { speak, stop },
       meta: { canSpeak },
     }),
-    [canSpeak, speak, speakingId, stopAll],
+    [canSpeak, loadingId, speak, speakingId, stop],
   )
 
   return <SpeechContext value={value}>{children}</SpeechContext>

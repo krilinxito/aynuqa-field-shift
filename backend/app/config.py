@@ -39,6 +39,10 @@ class Settings(BaseSettings):
 
     cors_origins: str = "*"
 
+    # Voz real en aymara/quechua (Meta MMS). Requiere requirements-tts.txt.
+    tts_local_models: bool = False
+    tts_cache_dir: str = "data/tts_cache"
+
     def path(self, value: str) -> Path:
         path = Path(value).expanduser()
         if path.is_absolute():

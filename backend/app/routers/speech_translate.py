@@ -57,7 +57,21 @@ def _split_tts_chunks(text: str, max_len: int = 175) -> list[str]:
 def tts_audio(
     text: str = Query(..., min_length=1, max_length=1200),
     lang: Literal["es", "ay", "qu"] = Query("es"),
+    ctx: AppContext = Depends(get_ctx),
 ) -> Response:
+    # Aymara y quechua: voz nativa (MMS) si está instalada; si no, fonética.
+    if lang != "es":
+        native = ctx.local_tts.synthesize(text, lang)
+        if native:
+            return Response(
+                content=native,
+                media_type="audio/wav",
+                headers={
+                    "Cache-Control": "public, max-age=86400",
+                    "X-Voice": "mms",
+                },
+            )
+
     spoken_text = BertIndigenousPipeline.phonetic_for_tts(text, lang)
     chunks = _split_tts_chunks(spoken_text)
     if not chunks:
@@ -87,7 +101,10 @@ def tts_audio(
     return Response(
         content=b"".join(audio_parts),
         media_type="audio/mpeg",
-        headers={"Cache-Control": "public, max-age=3600"},
+        headers={
+            "Cache-Control": "public, max-age=3600",
+            "X-Voice": "phonetic" if lang != "es" else "es",
+        },
     )
 
 
