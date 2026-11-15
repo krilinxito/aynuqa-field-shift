@@ -1,5 +1,7 @@
 # AYNUQA FIELD SHIFT — Plan de implementación
 
+> **Nota (14 nov 2026):** Las fases 03 en adelante de este documento fueron reemplazadas por la interfaz descrita en `README.md` (paleta del altiplano, cuatro pantallas, sin 3D). La capa de datos sigue vigente.
+
 > Fases 00–09 · Orden de construcción propuesto. Este documento no autoriza avanzar de fase automáticamente.
 
 ## 1. Estrategia de entrega

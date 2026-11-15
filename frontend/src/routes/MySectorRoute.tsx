@@ -40,9 +40,12 @@ export function MySectorRoute() {
       provenance={snapshot.provenance}
     >
       <article className={styles.page}>
-        <p className={`${styles.place} no-imprimir`}>
-          {snapshot.zone.name} ·{' '}
-          <Link to={{ pathname: '/sector', search }}>Cambiar sector</Link>
+        <p className={styles.place}>
+          {snapshot.zone.name}
+          <span className="no-imprimir">
+            {' · '}
+            <Link to={{ pathname: '/sector', search }}>Cambiar sector</Link>
+          </span>
         </p>
 
         <SectorInsight.Heading />

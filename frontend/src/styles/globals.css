@@ -120,6 +120,7 @@ a {
     --letra-base: 100%;
   }
 
+  html,
   body {
     background: #fff;
   }

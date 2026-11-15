@@ -1,5 +1,7 @@
 # AYNUQA FIELD SHIFT — Arquitectura frontend
 
+> **Nota (14 nov 2026):** Las rutas, el app shell y la estrategia Three.js de este documento fueron reemplazadas por la interfaz descrita en `README.md` (paleta del altiplano, cuatro pantallas, sin 3D). La capa de datos sigue vigente.
+
 > Fase 00 · Arquitectura propuesta. No crea componentes, servicios ni dependencias.
 
 ## 1. Objetivos arquitectónicos

@@ -6,20 +6,23 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: 'prompt',
+      // La app se actualiza sola: no se le pide nada a la persona.
+      registerType: 'autoUpdate',
       injectRegister: 'auto',
-      includeAssets: ['icons/aynuqa-mark.svg', 'icons/aynuqa-maskable.svg'],
+      includeAssets: ['icons/aynuqa-mark.svg'],
       manifest: {
         id: '/',
         name: 'Aynuqa Field Shift',
         short_name: 'Aynuqa',
-        description: 'Apoyo a decisiones agrícolas para la comunidad de Pumani.',
+        description:
+          'Ayuda para decidir la rotación de los sectores de la comunidad, con datos de la NASA.',
         lang: 'es',
-        start_url: '/territorio',
+        start_url: '/',
         scope: '/',
         display: 'standalone',
-        theme_color: '#F8F4F2',
-        background_color: '#F8F4F2',
+        orientation: 'portrait',
+        theme_color: '#1F4E79',
+        background_color: '#FBF3E4',
         icons: [
           {
             src: '/icons/icon-192.png',
@@ -45,7 +48,21 @@ export default defineConfig({
         cleanupOutdatedCaches: true,
         navigateFallback: '/index.html',
         globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
-        runtimeCaching: [],
+        // Sin señal se muestran los últimos datos guardados. El chat nunca
+        // se guarda: necesita señal y lo dice.
+        runtimeCaching: [
+          {
+            urlPattern: ({ url }) =>
+              url.pathname === '/api/sectors' || url.pathname === '/health',
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'aynuqa-datos',
+              networkTimeoutSeconds: 4,
+              expiration: { maxEntries: 8 },
+              cacheableResponse: { statuses: [200] },
+            },
+          },
+        ],
       },
       devOptions: {
         enabled: false,

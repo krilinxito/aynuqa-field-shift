@@ -11,6 +11,8 @@ import {
 import { chatErrorText } from './chatErrors'
 
 const maxLength = 1000
+// El asistente consulta varias herramientas antes de contestar: puede tardar.
+const chatTimeoutMs = 45_000
 
 interface ChatProviderProps {
   sectorId: string
@@ -66,7 +68,10 @@ export function ChatProvider({
 
       setIsSending(true)
       repository
-        .sendChat({ message, sector_id: sectorId, scenario })
+        .sendChat(
+          { message, sector_id: sectorId, scenario },
+          { timeoutMs: chatTimeoutMs },
+        )
         .then((response) => {
           append({
             role: 'assistant',

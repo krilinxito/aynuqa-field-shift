@@ -1,5 +1,7 @@
 # AYNUQA FIELD SHIFT — Especificación de diseño
 
+> **Nota (14 nov 2026):** La dirección visual y las pantallas de este documento fueron reemplazadas por la interfaz descrita en `README.md` (paleta del altiplano, cuatro pantallas, sin 3D). La capa de datos sigue vigente.
+
 > Fase 00 · Documento de dirección visual y experiencia. No contiene implementación.
 
 ## 1. Propósito y principios
