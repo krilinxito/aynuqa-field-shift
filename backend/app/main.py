@@ -12,7 +12,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.config import Settings, get_settings
 from app.context import AppContext
 from app.errors import install_error_handlers
-from app.routers import admin, backtest, chat, health, report, sectors
+from app.routers import admin, backtest, chat, health, report, sectors, speech_translate
 
 logging.basicConfig(
     level=os.getenv("LOG_LEVEL", "INFO"),
@@ -54,6 +54,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.include_router(chat.router)
     app.include_router(admin.router)
     app.include_router(report.router)
+    app.include_router(speech_translate.router)
     return app
 
 
