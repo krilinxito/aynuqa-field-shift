@@ -115,10 +115,14 @@ Con `VITE_DATA_MODE=mock` el chat solo contesta la primera pregunta sugerida del
 `vite.config.ts` reenvía `/api` y `/health` a `http://127.0.0.1:8000` y acepta dominios de ngrok. Con `VITE_API_BASE_URL=/` la app pide la API al mismo sitio que la sirve, así que basta un solo túnel:
 
 ```bash
-VITE_DATA_MODE=api VITE_API_BASE_URL=/ npm run build
+VITE_DATA_MODE=api VITE_API_BASE_URL=/ VITE_DEMO_DATA=true npm run build
 npx vite preview --port 4173
 ngrok http 4173
 ```
+
+En Git Bash de Windows hay que anteponer `MSYS2_ENV_CONV_EXCL=VITE_API_BASE_URL`, porque si no convierte `/` en una ruta de Windows.
+
+`VITE_DEMO_DATA=true` hace que la app diga "Datos de demostración" aunque la API marque los datos como reales. Úsalo cuando el backend sirva archivos de prueba (por ejemplo `ml/outputs_fake`), porque el backend etiqueta como `real` todo lo que carga de ML.
 
 Los íconos de la PWA se regeneran desde el sprite de la llama con `npm run generate:icons`.
 

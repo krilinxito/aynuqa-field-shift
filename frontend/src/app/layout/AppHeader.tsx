@@ -1,13 +1,13 @@
 import { useOnline } from '../../shared/hooks/useOnline'
 import { Chakana, Skyline } from '../../shared/sprites/Sprites'
-import { resolveDataMode } from '../status/systemStatus'
+import { isDemoData } from '../status/demoData'
 import { useTextSize } from '../textsize/textSizeContext'
 import styles from './AppHeader.module.css'
 
 /** Aviso corto: solo aparece cuando hay algo que la persona debe saber. */
 function StatusLine() {
   const isOnline = useOnline()
-  const isDemo = resolveDataMode(import.meta.env.VITE_DATA_MODE) === 'mock'
+  const isDemo = isDemoData()
 
   if (isOnline && !isDemo) {
     return null

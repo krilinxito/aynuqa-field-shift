@@ -1,3 +1,4 @@
+import { isDemoData } from '../../app/status/demoData'
 import type { ProvenanceViewModel } from '../../domain/presentationModels'
 import styles from './ZoneWeather.module.css'
 
@@ -9,7 +10,7 @@ export function Provenance({ provenance }: { provenance: ProvenanceViewModel }) 
         <strong>Datos simulados:</strong> los límites de los sectores y los años
         de descanso. El clima y el verdor vienen de satélites de la NASA.
       </p>
-      {provenance.dataSource === 'mock' ? (
+      {provenance.dataSource === 'mock' || isDemoData() ? (
         <p>
           <strong>Datos de demostración:</strong> estos números son de ejemplo.
         </p>

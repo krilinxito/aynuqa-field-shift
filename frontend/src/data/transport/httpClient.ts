@@ -29,7 +29,10 @@ export class HttpClient {
       throw new TypeError('La URL base debe utilizar HTTP o HTTPS.')
     }
 
-    this.#fetch = options.fetchImplementation ?? fetch
+    // En el navegador `fetch` exige llamarse sobre `window`: si se guarda
+    // suelto y se llama como método de esta clase falla con "Illegal invocation".
+    this.#fetch =
+      options.fetchImplementation ?? ((input, init) => fetch(input, init))
     this.#defaultTimeoutMs = options.timeoutMs ?? 10_000
   }
 
