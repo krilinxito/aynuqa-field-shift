@@ -112,7 +112,7 @@ You need **Docker Desktop** and **Node.js 20+**.
 ```bash
 # 1. Configuration
 cp .env.example .env                  # Docker Compose settings
-cp backend/.env.example backend/.env  # add LLM_API_KEY and LLM_MODEL for the chat
+cp backend/.env.example backend/.env  # only needed to run the backend without Docker
 
 # 2. Backend, PostgreSQL and PowerSync
 docker compose up --build -d
@@ -126,10 +126,14 @@ npm run dev
 
 Open the URL that Vite prints. Check that the backend is running at http://localhost:8000/health.
 
-- **Chat:** it needs `LLM_API_KEY` and `LLM_MODEL` (a Gemini Flash model). `docker-compose.yml` does not pass them to the backend container yet, so add them to the `backend` service's environment (or an `env_file`).
+- **Chat:** set `LLM_API_KEY` and `LLM_MODEL` (a Gemini Flash model) in the root `.env`; Docker Compose passes them to the backend.
 - **Offline mode:** set `VITE_POWERSYNC_ENABLED=true`. Details and an offline test are in [docs/OFFLINE_POWERSYNC.md](docs/OFFLINE_POWERSYNC.md).
 - **On a real phone:** see "Verla en el celular con el backend" in [frontend/README.md](frontend/README.md) for a one-tunnel setup with ngrok.
 - **Secrets** go only in `.env` files, never in the repo.
+
+## Deploy to a server
+
+The whole stack runs behind **one domain** with [Dokploy](https://dokploy.com/) and `docker-compose.dokploy.yml`: the app, the API (`/api`) and offline sync (`/powersync`). Step-by-step guide (in Spanish): [docs/DEPLOY_DOKPLOY.md](docs/DEPLOY_DOKPLOY.md).
 
 ## Repository structure
 
@@ -139,7 +143,8 @@ ml/          Data download, features, models, validation and JSON outputs
 backend/     FastAPI API, PostgreSQL, offline snapshots and PowerSync auth
 frontend/    Installable phone app (React PWA)
 powersync/   Self-hosted PowerSync service and sync rules
-docs/        Pitch, scripts, slides (docs/pitch/) and screenshots
+docs/        Pitch, scripts, slides (docs/pitch/), screenshots and deploy guide
+deploy/      Dockerfiles for Postgres and PowerSync used in production
 ```
 
 Each folder has its own README. Team rules for working on the repo are in `CLAUDE.md`.
