@@ -125,6 +125,17 @@ export interface UiStrings {
   decisionPending: string
   decisionSynced: string
   decisionDelete: string
+
+  // Modo avanzado y llamita
+  advancedMode: string
+  mascotTalkative: string
+  mascotAutoSpeak: string
+  mascotNotify: string
+  advancedTitle: string
+  advancedZoneTitle: string
+  advancedBacktestTitle: string
+  advancedNdviTitle: string
+  advancedTableToggle: string
 }
 
 export const UI_STRINGS: Record<Language, UiStrings> = {
@@ -244,6 +255,15 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
     decisionPending: 'Se enviará cuando haya señal',
     decisionSynced: 'Enviada',
     decisionDelete: 'Borrar',
+    advancedMode: 'Modo avanzado (números técnicos)',
+    mascotTalkative: 'Llamita habladora',
+    mascotAutoSpeak: 'Que la llamita hable en voz alta sola',
+    mascotNotify: 'Que la llamita me avise (notificación)',
+    advancedTitle: 'Números técnicos',
+    advancedZoneTitle: 'Zona: clima y El Niño (igual para todos los sectores)',
+    advancedBacktestTitle: '¿Acertó el modelo en años pasados? (backtest)',
+    advancedNdviTitle: 'Verdor del sector (NDVI) mes a mes',
+    advancedTableToggle: 'Ver los números en tabla',
   },
   ay: {
     largeText: "Jach'a qillqa",
@@ -360,6 +380,15 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
     decisionPending: 'Señal utjkani ukhaw apayasini',
     decisionSynced: 'Apayatawa',
     decisionDelete: 'Chhaqtayaña',
+    advancedMode: 'Juk’amp yatxatäwi (jakhunaka)',
+    mascotTalkative: 'Arst’iri qarwa',
+    mascotAutoSpeak: 'Qarwax jach’at arsupan',
+    mascotNotify: 'Qarwax yatiyitapan',
+    advancedTitle: 'Jakhunaka (técnico)',
+    advancedZoneTitle: 'Marka: pacha ukat El Niño (taqi suyutakix pachpa)',
+    advancedBacktestTitle: '¿Nayra maranakan modelox atinti? (backtest)',
+    advancedNdviTitle: 'Suyun ch’uxña (NDVI) sapa phaxsi',
+    advancedTableToggle: 'Jakhunak tablan uñjaña',
   },
   qu: {
     largeText: 'Hatun qillqa',
@@ -476,6 +505,15 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
     decisionPending: 'Señal kaptin apachikunqa',
     decisionSynced: 'Apachisqañam',
     decisionDelete: 'Pichay',
+    advancedMode: 'Astawan yachay (yupaykuna)',
+    mascotTalkative: 'Rimaq llamita',
+    mascotAutoSpeak: 'Llamita kunkanwan rimachun',
+    mascotNotify: 'Llamita willawachun',
+    advancedTitle: 'Yupaykuna (técnico)',
+    advancedZoneTitle: 'Ayllu: pacha chaymanta El Niño (llapan suyupaq kaqlla)',
+    advancedBacktestTitle: '¿Ñawpa watakunapi modelo atinchu? (backtest)',
+    advancedNdviTitle: 'Suyuq q’umir kaynin (NDVI) sapa killa',
+    advancedTableToggle: 'Yupaykunata tablapi qhaway',
   },
 }
 

@@ -1,5 +1,6 @@
 import { SpeechProvider } from '../../features/speech/SpeechProvider'
 import { LanguageProvider } from '../i18n/LanguageProvider'
+import { PreferencesProvider } from '../preferences/PreferencesProvider'
 import { AppShell } from '../layout/AppShell'
 import { TextSizeProvider } from '../textsize/TextSizeProvider'
 import { AppStateProvider } from './AppStateProvider'
@@ -11,9 +12,11 @@ export function AppProviders() {
       <AppStateProvider>
         <LanguageProvider>
           <TextSizeProvider>
-            <SpeechProvider>
-              <AppShell />
-            </SpeechProvider>
+            <PreferencesProvider>
+              <SpeechProvider>
+                <AppShell />
+              </SpeechProvider>
+            </PreferencesProvider>
           </TextSizeProvider>
         </LanguageProvider>
       </AppStateProvider>

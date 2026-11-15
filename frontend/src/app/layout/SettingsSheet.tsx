@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 
 import { useLanguage, type Language } from '../i18n/languageContext'
+import { usePreferences, type Preferences } from '../preferences/preferencesContext'
 import { InstallPwaButton } from '../pwa/InstallPwaButton'
 import { useTextSize } from '../textsize/textSizeContext'
 import styles from './SettingsSheet.module.css'
@@ -21,6 +22,12 @@ export function SettingsSheet({ id, onClose }: SettingsSheetProps) {
   const { lang, setLang, t } = useLanguage()
   const { state, actions } = useTextSize()
   const isLarge = state.size === 'grande'
+  const { preferences, setPreference } = usePreferences()
+  const switches: ReadonlyArray<{ key: keyof Preferences; label: string }> = [
+    { key: 'advanced', label: t.advancedMode },
+    { key: 'mascotTalkative', label: t.mascotTalkative },
+    { key: 'mascotAutoSpeak', label: t.mascotAutoSpeak },
+  ]
 
   return (
     <section
@@ -59,6 +66,24 @@ export function SettingsSheet({ id, onClose }: SettingsSheetProps) {
             </span>
             {isLarge ? t.normalText : t.largeText}
           </button>
+        </div>
+
+        <div className={styles.group}>
+          {switches.map((item) => (
+            <button
+              key={item.key}
+              type="button"
+              role="switch"
+              aria-checked={preferences[item.key]}
+              className={styles.switch}
+              onClick={() => setPreference(item.key, !preferences[item.key])}
+            >
+              <span className={styles.switchTrack} aria-hidden="true">
+                <span className={styles.switchThumb} />
+              </span>
+              <span>{item.label}</span>
+            </button>
+          ))}
         </div>
 
         <div className={styles.group}>

@@ -55,6 +55,23 @@ def _greenness_words(anomaly: float | None) -> str:
     return "el verdor del campo estuvo mejor de lo normal"
 
 
+ADVANCED_INSTRUCTION = (
+    "\nMODO AVANZADO: la persona pidió detalles técnicos. Puedes usar los números "
+    "exactos que devuelven las herramientas (puntaje de riesgo de 0 a 1 con su "
+    "intervalo, confianza, NDVI y su anomalía, residuo RESTREND, RONI, factores con "
+    "su peso) y nombrarlos. Hasta 90 palabras. No inventes ni calcules números que "
+    "las herramientas no den, y di siempre la confianza."
+)
+
+
+def extract_mode_tag(message: str) -> tuple[bool, str]:
+    """Quita el prefijo opcional [modo:avanzado] que envía el front."""
+    match = re.match(r"^\[modo:avanzado\]\s*(.*)$", message, flags=re.DOTALL)
+    if match:
+        return True, match.group(1)
+    return False, message
+
+
 def _clean_technical_terms(text: str) -> str:
     """Garantiza que no queden siglas técnicas como NDVI o RONI en la respuesta."""
     cleaned = re.sub(r"\bNDVI\b", "verdor del campo", text, flags=re.IGNORECASE)
@@ -199,6 +216,7 @@ class ChatService:
         tracker = SourceTracker()
         registry = ToolRegistry(self.ctx, tracker)
         pipeline = BertIndigenousPipeline(self.ctx)
+        advanced, message = extract_mode_tag(message)
         user_lang, clean_message = pipeline.extract_lang_tag(message)
         selected_scenario = scenario or "nino"
         sectors = self.ctx.db.sector_ids()
@@ -233,7 +251,8 @@ class ChatService:
             f"- Situación: {'El Niño activo' if selected_scenario == 'nino' else 'año normal'}\n"
             f"- Sectores de la comunidad: {', '.join(sectors) if sectors else 'no hay datos'}\n"
             f"{preloaded}"
-            f"{lang_instruction}\n"
+            f"{lang_instruction}"
+            f"{ADVANCED_INSTRUCTION if advanced else ''}\n"
             "\nPregunta de la persona mayor:\n"
             f"{clean_message}{es_bridge}"
         )
@@ -247,7 +266,7 @@ class ChatService:
             system_instruction=SYSTEM_PROMPT,
             tools=[types.Tool(function_declarations=tool_declarations())],
             temperature=0.35,
-            max_output_tokens=350,
+            max_output_tokens=500 if advanced else 350,
             thinking_config=(
                 types.ThinkingConfig(thinking_budget=0)
                 if self._is_real_client
@@ -263,7 +282,7 @@ class ChatService:
                 raw_answer = (getattr(response, "text", None) or "").strip()
                 answer = (
                     _clean_technical_terms(raw_answer)
-                    if self._is_real_client
+                    if self._is_real_client and not advanced
                     else raw_answer
                 )
                 return self._result(answer or "No tengo ese dato.", tracker)

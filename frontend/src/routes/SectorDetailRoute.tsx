@@ -5,6 +5,7 @@ import { getPersistentSearch } from '../app/navigation/persistentSearch'
 import { useAppState } from '../app/providers/appStateContext'
 import { writeUrlState } from '../app/state/urlState'
 import { useSelectedSector } from '../features/data/useSelectedSector'
+import { AdvancedOnly, AdvancedSectorPanel } from '../features/advanced/AdvancedPanels'
 import { DecisionPanel } from '../features/decisions/DecisionPanel'
 import { SectorInsight } from '../features/insight'
 import { ScenarioSwitch } from '../features/scenario/ScenarioSwitch'
@@ -67,6 +68,9 @@ export function SectorDetailRoute() {
         <SectorInsight.Heading />
         <ScenarioSwitch />
         <SectorInsight.Recommendation />
+        <AdvancedOnly>
+          <AdvancedSectorPanel sector={sector} />
+        </AdvancedOnly>
         <SectorInsight.Listen />
 
         <div className="no-imprimir">

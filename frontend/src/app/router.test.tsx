@@ -36,8 +36,13 @@ describe('recorrido principal', () => {
   it('entra directo a la comunidad con datos, sin obligar a elegir', async () => {
     const router = renderRoute('/')
 
+    // Primera prueba: la ruta perezosa todavía no está en caché.
     expect(
-      await screen.findByRole('heading', { level: 1, name: 'Pumani' }),
+      await screen.findByRole(
+        'heading',
+        { level: 1, name: 'Pumani' },
+        { timeout: 4000 },
+      ),
     ).toBeInTheDocument()
     expect(router.state.location.pathname).toBe('/mi-comunidad')
     // La barra de navegación está siempre.
@@ -351,6 +356,27 @@ describe('letra grande, idiomas (Aymara / Quechua) y botón de descarga PWA', ()
     expect(
       screen.getByText(/Para guardar Aynuqa en la pantalla de su celular/),
     ).toBeInTheDocument()
+  })
+})
+
+describe('modo avanzado', () => {
+  beforeEach(rememberCommunity)
+
+  it('se enciende en Ajustes y muestra los números técnicos del sector', async () => {
+    const user = userEvent.setup()
+    renderRoute('/sector?sector=S1&scenario=nino')
+
+    await screen.findByRole('heading', { level: 1, name: 'Sector 1' })
+    expect(screen.queryByText(/Riesgo de sequía \(0 a 1\)/)).not.toBeInTheDocument()
+
+    await openSettings(user)
+    await user.click(
+      screen.getByRole('switch', { name: 'Modo avanzado (números técnicos)' }),
+    )
+
+    expect(screen.getByText(/Riesgo de sequía \(0 a 1\)/)).toBeInTheDocument()
+    expect(screen.getByText(/Residuo RESTREND/)).toBeInTheDocument()
+    expect(localStorage.getItem('aynuqa:preferences')).toContain('"advanced":true')
   })
 })
 

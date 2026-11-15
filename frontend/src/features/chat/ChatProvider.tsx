@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useRef, useState, type ReactNode } from 'react'
 
+import { usePreferences } from '../../app/preferences/preferencesContext'
 import { useLanguage } from '../../app/i18n/languageContext'
 import { useDataLayer } from '../../app/providers/dataRepositoryContext'
 import type { Scenario } from '../../data/repositories/DataRepository'
@@ -35,6 +36,7 @@ export function ChatProvider({
 }: ChatProviderProps) {
   const { repository } = useDataLayer()
   const { lang } = useLanguage()
+  const { preferences } = usePreferences()
   const isApiMode =
     (import.meta.env.VITE_DATA_MODE ?? '').toLowerCase() === 'api'
   const isOnline = useOnline()
@@ -72,10 +74,11 @@ export function ChatProvider({
       // En modo API, si el idioma activo es Aymara o Quechua, anteponemos
       // [lang:ay] o [lang:qu] para que el pipeline BERT del backend responda
       // en ese idioma sin alterar el schema JSON del contrato.
-      const outboundMessage =
-        isApiMode && lang !== 'es'
-          ? `[lang:${lang}] ${message}`.slice(0, maxLength)
-          : message
+      // Con el modo avanzado, [modo:avanzado] pide números técnicos.
+      const tags = isApiMode
+        ? `${preferences.advanced ? '[modo:avanzado] ' : ''}${lang !== 'es' ? `[lang:${lang}] ` : ''}`
+        : ''
+      const outboundMessage = `${tags}${message}`.slice(0, maxLength)
 
       setIsSending(true)
       repository
@@ -97,7 +100,17 @@ export function ChatProvider({
         })
         .finally(() => setIsSending(false))
     },
-    [append, isApiMode, isOnline, isSending, lang, repository, scenario, sectorId],
+    [
+      append,
+      isApiMode,
+      isOnline,
+      isSending,
+      lang,
+      preferences.advanced,
+      repository,
+      scenario,
+      sectorId,
+    ],
   )
 
   const suggestions = useMemo(() => {

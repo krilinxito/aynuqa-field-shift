@@ -6,6 +6,8 @@
 export const storageKeys = {
   community: 'aynuqa:community',
   textSize: 'aynuqa:text-size',
+  preferences: 'aynuqa:preferences',
+  mascot: 'aynuqa:mascot',
 } as const
 
 export function readStored(key: string): string | null {

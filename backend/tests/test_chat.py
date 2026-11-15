@@ -223,3 +223,10 @@ def test_chat_openapi_documents_tool_calling(client: TestClient) -> None:
         "get_sensors",
         "get_twin_precedent",
     ]
+
+
+def test_extract_mode_tag() -> None:
+    from app.services.chat import extract_mode_tag
+
+    assert extract_mode_tag("[modo:avanzado] [lang:ay] ¿riesgo?") == (True, "[lang:ay] ¿riesgo?")
+    assert extract_mode_tag("¿riesgo?") == (False, "¿riesgo?")

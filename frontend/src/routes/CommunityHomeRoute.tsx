@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom'
 import { useLanguage } from '../app/i18n/languageContext'
 import { useAppState } from '../app/providers/appStateContext'
 import { writeUrlState } from '../app/state/urlState'
+import {
+  AdvancedBacktestPanel,
+  AdvancedOnly,
+  AdvancedZonePanel,
+} from '../features/advanced/AdvancedPanels'
 import { CommunityOverview } from '../features/community'
 import { useSectorSnapshot } from '../features/data/useSectorSnapshot'
 import { ScenarioSwitch } from '../features/scenario/ScenarioSwitch'
@@ -49,6 +54,10 @@ export function CommunityHomeRoute() {
         <ScenarioSwitch />
         <CommunityOverview.Listen />
         <CommunityOverview.Actions />
+        <AdvancedOnly>
+          <AdvancedZonePanel zone={snapshot.zone} />
+          <AdvancedBacktestPanel />
+        </AdvancedOnly>
 
         <div className="no-imprimir">
           <PrimaryLink to={{ pathname: '/preguntar', search }}>
