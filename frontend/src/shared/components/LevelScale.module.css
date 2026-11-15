@@ -1,0 +1,66 @@
+.bars {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 0.3rem;
+  block-size: 2.4rem;
+  flex: none;
+}
+
+.bar {
+  inline-size: 0.85rem;
+  border: 2px solid var(--color-tierra);
+  border-radius: 3px 3px 0 0;
+  background: var(--color-lana);
+  transform-origin: bottom;
+  animation: subirBarra 0.4s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+.bar:nth-child(1) {
+  block-size: 40%;
+  animation-delay: 0.05s;
+}
+
+.bar:nth-child(2) {
+  block-size: 70%;
+  animation-delay: 0.12s;
+}
+
+.bar:nth-child(3) {
+  block-size: 100%;
+  animation-delay: 0.2s;
+}
+
+@keyframes subirBarra {
+  from {
+    transform: scaleY(0.2);
+    opacity: 0.4;
+  }
+
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+.riskLow .filled {
+  background: var(--color-nivel-bajo);
+}
+
+.riskMedium .filled {
+  background: var(--color-nivel-medio);
+}
+
+.riskHigh .filled {
+  background: var(--color-nivel-alto);
+}
+
+.recovery .filled {
+  background: var(--color-totora);
+}
+
+@media print {
+  .filled {
+    background: var(--color-tierra) !important;
+    print-color-adjust: exact;
+  }
+}

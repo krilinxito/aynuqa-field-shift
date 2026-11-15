@@ -1,0 +1,260 @@
+{
+  "updated_at": "2026-11-15T00:23:07-04:00",
+  "data_source": "real",
+  "event": "2020-22",
+  "event_type": "nina",
+  "held_out": true,
+  "zone": {
+    "id": "pumani",
+    "series": [
+      {
+        "date": "2020-07",
+        "roni": -0.76,
+        "predicted_risk": null,
+        "observed_ndvi_anomaly": null,
+        "precip_anomaly_pct": -82.33
+      },
+      {
+        "date": "2020-08",
+        "roni": -0.85,
+        "predicted_risk": null,
+        "observed_ndvi_anomaly": 1.2962,
+        "precip_anomaly_pct": -43.08
+      },
+      {
+        "date": "2020-09",
+        "roni": -1.16,
+        "predicted_risk": null,
+        "observed_ndvi_anomaly": 1.6816,
+        "precip_anomaly_pct": 5.73
+      },
+      {
+        "date": "2020-10",
+        "roni": -1.37,
+        "predicted_risk": 0.2943,
+        "observed_ndvi_anomaly": null,
+        "precip_anomaly_pct": -41.31
+      },
+      {
+        "date": "2020-11",
+        "roni": -1.46,
+        "predicted_risk": 0.2943,
+        "observed_ndvi_anomaly": null,
+        "precip_anomaly_pct": -54.99
+      },
+      {
+        "date": "2020-12",
+        "roni": -1.39,
+        "predicted_risk": 0.2943,
+        "observed_ndvi_anomaly": null,
+        "precip_anomaly_pct": -17.78
+      },
+      {
+        "date": "2021-01",
+        "roni": -1.32,
+        "predicted_risk": 0.2943,
+        "observed_ndvi_anomaly": -0.6197,
+        "precip_anomaly_pct": -11.41
+      },
+      {
+        "date": "2021-02",
+        "roni": -1.18,
+        "predicted_risk": 0.2943,
+        "observed_ndvi_anomaly": -0.7425,
+        "precip_anomaly_pct": -46.35
+      },
+      {
+        "date": "2021-03",
+        "roni": -1.08,
+        "predicted_risk": 0.2943,
+        "observed_ndvi_anomaly": -0.3712,
+        "precip_anomaly_pct": 27.36
+      },
+      {
+        "date": "2021-04",
+        "roni": -0.89,
+        "predicted_risk": 0.2943,
+        "observed_ndvi_anomaly": -0.1972,
+        "precip_anomaly_pct": -12.57
+      },
+      {
+        "date": "2021-05",
+        "roni": -0.68,
+        "predicted_risk": 0.2943,
+        "observed_ndvi_anomaly": null,
+        "precip_anomaly_pct": -43.89
+      },
+      {
+        "date": "2021-06",
+        "roni": -0.57,
+        "predicted_risk": 0.2943,
+        "observed_ndvi_anomaly": null,
+        "precip_anomaly_pct": -60.15
+      },
+      {
+        "date": "2021-07",
+        "roni": -0.6,
+        "predicted_risk": null,
+        "observed_ndvi_anomaly": null,
+        "precip_anomaly_pct": -12.83
+      },
+      {
+        "date": "2021-08",
+        "roni": -0.76,
+        "predicted_risk": null,
+        "observed_ndvi_anomaly": -0.3616,
+        "precip_anomaly_pct": 83.08
+      },
+      {
+        "date": "2021-09",
+        "roni": -0.95,
+        "predicted_risk": null,
+        "observed_ndvi_anomaly": -0.5228,
+        "precip_anomaly_pct": -32.94
+      },
+      {
+        "date": "2021-10",
+        "roni": -1.08,
+        "predicted_risk": 0.2653,
+        "observed_ndvi_anomaly": null,
+        "precip_anomaly_pct": -15.44
+      },
+      {
+        "date": "2021-11",
+        "roni": -1.24,
+        "predicted_risk": 0.2653,
+        "observed_ndvi_anomaly": null,
+        "precip_anomaly_pct": 4.56
+      },
+      {
+        "date": "2021-12",
+        "roni": -1.22,
+        "predicted_risk": 0.2653,
+        "observed_ndvi_anomaly": null,
+        "precip_anomaly_pct": 87.05
+      },
+      {
+        "date": "2022-01",
+        "roni": -1.18,
+        "predicted_risk": 0.2653,
+        "observed_ndvi_anomaly": 1.0931,
+        "precip_anomaly_pct": -17.46
+      },
+      {
+        "date": "2022-02",
+        "roni": -1.13,
+        "predicted_risk": 0.2653,
+        "observed_ndvi_anomaly": 1.042,
+        "precip_anomaly_pct": -2.87
+      },
+      {
+        "date": "2022-03",
+        "roni": -1.19,
+        "predicted_risk": 0.2653,
+        "observed_ndvi_anomaly": 1.0396,
+        "precip_anomaly_pct": 3.52
+      },
+      {
+        "date": "2022-04",
+        "roni": -1.26,
+        "predicted_risk": 0.2653,
+        "observed_ndvi_anomaly": 0.0439,
+        "precip_anomaly_pct": 23.41
+      },
+      {
+        "date": "2022-05",
+        "roni": -1.17,
+        "predicted_risk": 0.2653,
+        "observed_ndvi_anomaly": null,
+        "precip_anomaly_pct": -89.74
+      },
+      {
+        "date": "2022-06",
+        "roni": -0.95,
+        "predicted_risk": 0.2653,
+        "observed_ndvi_anomaly": null,
+        "precip_anomaly_pct": -69.77
+      }
+    ],
+    "mean_predicted_risk": 0.2798,
+    "mean_observed_ndvi_anomaly": 0.1357,
+    "metric": {
+      "spearman": 0.3244,
+      "n": 26,
+      "note": "Spearman entre el riesgo predicho y la anomalía de NDVI de febrero a abril en las 26 campañas de Pumani, cada una predicha con un modelo que no la vio. Se espera un valor negativo: más riesgo, menos verdor. La serie mensual repite el pronóstico de cada campaña desde octubre; de julio a septiembre aún no hay pronóstico."
+    }
+  },
+  "per_sector": [
+    {
+      "sector_id": "S1",
+      "predicted_risk": 0.2736,
+      "observed_ndvi_anomaly": 0.0395
+    },
+    {
+      "sector_id": "S2",
+      "predicted_risk": 0.2921,
+      "observed_ndvi_anomaly": 0.202
+    },
+    {
+      "sector_id": "S3",
+      "predicted_risk": 0.3037,
+      "observed_ndvi_anomaly": -0.4015
+    },
+    {
+      "sector_id": "S4",
+      "predicted_risk": 0.3026,
+      "observed_ndvi_anomaly": -0.5785
+    },
+    {
+      "sector_id": "S5",
+      "predicted_risk": 0.3097,
+      "observed_ndvi_anomaly": 0.149
+    },
+    {
+      "sector_id": "S6",
+      "predicted_risk": 0.3065,
+      "observed_ndvi_anomaly": 0.2165
+    },
+    {
+      "sector_id": "S7",
+      "predicted_risk": 0.2638,
+      "observed_ndvi_anomaly": 0.334
+    },
+    {
+      "sector_id": "S8",
+      "predicted_risk": 0.2937,
+      "observed_ndvi_anomaly": 0.093
+    },
+    {
+      "sector_id": "S9",
+      "predicted_risk": 0.2778,
+      "observed_ndvi_anomaly": 0.2975
+    },
+    {
+      "sector_id": "S10",
+      "predicted_risk": 0.2666,
+      "observed_ndvi_anomaly": 0.313
+    },
+    {
+      "sector_id": "S11",
+      "predicted_risk": 0.2383,
+      "observed_ndvi_anomaly": 0.439
+    },
+    {
+      "sector_id": "S12",
+      "predicted_risk": 0.2502,
+      "observed_ndvi_anomaly": 0.3745
+    },
+    {
+      "sector_id": "S13",
+      "predicted_risk": 0.2591,
+      "observed_ndvi_anomaly": 0.2865
+    }
+  ],
+  "per_sector_metric": {
+    "spearman": -0.7473,
+    "n": 13,
+    "note": "Con 13 sectores la correlación no es confiable. Es evidencia secundaria (solo NDVI, sin diferencias climáticas entre sectores)."
+  },
+  "note": "Evento 2020-22 fuera del entrenamiento (todas las zonas). RMSE evento: LGB=0.973, lineal(roni_lag_0)=0.996, cero=0.992 (supera baselines). LightGBM NO supera ambas baselines en season (RMSE LGB=0.8817, lineal=0.7767, cero=0.7368). Resultado reportado tal cual. LightGBM supera ambas baselines en zone_id (RMSE LGB=0.5633 < lineal=0.7332, cero=0.7368)."
+}

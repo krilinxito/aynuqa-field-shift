@@ -1,0 +1,129 @@
+.card {
+  background: var(--color-nieve);
+  border: 2px solid var(--color-tierra);
+  border-radius: var(--radio);
+  box-shadow: 0 3px 0 var(--color-linea);
+  overflow: hidden;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.card[data-open='true'] {
+  box-shadow: 0 4px 0 var(--color-tierra);
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  inline-size: 100%;
+  min-block-size: 4.5rem;
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-tierra);
+  background: var(--color-nieve);
+  border: 0;
+  text-align: start;
+  transition: background-color 0.2s ease;
+}
+
+.trigger:hover {
+  background: var(--color-lana);
+}
+
+.trigger:active {
+  background: var(--color-lana-oscura);
+  transform: scale(0.99);
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+
+.headingText {
+  display: grid;
+  gap: 0.15rem;
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.title {
+  font-family: var(--font-titulo);
+  font-size: 1.3rem;
+  font-style: italic;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.subtitle {
+  color: var(--color-tierra-suave);
+  font-size: var(--size-pequeno);
+  font-weight: 400;
+}
+
+.badge {
+  flex: none;
+  padding: var(--space-1) var(--space-3);
+  color: var(--color-nieve);
+  background: var(--color-cielo);
+  border-radius: 999px;
+  font-size: var(--size-pequeno);
+  font-weight: 700;
+  text-align: center;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.card[data-open='true'] .badge {
+  background: var(--color-tierra);
+}
+
+.content {
+  padding: var(--space-4);
+  border-block-start: 2px solid var(--color-linea);
+  background: var(--color-lana);
+  animation: abrirPaso 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes abrirPaso {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* En celulares angostos el título no se aprieta: la insignia baja a otra fila. */
+@media (max-width: 26rem) {
+  .trigger {
+    flex-wrap: wrap;
+  }
+
+  .headingText {
+    flex: 1 1 9rem;
+  }
+
+  .badge {
+    margin-inline-start: auto;
+  }
+}
+
+@media print {
+  .card {
+    border: 0;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  .content {
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Decisión de la comunidad sobre un sector (PUT /api/decisions/{id})",
+  "description": "Lo que la asamblea decidió hacer. La escribe la persona en el celular; no es una predicción. Puede seguir o no la recomendación.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F-]{36}$",
+      "description": "UUID creado en el celular, para poder guardar sin señal."
+    },
+    "community_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "sector_id": {
+      "type": "string",
+      "pattern": "^S\\d+$"
+    },
+    "scenario": {
+      "enum": ["normal", "nino"]
+    },
+    "action": {
+      "enum": ["open", "extend_rest", "start_rest", "keep_cultivating", "other"]
+    },
+    "recommended_action": {
+      "enum": ["open", "extend_rest", "start_rest", "keep_cultivating", null]
+    },
+    "follows_recommendation": {
+      "type": "boolean"
+    },
+    "note": {
+      "type": ["string", "null"],
+      "maxLength": 500
+    },
+    "decided_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "id",
+    "community_id",
+    "sector_id",
+    "scenario",
+    "action",
+    "recommended_action",
+    "follows_recommendation",
+    "note",
+    "decided_at"
+  ],
+  "additionalProperties": false
+}

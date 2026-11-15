@@ -2,7 +2,15 @@
 
 Equipo Back. Rama: `team/back`.
 
-API con FastAPI y SQLite que cumple `contracts/`.
+API con FastAPI y SQLite que cumple `contracts/`. Para el modo offline publica las últimas instantáneas en PostgreSQL; PowerSync las replica al SQLite local de cada navegador mediante `@powersync/web`.
+
+## Contexto del plan
+
+El plan completo del equipo (sacado de `aynuqa-plan-Hackaton.pdf`) está en
+[`BACKEND_PLAN.md`](BACKEND_PLAN.md). Léelo antes de empezar: incluye los
+requisitos M/S/C, la integración ML → SQLite, las reglas del simulador de
+sensores y el chat con function calling. Donde el plan y este README difieren
+(sección 10 del plan), manda este README: esas decisiones ya están resueltas.
 
 ## Regla principal
 
@@ -14,12 +22,13 @@ Imprescindible:
 
 - Todos los endpoints de `contracts/api.md`; al inicio sirven los ejemplos (mock) y luego los datos reales.
 - Carga de los archivos de ML en SQLite (ver "Integración con ML"), con tests de `jsonschema`.
-- Cliente de NASA POWER solo para los días recientes (ver "Caché de NASA POWER").
 - Simulador de sensores (ver "Simulador de sensores").
 - `POST /api/chat` con Gemini y cinco herramientas (ver "Chat").
 - CORS, `.env`, `/health` y errores claros.
 
 Deseable: cliente `earthaccess` para IMERG y SMAP, reporte para la asamblea (markdown o PDF), Docker compose.
+
+Implementado como extra: reporte Markdown/HTML y Docker compose. `earthaccess` no se implementó: IMERG, CHIRPS y SMAP los descarga ML.
 
 Si sobra tiempo: canal de Telegram.
 
@@ -43,14 +52,9 @@ Cómo se cargan:
 
 `/history` no hace ningún join: `history.json` ya trae el clima de la zona, el RONI y el NDVI por sector. `/backtest` devuelve las métricas tal como las exportó ML.
 
-## Caché de NASA POWER
+## Sin datos externos
 
-El histórico desde 2000 es de ML. El cliente de Back solo cubre los días posteriores a la última fecha de `history.json`, para mostrar el estado reciente de la zona.
-
-- Consulta `daily/point` con `T2M`, `PRECTOTCORR`, `GWETROOT` y `ALLSKY_SFC_SW_DWN`, una sola vez para la zona (no por sector).
-- Tabla `power_cache` con clave primaria `(lat, lon, parameter, date)`; `lat` y `lon` redondeadas a 2 decimales. Columnas: `value` y `fetched_at`.
-- Expiración: las filas con fecha de más de 90 días no caducan. Las más recientes se vuelven a pedir si `fetched_at` tiene más de 24 horas, porque NASA POWER corrige los datos recientes.
-- NASA POWER marca los datos faltantes con `-999`: se guardan como `null`.
+Back no consulta NASA POWER ni otra fuente: la historia termina en el último mes que exportó ML. ML calcula la lluvia con IMERG (Final) y CHIRPS, validados con la estación SENAMHI Ayo Ayo; un mes parcial de NASA POWER sería de otra fuente y de pocos días, y en el gráfico parecería sequía. Para tener meses nuevos, ML vuelve a correr y llama a `POST /api/admin/reload`.
 
 ## Simulador de sensores
 
@@ -68,7 +72,7 @@ Todo simulado, siempre con `is_simulated: true`.
   - Helada: en un sector, entre las 04:00 y las 06:30, la temperatura baja de 0.
   - Estrés hídrico: en otro sector, entre las 11:00 y las 16:00, se cumplen las dos condiciones de arriba.
 
-Ojo con las unidades: aquí `soil_moisture` es un porcentaje, y en el histórico viene de `GWETROOT`, que va de 0 a 1. El contrato debe dejar clara la unidad de cada uno.
+Ojo con las unidades: en los sensores `soil_moisture_pct` es un porcentaje, y en el histórico `soil_moisture` viene de `GWETROOT` (humedad relativa de la zona de raíces), de 0 a 1.
 
 ## Chat
 
@@ -87,6 +91,8 @@ Herramientas:
 | `get_history(sector_id, from, to)` | Serie mensual |
 | `get_sensors(sector_id, hours)` | Lecturas simuladas |
 | `get_twin_precedent(sector_id, scenario)` | Precedente en una tierra gemela, leído de `analogs.json` |
+
+El contrato del endpoint, las herramientas y los errores está en `contracts/api.md`. La respuesta tipada `ChatResponse` y el tool calling documentado aparecen en `/docs`.
 
 Cada herramienta devuelve la confianza como número y también como palabra (`confidence_label`: `baja` si es menor que 0,4, `media` hasta 0,7, `alta` por encima), para que el modelo no tenga que traducirla.
 
@@ -128,7 +134,7 @@ Reglas:
 
 ## Otras correcciones que afectan a la API
 
-- **Escala:** los sectores caen en la misma celda de NASA POWER. El clima es de la zona; por sector solo cambian el NDVI, el terreno, la recuperación y la recomendación.
+- **Escala:** los sectores caen en la misma celda de IMERG y de NASA POWER. El clima es de la zona; por sector solo cambian el NDVI, el terreno, la recuperación y la recomendación.
 - **Índice de El Niño:** es el RONI de NOAA, no el ONI. El campo de la serie histórica se llama `roni`.
 - **Escenarios:** `nino` es el estado real de hoy (RONI observado); `normal` es la comparación.
 - **PWA:** el frontend guarda la última respuesta para usarla sin señal. Las respuestas de `GET` deben ser livianas e incluir la fecha de actualización.
@@ -137,12 +143,97 @@ Reglas:
 
 - Python 3.11 o superior, `requirements.txt` y entorno virtual (`python -m venv .venv`).
 - Puerto **8000**, el mismo de `VITE_API_BASE_URL` en el frontend.
-- Base SQLite en `backend/data/app.db` (ignorada en git). Tablas: `predictions`, `history`, `backtest`, `analogs` y `power_cache`.
+- Base SQLite en `backend/data/app.db` (ignorada en git). Tablas: `predictions`, `history_meta`, `history`, `backtests`, `analogs` y `meta`.
 
 ## Configuración
 
-Copia `.env.example` a `.env` y completa los valores.
+Copia `.env.example` a `.env` y completa los valores:
+
+| Variable | Por defecto | Para qué |
+| --- | --- | --- |
+| `ML_OUTPUTS_DIR` | `../ml/outputs` | Archivos que exporta ML. Si faltan, se usan los mocks de `contracts/`. |
+| `CONTRACTS_DIR` | `../contracts` | Schemas para validar y ejemplos mock. |
+| `DATABASE_PATH` | `data/app.db` | SQLite local; se crea al iniciar. |
+| `DATABASE_URL` | vacío | PostgreSQL de instantáneas PowerSync. Vacío deshabilita solo la replicación. |
+| `POWERSYNC_PUBLIC_URL` | `http://localhost:8080` | URL que reciben los clientes para sincronizar. |
+| `POWERSYNC_AUDIENCE` | `powersync` | Audiencia de los JWT cortos. |
+| `POWERSYNC_TOKEN_MINUTES` | `60` | Duración de las credenciales PowerSync. |
+| `ADMIN_TOKEN` | vacío | Cabecera `X-Admin-Token` de `/api/admin/reload`. Vacío = recarga deshabilitada (401). |
+| `LLM_API_KEY` | vacío | Clave de Google Gemini. |
+| `LLM_MODEL` | vacío | Modelo Flash, por ejemplo `gemini-2.5-flash`. Vacío = chat 502. |
+| `CORS_ORIGINS` | `*` | Orígenes permitidos, separados por comas. |
+
+No hay fallback local del chat: sin clave o sin modelo, `POST /api/chat` responde `502 llm_unavailable` en vez de inventar una respuesta.
+
+## Modo offline y PowerSync
+
+La tabla `offline_snapshots` guarda el contrato completo como JSON validado, con una clave estable por conjunto de datos. Esta forma evita reconstruir objetos científicos mediante joins dentro del celular. PowerSync replica esa tabla conforme a `../powersync/sync-config.yaml`.
+
+Endpoints añadidos:
+
+| Endpoint | Uso |
+| --- | --- |
+| `GET /api/powersync/token` | JWT corto y URL pública de PowerSync |
+| `GET /api/powersync/jwks` | Clave pública para validar el JWT |
+| `POST /api/admin/reload` | Recarga instantáneas con `X-Admin-Token` |
 
 ## Cómo correr
 
-Pendiente: se documenta cuando exista la API. El comando previsto es `uvicorn app.main:app --reload --port 8000`.
+Desde `backend/`:
+
+```bash
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+cp .env.example .env
+.venv/bin/uvicorn app.main:app --reload --port 8000
+```
+
+Documentación interactiva: `http://localhost:8000/docs`.
+
+Al iniciar, la API crea `data/app.db`, valida los archivos de `ml/outputs/` y carga en SQLite los que existan. Si falta alguno o no cumple el schema, usa el mock correspondiente y lo reporta en `/health`.
+
+## Tests
+
+```bash
+cd backend
+.venv/bin/python -m pytest
+```
+
+Los tests cubren endpoints, validación contra `contracts/`, fallback mock/real, sensores y el loop de herramientas del chat. Para validar solo los contratos, desde la raíz:
+
+```bash
+backend/.venv/bin/python -m pytest contracts
+```
+
+## Reporte para la asamblea (extra)
+
+`GET /api/report?scenario=nino&format=md` devuelve un Markdown imprimible; con `format=html` devuelve una página lista para imprimir o guardar como PDF desde el navegador. No agrega cálculos: ordena la recomendación y la evidencia que ya vienen en `predictions.json`.
+
+Este endpoint **no está en `contracts/api.md`**; es un extra acordado con el equipo. Si el front lo va a consumir, conviene agregarlo al contrato.
+
+## Docker (opcional)
+
+Desde `backend/`:
+
+```bash
+docker compose up --build
+```
+
+El contexto de build es la raíz del repo para poder copiar `contracts/`. La base queda en `backend/data/` y `ml/outputs/` se monta como solo lectura.
+
+## Decisiones de implementación
+
+- **Mock primero:** mientras ML no entregue archivos, todos los `GET` sirven `contracts/examples/ml_outputs/` con `data_source: "mock"`. El fallback es por grupo: si un archivo real es inválido, solo ese grupo vuelve a mock.
+- **Back no calcula:** predicciones, anomalías, correlaciones y similitudes llegan ya calculadas. Back solo valida, guarda y sirve.
+- **Sin fuentes externas:** la historia termina en el último mes de ML; Back no la completa con NASA POWER (ver "Sin datos externos").
+- **Sensores:** simulados y deterministas con semilla 42 por `(sector_id, ts)`. Helada programada en `S1` (04:00–06:30) y estrés hídrico en `S2` (11:00–16:00); el resto de los sectores sigue el ciclo diario normal. `is_simulated: true` siempre.
+- **Chat:** Gemini con cinco herramientas, sin memoria y máximo 5 rondas. El modelo solo explica; no calcula ni cambia recomendaciones. Las cifras siempre salen de SQLite o del simulador.
+- **Recarga:** `ADMIN_TOKEN` vacío deshabilita `/api/admin/reload` con 401, en lugar de aceptar cualquier token.
+
+Para levantar la opción completa con PostgreSQL y PowerSync, ejecute desde la raíz:
+
+```powershell
+docker compose up --build -d
+```
+
+Consulte `../docs/OFFLINE_POWERSYNC.md` para la prueba sin señal y la configuración de producción.

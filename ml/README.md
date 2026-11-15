@@ -8,7 +8,7 @@ Ingesta de datos, variables, modelos y exportación de resultados según `contra
 
 - `data/`: datos descargados. Ignorada en git.
 - `outputs/`: archivos que consume Back. Se suben a git.
-- `reports/`: figuras y resultados del backtest.
+- `outputs/reports/`: figuras y resultados de la validación y el backtest con datos reales (con datos de prueba van a `outputs_fake/reports/`).
 
 ## Escala: qué es de zona y qué es de sector
 
@@ -99,7 +99,7 @@ Si sobra tiempo: HLS 30 m, ECOSTRESS.
 
 ## Backtest
 
-- **Principal:** serie temporal por zona. El Niño 2015-16 y 2023-24 frente a La Niña 2020-22, con una figura en `reports/`.
+- **Principal:** serie temporal por zona. El Niño 2015-16 y 2023-24 frente a La Niña 2020-22, con una figura en `outputs/reports/`.
 - **Sin fuga de datos:** al evaluar un evento, ese evento queda fuera del entrenamiento en todas las zonas. Si no, el modelo ya vio la respuesta.
 - **Transferencia:** evaluar también dejando una zona completa fuera. Es la única evidencia de que el modelo sirve en un territorio que no vio.
 - **Secundario:** comparación por sector, solo con NDVI. Un Spearman sobre 8 a 10 puntos puede salir débil o engañoso: repórtalo con esa advertencia.

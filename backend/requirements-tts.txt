@@ -1,0 +1,6 @@
+# Opcional: voz nativa en aymara y quechua con Meta MMS-TTS (solo CPU).
+# Se instala con el build arg TTS_LOCAL=true (ver Dockerfile).
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch>=2.4
+transformers>=4.44
+numpy>=1.26

@@ -95,9 +95,57 @@ Back no calcula nada de esto: devuelve lo que exportó ML.
 
 ## POST /api/chat
 
-Cuerpo: `{message, sector_id?, scenario?}`. No hay sesiones ni historial: cada mensaje se responde por separado.
+Cuerpo: `{message, sector_id?, scenario?}`.
 
-Respuesta: `{answer, sources, confidence_note, updated_at}`. `sources` lista las herramientas usadas y los campos consultados.
+- `message`: texto de 1 a 1000 caracteres.
+- `sector_id`: opcional, patrón `^S\d+$`.
+- `scenario`: opcional, `normal` o `nino`. Si se omite, Back usa `nino`.
+- No se admiten campos extra.
+
+No hay sesiones ni historial: cada mensaje se responde por separado.
+
+Respuesta: `{answer, sources, confidence_note, updated_at}`.
+
+- `answer`: respuesta en español simple.
+- `sources`: lista de `{tool, sector_id, fields}` con las herramientas usadas y los campos consultados.
+- `confidence_note`: confianza mínima usada y notas de datos simulados o precedentes.
+- `updated_at`: instante ISO 8601 con hora de Bolivia.
+
+### Tool calling
+
+El front solo envía el mensaje; el loop de herramientas ocurre dentro de Back. El modelo puede hacer hasta **5 rondas** de herramientas por mensaje. Si las supera o falta un dato, responde "No tengo ese dato".
+
+| Herramienta | Parámetros | Devuelve |
+| --- | --- | --- |
+| `get_sector` | `sector_id`, `scenario` | Riesgo, recuperación, recomendación y precedente del sector. |
+| `compare_scenarios` | `sector_id` | El mismo sector en `normal` y en `nino`. |
+| `get_history` | `sector_id`, `from?`, `to?` | Serie mensual de NDVI, lluvia, humedad de suelo, temperatura y RONI. |
+| `get_sensors` | `sector_id`, `hours?` | Lecturas simuladas cada 30 minutos, con alertas. |
+| `get_twin_precedent` | `sector_id`, `scenario` | Precedente de mayor `similarity` para `nino`; en `normal` no hay. |
+
+Las herramientas leen SQLite o el simulador de sensores. Back no calcula predicciones, anomalías, correlaciones ni similitudes: solo sirve lo exportado por ML.
+
+El proveedor es Google Gemini con un modelo Flash configurable en `LLM_MODEL`. No hay fallback local: sin `LLM_API_KEY` o `LLM_MODEL`, el endpoint responde `502 llm_unavailable`.
+
+Errores: `404 sector_not_found`, `422 invalid_request`, `502 llm_unavailable`.
+
+Ejemplos: `examples/api/chat_request.json` y `examples/api/chat_response.json`.
+
+## Decisiones de la comunidad
+
+Lo que la asamblea decidió hacer con un sector. Es lo único que escribe el celular. No es una predicción: la comunidad puede seguir la recomendación o no.
+
+Esquema: `decision.schema.json`. Ejemplo: `examples/api/decision.json`.
+
+- `PUT /api/decisions/{id}`: crea o reemplaza una decisión. El `id` es un UUID creado en el celular, para poder guardar sin señal. El cuerpo debe tener el mismo `id`. Responde `200` con la decisión guardada.
+- `DELETE /api/decisions/{id}`: la borra. Responde `204`, también si no existía.
+- `GET /api/decisions?community_id=pumani&sector_id=S4`: responde `{decisions: [...]}`, de la más nueva a la más vieja. `sector_id` es opcional.
+
+`PUT` y `DELETE` exigen `Authorization: Bearer <token>` con el token de `GET /api/powersync/token`.
+
+Sin señal, el celular guarda la decisión en su SQLite y PowerSync la sube con `PUT` cuando vuelve la señal. Las decisiones se sincronizan de vuelta a todos los celulares (stream `community_decisions`).
+
+Errores: `401 unauthorized`, `422 invalid_request`.
 
 ## POST /api/admin/reload
 

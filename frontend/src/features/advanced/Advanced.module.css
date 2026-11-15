@@ -1,0 +1,128 @@
+.panel {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: var(--color-nieve);
+  border: 2px dashed var(--color-cielo);
+  border-radius: var(--radio);
+}
+
+.title {
+  color: var(--color-cielo);
+  font-size: var(--size-grande);
+}
+
+.subtitle {
+  font-size: var(--size-texto);
+}
+
+.list {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.row {
+  display: grid;
+  gap: 0.1rem;
+  padding-block-end: var(--space-2);
+  border-block-end: 1px solid var(--color-linea);
+}
+
+.row dt {
+  color: var(--color-tierra-suave);
+  font-size: var(--size-pequeno);
+  font-weight: 700;
+}
+
+.row dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.drivers {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0;
+  list-style: none;
+}
+
+.drivers code {
+  font-size: 0.85em;
+}
+
+.muted,
+.note {
+  color: var(--color-tierra-suave);
+  font-size: var(--size-pequeno);
+}
+
+.chart {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.chartSvg {
+  inline-size: 100%;
+  block-size: auto;
+  touch-action: pan-y;
+}
+
+.grid {
+  stroke: var(--color-linea);
+  stroke-width: 1;
+}
+
+.axisLabel {
+  fill: var(--color-tierra-suave);
+  font-size: 9px;
+}
+
+.line {
+  fill: none;
+  stroke: var(--color-totora);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.crosshair {
+  stroke: var(--color-tierra-suave);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.dot {
+  fill: var(--color-totora);
+  stroke: var(--color-nieve);
+  stroke-width: 2;
+}
+
+.readout {
+  font-size: var(--size-pequeno);
+  font-variant-numeric: tabular-nums;
+}
+
+.tableToggle summary {
+  min-block-size: 2.75rem;
+  padding-block: var(--space-2);
+  color: var(--color-cielo);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.table {
+  inline-size: 100%;
+  border-collapse: collapse;
+  font-size: var(--size-pequeno);
+  font-variant-numeric: tabular-nums;
+}
+
+.table th,
+.table td {
+  padding: 0.2rem var(--space-2);
+  border-block-end: 1px solid var(--color-linea);
+  text-align: start;
+}

@@ -18,9 +18,23 @@ dist/
 # Datos y bases locales
 ml/data/*
 !ml/data/.gitkeep
+# Se suben los datos crudos utiles (.nc y .csv) y las tablas intermedias: pesan unos 35 MB.
+# No se suben los metadatos de AppEEARS ni sus request.json, que incluyen el correo de la cuenta.
+!ml/data/raw/
+!ml/data/interim/
+ml/data/raw/**/*
+!ml/data/raw/**/
+!ml/data/raw/**/*.nc
+!ml/data/raw/**/*.csv
+ml/data/raw/**/*Statistics*.csv
+ml/data/raw/**/*lookup.csv
+ml/data/raw/**/NASADEM_NUMNC*
 *.sqlite
 *.sqlite3
 *.db
+
+# ML outputs
+ml/outputs_fake/
 
 # Sistema y editores
 .DS_Store

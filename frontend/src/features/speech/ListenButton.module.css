@@ -1,0 +1,22 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-5);
+  color: var(--color-tierra);
+  background: var(--color-nieve);
+  border: 2px solid var(--color-tierra);
+  border-radius: var(--radio);
+  font-weight: 700;
+}
+
+.button[aria-pressed='true'] {
+  color: var(--color-nieve);
+  background: var(--color-tierra);
+}
+
+.icon {
+  inline-size: 1.6rem;
+  block-size: 1.6rem;
+  flex: none;
+}
