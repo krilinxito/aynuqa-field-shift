@@ -80,7 +80,7 @@ describe('recorrido principal', () => {
     expect(router.state.location.pathname).toBe('/mi-comunidad')
     expect(localStorage.getItem('aynuqa:community')).toBe('pumani')
 
-    await user.click(screen.getByRole('button', { name: /Sector 4/ }))
+    await user.click(screen.getByRole('button', { name: /Sector 4.*Confianza/ }))
     expect(
       await screen.findByRole('heading', { level: 1, name: 'Sector 4' }),
     ).toBeInTheDocument()
@@ -356,6 +356,36 @@ describe('letra grande, idiomas (Aymara / Quechua) y botón de descarga PWA', ()
     expect(
       screen.getByText(/Para guardar Aynuqa en la pantalla de su celular/),
     ).toBeInTheDocument()
+  })
+})
+
+describe('mapa de sectores', () => {
+  beforeEach(rememberCommunity)
+
+  it('muestra la foto satelital con atribución y cada sector se abre tocando', async () => {
+    const user = userEvent.setup()
+    const router = renderRoute('/mi-comunidad')
+
+    await screen.findByRole('heading', { level: 1, name: 'Pumani' })
+    const map = screen.getByRole('group', { name: 'Dibujo de los sectores' })
+    expect(map.querySelector('image')?.getAttribute('href')).toContain(
+      'World_Imagery/MapServer/export',
+    )
+    expect(screen.getByText(/Imagen: Esri/)).toBeInTheDocument()
+
+    await user.click(within(map).getByRole('button', { name: /Sector 4, riesgo/ }))
+    expect(router.state.location.pathname).toBe('/sector')
+  })
+
+  it('se puede cambiar a dibujo y lo recuerda', async () => {
+    const user = userEvent.setup()
+    renderRoute('/mi-comunidad')
+
+    await screen.findByRole('heading', { level: 1, name: 'Pumani' })
+    await user.click(screen.getByRole('button', { name: 'Dibujo' }))
+    const map = screen.getByRole('group', { name: 'Dibujo de los sectores' })
+    expect(map.querySelector('image')).toBeNull()
+    expect(localStorage.getItem('aynuqa:map-view')).toBe('drawing')
   })
 })
 

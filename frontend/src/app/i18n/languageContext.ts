@@ -141,6 +141,17 @@ export interface UiStrings {
   mascotLabel: string
   mascotTap: string
   mascotClose: string
+
+  // Mapa de sectores
+  mapViewLabel: string
+  mapPhoto: string
+  mapColors: string
+  mapLegendResting: string
+  mapLegendCultivated: string
+  mapLegendRisk: string
+  mapNorthSimulated: string
+  mapPhotoUnavailable: string
+  mapSectorLabel: (number: string, risk: string) => string
 }
 
 export const UI_STRINGS: Record<Language, UiStrings> = {
@@ -272,6 +283,15 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
     mascotLabel: 'La llamita',
     mascotTap: 'Tocar a la llamita para que hable',
     mascotClose: 'Cerrar lo que dice la llamita',
+    mapViewLabel: 'Cómo ver el mapa',
+    mapPhoto: 'Foto satelital',
+    mapColors: 'Dibujo',
+    mapLegendResting: 'Rayado: en descanso',
+    mapLegendCultivated: 'Liso: en cultivo',
+    mapLegendRisk: 'Borde: riesgo de sequía (bajo, medio, alto)',
+    mapNorthSimulated: 'Arriba es el norte. Límites de sectores simulados.',
+    mapPhotoUnavailable: 'La foto no cargó (sin señal). Se muestra el dibujo.',
+    mapSectorLabel: (n, risk) => `Sector ${n}, riesgo ${risk}. Tocar para abrir.`,
   },
   ay: {
     largeText: "Jach'a qillqa",
@@ -400,6 +420,15 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
     mascotLabel: 'Qarwa',
     mascotTap: 'Qarwar limt’am arsuñapataki',
     mascotClose: 'Qarwan arsutap jist’antaña',
+    mapViewLabel: 'Kunjams mapa uñjaña',
+    mapPhoto: 'Satélite jamuqa',
+    mapColors: 'Siq’i',
+    mapLegendResting: 'Siq’ita: samarañana',
+    mapLegendCultivated: 'Llamp’u: yapuchäwina',
+    mapLegendRisk: 'Thiya: waña pacha (jisk’a, taypi, jach’a)',
+    mapNorthSimulated: 'Patax alay toqiwa. Suyunakan thiyanakapax uñacht’äwiwa.',
+    mapPhotoUnavailable: 'Jamuqax janiw apanintkiti (jan señal). Siq’iw uñacht’ayasi.',
+    mapSectorLabel: (n, risk) => `${n} suyu, waña ${risk}. Limt’am llawirañataki.`,
   },
   qu: {
     largeText: 'Hatun qillqa',
@@ -528,6 +557,15 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
     mascotLabel: 'Llamita',
     mascotTap: 'Llamitata ñit’iy rimananpaq',
     mascotClose: 'Llamitaq nisqanta wisq’ay',
+    mapViewLabel: 'Imaynatam mapata qhawana',
+    mapPhoto: 'Satélite rikch’ay',
+    mapColors: 'Siq’i',
+    mapLegendResting: 'Siq’isqa: samaypi',
+    mapLegendCultivated: 'Llamp’u: tarpuypi',
+    mapLegendRisk: 'Pata: ch’aki pacha (pisi, chawpi, hatun)',
+    mapNorthSimulated: 'Hanaqqa wichay ladom. Suyukunaq patanqa rikch’anachisqam.',
+    mapPhotoUnavailable: 'Rikch’ayqa mana chayamunchu (mana señal). Siq’im rikuchikun.',
+    mapSectorLabel: (n, risk) => `${n} suyu, ch’aki ${risk}. Ñit’iy kicharinapaq.`,
   },
 }
 

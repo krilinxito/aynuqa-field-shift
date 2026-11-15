@@ -4,16 +4,26 @@ export interface SectorShape {
   id: string
   name: string
   status: 'resting' | 'cultivated'
+  riskLevel: 'low' | 'medium' | 'high'
   /** Puntos del polígono listos para `<polygon points>`. */
   points: string
   cx: number
   cy: number
 }
 
+/** Recuadro (lon/lat) que cubre todo el dibujo, márgenes incluidos. */
+export interface GeoBounds {
+  minLon: number
+  minLat: number
+  maxLon: number
+  maxLat: number
+}
+
 export interface ProjectedSectors {
   shapes: SectorShape[]
   width: number
   height: number
+  bounds: GeoBounds | null
 }
 
 const mapWidth = 100
@@ -30,7 +40,7 @@ export function projectSectors(
   const all = rings.flat()
 
   if (all.length === 0) {
-    return { shapes: [], width: mapWidth, height: mapWidth }
+    return { shapes: [], width: mapWidth, height: mapWidth, bounds: null }
   }
 
   const lons = all.map(([lon]) => lon)
@@ -52,6 +62,7 @@ export function projectSectors(
     id: sector.id,
     name: sector.name,
     status: sector.rotation.status,
+    riskLevel: sector.risk.level,
     points: rings[index]
       .map(([lon, lat]) => `${round(toX(lon))},${round(toY(lat))}`)
       .join(' '),
@@ -59,5 +70,15 @@ export function projectSectors(
     cy: round(toY(sector.centroid.lat)),
   }))
 
-  return { shapes, width: mapWidth, height: round(height) }
+  // Lo que cubre el dibujo entero: sirve para pedir la foto satelital exacta.
+  // Como la proyección es lineal en lon y lat, una imagen en EPSG:4326 estirada
+  // al recuadro calza con los polígonos.
+  const bounds = {
+    minLon: minLon - padding / (stretch * scale),
+    maxLon: maxLon + padding / (stretch * scale),
+    minLat: minLat - padding / scale,
+    maxLat: maxLat + padding / scale,
+  }
+
+  return { shapes, width: mapWidth, height: round(height), bounds }
 }

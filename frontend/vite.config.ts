@@ -80,6 +80,19 @@ export default defineConfig({
             },
           },
           {
+            // Foto satelital del mapa (Esri World Imagery): una sola imagen,
+            // guardada para verla sin señal.
+            urlPattern: ({ url }) =>
+              url.hostname === 'server.arcgisonline.com' &&
+              url.pathname.includes('/World_Imagery/MapServer/export'),
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'aynuqa-satelite',
+              expiration: { maxEntries: 6, maxAgeSeconds: 60 * 24 * 60 * 60 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+          {
             urlPattern: ({ url }) =>
               url.pathname === '/api/sectors' || url.pathname === '/health',
             handler: 'NetworkFirst',
