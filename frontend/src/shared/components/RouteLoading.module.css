@@ -1,19 +1,9 @@
 .loading {
-  inline-size: min(100%, 34rem);
-  padding-block: var(--space-8);
-  border-block: var(--divider);
-}
-
-.loading p {
-  margin: var(--space-4) 0 0;
-  color: var(--color-ink-muted);
-  font-size: 0.875rem;
-  font-weight: var(--weight-semibold);
-}
-
-.line {
-  display: block;
-  inline-size: 5rem;
-  block-size: 0.25rem;
-  background: var(--color-accent);
+  display: grid;
+  justify-items: center;
+  gap: var(--space-3);
+  padding-block: var(--space-12);
+  font-family: var(--font-titulo);
+  font-size: var(--size-grande);
+  font-style: italic;
 }

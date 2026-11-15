@@ -1,82 +1,54 @@
-import type {
-  AnalysisSection,
-  DateRange,
-  Scenario,
-} from '../../data/repositories/DataRepository'
-import { isSectorId, isYearMonth } from '../../data/repositories/inputValidation'
-import { defaultAppState, type AppState } from './appState'
+import type { Scenario } from '../../data/repositories/DataRepository'
+import { isSectorId } from '../../data/repositories/inputValidation'
 
-const analysisSections = new Set<AnalysisSection>([
-  'history',
-  'backtest',
-  'twins',
-  'sensors',
-])
+export interface UrlState {
+  selectedSectorId: string | null
+  scenario: Scenario
+}
 
 function parseScenario(value: string | null): Scenario {
   return value === 'normal' || value === 'nino' ? value : 'nino'
 }
 
-function parseDateRange(params: URLSearchParams): DateRange | null {
-  const from = params.get('from')
-  const to = params.get('to')
-
-  if ((from !== null && !isYearMonth(from)) || (to !== null && !isYearMonth(to))) {
-    return null
-  }
-
-  if (from !== null && to !== null && from > to) {
-    return null
-  }
-
-  return from === null && to === null
-    ? null
-    : { from: from ?? undefined, to: to ?? undefined }
-}
-
-export function readUrlState(search: string, pathname: string): AppState {
+export function readUrlState(search: string): UrlState {
   const params = new URLSearchParams(search)
   const sector = params.get('sector')
-  const section = params.get('section')
-  const isAnalysis = pathname === '/analisis'
 
   return {
     selectedSectorId: isSectorId(sector) ? sector : null,
     scenario: parseScenario(params.get('scenario')),
-    dateRange: isAnalysis ? parseDateRange(params) : null,
-    analysisSection:
-      isAnalysis && analysisSections.has(section as AnalysisSection)
-        ? (section as AnalysisSection)
-        : defaultAppState.analysisSection,
   }
 }
 
-interface ResolveAppStateOptions {
+interface ResolveUrlStateOptions {
   search: string
-  pathname: string
   availableSectorIds: readonly string[]
   storedSectorId: string | null
 }
 
-export function resolveAppState({
+/**
+ * Decide qué sector está elegido: primero la URL, luego lo guardado en el
+ * celular. Si ninguno es válido queda en `null`, para que la persona elija:
+ * nunca se elige un sector por ella.
+ */
+export function resolveUrlState({
   search,
-  pathname,
   availableSectorIds,
   storedSectorId,
-}: ResolveAppStateOptions): AppState {
-  const fromUrl = readUrlState(search, pathname)
+}: ResolveUrlStateOptions): UrlState {
+  const fromUrl = readUrlState(search)
   const selectedSectorId = availableSectorIds.includes(
     fromUrl.selectedSectorId ?? '',
   )
     ? fromUrl.selectedSectorId
     : availableSectorIds.includes(storedSectorId ?? '')
       ? storedSectorId
-      : (availableSectorIds[0] ?? null)
+      : null
 
   return { ...fromUrl, selectedSectorId }
 }
 
-export function writeUrlState(state: AppState, pathname: string): string {
+export function writeUrlState(state: UrlState): string {
   const params = new URLSearchParams()
 
   if (state.selectedSectorId) {
@@ -85,18 +57,5 @@ export function writeUrlState(state: AppState, pathname: string): string {
 
   params.set('scenario', state.scenario)
 
-  if (pathname === '/analisis') {
-    if (state.dateRange?.from) {
-      params.set('from', state.dateRange.from)
-    }
-
-    if (state.dateRange?.to) {
-      params.set('to', state.dateRange.to)
-    }
-
-    params.set('section', state.analysisSection)
-  }
-
-  const result = params.toString()
-  return result ? `?${result}` : ''
+  return `?${params.toString()}`
 }

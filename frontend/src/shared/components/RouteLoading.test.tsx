@@ -4,10 +4,10 @@ import { describe, expect, it } from 'vitest'
 import { RouteLoading } from './RouteLoading'
 
 describe('RouteLoading', () => {
-  it('ofrece un fallback ligero y anunciado para rutas diferidas', () => {
+  it('anuncia la carga con texto, no solo con el dibujo', () => {
     render(<RouteLoading />)
 
-    expect(screen.getByRole('status')).toHaveTextContent('Cargando sección…')
+    expect(screen.getByRole('status')).toHaveTextContent('Cargando…')
     expect(screen.getByRole('status')).toHaveAttribute('aria-live', 'polite')
   })
 })

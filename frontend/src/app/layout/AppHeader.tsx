@@ -1,38 +1,55 @@
-import { BrandMark } from '../../shared/components/BrandMark'
-import { useSystemStatus } from '../status/useSystemStatus'
+import { useOnline } from '../../shared/hooks/useOnline'
+import { Chakana, Skyline } from '../../shared/sprites/Sprites'
+import { resolveDataMode } from '../status/systemStatus'
+import { useTextSize } from '../textsize/textSizeContext'
 import styles from './AppHeader.module.css'
 
+/** Aviso corto: solo aparece cuando hay algo que la persona debe saber. */
+function StatusLine() {
+  const isOnline = useOnline()
+  const isDemo = resolveDataMode(import.meta.env.VITE_DATA_MODE) === 'mock'
+
+  if (isOnline && !isDemo) {
+    return null
+  }
+
+  return (
+    <p className={styles.status} role="status">
+      {!isOnline ? (
+        <span>
+          <strong>Sin señal.</strong> Se muestran los últimos datos guardados.
+        </span>
+      ) : null}
+      {isDemo ? <span>Datos de demostración</span> : null}
+    </p>
+  )
+}
+
 export function AppHeader() {
-  const status = useSystemStatus()
+  const { state, actions } = useTextSize()
+  const isLarge = state.size === 'grande'
 
   return (
     <header className={styles.header}>
-      <div className={styles.identity}>
-        <BrandMark />
-        <div className={styles.location}>
-          <p className={styles.locationLabel}>Área piloto</p>
-          <p className={styles.locationName}>Pumani · La Paz</p>
-        </div>
-      </div>
-
-      <div
-        className={`${styles.systemStatus} ${styles[status.tone]}`}
-        role="status"
-        aria-live="polite"
-        aria-atomic="true"
-      >
-        <p className={styles.primaryStatus}>{status.primaryLabel}</p>
-        {status.secondaryLabel ? (
-          <p className={styles.secondaryStatus}>{status.secondaryLabel}</p>
-        ) : null}
-        <p className={styles.updateStatus}>
-          {status.updatedAt ? (
-            <time dateTime={status.updatedAt}>{status.updateLabel}</time>
-          ) : (
-            status.updateLabel
-          )}
+      <Skyline />
+      <div className={styles.bar}>
+        <p className={styles.brand}>
+          <Chakana size={1.7} />
+          <span>Aynuqa</span>
         </p>
+        <button
+          type="button"
+          className={`${styles.textSize} no-imprimir`}
+          aria-pressed={isLarge}
+          onClick={actions.toggle}
+        >
+          <span aria-hidden="true" className={styles.textSizeIcon}>
+            A+
+          </span>
+          {isLarge ? 'Letra normal' : 'Letra grande'}
+        </button>
       </div>
+      <StatusLine />
     </header>
   )
 }

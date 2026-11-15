@@ -1,0 +1,35 @@
+.page {
+  display: grid;
+  gap: var(--space-6);
+  /* Las franjas de aguayo ya traen su propio espacio. */
+}
+
+.page > [role='presentation'] {
+  margin-block: var(--space-2);
+}
+
+.welcome {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.welcome > svg {
+  flex: none;
+}
+
+.place {
+  color: var(--color-tierra-suave);
+  font-weight: 700;
+}
+
+.place a {
+  display: inline-block;
+  padding-block: var(--space-2);
+  font-weight: 700;
+}
+
+.footnote {
+  color: var(--color-tierra-suave);
+  font-size: var(--size-pequeno);
+}

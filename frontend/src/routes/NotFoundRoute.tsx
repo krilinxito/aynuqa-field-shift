@@ -1,28 +1,14 @@
-import { Link, useLocation } from 'react-router-dom'
-
-import { getPersistentSearch } from '../app/navigation/persistentSearch'
-import { SectionPlaceholder } from '../shared/components/SectionPlaceholder'
+import { PrimaryLink } from '../shared/components/Actions'
+import { LlamaResting } from '../shared/sprites/Sprites'
+import styles from './routes.module.css'
 
 export function NotFoundRoute() {
-  const location = useLocation()
-
   return (
-    <>
-      <SectionPlaceholder
-        eyebrow="Error 404"
-        title="Página no encontrada"
-        description="La dirección solicitada no pertenece a esta aplicación."
-      />
-      <p>
-        <Link
-          to={{
-            pathname: '/territorio',
-            search: getPersistentSearch(location.search),
-          }}
-        >
-          Volver al territorio
-        </Link>
-      </p>
-    </>
+    <div className={styles.page}>
+      <LlamaResting />
+      <h1>Esta página no existe</h1>
+      <p>Puede volver al inicio con el botón.</p>
+      <PrimaryLink to="/">Volver al inicio</PrimaryLink>
+    </div>
   )
 }

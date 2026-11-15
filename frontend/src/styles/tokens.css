@@ -1,16 +1,31 @@
+/*
+ * Paleta del altiplano. Todos los pares de texto cumplen contraste AA
+ * y el texto corrido (tierra sobre lana) cumple AAA.
+ */
 :root {
-  --color-background: #f8f4f2;
-  --color-accent: #00cca0;
-  --color-accent-soft: #e6f7f1;
-  --color-accent-strong: #006b57;
-  --color-ink: #412f25;
-  --color-ink-muted: #6f5d53;
-  --color-divider: #d8cec8;
-  --color-surface: #fffcfa;
-  --color-risk-low: #176b55;
-  --color-risk-medium: #8a5a00;
-  --color-risk-high: #a33a32;
-  --color-stale: #7a4f00;
+  /* Fondo y texto */
+  --color-lana: #fbf3e4; /* lana cruda: fondo */
+  --color-lana-oscura: #f1e4c9; /* fondo de franjas suaves */
+  --color-tierra: #2b1d14; /* texto principal */
+  --color-tierra-suave: #5a4636; /* texto secundario */
+  --color-linea: #cdb894; /* líneas finas */
+
+  /* Acentos */
+  --color-adobe: #a8432b; /* terracota */
+  --color-ichu: #c99a2e; /* paja */
+  --color-cielo: #1f4e79; /* cielo de altura: acción principal */
+  --color-cielo-oscuro: #163a5b;
+  --color-totora: #3f6b4a; /* verde apagado */
+  --color-aguayo: #a3195b; /* magenta, solo en franjas */
+  --color-nieve: #ffffff;
+
+  /* Niveles: siempre con palabra y forma, nunca solo color */
+  --color-nivel-bajo: #3f6b4a;
+  --color-nivel-medio: #8a5a00;
+  --color-nivel-alto: #a8432b;
+  --color-aviso: #7a4f00;
+  --color-aviso-fondo: #fbe9b8;
+
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -20,30 +35,30 @@
   --space-8: 2rem;
   --space-10: 2.5rem;
   --space-12: 3rem;
-  --space-16: 4rem;
-  --space-20: 5rem;
-  --font-family: 'Montserrat', sans-serif;
-  --font-size-meta: 0.75rem;
-  --font-size-body: 1rem;
-  --line-height-tight: 1.08;
-  --line-height-body: 1.6;
-  --weight-regular: 400;
-  --weight-medium: 500;
-  --weight-semibold: 600;
-  --weight-bold: 700;
-  --divider: 1px solid var(--color-divider);
-  --focus-ring: 3px solid var(--color-ink);
-  --focus-offset: 3px;
-  --control-radius: 0.25rem;
-  --touch-target: 2.75rem;
-  --mobile-nav-height: 4.75rem;
-  --desktop-rail-width: 4.5rem;
-  --content-max-width: 90rem;
-  --reading-max-width: 44rem;
-  --page-gutter: clamp(1rem, 4vw, 4rem);
-  color: var(--color-ink);
-  background: var(--color-background);
-  font-family: var(--font-family);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
+
+  --font-texto: 'Atkinson Hyperlegible', 'Verdana', sans-serif;
+  --font-titulo: 'Lora', 'Georgia', serif;
+
+  /* La letra base es grande; "Letra más grande" la sube todavía más. */
+  --letra-base: 118.75%; /* 19 px */
+  --size-pequeno: 0.9rem;
+  --size-texto: 1rem;
+  --size-grande: 1.2rem;
+  --size-titulo: 1.6rem;
+  --size-frase: 1.85rem;
+
+  --line-texto: 1.55;
+  --line-titulo: 1.2;
+
+  --toque: 3.5rem; /* 56 px o más: fácil de tocar */
+  --radio: 0.75rem;
+  --foco: 4px solid var(--color-cielo);
+  --foco-separacion: 3px;
+  --nav-alto: 4.75rem;
+  --ancho-lectura: 36rem;
+  --margen: clamp(1rem, 5vw, 1.75rem);
+}
+
+:root[data-letra='grande'] {
+  --letra-base: 143.75%; /* 23 px */
 }

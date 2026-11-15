@@ -1,0 +1,76 @@
+.figure {
+  margin: 0;
+}
+
+.map {
+  inline-size: 100%;
+  max-block-size: 60vh;
+  background: var(--color-lana-oscura);
+  border: 2px solid var(--color-tierra);
+}
+
+.sector {
+  cursor: pointer;
+}
+
+.sector polygon {
+  stroke: var(--color-tierra);
+  stroke-width: 0.6;
+  stroke-linejoin: round;
+}
+
+.sector polygon.selected {
+  stroke: var(--color-cielo);
+  stroke-width: 2;
+}
+
+.badge {
+  fill: var(--color-nieve);
+  stroke: var(--color-tierra);
+  stroke-width: 0.5;
+}
+
+.number {
+  fill: var(--color-tierra);
+  font-family: var(--font-texto);
+  font-size: 6px;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-5);
+  margin-block-start: var(--space-2);
+  font-size: var(--size-pequeno);
+}
+
+.legend > span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.swatch {
+  inline-size: 1.1rem;
+  block-size: 1.1rem;
+  border: 2px solid var(--color-tierra);
+}
+
+.swatchResting {
+  background: repeating-linear-gradient(
+    45deg,
+    var(--color-lana-oscura) 0 3px,
+    var(--color-ichu) 3px 5px
+  );
+}
+
+.swatchCultivated {
+  background: #8fb37a;
+}
+
+.simulated {
+  color: var(--color-tierra-suave);
+}

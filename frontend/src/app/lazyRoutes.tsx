@@ -1,26 +1,26 @@
 import { lazy } from 'react'
 
-export const LazyTerritoryRoute = lazy(() =>
-  import('../routes/TerritoryRoute').then((module) => ({
-    default: module.TerritoryRoute,
+export const LazyCommunityRoute = lazy(() =>
+  import('../routes/CommunityRoute').then((module) => ({
+    default: module.CommunityRoute,
   })),
 )
 
-export const LazyAnalysisRoute = lazy(() =>
-  import('../routes/AnalysisRoute').then((module) => ({
-    default: module.AnalysisRoute,
+export const LazySectorPickerRoute = lazy(() =>
+  import('../routes/SectorPickerRoute').then((module) => ({
+    default: module.SectorPickerRoute,
   })),
 )
 
-export const LazyAssistantRoute = lazy(() =>
-  import('../routes/AssistantRoute').then((module) => ({
-    default: module.AssistantRoute,
+export const LazyMySectorRoute = lazy(() =>
+  import('../routes/MySectorRoute').then((module) => ({
+    default: module.MySectorRoute,
   })),
 )
 
-export const LazyReportRoute = lazy(() =>
-  import('../routes/ReportRoute').then((module) => ({
-    default: module.ReportRoute,
+export const LazyAskRoute = lazy(() =>
+  import('../routes/AskRoute').then((module) => ({
+    default: module.AskRoute,
   })),
 )
 

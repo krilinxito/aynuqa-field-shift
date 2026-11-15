@@ -1,0 +1,48 @@
+.bars {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 0.3rem;
+  block-size: 2.4rem;
+  flex: none;
+}
+
+.bar {
+  inline-size: 0.85rem;
+  border: 2px solid var(--color-tierra);
+  background: var(--color-lana);
+}
+
+.bar:nth-child(1) {
+  block-size: 40%;
+}
+
+.bar:nth-child(2) {
+  block-size: 70%;
+}
+
+.bar:nth-child(3) {
+  block-size: 100%;
+}
+
+.riskLow .filled {
+  background: var(--color-nivel-bajo);
+}
+
+.riskMedium .filled {
+  background: var(--color-nivel-medio);
+}
+
+.riskHigh .filled {
+  background: var(--color-nivel-alto);
+}
+
+.recovery .filled {
+  background: var(--color-totora);
+}
+
+@media print {
+  .filled {
+    background: var(--color-tierra) !important;
+    print-color-adjust: exact;
+  }
+}

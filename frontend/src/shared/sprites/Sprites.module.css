@@ -1,0 +1,96 @@
+.walker {
+  display: inline-grid;
+}
+
+.walker > * {
+  grid-area: 1 / 1;
+}
+
+.stepOne {
+  animation: paso 0.6s steps(1) infinite;
+}
+
+.stepTwo {
+  animation: paso 0.6s steps(1) infinite reverse;
+}
+
+@keyframes paso {
+  0%,
+  49.9% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stepTwo {
+    display: none;
+  }
+
+  .stepOne {
+    animation: none;
+  }
+}
+
+.skyline {
+  position: relative;
+  block-size: 4.5rem;
+  overflow: hidden;
+  background: linear-gradient(#bcd9ea, #e9f1ea 70%);
+}
+
+.mountains {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  inline-size: 100%;
+  block-size: 3.6rem;
+}
+
+.sun {
+  position: absolute;
+  inset-block-start: 0.4rem;
+  inset-inline-end: 1.2rem;
+}
+
+.cloud {
+  position: absolute;
+  inset-block-start: 0.6rem;
+  inset-inline-start: 1.5rem;
+}
+
+.plain {
+  border-block-start: 2px solid var(--color-linea);
+}
+
+.aguayo {
+  block-size: 0.9rem;
+  margin-block: var(--space-8);
+  border-block: 2px solid var(--color-tierra);
+  background: repeating-linear-gradient(
+    90deg,
+    var(--color-aguayo) 0 1.5rem,
+    var(--color-ichu) 1.5rem 2rem,
+    var(--color-cielo) 2rem 3rem,
+    var(--color-lana) 3rem 3.25rem,
+    var(--color-adobe) 3.25rem 4.5rem,
+    var(--color-totora) 4.5rem 5rem
+  );
+}
+
+@media print {
+  .skyline {
+    display: none;
+  }
+
+  .aguayo {
+    block-size: 0;
+    margin-block: var(--space-4);
+    border-block-end: 0;
+    background: none;
+  }
+}

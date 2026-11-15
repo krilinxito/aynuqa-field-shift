@@ -3,11 +3,11 @@ import { createBrowserRouter, type RouteObject } from 'react-router-dom'
 
 import { RouteLoading } from '../shared/components/RouteLoading'
 import {
-  LazyAnalysisRoute,
-  LazyAssistantRoute,
+  LazyAskRoute,
+  LazyCommunityRoute,
+  LazyMySectorRoute,
   LazyNotFoundRoute,
-  LazyReportRoute,
-  LazyTerritoryRoute,
+  LazySectorPickerRoute,
 } from './lazyRoutes'
 import { RootRedirect } from './navigation/RootRedirect'
 import { AppProviders } from './providers/AppProviders'
@@ -22,16 +22,10 @@ export const appRoutes: RouteObject[] = [
     element: <AppProviders />,
     children: [
       { index: true, element: <RootRedirect /> },
-      {
-        path: 'territorio',
-        element: withRouteFallback(<LazyTerritoryRoute />),
-      },
-      { path: 'analisis', element: withRouteFallback(<LazyAnalysisRoute />) },
-      {
-        path: 'asistente',
-        element: withRouteFallback(<LazyAssistantRoute />),
-      },
-      { path: 'informe', element: withRouteFallback(<LazyReportRoute />) },
+      { path: 'comunidad', element: withRouteFallback(<LazyCommunityRoute />) },
+      { path: 'sector', element: withRouteFallback(<LazySectorPickerRoute />) },
+      { path: 'mi-sector', element: withRouteFallback(<LazyMySectorRoute />) },
+      { path: 'preguntar', element: withRouteFallback(<LazyAskRoute />) },
       { path: '*', element: withRouteFallback(<LazyNotFoundRoute />) },
     ],
   },
