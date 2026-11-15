@@ -108,7 +108,7 @@ export function recoveryExplanation(level: Level): string {
   }
 }
 
-function greennessPhrase(anomaly: number | null): string {
+export function greennessPhrase(anomaly: number | null): string {
   if (anomaly === null) {
     return 'no tiene dato'
   }

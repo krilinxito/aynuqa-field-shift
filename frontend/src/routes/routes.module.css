@@ -33,3 +33,14 @@
   color: var(--color-tierra-suave);
   font-size: var(--size-pequeno);
 }
+
+.printOnly {
+  display: none;
+  font-weight: 700;
+}
+
+@media print {
+  .printOnly {
+    display: block;
+  }
+}

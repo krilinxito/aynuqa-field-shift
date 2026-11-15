@@ -5,7 +5,6 @@
 
 export const storageKeys = {
   community: 'aynuqa:community',
-  sector: 'aynuqa:selected-sector',
   textSize: 'aynuqa:text-size',
 } as const
 

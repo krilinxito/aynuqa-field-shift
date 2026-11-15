@@ -59,7 +59,7 @@
   min-block-size: var(--nav-alto);
   padding: var(--space-2);
   color: var(--color-tierra);
-  font-size: var(--size-grande);
+  font-size: 1.05rem;
   font-weight: 700;
   line-height: 1.2;
   text-decoration: none;

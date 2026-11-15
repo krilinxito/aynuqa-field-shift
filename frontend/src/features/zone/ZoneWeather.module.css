@@ -1,0 +1,25 @@
+.note {
+  color: var(--color-tierra-suave);
+  font-size: var(--size-pequeno);
+}
+
+.weather {
+  display: grid;
+  gap: var(--space-3);
+  margin-block: var(--space-4) 0;
+}
+
+.weather dt {
+  font-weight: 700;
+}
+
+.weather dd {
+  margin: 0;
+}
+
+.provenance {
+  display: grid;
+  gap: var(--space-2);
+  color: var(--color-tierra-suave);
+  font-size: var(--size-pequeno);
+}

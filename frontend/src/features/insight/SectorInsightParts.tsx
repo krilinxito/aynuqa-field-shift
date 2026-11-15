@@ -3,11 +3,12 @@ import type { ReactNode } from 'react'
 import { RecoveryScale, RiskScale } from '../../shared/components/LevelScale'
 import { LlamaResting, Plant } from '../../shared/sprites/Sprites'
 import { ListenButton } from '../speech/ListenButton'
+import { Provenance } from '../zone/Provenance'
+import { ZoneWeather } from '../zone/ZoneWeather'
 import { InsightContext, useInsight, type InsightContextValue } from './insightContext'
 import {
   confidenceText,
   driverText,
-  ninoText,
   recommendationDetails,
   recoveryExplanation,
   recoveryTitle,
@@ -17,7 +18,6 @@ import {
   spokenSummary,
   twinCaution,
   twinText,
-  weatherLines,
 } from './insightText'
 import styles from './SectorInsight.module.css'
 
@@ -180,45 +180,11 @@ export function InsightTwin() {
 export function InsightZoneWeather() {
   const { zone } = useInsight()
 
-  return (
-    <section aria-labelledby="zona-titulo">
-      <h2 id="zona-titulo">El tiempo en toda la zona de {zone.name}</h2>
-      <p className={styles.note}>
-        {zone.periodText}. Es igual para todos los sectores.
-      </p>
-      <p>{ninoText(zone)}</p>
-      <dl className={styles.weather}>
-        {weatherLines(zone).map((line) => (
-          <div key={line.label}>
-            <dt>{line.label}</dt>
-            <dd>{line.text}</dd>
-          </div>
-        ))}
-      </dl>
-    </section>
-  )
+  return <ZoneWeather zone={zone} />
 }
 
-/** De dónde salen los datos, qué es simulado y cuándo se actualizaron. */
 export function InsightProvenance() {
   const { provenance } = useInsight()
 
-  return (
-    <footer className={styles.provenance}>
-      <p>
-        <strong>Datos simulados:</strong> los límites de los sectores y los años
-        de descanso. El clima y el verdor vienen de satélites de la NASA.
-      </p>
-      {provenance.dataSource === 'mock' ? (
-        <p>
-          <strong>Datos de demostración:</strong> estos números son de ejemplo.
-        </p>
-      ) : null}
-      <p>
-        Última actualización:{' '}
-        <time dateTime={provenance.updatedAt}>{provenance.updatedAtText}</time>
-      </p>
-      <p>Esta ayuda no reemplaza a la asamblea ni al agrónomo.</p>
-    </footer>
-  )
+  return <Provenance provenance={provenance} />
 }

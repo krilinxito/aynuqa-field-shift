@@ -19,6 +19,15 @@ describe('createDataRepository', () => {
     ).toBeInstanceOf(ApiDataRepository)
   })
 
+  it('acepta una ruta para usar el mismo sitio que sirve la app', () => {
+    expect(
+      createDataRepository({
+        VITE_DATA_MODE: 'api',
+        VITE_API_BASE_URL: '/',
+      }),
+    ).toBeInstanceOf(ApiDataRepository)
+  })
+
   it.each([
     [{ VITE_DATA_MODE: 'otro' }, 'no es válido'],
     [{ VITE_DATA_MODE: 'api' }, 'es obligatoria'],

@@ -23,27 +23,22 @@ export function readUrlState(search: string): UrlState {
 interface ResolveUrlStateOptions {
   search: string
   availableSectorIds: readonly string[]
-  storedSectorId: string | null
 }
 
 /**
- * Decide qué sector está elegido: primero la URL, luego lo guardado en el
- * celular. Si ninguno es válido queda en `null`, para que la persona elija:
- * nunca se elige un sector por ella.
+ * El sector solo vive en la URL (es el detalle que se está mirando).
+ * Si no existe entre los sectores disponibles queda en `null`.
  */
 export function resolveUrlState({
   search,
   availableSectorIds,
-  storedSectorId,
 }: ResolveUrlStateOptions): UrlState {
   const fromUrl = readUrlState(search)
   const selectedSectorId = availableSectorIds.includes(
     fromUrl.selectedSectorId ?? '',
   )
     ? fromUrl.selectedSectorId
-    : availableSectorIds.includes(storedSectorId ?? '')
-      ? storedSectorId
-      : null
+    : null
 
   return { ...fromUrl, selectedSectorId }
 }

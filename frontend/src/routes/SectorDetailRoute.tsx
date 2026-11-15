@@ -2,6 +2,7 @@ import { Link, Navigate, useLocation } from 'react-router-dom'
 
 import { getPersistentSearch } from '../app/navigation/persistentSearch'
 import { useAppState } from '../app/providers/appStateContext'
+import { writeUrlState } from '../app/state/urlState'
 import { useSelectedSector } from '../features/data/useSelectedSector'
 import { SectorInsight } from '../features/insight'
 import { ScenarioSwitch } from '../features/scenario/ScenarioSwitch'
@@ -11,8 +12,8 @@ import { RouteLoading } from '../shared/components/RouteLoading'
 import { AguayoDivider, PlainDivider } from '../shared/sprites/Sprites'
 import styles from './routes.module.css'
 
-/** Pantalla principal: el consejo para el sector elegido. */
-export function MySectorRoute() {
+/** Detalle de un sector: se llega tocándolo en el resumen de la comunidad. */
+export function SectorDetailRoute() {
   const location = useLocation()
   const { state } = useAppState()
   const selected = useSelectedSector()
@@ -26,11 +27,17 @@ export function MySectorRoute() {
   }
 
   if (selected.status === 'missing') {
-    return <Navigate replace to={state.communityId ? '/sector' : '/comunidad'} />
+    return (
+      <Navigate replace to={state.communityId ? '/mi-comunidad' : '/comunidad'} />
+    )
   }
 
   const { sector, snapshot } = selected
   const search = getPersistentSearch(location.search)
+  const communitySearch = writeUrlState({
+    selectedSectorId: null,
+    scenario: snapshot.scenario,
+  })
 
   return (
     <SectorInsight.Provider
@@ -40,13 +47,12 @@ export function MySectorRoute() {
       provenance={snapshot.provenance}
     >
       <article className={styles.page}>
-        <p className={styles.place}>
-          {snapshot.zone.name}
-          <span className="no-imprimir">
-            {' · '}
-            <Link to={{ pathname: '/sector', search }}>Cambiar sector</Link>
-          </span>
+        <p className={`${styles.place} no-imprimir`}>
+          <Link to={{ pathname: '/mi-comunidad', search: communitySearch }}>
+            ← Volver a {snapshot.zone.name}
+          </Link>
         </p>
+        <p className={styles.printOnly}>{snapshot.zone.name}</p>
 
         <SectorInsight.Heading />
         <ScenarioSwitch />
@@ -55,7 +61,7 @@ export function MySectorRoute() {
 
         <div className="no-imprimir">
           <PrimaryLink to={{ pathname: '/preguntar', search }}>
-            Preguntar a la llamita
+            Preguntar sobre este sector
           </PrimaryLink>
         </div>
 

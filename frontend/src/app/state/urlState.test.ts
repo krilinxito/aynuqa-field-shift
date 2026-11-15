@@ -11,28 +11,16 @@ describe('estado compartido y URL', () => {
       const state = resolveUrlState({
         search: `?sector=S3&scenario=${scenario}`,
         availableSectorIds: sectors,
-        storedSectorId: 'S2',
       })
 
       expect(state).toEqual({ selectedSectorId: 'S3', scenario })
     },
   )
 
-  it('usa la última selección guardada si la URL no trae un sector válido', () => {
-    const state = resolveUrlState({
-      search: '?sector=S99&scenario=nino',
-      availableSectorIds: sectors,
-      storedSectorId: 'S2',
-    })
-
-    expect(state.selectedSectorId).toBe('S2')
-  })
-
   it('no elige un sector por la persona si nada es válido', () => {
     const state = resolveUrlState({
       search: '?sector=otro&scenario=desconocido',
       availableSectorIds: sectors,
-      storedSectorId: 'S8',
     })
 
     expect(state).toEqual({ selectedSectorId: null, scenario: 'nino' })

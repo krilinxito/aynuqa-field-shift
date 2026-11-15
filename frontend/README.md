@@ -11,11 +11,13 @@ Cuatro pantallas, una acción principal en cada una:
 | Ruta | Pantalla |
 | --- | --- |
 | `/comunidad` | ¿De qué comunidad es usted? Solo se puede elegir la zona que devuelve la API (hoy, Pumani); las demás dicen "Todavía sin datos". |
-| `/sector` | ¿Cuál es su sector? Dibujo plano de los sectores y la misma lista en filas grandes. No asume cuántos sectores hay. |
-| `/mi-sector` | El consejo del sector en español simple: recomendación, motivos, riesgo de sequía, recuperación del suelo, tierra gemela, clima de la zona y confianza. Compara "Hoy, con El Niño" con "Si fuera un año normal". Se imprime para la asamblea. |
-| `/preguntar` | Chat con la llamita: preguntas para tocar, dictado por voz y respuestas que se pueden escuchar. |
+| `/mi-comunidad` | Pantalla principal: resumen de toda la comunidad. Sectores agrupados por lo que conviene hacer (abrir, seguir en descanso, seguir cultivando, pasar a descanso), tierras gemelas, riesgo de sequía por nivel, dibujo plano de los sectores y clima de la zona. Compara "Hoy, con El Niño" con "Si fuera un año normal". Se imprime para la asamblea. No asume cuántos sectores hay. |
+| `/sector?sector=S3` | Detalle de un sector, al tocarlo en el resumen: recomendación, motivos, riesgo, recuperación del suelo, tierra gemela y confianza. |
+| `/preguntar` | Chat con la llamita: preguntas para tocar, dictado por voz y respuestas que se pueden escuchar. Pregunta sobre toda la comunidad, o sobre un sector si se llega desde su detalle. |
 
-`/` lleva a la pantalla que corresponde según lo que la persona ya eligió (se recuerda en el celular).
+`/` lleva al resumen si la persona ya eligió comunidad (se recuerda en el celular); si no, a elegirla.
+
+El resumen de comunidad solo agrupa, cuenta y pone en palabras lo que trae `/api/sectors`: no promedia ni calcula predicciones (`src/features/community/communityText.ts`).
 
 Accesibilidad, que manda sobre lo demás:
 
@@ -33,6 +35,7 @@ Fuera de alcance por ahora: terreno 3D, línea de tiempo, sensores y backtest. L
 
 Las piezas se arman por composición, con contexto `{ state, actions, meta }` y sin props booleanas:
 
+- `CommunityOverview.Provider` + `.Heading`, `.Actions`, `.Listen`, `.Twins`, `.Risk`, `.Map`, `.Weather` (`src/features/community/`).
 - `SectorInsight.Provider` + `.Heading`, `.Recommendation`, `.Listen`, `.Reasons`, `.Risk`, `.Recovery`, `.Twin`, `.ZoneWeather`, `.Provenance` (`src/features/insight/`).
 - `Chat.Provider` + `.OfflineNotice`, `.Messages`, `.Suggestions`, `.Composer`, `.DictateButton` (`src/features/chat/`). Solo el provider conoce `sendChat`.
 - `ChoiceList.Root` + `.Available` / `.Unavailable`, y `SectorMap` (`src/features/picker/`).
@@ -107,6 +110,16 @@ La aplicación queda disponible en la URL indicada por Vite.
 
 Con `VITE_DATA_MODE=mock` el chat solo contesta la primera pregunta sugerida del sector 3 (el único fixture); para el chat real hace falta el backend y `VITE_DATA_MODE=api`.
 
+### Verla en el celular con el backend
+
+`vite.config.ts` reenvía `/api` y `/health` a `http://127.0.0.1:8000` y acepta dominios de ngrok. Con `VITE_API_BASE_URL=/` la app pide la API al mismo sitio que la sirve, así que basta un solo túnel:
+
+```bash
+VITE_DATA_MODE=api VITE_API_BASE_URL=/ npm run build
+npx vite preview --port 4173
+ngrok http 4173
+```
+
 Los íconos de la PWA se regeneran desde el sprite de la llama con `npm run generate:icons`.
 
 El hosting de producción debe redirigir las rutas desconocidas a `index.html` para que el acceso directo y la recarga funcionen con React Router.
@@ -155,7 +168,7 @@ Discrepancia contractual conocida: `contracts/README.md` indica que RONI NOAA es
 
 ## Estado compartido entre rutas
 
-La navegación conserva `sector` y `scenario` entre pantallas. La URL es la fuente compartible; el sector se valida contra la respuesta disponible y se resuelve en este orden: URL válida y última selección guardada en el celular. Si ninguna es válida, la app pide elegir: nunca elige un sector por la persona. La comunidad y el tamaño de letra se guardan en el celular.
+La navegación conserva `sector` y `scenario` entre pantallas. La URL es la fuente compartible; el sector se valida contra la respuesta disponible y se resuelve en este orden: URL válida y sector válido en la URL (solo para el detalle). La comunidad y el tamaño de letra se guardan en el celular.
 
 ## Estrategia JSON Schema
 

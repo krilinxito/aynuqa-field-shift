@@ -31,8 +31,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(appStateReducer, undefined, () => ({
     ...defaultAppState,
     communityId: readStored(storageKeys.community),
-    selectedSectorId:
-      urlDraft.selectedSectorId ?? readStored(storageKeys.sector),
+    selectedSectorId: urlDraft.selectedSectorId,
     scenario: urlDraft.scenario,
   }))
   const [availableSectorIds, setAvailableSectorIds] = useState<string[]>([])
@@ -71,7 +70,6 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
         const resolved = resolveUrlState({
           search: location.search,
           availableSectorIds: sectorIds,
-          storedSectorId: readStored(storageKeys.sector),
         })
 
         setAvailableSectorIds(sectorIds)
@@ -82,10 +80,6 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
             ...resolved,
           },
         })
-
-        if (resolved.selectedSectorId) {
-          writeStored(storageKeys.sector, resolved.selectedSectorId)
-        }
       })
       .catch(() => undefined)
 
@@ -106,18 +100,17 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
           writeStored(storageKeys.community, communityId)
           dispatch({ type: 'select-community', communityId })
           void navigate({
-            pathname: '/sector',
+            pathname: '/mi-comunidad',
             search: writeUrlState({
               selectedSectorId: null,
               scenario: state.scenario,
             }),
           })
         },
-        selectSector: (sectorId) => {
-          writeStored(storageKeys.sector, sectorId)
+        openSector: (sectorId) => {
           dispatch({ type: 'select-sector', sectorId })
           void navigate({
-            pathname: '/mi-sector',
+            pathname: '/sector',
             search: writeUrlState({
               selectedSectorId: sectorId,
               scenario: state.scenario,

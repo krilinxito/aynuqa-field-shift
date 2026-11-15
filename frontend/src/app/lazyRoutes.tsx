@@ -6,15 +6,15 @@ export const LazyCommunityRoute = lazy(() =>
   })),
 )
 
-export const LazySectorPickerRoute = lazy(() =>
-  import('../routes/SectorPickerRoute').then((module) => ({
-    default: module.SectorPickerRoute,
+export const LazyCommunityHomeRoute = lazy(() =>
+  import('../routes/CommunityHomeRoute').then((module) => ({
+    default: module.CommunityHomeRoute,
   })),
 )
 
-export const LazyMySectorRoute = lazy(() =>
-  import('../routes/MySectorRoute').then((module) => ({
-    default: module.MySectorRoute,
+export const LazySectorDetailRoute = lazy(() =>
+  import('../routes/SectorDetailRoute').then((module) => ({
+    default: module.SectorDetailRoute,
   })),
 )
 

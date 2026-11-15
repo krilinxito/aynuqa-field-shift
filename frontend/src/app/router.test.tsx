@@ -19,6 +19,10 @@ function renderRoute(initialEntry: InitialEntry) {
   return router
 }
 
+function rememberCommunity() {
+  localStorage.setItem('aynuqa:community', 'pumani')
+}
+
 beforeEach(() => {
   localStorage.clear()
   delete document.documentElement.dataset.letra
@@ -40,50 +44,50 @@ describe('recorrido principal', () => {
       screen.queryByRole('button', { name: /Patacamaya/ }),
     ).not.toBeInTheDocument()
     expect(screen.getAllByText(/Todavía sin datos/)).toHaveLength(7)
-    // Sin sector elegido todavía no hay barra de navegación.
+    // Sin comunidad elegida todavía no hay barra de navegación.
     expect(
       screen.queryByRole('navigation', { name: 'Navegación principal' }),
     ).not.toBeInTheDocument()
   })
 
-  it('lleva de comunidad a sector y de sector al consejo', async () => {
+  it('lleva de la comunidad a su resumen y de ahí al detalle de un sector', async () => {
     const user = userEvent.setup()
     const router = renderRoute('/')
 
     await user.click(await screen.findByRole('button', { name: /Pumani/ }))
     expect(
-      await screen.findByRole('heading', {
-        level: 1,
-        name: '¿Cuál es su sector?',
-      }),
+      await screen.findByRole('heading', { level: 1, name: 'Pumani' }),
     ).toBeInTheDocument()
-    expect(router.state.location.pathname).toBe('/sector')
+    expect(router.state.location.pathname).toBe('/mi-comunidad')
+    expect(localStorage.getItem('aynuqa:community')).toBe('pumani')
 
     await user.click(screen.getByRole('button', { name: /Sector 4/ }))
     expect(
       await screen.findByRole('heading', { level: 1, name: 'Sector 4' }),
     ).toBeInTheDocument()
-    expect(router.state.location.pathname).toBe('/mi-sector')
+    expect(router.state.location.pathname).toBe('/sector')
     expect(router.state.location.search).toBe('?sector=S4&scenario=nino')
     expect(
       screen.getByText('Mantener este sector en descanso.'),
     ).toBeInTheDocument()
-    expect(screen.getByText('Descanso sugerido: 1 año más.')).toBeInTheDocument()
+
+    await user.click(screen.getByRole('link', { name: /Volver a Pumani/ }))
+    expect(router.state.location.pathname).toBe('/mi-comunidad')
+    expect(router.state.location.search).toBe('?scenario=nino')
   })
 
-  it('recuerda la elección y abre directo en el sector', async () => {
-    localStorage.setItem('aynuqa:community', 'pumani')
-    localStorage.setItem('aynuqa:selected-sector', 'S7')
+  it('recuerda la comunidad y abre directo en su resumen', async () => {
+    rememberCommunity()
     const router = renderRoute('/')
 
     expect(
-      await screen.findByRole('heading', { level: 1, name: 'Sector 7' }),
+      await screen.findByRole('heading', { level: 1, name: 'Pumani' }),
     ).toBeInTheDocument()
-    expect(router.state.location.pathname).toBe('/mi-sector')
+    expect(router.state.location.pathname).toBe('/mi-comunidad')
   })
 
-  it('manda a elegir si se abre el consejo sin sector', async () => {
-    const router = renderRoute('/mi-sector')
+  it('manda a elegir comunidad si todavía no hay una', async () => {
+    const router = renderRoute('/mi-comunidad')
 
     await waitFor(() => {
       expect(router.state.location.pathname).toBe('/comunidad')
@@ -102,55 +106,97 @@ describe('recorrido principal', () => {
   })
 })
 
-describe('consejo del sector', () => {
+describe('resumen de la comunidad', () => {
+  beforeEach(rememberCommunity)
+
+  it('agrupa los sectores por lo que conviene hacer, con su confianza', async () => {
+    renderRoute('/mi-comunidad')
+
+    await screen.findByRole('heading', { level: 1, name: 'Pumani' })
+
+    expect(
+      screen.getByRole('heading', { name: /Abrir para cultivo.*3 sectores/ }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', { name: /Seguir en descanso.*3 sectores/ }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', { name: /Seguir cultivando.*1 sector/ }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('button', { name: /Sector 1.*Confianza media/ }),
+    ).toBeInTheDocument()
+  })
+
+  it('muestra las tierras gemelas como precedente y el riesgo sin afirmarlo', async () => {
+    renderRoute('/mi-comunidad')
+
+    await screen.findByRole('heading', { level: 1, name: 'Pumani' })
+
+    expect(
+      screen.getByRole('heading', { name: 'Jesús de Machaca' }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText(/Se parece a los sectores 1 y 5/),
+    ).toBeInTheDocument()
+    expect(screen.getByText(/precedente, no como garantía/)).toBeInTheDocument()
+    expect(
+      screen.getByText(/aumenta la probabilidad de sequía/),
+    ).toBeInTheDocument()
+    expect(screen.getByText(/Riesgo alto:/)).toBeInTheDocument()
+    expect(screen.getByText(/Es igual para todos los sectores/)).toBeInTheDocument()
+    expect(screen.getByText(/Datos simulados:/)).toBeInTheDocument()
+    expect(screen.getByText(/Datos de demostración:/)).toBeInTheDocument()
+  })
+
+  it('compara con un año normal, lo avisa y explica que no hay gemelas', async () => {
+    const user = userEvent.setup()
+    const router = renderRoute('/mi-comunidad')
+
+    await user.click(
+      await screen.findByRole('button', { name: 'Si fuera un año normal' }),
+    )
+
+    await waitFor(() => {
+      expect(router.state.location.search).toBe('?scenario=normal')
+    })
+    expect(await screen.findByText('Esto es una comparación.')).toBeInTheDocument()
+    expect(
+      await screen.findByText(/no hay precedentes de tierras gemelas/),
+    ).toBeInTheDocument()
+  })
+})
+
+describe('detalle de un sector', () => {
+  beforeEach(rememberCommunity)
+
   it('muestra confianza, datos simulados y la zona una sola vez', async () => {
-    renderRoute('/mi-sector?sector=S1&scenario=nino')
+    renderRoute('/sector?sector=S1&scenario=nino')
 
     await screen.findByRole('heading', { level: 1, name: 'Sector 1' })
 
     expect(screen.getAllByText(/Qué tan seguros estamos/).length).toBeGreaterThan(2)
     expect(screen.getByText(/Datos simulados:/)).toBeInTheDocument()
-    expect(screen.getByText(/Datos de demostración:/)).toBeInTheDocument()
     expect(
       screen.getByRole('heading', { name: /Riesgo de sequía: medio/ }),
     ).toBeInTheDocument()
     expect(
-      screen.getByText(/aumenta la probabilidad de sequía/),
-    ).toBeInTheDocument()
-    expect(
       screen.getByRole('heading', { name: /El tiempo en toda la zona de Pumani/ }),
     ).toBeInTheDocument()
-    expect(screen.getByText(/Es igual para todos los sectores/)).toBeInTheDocument()
     expect(screen.getByText(/precedente, no como garantía/)).toBeInTheDocument()
   })
 
-  it('compara con un año normal y lo avisa', async () => {
-    const user = userEvent.setup()
-    const router = renderRoute('/mi-sector?sector=S3&scenario=nino')
-
-    const normal = await screen.findByRole('button', {
-      name: 'Si fuera un año normal',
-    })
-    expect(normal).toHaveAttribute('aria-pressed', 'false')
-
-    await user.click(normal)
+  it('vuelve a la comunidad si el sector no existe', async () => {
+    const router = renderRoute('/sector?sector=S99')
 
     await waitFor(() => {
-      expect(router.state.location.search).toBe('?sector=S3&scenario=normal')
+      expect(router.state.location.pathname).toBe('/mi-comunidad')
     })
-    expect(await screen.findByText('Esto es una comparación.')).toBeInTheDocument()
-    expect(
-      screen.getByRole('button', { name: 'Si fuera un año normal' }),
-    ).toHaveAttribute('aria-pressed', 'true')
-    // En el año normal no hay precedente de tierra gemela.
-    expect(
-      screen.queryByRole('heading', { name: 'Qué pasó en una tierra parecida' }),
-    ).not.toBeInTheDocument()
   })
 
-  it('conserva sector y escenario al ir a preguntar', async () => {
+  it('al preguntar desde un sector conserva sector y escenario', async () => {
     const user = userEvent.setup()
-    const router = renderRoute('/mi-sector?sector=S3&scenario=normal')
+    const router = renderRoute('/sector?sector=S3&scenario=normal')
 
     await screen.findByRole('heading', { level: 1, name: 'Sector 3' })
     await user.click(screen.getByRole('link', { name: 'Preguntar' }))
@@ -163,6 +209,9 @@ describe('consejo del sector', () => {
         'page',
       )
     })
+    expect(
+      await screen.findByText(/Responde sobre el sector 3 de Pumani/),
+    ).toBeInTheDocument()
   })
 })
 
@@ -183,7 +232,22 @@ describe('letra grande', () => {
 })
 
 describe('preguntar a la llamita', () => {
-  it('responde la pregunta sugerida con su nota de confianza', async () => {
+  beforeEach(rememberCommunity)
+
+  it('sin sector pregunta sobre toda la comunidad', async () => {
+    renderRoute('/preguntar')
+
+    expect(
+      await screen.findByText(/Responde sobre la comunidad de Pumani/),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('button', {
+        name: '¿Qué sectores conviene abrir este año?',
+      }),
+    ).toBeInTheDocument()
+  })
+
+  it('responde la pregunta sugerida del sector con su nota de confianza', async () => {
     const user = userEvent.setup()
     renderRoute('/preguntar?sector=S3&scenario=nino')
 
@@ -200,7 +264,7 @@ describe('preguntar a la llamita', () => {
 
   it('avisa con claridad cuando la demostración no tiene respuesta', async () => {
     const user = userEvent.setup()
-    renderRoute('/preguntar?sector=S3&scenario=nino')
+    renderRoute('/preguntar')
 
     await user.type(
       await screen.findByLabelText('O escriba su pregunta'),

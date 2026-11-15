@@ -8,7 +8,8 @@ export interface AppStateContextValue {
   state: AppState
   actions: {
     selectCommunity: (communityId: string) => void
-    selectSector: (sectorId: string) => void
+    /** Abre el detalle de un sector. */
+    openSector: (sectorId: string) => void
     selectScenario: (scenario: Scenario) => void
   }
   meta: {

@@ -33,7 +33,13 @@ export function createDataRepository(
     }
 
     try {
-      return new ApiDataRepository(baseUrl, dependencies)
+      // Una ruta como "/" significa "el mismo sitio que sirve la app":
+      // así la dirección pública puede cambiar sin recompilar.
+      const absoluteUrl = baseUrl.startsWith('/')
+        ? new URL(baseUrl, window.location.origin).toString()
+        : baseUrl
+
+      return new ApiDataRepository(absoluteUrl, dependencies)
     } catch (error) {
       throw new ConfigurationError(
         'VITE_API_BASE_URL debe ser una URL HTTP o HTTPS válida.',

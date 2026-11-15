@@ -15,9 +15,10 @@ const maxLength = 1000
 const chatTimeoutMs = 45_000
 
 interface ChatProviderProps {
-  sectorId: string
+  /** Sector sobre el que se pregunta, o `null` para toda la comunidad. */
+  sectorId: string | null
   /** Número del sector, para las preguntas sugeridas. */
-  sectorNumber: string
+  sectorNumber: string | null
   scenario: Scenario
   children: ReactNode
 }
@@ -69,7 +70,9 @@ export function ChatProvider({
       setIsSending(true)
       repository
         .sendChat(
-          { message, sector_id: sectorId, scenario },
+          sectorId
+            ? { message, sector_id: sectorId, scenario }
+            : { message, scenario },
           { timeoutMs: chatTimeoutMs },
         )
         .then((response) => {
@@ -88,12 +91,20 @@ export function ChatProvider({
   )
 
   const suggestions = useMemo(
-    () => [
-      `¿Conviene abrir el sector ${sectorNumber} este año?`,
-      '¿Por qué hay riesgo de sequía?',
-      '¿Qué puedo sembrar y cuándo?',
-      '¿Qué pasó en la tierra parecida a la mía?',
-    ],
+    () =>
+      sectorNumber
+        ? [
+            `¿Conviene abrir el sector ${sectorNumber} este año?`,
+            `¿Por qué hay riesgo de sequía en el sector ${sectorNumber}?`,
+            `¿Qué se puede sembrar en el sector ${sectorNumber} y cuándo?`,
+            `¿Qué pasó en la tierra gemela del sector ${sectorNumber}?`,
+          ]
+        : [
+            '¿Qué sectores conviene abrir este año?',
+            '¿Por qué hay riesgo de sequía este año?',
+            '¿Qué pasó en las tierras gemelas durante El Niño?',
+            '¿Qué se puede sembrar y cuándo?',
+          ],
     [sectorNumber],
   )
 

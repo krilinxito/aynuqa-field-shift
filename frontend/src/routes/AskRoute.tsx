@@ -2,37 +2,42 @@ import { Navigate } from 'react-router-dom'
 
 import { useAppState } from '../app/providers/appStateContext'
 import { Chat } from '../features/chat'
-import { useSelectedSector } from '../features/data/useSelectedSector'
+import { useSectorSnapshot } from '../features/data/useSectorSnapshot'
 import { sectorNumber } from '../features/insight/insightText'
 import { LoadError } from '../shared/components/LoadError'
 import { RouteLoading } from '../shared/components/RouteLoading'
 import { LlamaStanding } from '../shared/sprites/Sprites'
 import styles from './routes.module.css'
 
-/** Pantalla del asistente: preguntar con un toque, hablando o escribiendo. */
+/**
+ * Pantalla del asistente: preguntar con un toque, hablando o escribiendo.
+ * Pregunta sobre toda la comunidad, o sobre un sector si se llegó desde él.
+ */
 export function AskRoute() {
   const { state } = useAppState()
-  const selected = useSelectedSector()
+  const { status, snapshot } = useSectorSnapshot(state.scenario)
 
-  if (selected.status === 'loading') {
-    return <RouteLoading />
+  if (!state.communityId) {
+    return <Navigate replace to="/comunidad" />
   }
 
-  if (selected.status === 'error') {
-    return <LoadError />
+  if (!snapshot) {
+    return status === 'error' ? <LoadError /> : <RouteLoading />
   }
 
-  if (selected.status === 'missing') {
-    return <Navigate replace to={state.communityId ? '/sector' : '/comunidad'} />
-  }
-
-  const { sector, snapshot } = selected
+  const sector =
+    snapshot.sectors.find(
+      (candidate) => candidate.id === state.selectedSectorId,
+    ) ?? null
+  const about = sector
+    ? `el ${sector.name.toLowerCase()} de ${snapshot.zone.name}`
+    : `la comunidad de ${snapshot.zone.name}`
 
   return (
     <Chat.Provider
-      key={`${sector.id}-${snapshot.scenario}`}
-      sectorId={sector.id}
-      sectorNumber={sectorNumber(sector)}
+      key={`${sector?.id ?? 'comunidad'}-${snapshot.scenario}`}
+      sectorId={sector?.id ?? null}
+      sectorNumber={sector ? sectorNumber(sector) : null}
       scenario={snapshot.scenario}
     >
       <div className={styles.page}>
@@ -41,7 +46,7 @@ export function AskRoute() {
           <div>
             <h1>Pregunte a la llamita</h1>
             <p>
-              Responde sobre el {sector.name.toLowerCase()} de {snapshot.zone.name}
+              Responde sobre {about}
               {snapshot.scenario === 'normal'
                 ? ', comparando con un año normal'
                 : ''}
@@ -58,7 +63,7 @@ export function AskRoute() {
         </Chat.Composer>
 
         <p className={styles.footnote}>
-          La llamita es un programa. Usa los datos de su sector y puede
+          La llamita es un programa. Usa los datos de la comunidad y puede
           equivocarse. No reemplaza a la asamblea ni al agrónomo.
         </p>
       </div>

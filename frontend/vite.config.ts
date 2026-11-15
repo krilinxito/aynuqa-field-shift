@@ -2,7 +2,17 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
+// Para ver la app en el celular con un túnel (ngrok): la API se pide al
+// mismo sitio que sirve la app y aquí se reenvía al backend local.
+const backendProxy = {
+  '/api': 'http://127.0.0.1:8000',
+  '/health': 'http://127.0.0.1:8000',
+}
+const tunnelHosts = ['.ngrok-free.app', '.ngrok-free.dev', '.ngrok.app', '.ngrok.io']
+
 export default defineConfig({
+  server: { proxy: backendProxy, allowedHosts: tunnelHosts },
+  preview: { proxy: backendProxy, allowedHosts: tunnelHosts },
   plugins: [
     react(),
     VitePWA({
