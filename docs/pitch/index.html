@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aynuqa Field Shift · Pitch</title>
+<style>
+@font-face { font-family: 'Atkinson Hyperlegible'; font-weight: 400; src: url('assets/fonts/atkinson-hyperlegible-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Atkinson Hyperlegible'; font-weight: 700; src: url('assets/fonts/atkinson-hyperlegible-latin-700-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Atkinson Hyperlegible'; font-style: italic; font-weight: 400; src: url('assets/fonts/atkinson-hyperlegible-latin-400-italic.woff2') format('woff2'); }
+@font-face { font-family: 'Lora'; font-style: italic; font-weight: 400 700; src: url('assets/fonts/lora-latin-wght-italic.woff2') format('woff2-variations'); }
+
+:root {
+  --lana: #fbf3e4; --lana-oscura: #f1e4c9; --tierra: #2b1d14; --tierra-suave: #5a4636; --linea: #cdb894;
+  --adobe: #a8432b; --ichu: #c99a2e; --cielo: #1f4e79; --cielo-oscuro: #163a5b; --totora: #3f6b4a;
+  --aguayo: #a3195b; --nieve: #fff; --medio: #8a5a00; --aviso-fondo: #fbe9b8;
+  --texto: 'Atkinson Hyperlegible', Verdana, sans-serif; --titulo: 'Lora', Georgia, serif;
+}
+* { box-sizing: border-box; margin: 0; }
+html, body { height: 100%; background: var(--tierra); overflow: hidden; }
+body { font-family: var(--texto); color: var(--tierra); }
+
+/* Lienzo fijo de 1920×1080 que se escala a la pantalla */
+#stage { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; transform-origin: 0 0; background: var(--lana); overflow: hidden; }
+.slide { position: absolute; inset: 0; padding: 80px 120px 110px; display: flex; flex-direction: column; opacity: 0; visibility: hidden; transition: opacity .45s ease, visibility 0s .45s; }
+.slide.active { opacity: 1; visibility: visible; transition: opacity .45s ease; }
+
+h1, h2 { font-family: var(--titulo); font-style: italic; font-weight: 700; line-height: 1.1; }
+h2 { font-size: 76px; margin-bottom: 30px; }
+.kicker { font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--adobe); font-size: 26px; margin-bottom: 14px; }
+p, li { font-size: 36px; line-height: 1.45; }
+.suave { color: var(--tierra-suave); }
+.small { font-size: 24px; color: var(--tierra-suave); }
+
+/* Cabecera de cordillera, como en la app */
+.skyline { position: absolute; left: 0; right: 0; top: 0; height: 300px; background: linear-gradient(#bcd9ea, #e9f1ea 72%); overflow: hidden; }
+.skyline .mtn { position: absolute; left: 0; bottom: 0; width: 100%; height: 240px; }
+.skyline .sun { position: absolute; right: 180px; top: 40px; width: 92px; }
+.skyline .cloud1 { position: absolute; left: 220px; top: 50px; width: 150px; animation: drift 40s linear infinite alternate; }
+.skyline .cloud2 { position: absolute; left: 980px; top: 92px; width: 104px; animation: drift 52s linear infinite alternate-reverse; }
+@keyframes drift { to { transform: translateX(160px); } }
+.skyline.short { height: 120px; } .skyline.short .mtn { height: 90px; } .skyline.short .sun { width: 46px; top: 14px; right: 120px; } .skyline.short .cloud1 { width: 80px; top: 18px; } .skyline.short .cloud2 { display: none; }
+
+.aguayo { height: 22px; border-block: 4px solid var(--tierra); background: repeating-linear-gradient(90deg, var(--aguayo) 0 48px, var(--ichu) 48px 64px, var(--cielo) 64px 96px, var(--lana) 96px 104px, var(--adobe) 104px 144px, var(--totora) 144px 160px); }
+
+/* Barra inferior fija: progreso en franja de aguayo */
+#foot { position: absolute; left: 0; right: 0; bottom: 0; height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 120px; font-size: 22px; color: var(--tierra-suave); border-top: 3px solid var(--tierra); background: var(--lana); z-index: 5; }
+#foot .brand { display: flex; align-items: center; gap: 12px; font-family: var(--titulo); font-style: italic; font-weight: 700; font-size: 26px; color: var(--tierra); }
+#foot .brand [data-sprite] { width: 30px; display: block; }
+#progress { position: absolute; left: 0; top: -14px; height: 11px; background: repeating-linear-gradient(90deg, var(--aguayo) 0 24px, var(--ichu) 24px 32px, var(--cielo) 32px 48px, var(--adobe) 48px 68px, var(--totora) 68px 76px); transition: width .9s linear; }
+#walker { position: absolute; top: -78px; left: 0; width: 58px; transition: left .9s linear; z-index: 6; }
+#walker.back svg { transform: scaleX(-1); }
+body.cover #foot { display: none; }
+
+.px { shape-rendering: crispEdges; display: block; }
+
+/* Tarjetas con el borde grueso de la app */
+.card { background: var(--nieve); border: 4px solid var(--tierra); border-radius: 24px; box-shadow: 0 8px 0 var(--linea); padding: 32px 36px; }
+.pill { display: inline-block; background: var(--lana-oscura); border: 3px solid var(--tierra); border-radius: 999px; padding: 6px 22px; font-weight: 700; font-size: 26px; }
+.tag { display: inline-block; border: 3px solid var(--cielo); color: var(--cielo); border-radius: 999px; padding: 6px 20px; font-weight: 700; font-size: 24px; background: var(--nieve); }
+
+/* Celular con un clip o captura de la demo */
+.phones { display: flex; gap: 64px; justify-content: center; align-items: flex-start; flex: 1; }
+.phone-wrap { display: flex; flex-direction: column; align-items: center; gap: 22px; }
+.phone { width: 286px; height: 619px; border-radius: 46px; background: var(--tierra); padding: 14px; box-shadow: 0 14px 0 var(--linea); position: relative; }
+.phone::before { content: ''; position: absolute; top: 22px; left: 50%; width: 70px; height: 8px; margin-left: -35px; border-radius: 4px; background: #4a3a2e; z-index: 2; }
+.phone video, .phone img { width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 34px; display: block; background: var(--lana); }
+.caption { font-size: 28px; font-weight: 700; text-align: center; max-width: 440px; line-height: 1.3; }
+.caption span:not(.step-num) { display: block; font-weight: 400; color: var(--tierra-suave); font-size: 24px; margin-top: 4px; }
+.step-num { display: inline-flex; width: 44px; height: 44px; border-radius: 50%; background: var(--cielo); color: #fff; align-items: center; justify-content: center; font-weight: 700; font-size: 24px; margin-right: 10px; vertical-align: middle; }
+
+/* 1. Portada */
+.s-cover { padding: 0; }
+.s-cover .body { position: absolute; top: 330px; left: 120px; right: 120px; }
+.s-cover h1 { font-size: 132px; display: flex; align-items: center; gap: 36px; }
+.s-cover h1 svg { width: 120px; }
+.s-cover .lema { font-family: var(--titulo); font-style: italic; font-size: 64px; color: var(--cielo); margin-top: 28px; }
+.s-cover .lema-es { font-size: 34px; color: var(--tierra-suave); margin-top: 10px; }
+.s-cover .team { position: absolute; left: 120px; bottom: 80px; font-size: 30px; line-height: 1.5; }
+.s-cover .team b { font-size: 40px; display: block; }
+.s-cover .llama { position: absolute; right: 150px; bottom: 70px; width: 300px; }
+.s-cover .aguayo { position: absolute; left: 0; right: 0; bottom: 0; }
+
+/* 2. Gancho */
+.s-hook { justify-content: center; }
+.s-hook .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.big-number { font-family: var(--titulo); font-style: italic; font-weight: 700; font-size: 300px; line-height: 1; color: var(--adobe); }
+.s-hook .q { font-family: var(--titulo); font-style: italic; font-weight: 700; font-size: 92px; line-height: 1.1; }
+.s-hook .llama { width: 230px; margin-top: 40px; }
+
+/* 3. Problema */
+.s-problem .grid { display: grid; grid-template-columns: 820px 1fr; gap: 80px; flex: 1; }
+.sectors { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; align-content: start; }
+.sector { border: 4px solid var(--tierra); border-radius: 18px; background: var(--nieve); height: 136px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-weight: 700; font-size: 22px; }
+.sector.rest { background: repeating-linear-gradient(135deg, var(--lana-oscura) 0 10px, var(--lana) 10px 20px); }
+.sector.open { border-color: var(--totora); box-shadow: 0 0 0 5px var(--totora) inset; }
+.sector svg { height: 66px; width: auto; }
+.legend { display: flex; flex-wrap: wrap; gap: 10px 36px; margin-top: 22px; font-size: 24px; color: var(--tierra-suave); white-space: nowrap; }
+.points { display: flex; flex-direction: column; gap: 24px; }
+.points .card { display: flex; gap: 26px; align-items: center; padding: 26px 32px; }
+.points .card p { font-size: 32px; }
+.points [data-sprite] { width: 96px; flex: none; display: block; }
+
+/* 4. Solución: flujo */
+.flow { display: grid; grid-template-columns: 1fr 70px 1fr 70px 1.15fr; align-items: stretch; gap: 0; }
+.flow .card h3 { font-family: var(--titulo); font-style: italic; font-size: 44px; margin-bottom: 20px; }
+.flow .card li { font-size: 30px; margin-left: 30px; margin-bottom: 6px; }
+.flow .arrow { display: flex; align-items: center; justify-content: center; font-size: 60px; color: var(--adobe); font-weight: 700; }
+.flow .tags { display: flex; flex-wrap: wrap; gap: 12px; }
+.conf { margin-top: 22px; border-left: 8px solid var(--ichu); padding-left: 20px; font-size: 28px; }
+.scale-note { margin-top: 40px; display: flex; gap: 24px; align-items: center; background: var(--lana-oscura); border-radius: 20px; padding: 22px 32px; font-size: 30px; }
+.scale-note [data-sprite] { width: 90px; flex: none; display: block; }
+
+/* 7. Chat */
+.chat-grid { display: grid; grid-template-columns: auto 1fr; gap: 90px; flex: 1; align-items: start; }
+.tool-flow { display: flex; flex-direction: column; gap: 10px; }
+.tool-flow .card { padding: 22px 30px; }
+.tool-flow .card p { font-size: 32px; }
+.tool-flow .down { font-size: 40px; color: var(--adobe); font-weight: 700; padding-left: 40px; line-height: 1; }
+.bubble-q { display: flex; align-items: center; gap: 24px; }
+.bubble-q [data-sprite] { width: 70px; display: block; flex: none; }
+.tool-flow .tag { font-family: ui-monospace, Consolas, monospace; font-size: 22px; }
+
+/* 8. Validación */
+.s-data .grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; }
+.sources { display: flex; flex-direction: column; gap: 18px; }
+.source { display: flex; align-items: baseline; gap: 20px; font-size: 30px; }
+.source b { min-width: 250px; color: var(--cielo); }
+.bars h3 { gap: 16px; font-size: 32px; margin: 26px 0 14px; display: flex; justify-content: space-between; align-items: baseline; }
+.bars h3:first-child { margin-top: 0; }
+.verdict { font-size: 24px; padding: 4px 16px; border-radius: 999px; white-space: nowrap; }
+.verdict.ok { background: #dfeadf; color: var(--totora); }
+.verdict.no { background: var(--aviso-fondo); color: var(--medio); }
+.bar { display: grid; grid-template-columns: 230px 1fr 80px; align-items: center; gap: 16px; font-size: 26px; margin: 8px 0; }
+.bar .track { height: 34px; background: var(--lana-oscura); border-radius: 8px; overflow: hidden; }
+.bar .fill { height: 100%; border-radius: 8px; width: 0; transition: width 1s cubic-bezier(.2,.8,.2,1) .3s; }
+.slide.active .bar .fill { width: var(--w); }
+.bar .fill.model { background: var(--cielo); }
+.bar .fill.base { background: var(--linea); }
+.bar b { font-variant-numeric: tabular-nums; }
+
+/* 9. Escalabilidad */
+.s-scale .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; flex: 1; }
+.road { display: flex; flex-direction: column; gap: 22px; }
+.road .card { padding: 22px 30px; display: flex; align-items: center; gap: 20px; }
+.road .card p { font-size: 30px; }
+
+/* 10. Cierre */
+.s-close { padding: 0; }
+.s-close .body { position: absolute; top: 200px; left: 120px; right: 120px; display: grid; grid-template-columns: 1fr 340px; gap: 60px; }
+.s-close ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 20px; }
+.s-close li { font-size: 38px; display: flex; gap: 20px; align-items: center; }
+.s-close li::before { content: ''; width: 22px; height: 22px; background: var(--totora); flex: none; }
+.s-close .lema { font-family: var(--titulo); font-style: italic; font-weight: 700; font-size: 60px; white-space: nowrap; color: var(--cielo); margin-top: 56px; }
+.s-close .thanks { font-size: 40px; margin-top: 18px; }
+.s-close .llama { width: 300px; align-self: end; }
+
+/* Notas del orador (tecla N) */
+#notes { position: fixed; left: 0; right: 0; bottom: 0; max-height: 38vh; overflow: auto; background: rgba(43,29,20,.95); color: var(--lana); padding: 18px 28px; font-size: 20px; line-height: 1.5; display: none; z-index: 10; }
+#notes b { color: var(--ichu); }
+body.show-notes #notes { display: block; }
+#help { transition: opacity 1s; position: fixed; right: 14px; top: 10px; color: #bfae95; font: 14px var(--texto); opacity: .7; z-index: 10; }
+@media print { #help, #notes { display: none !important; } }
+</style>
+</head>
+<body class="cover">
+<div id="help">← → para avanzar · N notas · F pantalla completa</div>
+<div id="stage">
+
+  <!-- 1. Portada -->
+  <section class="slide s-cover" data-notes="<b>[0:00–0:20] Gancho (1/2).</b> En unas semanas empieza la siembra en el altiplano de La Paz. En comunidades como Pumani, toda la comunidad decide qué sector abrir para cultivar.">
+    <div class="skyline" data-skyline></div>
+    <div class="body">
+      <h1><span data-sprite="chakana"></span>Aynuqa Field Shift</h1>
+      <div class="lema">Lo milenario y lo nuevo, decidiendo juntos</div>
+      <div class="lema-es">The ancient and the new, deciding together</div>
+    </div>
+    <div class="team"><b>Manada Prime</b>NASA Space Apps Challenge 2026 · Field Shift: Adapting Farms with NASA Data</div>
+    <div class="llama" data-sprite="llamaStanding"></div>
+    <div class="aguayo"></div>
+  </section>
+
+  <!-- 2. Gancho -->
+  <section class="slide s-hook" data-notes="<b>[0:00–0:20] Gancho (2/2).</b> Este año decide con El Niño activo: el índice de NOAA marcó +1,97. Si ustedes fueran parte de esa comunidad, ¿qué sector abrirían?">
+    <div class="grid">
+      <div>
+        <div class="kicker">El Niño, hoy</div>
+        <div class="big-number">+1,97</div>
+        <p class="suave">Índice RONI de NOAA, agosto a octubre de 2026.<br>Con El Niño aumenta la probabilidad de sequía en el altiplano.</p>
+      </div>
+      <div>
+        <div class="q">En unas semanas se siembra. ¿Qué sector abrirían?</div>
+        <div class="llama" data-sprite="llamaThinking"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Problema -->
+  <section class="slide s-problem" data-notes="<b>[0:20–0:50] Problema.</b> Del reto Field Shift elegimos la aynuqa: la comunidad divide su tierra en sectores, cultiva algunos y deja descansar otros durante años para que el suelo se recupere. Con El Niño aumenta la probabilidad de sequía, y abrir un sector seco puede hacer perder la siembra del año. Hoy la comunidad elige de forma empírica, con la experiencia de años anteriores. Con el cambio climático, lamentablemente, esa experiencia falla. Además hay poca señal y pocos celulares.">
+    <div class="kicker">El problema</div>
+    <h2>La aynuqa: cada año, la comunidad elige qué sector abrir</h2>
+    <div class="grid">
+      <div>
+        <div class="sectors" id="sectors"></div>
+        <div class="legend"><span><b>Pumani: 13 sectores</b></span><span>Rayado: en descanso</span><span>Liso: en cultivo</span><span style="color:var(--totora)"><b>Borde verde: conviene abrir</b></span><span>Límites y años de descanso simulados</span></div>
+      </div>
+      <div class="points">
+        <div class="card"><span data-sprite="sun"></span><p>Con El Niño aumenta la probabilidad de sequía.</p></div>
+        <div class="card"><span data-sprite="llamaResting"></span><p>Se elige de forma empírica. Con el cambio climático, la experiencia falla.</p></div>
+        <div class="card"><span data-sprite="llamaSleeping"></span><p>Poca señal y pocos celulares.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Solución -->
+  <section class="slide s-solution" data-notes="<b>[0:50–1:15] Cómo lo resolvemos.</b> Aynuqa Field Shift estima para cada sector el riesgo de sequía y la recuperación del suelo. Con eso aconseja qué sector abrir, cuántos años más dejar descansar a los otros, qué sembrar y cuándo. Cada consejo dice qué tan seguros estamos.<br><i>Si preguntan: la lluvia y la temperatura son iguales para toda la zona; el verdor (NDVI) y el terreno distinguen a cada sector.</i>">
+    <div class="kicker">Cómo lo resolvemos</div>
+    <h2>De los satélites a un consejo por sector</h2>
+    <div class="flow">
+      <div class="card">
+        <h3>Datos</h3>
+        <div class="tags"><span class="tag">GPM IMERG</span><span class="tag">NASA POWER</span><span class="tag">MODIS NDVI</span><span class="tag">NASADEM</span><span class="tag">RONI · NOAA</span></div>
+        <p class="small" style="margin-top:20px">Lluvia, temperatura, humedad del suelo, verdor (NDVI) y terreno.</p>
+      </div>
+      <div class="arrow">→</div>
+      <div class="card">
+        <h3>Por sector</h3>
+        <ul><li>Riesgo de sequía</li><li>Recuperación del suelo</li></ul>
+      </div>
+      <div class="arrow">→</div>
+      <div class="card">
+        <h3>Consejo</h3>
+        <ul><li>Qué sector abrir</li><li>Cuántos años más descansar</li><li>Qué sembrar y cuándo</li></ul>
+        <div class="conf"><b>Qué tan seguros estamos:</b> siempre a la vista.</div>
+      </div>
+    </div>
+    <div class="scale-note"><span data-sprite="cloud"></span><p style="font-size:30px">La lluvia y la temperatura son iguales para toda la zona. Lo que distingue a cada sector es su verdor (NDVI) y su terreno.</p></div>
+  </section>
+
+  <!-- 5. Producto: consejo -->
+  <section class="slide" data-notes="<b>[1:15–2:10] El producto (1/3).</b> Esta es la app, hecha para celulares de gama baja. Abre directo en la comunidad y muestra el consejo del año agrupado por acción. Al tocar el sector 13, el que conviene abrir, aparece el consejo: papa, con siembra de octubre a noviembre y confianza baja.">
+    <div class="kicker">El producto · App para celulares de gama baja</div>
+    <h2>Un consejo para cada sector</h2>
+    <div class="phones">
+      <div class="phone-wrap"><div class="phone"><video src="assets/clips/consejos.mp4" poster="assets/img/02_consejos.jpg" muted loop playsinline preload="auto"></video></div><div class="caption"><span class="step-num">1</span>Consejo por acción</div></div>
+      <div class="phone-wrap"><div class="phone"><video src="assets/clips/nino_normal.mp4" muted loop playsinline preload="auto"></video></div><div class="caption"><span class="step-num">2</span>El Niño o año normal</div></div>
+      <div class="phone-wrap"><div class="phone"><img src="assets/img/04_sector13.jpg" alt="Ficha del sector 13: se puede abrir para cultivo, papa, siembra de octubre a noviembre, confianza baja"></div><div class="caption"><span class="step-num">3</span>Sector 13: papa<span>siembra de octubre a noviembre · confianza baja</span></div></div>
+    </div>
+  </section>
+
+  <!-- 6. Producto: sin señal -->
+  <section class="slide" data-notes="<b>[1:15–2:10] El producto (2/3).</b> La comunidad anota lo que decidió, aunque elija otra cosa. Sin señal la app sigue funcionando: la decisión se guarda en el celular y se envía al volver la señal.">
+    <div class="kicker">El producto · Funciona sin señal</div>
+    <h2>La comunidad anota lo que decidió</h2>
+    <div class="phones">
+      <div class="phone-wrap"><div class="phone"><video src="assets/clips/sin_senal.mp4" poster="assets/img/07b_decision_guardada.jpg" muted loop playsinline preload="auto"></video></div><div class="caption">Sin señal: queda guardada<span>"Se enviará cuando haya señal"</span></div></div>
+      <div class="phone-wrap" style="justify-content:center;align-self:center"><div data-sprite="llamaSleeping" style="width:170px"></div><div class="caption" style="font-size:44px">→</div></div>
+      <div class="phone-wrap"><div class="phone"><video src="assets/clips/enviada.mp4" poster="assets/img/09b_enviada.jpg" muted loop playsinline preload="auto"></video></div><div class="caption">Vuelve la señal: se envía sola<span>"Enviada"</span></div></div>
+    </div>
+  </section>
+
+  <!-- 7. Producto: chat -->
+  <section class="slide s-chat" data-notes="<b>[1:15–2:10] El producto (3/3).</b> A la llamita se le pregunta en lenguaje natural. El chat usa Gemini con llamadas a herramientas: cada número de la respuesta sale de nuestros datos, así no inventa cifras. Sin señal responde con los datos guardados.">
+    <div class="kicker">El producto · Chat con la llamita</div>
+    <h2>Lenguaje natural, sin cifras inventadas</h2>
+    <div class="chat-grid">
+      <div class="phone-wrap"><div class="phone"><video src="assets/clips/chat.mp4" poster="assets/img/12a_chat_gemini.jpg" muted loop playsinline preload="auto"></video></div><div class="caption">Pregunta libre a la llamita<span>Gemini responde con su confianza</span></div></div>
+      <div class="tool-flow">
+        <div class="card bubble-q"><span data-sprite="llamaThinking"></span><p>Se pregunta como a una persona</p></div>
+        <div class="down">↓</div>
+        <div class="card"><p><b>Gemini elige una herramienta</b> (tool calling)</p>
+          <div class="tags" style="margin-top:14px"><span class="tag">get_sector</span><span class="tag">compare_scenarios</span><span class="tag">get_history</span><span class="tag">get_sensors</span><span class="tag">get_twin_precedent</span></div></div>
+        <div class="down">↓</div>
+        <div class="card"><p><b>Los números salen solo de nuestros datos</b>, con su confianza. Así evitamos alucinaciones.</p></div>
+        <p class="small">Sin señal responde con los datos guardados en el celular.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Datos y validación -->
+  <section class="slide s-data" data-notes="<b>[2:10–2:32] Datos y validación.</b> Usamos la lluvia de GPM IMERG, la temperatura y la humedad del suelo de NASA POWER, el verdor (NDVI) de MODIS y el terreno de NASADEM. Entrenamos con 8 zonas del altiplano y 26 campañas desde el año 2000. En zonas que el modelo no vio, acierta mejor que las alternativas simples. En temporadas nuevas todavía no, y por eso la app siempre muestra la confianza.">
+    <div class="kicker">Datos y validación</div>
+    <h2>Probado con el pasado</h2>
+    <div class="grid">
+      <div class="sources">
+        <div class="source"><b>GPM IMERG</b><span>lluvia</span></div>
+        <div class="source"><b>NASA POWER</b><span>temperatura y humedad del suelo</span></div>
+        <div class="source"><b>MODIS NDVI</b><span>verdor de cada sector, 250 m</span></div>
+        <div class="source"><b>NASADEM</b><span>terreno</span></div>
+        <div class="source"><b>RONI · NOAA</b><span>El Niño</span></div>
+        <p style="margin-top:22px"><span class="pill">8 zonas del altiplano</span> <span class="pill">26 campañas desde 2000</span></p>
+      </div>
+      <div class="bars card">
+        <p class="small" style="margin-bottom:18px">Error de la predicción (RMSE). Más corto es mejor.</p>
+        <h3>Zonas que el modelo no vio <span class="verdict ok">mejor que las líneas base</span></h3>
+        <div class="bar"><span>Nuestro modelo</span><div class="track"><div class="fill model" style="--w:61%"></div></div><b>0,56</b></div>
+        <div class="bar"><span>Líneas base</span><div class="track"><div class="fill base" style="--w:79%"></div></div><b>0,73</b></div>
+        <h3>Temporadas nuevas <span class="verdict no">todavía no</span></h3>
+        <div class="bar"><span>Nuestro modelo</span><div class="track"><div class="fill model" style="--w:96%"></div></div><b>0,88</b></div>
+        <div class="bar"><span>Líneas base</span><div class="track"><div class="fill base" style="--w:80%"></div></div><b>0,74</b></div>
+        <p class="conf" style="margin-top:24px">Por eso cada consejo muestra su confianza. Hoy es baja en los 13 sectores.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Escalabilidad y futuro -->
+  <section class="slide s-scale" data-notes="<b>[2:32–2:50] Escalabilidad y futuro.</b> El modelo no usa latitud ni longitud: aprende de zonas parecidas. Por eso puede servir a otras comunidades del altiplano. Lo siguiente es trazar los límites reales con cada comunidad, sumar sensores de humedad en el campo y más temporadas para subir la confianza, y llegar a más comunidades con municipios y ONG.">
+    <div class="kicker">Escalabilidad y futuro</div>
+    <h2>De Pumani a otras comunidades del altiplano</h2>
+    <div class="grid">
+      <div>
+        <p>El modelo aprende de <b>zonas parecidas</b>, sin latitud ni longitud. Por eso puede servir a otras comunidades del altiplano.</p>
+        <p style="margin-top:28px" class="suave">Hoy se entrena con 8 zonas del altiplano.</p>
+      </div>
+      <div class="road">
+        <div class="card"><span class="step-num">1</span><p>Trazar los límites reales de los sectores con cada comunidad</p></div>
+        <div class="card"><span class="step-num">2</span><p>Sumar sensores de humedad en el campo</p></div>
+        <div class="card"><span class="step-num">3</span><p>Más temporadas para subir la confianza</p></div>
+        <div class="card"><span class="step-num">4</span><p>Llegar a más comunidades con municipios y ONG</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. Por qué usarlo -->
+  <section class="slide s-close" data-notes="<b>[2:50–3:00] Por qué usarlo.</b> La comunidad sigue decidiendo. Con Aynuqa Field Shift tiene datos de la NASA por sector, también sin señal, y sabe qué tan seguro es cada consejo. Lo milenario y lo nuevo, decidiendo juntos. Gracias.">
+    <div class="skyline short" data-skyline></div>
+    <div class="body">
+      <div>
+        <div class="kicker">Por qué usarlo</div>
+        <h2>La comunidad sigue decidiendo</h2>
+        <ul>
+          <li>Datos de la NASA para cada sector</li>
+          <li>Funciona sin señal</li>
+          <li>Preguntas en lenguaje natural, sin cifras inventadas</li>
+          <li>Cada consejo dice qué tan seguro es</li>
+        </ul>
+        <div class="lema">Lo milenario y lo nuevo, decidiendo juntos</div>
+        <div class="thanks">Gracias · <b>Manada Prime</b></div>
+      </div>
+      <div class="llama" data-sprite="llamaHappy"></div>
+    </div>
+  </section>
+
+  <!-- 11. Respaldo para preguntas -->
+  <section class="slide" data-notes="<b>Preguntas (2 minutos).</b> Respaldo: números técnicos del modo avanzado y qué es real y qué es simulado.">
+    <div class="kicker">Respaldo para preguntas</div>
+    <h2>Lo que hay detrás del consejo</h2>
+    <div style="display:grid;grid-template-columns:auto 1fr;gap:80px;flex:1">
+      <div class="phone-wrap"><div class="phone"><img src="assets/img/11_avanzado.jpg" alt="Modo avanzado del sector 13: riesgo 0,54 con intervalo 0,18 a 0,65, confianza 29 %, factores del riesgo"></div><div class="caption">Modo avanzado para técnicos</div></div>
+      <div style="display:flex;flex-direction:column;gap:28px">
+        <div class="card"><p><b>Real:</b> lluvia, temperatura, humedad del suelo, verdor (NDVI), terreno y el índice RONI.</p></div>
+        <div class="card"><p><b>Simulado:</b> los límites de los sectores, los años de descanso y los sensores. La app lo indica en pantalla.</p></div>
+        <div class="card"><p><b>Sector 13:</b> riesgo de sequía 0,54 (intervalo 0,18 a 0,65), confianza 29 %. El factor con más peso es El Niño.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="foot"><div id="progress"></div><div id="walker"></div><span class="brand"><span data-sprite="chakana"></span>Aynuqa Field Shift</span><span id="count"></span></footer>
+</div>
+<div id="notes"></div>
+
+<script>
+// Sprites de la app (frontend/src/shared/sprites), dibujados como SVG de píxeles.
+const P = { o:'#2b1d14', w:'#fffaf0', c:'#e9d6ae', b:'#9a6a43', k:'#2b1d14', p:'#a3195b', y:'#c99a2e', s:'#1f4e79', g:'#3f6b4a', l:'#6f9a55', r:'#a8432b', n:'#ffffff', m:'#7d6a8c', d:'#5a4636', f:'#f3c44a' };
+const standing = ['...........o..o..','..........owo.owo','..........owooowo','..........owwwwwo','..........owwkwwo.','..........owwwwwwo','..........owwwwooo','..........owwwo...','..........owwwo...','..........owwwo...','.oooooooooowwwo...','owwwwwwwwwwwwwo...','owwpppppppwwwwo...','owwyyyyyyywwwwo...','owwsssssssswwwo...','owwpppppppwwwco...','owwwwwwwwwwwcco...','.owwcoooooowwco...','.owwo......owwo...','.owwo......owwo...','.owwo......owwo...','.oooo......oooo...'];
+const walking = [...standing.slice(0,17),'.owwcoooooowwco...','..owwo....owwo....','..owwo....owwo....','...owwo..owwo.....','...oooo..oooo.....'];
+const head = (ch) => [...standing.slice(0,10).map((r,i) => ch[i] ?? r), ...standing.slice(10)];
+const S = {
+  llamaStanding: standing,
+  llamaWalking: walking,
+  llamaHappy: head({4:'..........owkkkwo.',5:'..........owwwwpwo'}),
+  llamaThinking: head({3:'..........owwwkwo',4:'..........owwwwwo.'}),
+  llamaSleeping: head({4:'..........owkkwwo.'}),
+  llamaResting: ['...............o..o..','..............owo.owo','..............owooowo','..............owwwwwo','..............owwkwwo.','..............owwwwwwo','..............owwwwooo','..............owwwo...','..ooooooooooooowwwo...','.owwwwwwwwwwwwwwwwo...','owwwpppppppppwwwwwo...','owwwyyyyyyyyywwwwwo...','owwwssssssssswwwwco...','owwwpppppppppwwwcco...','owwwwwwwwwwwwwwcccoo..','.oowwccooooowwwcccwwo.','...ooooo...oooooooooo.'],
+  plant: ['......l.......','.....lgl......','..l..lgl..l...','.lgl.lgl.lgl..','.lgl..g..lgl..','..lg..g..gl...','...gg.g.gg....','....ggggg.....','......g.......','......g.......','.dddddgddddd..','dddrdddddrdddd','.dddddddddddd.'],
+  sun: ['.....f.....','.f...f...f.','..f.....f..','...fffff...','..fffffff..','f.fffffff.f','..fffffff..','...fffff...','..f.....f..','.f...f...f.','.....f.....'],
+  cloud: ['.....nnnn.......','...nnnnnnnn.....','..nnnnnnnnnnnn..','.nnnnnnnnnnnnnn.','nnnnnnnnnnnnnnnn','.nnnnnnnnnnnnnn.'],
+  chakana: ['....rrrr....','....ryyr....','..rrryyrrr..','..ryyyyyyr..','rrryyssyyrrr','ryyysnnsyyyr','ryyysnnsyyyr','rrryyssyyrrr','..ryyyyyyr..','..rrryyrrr..','....ryyr....','....rrrr....'],
+};
+function sprite(rows, cls) {
+  const w = Math.max(...rows.map(r => r.length)), h = rows.length; let out = '';
+  rows.forEach((row, y) => { let x = 0; while (x < row.length) { const f = P[row[x]]; if (!f) { x++; continue; } let e = x + 1; while (e < row.length && row[e] === row[x]) e++; out += `<rect x="${x}" y="${y}" width="${e - x}" height="1" fill="${f}"/>`; x = e; } });
+  return `<svg class="px ${cls || ''}" viewBox="0 0 ${w} ${h}" style="width:100%;height:auto" aria-hidden="true">${out}</svg>`;
+}
+document.querySelectorAll('[data-sprite]').forEach(el => { el.innerHTML = sprite(S[el.dataset.sprite]); });
+
+// Cordillera de la cabecera de la app
+const mtn = `<svg class="mtn px" viewBox="0 0 120 30" preserveAspectRatio="none"><path fill="#7d6a8c" d="M0 30V20h4v-2h4v-3h4v-3h4v-2h4v2h4v3h4v3h4v-2h4v-4h4v-4h4v-3h4V5h4v2h4v4h4v4h4v3h4v-3h4v-3h4v-3h4v-2h4v2h4v3h4v4h4v3h4v3h4v4z"/><path fill="#fff" d="M16 10h4v2h-4zM12 12h4v2h-4zM20 12h4v2h-4zM52 5h4v2h-4zM48 8h4v2h-4zM56 7h4v3h-4zM44 12h4v2h-4zM60 11h4v2h-4zM88 9h4v2h-4zM84 12h4v2h-4zM92 11h4v2h-4z"/><path fill="#c99a2e" d="M0 30v-5h8v-1h12v1h14v-2h16v2h12v1h14v-2h18v2h12v-1h14v5z"/></svg>`;
+document.querySelectorAll('[data-skyline]').forEach(el => { el.innerHTML = `<div class="sun">${sprite(S.sun)}</div><div class="cloud1">${sprite(S.cloud)}</div><div class="cloud2">${sprite(S.cloud)}</div>${mtn}`; });
+
+// Pumani: sectores 1–9 y 13 en descanso (13 se recomienda abrir), 10–12 en cultivo. Datos simulados.
+const sectorsEl = document.getElementById('sectors');
+for (let i = 1; i <= 13; i++) {
+  const crop = i >= 10 && i <= 12, open = i === 13;
+  sectorsEl.insertAdjacentHTML('beforeend', `<div class="sector ${crop ? '' : 'rest'} ${open ? 'open' : ''}">${sprite(crop ? S.plant : S.llamaResting)}<span>Sector ${i}</span></div>`);
+}
+sectorsEl.querySelectorAll('svg').forEach(s => { s.style.width = 'auto'; s.style.height = '66px'; });
+
+// Llamita de la barra de avance: camina hasta la diapositiva actual
+const walker = document.getElementById('walker');
+walker.innerHTML = sprite(S.llamaStanding);
+let walkTimer = null, walkStep = 0, lastX = null;
+function walkTo(pct) {
+  const back = lastX !== null && pct < lastX; lastX = pct;
+  walker.style.left = `calc(${pct}% - 30px)`;
+  walker.classList.toggle('back', back);
+  clearInterval(walkTimer);
+  walkTimer = setInterval(() => { walker.innerHTML = sprite(walkStep++ % 2 ? S.llamaWalking : S.llamaStanding); }, 140);
+  setTimeout(() => { clearInterval(walkTimer); walker.innerHTML = sprite(S.llamaStanding); }, 900);
+}
+
+// Escala del lienzo
+const stage = document.getElementById('stage');
+function fit() { const k = Math.min(innerWidth / 1920, innerHeight / 1080); stage.style.transform = `scale(${k}) translate(-50%, -50%)`; }
+addEventListener('resize', fit); fit();
+
+// Navegación
+const slides = [...document.querySelectorAll('.slide')];
+const notes = document.getElementById('notes'), count = document.getElementById('count'), progress = document.getElementById('progress');
+let cur = 0;
+function show(n) {
+  cur = Math.max(0, Math.min(slides.length - 1, n));
+  slides.forEach((s, i) => {
+    s.classList.toggle('active', i === cur);
+    s.querySelectorAll('video').forEach(v => { if (i === cur) { v.currentTime = 0; v.play().catch(() => {}); } else v.pause(); });
+  });
+  document.body.classList.toggle('cover', cur === 0);
+  count.textContent = `${cur + 1} / ${slides.length}`;
+  const pct = ((cur + 1) / slides.length) * 100;
+  progress.style.width = `${pct}%`;
+  walkTo(Math.min(pct, 97));
+  notes.innerHTML = `<div style="opacity:.7;margin-bottom:6px">Diapositiva ${cur + 1} de ${slides.length}</div>` + (slides[cur].dataset.notes || '');
+  history.replaceState(null, '', `#${cur + 1}`);
+}
+addEventListener('keydown', e => {
+  if (['ArrowRight', 'ArrowDown', 'PageDown', ' ', 'Enter'].includes(e.key)) { e.preventDefault(); show(cur + 1); }
+  else if (['ArrowLeft', 'ArrowUp', 'PageUp', 'Backspace'].includes(e.key)) { e.preventDefault(); show(cur - 1); }
+  else if (e.key === 'Home') show(0);
+  else if (e.key === 'End') show(slides.length - 1);
+  else if (e.key === 'n' || e.key === 'N') document.body.classList.toggle('show-notes');
+  else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen().catch(() => {}); }
+});
+addEventListener('click', e => { if (e.target.closest('#notes')) return; show(cur + (e.clientX > innerWidth / 3 ? 1 : -1)); });
+let tx = null;
+addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+addEventListener('touchend', e => { if (tx === null) return; const d = e.changedTouches[0].clientX - tx; if (Math.abs(d) > 50) show(cur + (d < 0 ? 1 : -1)); tx = null; });
+show((parseInt(location.hash.slice(1), 10) || 1) - 1);
+setTimeout(() => { document.getElementById('help').style.opacity = 0; }, 5000);
+</script>
+</body>
+</html>
