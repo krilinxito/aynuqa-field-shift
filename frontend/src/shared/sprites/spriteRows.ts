@@ -117,3 +117,48 @@ export const chakanaRows = [
   '....ryyr....',
   '....rrrr....',
 ] as const
+
+/*
+ * Caras de la llamita mascota. Mismo cuerpo que `llamaStandingRows`; solo
+ * cambia la cabeza (filas 0 a 9).
+ */
+const llamaBody = llamaStandingRows.slice(10)
+const llamaHead = llamaStandingRows.slice(0, 10)
+
+function withHead(changes: Record<number, string>): readonly string[] {
+  return [...llamaHead.map((row, i) => changes[i] ?? row), ...llamaBody]
+}
+
+/** Boca abierta: segundo cuadro al hablar. */
+export const llamaTalkingRows = withHead({
+  6: '..........owwwworo',
+  7: '..........owwwoo..',
+})
+
+/** Ojo cerrado de alegría y cachete rosado. */
+export const llamaHappyRows = withHead({
+  4: '..........owkkkwo.',
+  5: '..........owwwwpwo',
+})
+
+/** Mira hacia arriba, pensando. */
+export const llamaThinkingRows = withHead({
+  3: '..........owwwkwo',
+  4: '..........owwwwwo.',
+})
+
+/** Ceja caída y gotita de preocupación. */
+export const llamaWorriedRows = withHead({
+  2: '..........owooowos',
+  3: '..........owkwwwo.',
+})
+
+/** Ceja levantada: "¿y entonces?". */
+export const llamaInsistentRows = withHead({
+  3: '..........owwkkwo',
+})
+
+/** Ojo cerrado: dormida. */
+export const llamaSleepingRows = withHead({
+  4: '..........owkkwwo.',
+})

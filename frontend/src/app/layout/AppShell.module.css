@@ -27,7 +27,7 @@
   max-inline-size: var(--ancho-lectura);
   margin-inline: auto;
   padding: var(--space-6) var(--margen)
-    calc(var(--nav-alto) + var(--space-10) + env(safe-area-inset-bottom));
+    calc(var(--nav-alto) + 6rem + env(safe-area-inset-bottom));
 }
 
 .main:focus {

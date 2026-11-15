@@ -1,0 +1,307 @@
+.mascot {
+  position: fixed;
+  inset-inline-end: max(0.5rem, env(safe-area-inset-right));
+  inset-block-end: calc(var(--nav-alto) + env(safe-area-inset-bottom) + 0.4rem);
+  z-index: 6;
+  display: grid;
+  justify-items: end;
+  gap: var(--space-2);
+  max-inline-size: min(19rem, calc(100vw - 1rem));
+  pointer-events: none;
+}
+
+.mascot > * {
+  pointer-events: auto;
+}
+
+.bubble {
+  position: relative;
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-8) var(--space-3) var(--space-3);
+  color: var(--color-tierra);
+  background: var(--color-nieve);
+  border: 3px solid var(--color-tierra);
+  border-radius: var(--radio);
+  box-shadow: 0 4px 0 var(--color-tierra);
+  animation: globo 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Piquito del globo hacia la llamita */
+.bubble::after {
+  content: '';
+  position: absolute;
+  inset-block-end: -0.7rem;
+  inset-inline-end: 1.6rem;
+  inline-size: 1rem;
+  block-size: 1rem;
+  background: var(--color-nieve);
+  border-inline-end: 3px solid var(--color-tierra);
+  border-block-end: 3px solid var(--color-tierra);
+  transform: rotate(45deg);
+}
+
+.bubble[data-mood='worried'] {
+  border-color: var(--color-adobe);
+  box-shadow: 0 4px 0 var(--color-adobe);
+}
+
+.bubble[data-mood='worried']::after {
+  border-color: var(--color-adobe);
+}
+
+.text {
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.bubbleActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.action,
+.listen {
+  min-block-size: 2.75rem;
+  padding: var(--space-1) var(--space-3);
+  border: 2px solid var(--color-tierra);
+  border-radius: var(--radio);
+  font-size: var(--size-pequeno);
+  font-weight: 700;
+}
+
+.action {
+  color: var(--color-nieve);
+  background: var(--color-cielo);
+  border-color: var(--color-cielo-oscuro);
+}
+
+.listen {
+  color: var(--color-tierra);
+  background: var(--color-lana);
+}
+
+.close {
+  position: absolute;
+  inset-block-start: 0.2rem;
+  inset-inline-end: 0.2rem;
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  color: var(--color-tierra);
+  background: transparent;
+  border: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.llamaButton {
+  position: relative;
+  display: grid;
+  place-items: end center;
+  inline-size: 4.4rem;
+  block-size: 4.6rem;
+  padding: 0.3rem;
+  background: var(--color-lana);
+  border: 3px solid var(--color-tierra);
+  border-radius: 50%;
+  box-shadow: 0 3px 0 var(--color-tierra);
+  animation: respirar 3.2s ease-in-out infinite;
+}
+
+.llamaButton:active {
+  transform: translateY(2px) scale(0.96);
+  box-shadow: none;
+}
+
+.llamaButton[data-mood='celebrate'] {
+  animation: saltar 0.5s ease-out 3;
+}
+
+.llamaButton[data-mood='worried'],
+.llamaButton[data-mood='insistent'] {
+  animation: insistir 1.6s ease-in-out infinite;
+}
+
+.llamaButton[data-mood='sleeping'] {
+  animation: dormir 4s ease-in-out infinite;
+  filter: saturate(0.6);
+}
+
+.frames,
+.talking {
+  display: inline-grid;
+}
+
+.frames > *,
+.talking > * {
+  grid-area: 1 / 1;
+}
+
+.talking .frameA {
+  animation: boca 0.36s steps(1) infinite;
+}
+
+.talking .frameB {
+  animation: boca 0.36s steps(1) infinite reverse;
+}
+
+.think,
+.zzz {
+  position: absolute;
+  inset-block-start: -0.4rem;
+  inset-inline-start: -0.1rem;
+  font-family: var(--font-titulo);
+  font-weight: 700;
+  color: var(--color-cielo);
+}
+
+.think {
+  font-size: 1.5rem;
+  animation: flotar 1.4s ease-in-out infinite;
+}
+
+.zzz {
+  font-size: 0.95rem;
+  animation: flotar 2.4s ease-in-out infinite;
+}
+
+.zzz span {
+  font-size: 1.3rem;
+}
+
+.confetti {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.confetti span {
+  position: absolute;
+  inset-block-start: 40%;
+  inset-inline-start: 50%;
+  inline-size: 0.45rem;
+  block-size: 0.45rem;
+  background: var(--color-aguayo);
+  animation: confeti 0.9s ease-out forwards;
+  transform: rotate(calc(var(--i) * 45deg)) translateY(0);
+}
+
+.confetti span:nth-child(3n) {
+  background: var(--color-ichu);
+}
+
+.confetti span:nth-child(3n + 1) {
+  background: var(--color-cielo);
+}
+
+@keyframes globo {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.85);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes respirar {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes saltar {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  40% {
+    transform: translateY(-18px) rotate(-6deg);
+  }
+
+  70% {
+    transform: translateY(-4px) rotate(3deg);
+  }
+}
+
+@keyframes insistir {
+  0%,
+  70%,
+  100% {
+    transform: rotate(0);
+  }
+
+  80% {
+    transform: rotate(-7deg);
+  }
+
+  90% {
+    transform: rotate(7deg);
+  }
+}
+
+@keyframes dormir {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+
+  50% {
+    transform: scaleY(0.96);
+  }
+}
+
+@keyframes boca {
+  0%,
+  49.9% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes flotar {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes confeti {
+  to {
+    opacity: 0;
+    transform: rotate(calc(var(--i) * 45deg)) translateY(-3.2rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bubble,
+  .llamaButton,
+  .think,
+  .zzz,
+  .confetti span,
+  .talking .frameA,
+  .talking .frameB {
+    animation: none;
+  }
+
+  .talking .frameB {
+    opacity: 0;
+  }
+}

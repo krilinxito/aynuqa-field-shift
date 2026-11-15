@@ -1,4 +1,11 @@
-import { useCallback, useMemo, useRef, useState, type ReactNode } from 'react'
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react'
 
 import { usePreferences } from '../../app/preferences/preferencesContext'
 import { useLanguage } from '../../app/i18n/languageContext'
@@ -10,6 +17,7 @@ import {
   type ChatContextValue,
   type ChatMessage,
 } from './chatContext'
+import { mascotSignals } from '../mascot/mascotSignals'
 import { chatErrorText } from './chatErrors'
 
 const maxLength = 1000
@@ -43,6 +51,12 @@ export function ChatProvider({
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [draft, setDraft] = useState('')
   const [isSending, setIsSending] = useState(false)
+
+  // La llamita pone cara de pensar mientras espera la respuesta.
+  useEffect(() => {
+    mascotSignals.setThinking(isSending)
+    return () => mascotSignals.setThinking(false)
+  }, [isSending])
   const nextId = useRef(0)
 
   const append = useCallback((message: Omit<ChatMessage, 'id'>) => {

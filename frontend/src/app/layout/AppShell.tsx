@@ -1,5 +1,6 @@
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 
+import { Mascot } from '../../features/mascot/Mascot'
 import { LlamaStanding, Plant } from '../../shared/sprites/Sprites'
 import { useLanguage } from '../i18n/languageContext'
 import { getPersistentSearch } from '../navigation/persistentSearch'
@@ -69,6 +70,8 @@ export function AppShell() {
             ))}
           </ul>
         </nav>
+
+      <Mascot />
     </div>
   )
 }

@@ -136,6 +136,11 @@ export interface UiStrings {
   advancedBacktestTitle: string
   advancedNdviTitle: string
   advancedTableToggle: string
+
+  // Llamita mascota
+  mascotLabel: string
+  mascotTap: string
+  mascotClose: string
 }
 
 export const UI_STRINGS: Record<Language, UiStrings> = {
@@ -264,6 +269,9 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
     advancedBacktestTitle: '¿Acertó el modelo en años pasados? (backtest)',
     advancedNdviTitle: 'Verdor del sector (NDVI) mes a mes',
     advancedTableToggle: 'Ver los números en tabla',
+    mascotLabel: 'La llamita',
+    mascotTap: 'Tocar a la llamita para que hable',
+    mascotClose: 'Cerrar lo que dice la llamita',
   },
   ay: {
     largeText: "Jach'a qillqa",
@@ -389,6 +397,9 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
     advancedBacktestTitle: '¿Nayra maranakan modelox atinti? (backtest)',
     advancedNdviTitle: 'Suyun ch’uxña (NDVI) sapa phaxsi',
     advancedTableToggle: 'Jakhunak tablan uñjaña',
+    mascotLabel: 'Qarwa',
+    mascotTap: 'Qarwar limt’am arsuñapataki',
+    mascotClose: 'Qarwan arsutap jist’antaña',
   },
   qu: {
     largeText: 'Hatun qillqa',
@@ -514,6 +525,9 @@ export const UI_STRINGS: Record<Language, UiStrings> = {
     advancedBacktestTitle: '¿Ñawpa watakunapi modelo atinchu? (backtest)',
     advancedNdviTitle: 'Suyuq q’umir kaynin (NDVI) sapa killa',
     advancedTableToggle: 'Yupaykunata tablapi qhaway',
+    mascotLabel: 'Llamita',
+    mascotTap: 'Llamitata ñit’iy rimananpaq',
+    mascotClose: 'Llamitaq nisqanta wisq’ay',
   },
 }
 
