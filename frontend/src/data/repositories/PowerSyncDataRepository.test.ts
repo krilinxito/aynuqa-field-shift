@@ -27,6 +27,32 @@ describe('PowerSyncDataRepository', () => {
     expect(fetchMock).not.toHaveBeenCalled()
   })
 
+  it('primera visita: si el SQLite todavía arranca, usa la API sin esperarlo', async () => {
+    vi.useFakeTimers()
+    const database = {
+      // El SQLite (WASM) tarda en arrancar y nunca responde en esta prueba.
+      getOptional: vi.fn(() => new Promise(() => undefined)),
+    } as unknown as PowerSyncDatabase
+    const fetchMock = vi.fn<typeof fetch>().mockResolvedValue(
+      new Response(JSON.stringify(contractFixtures.sectorsNino), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      }),
+    )
+    const repository = new PowerSyncDataRepository(
+      database,
+      new ApiDataRepository('https://api.example.test', {
+        fetchImplementation: fetchMock,
+      }),
+    )
+
+    const pending = repository.getSectors('nino')
+    await vi.advanceTimersByTimeAsync(400)
+    await expect(pending).resolves.toMatchObject({ scenario: 'nino' })
+    expect(fetchMock).toHaveBeenCalledOnce()
+    vi.useRealTimers()
+  })
+
   it('usa HTTP durante el primer arranque si SQLite todavía está vacío', async () => {
     const database = {
       getOptional: vi.fn().mockResolvedValue(null),
