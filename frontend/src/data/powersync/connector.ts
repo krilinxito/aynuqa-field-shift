@@ -19,6 +19,11 @@ export class AynuqaPowerSyncConnector implements PowerSyncBackendConnector {
     // falla con "Illegal invocation".
     private readonly fetchImplementation: typeof fetch = (input, init) =>
       fetch(input, init),
+    /**
+     * Dirección de PowerSync vista desde el celular. Si se da, reemplaza la
+     * del backend (útil detrás de un túnel: el mismo sitio con /powersync).
+     */
+    private readonly endpointOverride?: string,
   ) {}
 
   async fetchCredentials(): Promise<PowerSyncCredentials> {
@@ -36,7 +41,7 @@ export class AynuqaPowerSyncConnector implements PowerSyncBackendConnector {
 
     return {
       token: value.token,
-      endpoint: value.endpoint,
+      endpoint: this.endpointOverride ?? value.endpoint,
       expiresAt: new Date(value.expires_at),
     }
   }

@@ -1,6 +1,7 @@
 import base64
 import hashlib
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 
 import jwt
 from cryptography.hazmat.primitives import serialization
@@ -12,11 +13,36 @@ def _base64url(number: int) -> str:
     return base64.urlsafe_b64encode(number.to_bytes(size, "big")).rstrip(b"=").decode()
 
 
-class TokenIssuer:
-    """Clave efimera de desarrollo; en produccion debe inyectarse desde un gestor de secretos."""
+def _load_or_create_key(key_path: Path | None) -> rsa.RSAPrivateKey:
+    """Clave de firma estable: si cambia, PowerSync rechaza los tokens (KID)
+    hasta reiniciarse. Se guarda en el volumen de datos del backend."""
+    if key_path and key_path.exists():
+        key = serialization.load_pem_private_key(key_path.read_bytes(), password=None)
+        if isinstance(key, rsa.RSAPrivateKey):
+            return key
+    key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
+    if key_path:
+        try:
+            key_path.parent.mkdir(parents=True, exist_ok=True)
+            key_path.write_bytes(
+                key.private_bytes(
+                    serialization.Encoding.PEM,
+                    serialization.PrivateFormat.PKCS8,
+                    serialization.NoEncryption(),
+                )
+            )
+        except OSError:
+            pass
+    return key
 
-    def __init__(self, audience: str, lifetime_minutes: int) -> None:
-        self._private_key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
+
+class TokenIssuer:
+    """Clave de desarrollo guardada en disco; en produccion debe inyectarse desde un gestor de secretos."""
+
+    def __init__(
+        self, audience: str, lifetime_minutes: int, key_path: Path | None = None
+    ) -> None:
+        self._private_key = _load_or_create_key(key_path)
         self._audience = audience
         self._lifetime = timedelta(minutes=lifetime_minutes)
         public_der = self._private_key.public_key().public_bytes(

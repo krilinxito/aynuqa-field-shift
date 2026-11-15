@@ -41,3 +41,6 @@ ml/outputs_fake/
 Thumbs.db
 .vscode/
 .idea/
+
+# Clave local de firma de tokens PowerSync
+*.pem

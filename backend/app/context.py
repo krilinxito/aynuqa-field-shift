@@ -58,6 +58,7 @@ class AppContext:
         self.tokens = TokenIssuer(
             self.settings.powersync_audience,
             self.settings.powersync_token_minutes,
+            self.settings.database_file.parent / "powersync_signing_key.pem",
         )
 
     def startup(self) -> None:

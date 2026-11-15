@@ -9,6 +9,8 @@ export interface DataEnvironment {
   VITE_DATA_MODE?: string
   VITE_API_BASE_URL?: string
   VITE_POWERSYNC_ENABLED?: string
+  /** Opcional. "/powersync" = el mismo sitio que sirve la app (túnel). */
+  VITE_POWERSYNC_URL?: string
 }
 
 export interface RepositoryDependencies {
@@ -47,8 +49,17 @@ export function createDataRepository(
         return api
       }
 
+      const syncUrl = environment.VITE_POWERSYNC_URL?.trim()
+      const powersyncEndpoint = syncUrl
+        ? new URL(syncUrl, window.location.origin).toString().replace(/\/+$/, '')
+        : undefined
+
       return new PowerSyncDataRepository(
-        getPowerSyncDatabase(absoluteUrl, dependencies.fetchImplementation),
+        getPowerSyncDatabase(
+          absoluteUrl,
+          dependencies.fetchImplementation,
+          powersyncEndpoint,
+        ),
         api,
       )
     } catch (error) {
