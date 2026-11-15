@@ -46,6 +46,8 @@ services:
       POWERSYNC_PUBLIC_URL: ${POWERSYNC_PUBLIC_URL:-http://localhost:8080}
       CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173,http://localhost:4173}
       ADMIN_TOKEN: ${ADMIN_TOKEN:-change-me-local}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_MODEL: ${LLM_MODEL:-}
       CONTRACTS_DIR: /app/contracts
       ML_OUTPUTS_DIR: /app/ml/outputs
       TTS_LOCAL_MODELS: ${TTS_LOCAL:-false}
